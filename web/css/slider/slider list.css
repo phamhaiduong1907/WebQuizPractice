@@ -1,0 +1,68 @@
+.right_content {
+    width: 100%;
+    padding: 5%;
+    text-align: center;
+}
+
+.link {
+    margin-left: 20%;
+}
+
+form {
+    text-align: left;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-color:  rgba(112, 110, 110, 0.5);
+}
+
+.no_border {
+    border: none;
+    text-align: center;
+}
+
+img {
+    width: 64px;
+    height: 64px;
+}
+
+input,
+select {
+    padding: 5px;
+    width: fit-content;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 5px;
+}
+
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4b5adf;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}

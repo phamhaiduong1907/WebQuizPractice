@@ -1,0 +1,109 @@
+.popup{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.popup__content{
+    background-color: #fff;
+    padding: 30px 20px;
+    position: relative;
+}
+
+.popup__content h2{
+    font-weight: bold;
+    text-align: center ;
+}
+
+.popup__content input{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.signup__gender{
+    display: flex;
+    align-items: center;
+}
+
+.signup__gender input{
+    margin: 0;
+    display: inline;
+}
+
+.signup__gender h5{
+    margin: 0;
+}
+
+.form__login{
+    padding: 0 10px 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.form__button{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px    ;
+}
+
+.form__button button{
+    padding: 5px;
+}
+
+.popup__content a{
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.popup__signup{
+    display: flex;
+    justify-content: center;
+}
+
+.popup__signup a:hover{
+    text-decoration: underline;
+}
+
+.close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.popup__signup-form i, .popup__reset-form i{
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.popup__reset-form{
+    padding: 20px 0;
+    width: 30vw;
+}
+
+.popup__reset-form h2{
+    text-align: center;
+}
+
+.user__avatar{
+    width: 150px;
+    height: 150px;
+    background-color: #a1a1a1;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}

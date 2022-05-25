@@ -1,0 +1,38 @@
+html{
+    font-family: sans-serif;
+}
+
+.graph{
+    margin: auto;
+    background-color: rgb(200, 178, 178);
+    width: 600px;
+    height: 400px;
+}
+
+.graph p{
+    color: white;
+    text-align: center;
+    line-height: 400px;
+}
+
+.option{
+    margin: 50px 0;
+    font-size: 20px;
+    text-align: left;
+}
+
+
+
+.option .sub__option{
+   margin-left: auto;
+   width: 60%;
+    margin-top: 20px;
+    
+}
+
+footer{
+    margin-top: 10px;
+}
+
+
+

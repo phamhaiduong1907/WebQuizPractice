@@ -1,0 +1,42 @@
+.practice__wrapper{
+    width: 80%;
+    margin: 30px auto 0;
+}
+
+.practice__tool-options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.practice__filter select{
+    padding: 5px;
+    font-size: 18px;
+}
+
+.practice__links a{
+    text-decoration: none;
+    padding: 5px;
+    color: #000;
+    border: 1px solid black;
+}
+
+.practice__list table{
+    display: table;
+    width: 100%;
+}
+
+.practice__list table,
+.practice__list tr,
+.practice__list td{
+    border: 1px solid black;
+    text-align: center;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.test__type{
+    display: flex;
+    justify-content: space-between;
+}

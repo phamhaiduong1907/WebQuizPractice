@@ -1,0 +1,36 @@
+.right_content h1 {
+    font-size: 30px;
+}
+
+form {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.question_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info {
+    width: 40%;
+}
+
+label,
+textarea,
+input[type=file] {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 10%;
+    margin-top: 5px;
+}
+
+footer {
+    margin-top: 200px;
+}
