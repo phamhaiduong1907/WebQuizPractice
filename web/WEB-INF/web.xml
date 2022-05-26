@@ -8,6 +8,10 @@
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.publicController.HomePageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogListController</servlet-name>
+        <servlet-class>controller.publicController.BlogListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogListController</servlet-name>
+        <url-pattern>/bloglist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

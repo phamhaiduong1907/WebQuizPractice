@@ -29,13 +29,18 @@
 }
 
 .post__thumbnail {
-    width: 22%;
+    width: 30%;
     background-color: #dedede;
     align-self: stretch;
 }
 
+.post__thumbnail img{
+    width: 100%;
+    height: 100%
+}
+
 .post__content {
-    width: 75%;
+    width: 67%;
 }
 
 .post__content h3 {
