@@ -372,19 +372,19 @@
                     <i class="fa fa-arrow-left"></i>
                     <h2>Register for Quiz Practice</h2>
                     <div class="form__signup">
-                        <form action="#">
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name">
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+                        <form action="register" method="POST">
+                            <input type="text" name="firstName" id="firstName" pattern="[a-zA-Z]+" title="Must be letters" placeholder="First Name" required>
+                            <input type="text" name="lastName" id="lastName" pattern="[a-zA-Z]+" title="Must be letters" placeholder="Last Name" required>
                             <div class="signup__gender">
                                 <h5>Gender</h5>
-                                <input type="radio" name="gender" value="male">Male
-                                <input type="radio" name="gender" value="female">Female
+                                <input type="radio" name="gender" value="male" required>Male
+                                <input type="radio" name="gender" value="female" required>Female
                             </div>
-                            <input type="text" name="email" id="emailSignup" placeholder="Email">
-                            <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                            <input type="password" name="password" id="password" placeholder="Password">
+                            <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
+                            <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
+                            <input type="password" name="password" id="password"  placeholder="Password" required>
                             <input type="password" name="confirmPassword" id="confirmPassword"
-                                   placeholder="Confirm password">
+                                   placeholder="Confirm password" required>
                             <div class="form__button">
                                 <button type="submit">Register</button>
                             </div>
