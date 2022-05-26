@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sale Index</title>
+    <title>Marketing index</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,7 +23,7 @@
         <div class="user_bar">
             <div class="user_log">
                 <i class="fa fa-user-circle"></i>
-                <span class="user_name">Salesperson</span>
+                <span class="user_name">Marketing</span>
                 <div class="submenu">
                     <ul>
                         <li><a href="#" id="openProfile">User Profile</a></li>
@@ -39,9 +40,8 @@
         <aside class="left">
             <nav>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Registration</a></li>
-                    <li><a href="#">Posts</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="post.html">Posts</a></li>
                     <li><a href="#">Sliders</a></li>
                 </ul>
             </nav>
@@ -50,6 +50,7 @@
         <!-- RIGHT CONTENT -->
         <aside class="right">
             <div class="right_content">
+             
 
             </div>
 

@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dal;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Account;
+
+
+/**
+ *
+ * @author Zuys
+ */
+public class AccountDBContext extends DBContext {
+
+
+    /**
+     * Check the permission for an account to a specific function/url
+     *
+     * @param username username
+     * @param url url/path of the target feature
+     * @return an int in which a positive value represents authorized access, 0
+     * or negative means unauthorized access or system error
+     */
+    public int getPermission(String username, String url) {
+        try {
+            String sql = "select count(*) as permission from Account a inner join \n"
+                    + "[Role] r on a.roleID = r.roleID\n"
+                    + "inner join [Authorization] auth\n"
+                    + "on auth.roleID = r.roleID inner join\n"
+                    + "Feature f on f.featureID = auth.featureID\n"
+                    + "where a.username = ? and f.[URL] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            return rs.getInt("permission");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return -1;
+    }
+
+    public boolean isExistUser(String username) {
+        String sql = "Select username, password from Account where username = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+            }
+
+        }
+        return false;
+    }
+
+    public Account getAccount(String username, String password) {
+        try {
+            String sql = "SELECT username,password,roleID FROM Account \n"
+                    + "WHERE username = ? AND password = ?";
+            RoleDBContext dbRole = new RoleDBContext();
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            
+            stm.setString(1, username);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(dbRole.getRole(rs.getInt("roleID")));
+                rs.close();
+                stm.close();
+                connection.close();
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+}

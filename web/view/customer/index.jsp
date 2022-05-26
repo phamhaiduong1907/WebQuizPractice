@@ -1,68 +1,62 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing index</title>
+    <title>Homepage</title>
+
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../../css/admin/index.css">
-    <link rel="stylesheet" href="../../css/popup.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/customer/header.css">
 </head>
 
 <body>
+    <!-- HEADER -->
     <header>
-        <div class="logo">
+        <div class="heading_logo">
             <p>LOGO</p>
         </div>
-
-        <div class="user_bar">
-            <div class="user_log">
-                <i class="fa fa-user-circle"></i>
-                <span class="user_name">Marketing</span>
-                <div class="submenu">
-                    <ul>
-                        <li><a href="#" id="openProfile">User Profile</a></li>
-                        <li><a href="#" id="openChangePassword">Change Password</a></li>
-                        <li><a href="#">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Subject</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="registration.html">My Registration</a></li>
+                <li><a href="pratice.html">Practice</a></li>
+                <li>
+                    <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
+                        User Name
+                    </a>
+                    <div class="submenu">
+                        <ul>
+                            <li><a href="#" id="openProfile">User Profile</a></li>
+                            <li><a href="#" id="openChangePassword">Change Password</a></li>
+                            <li><a href="#">Log out</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="main">
-        <!-- LEFT NAVIGATION BAR -->
-        <aside class="left">
-            <nav>
-                <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="post.html">Posts</a></li>
-                    <li><a href="#">Sliders</a></li>
-                </ul>
-            </nav>
-        </aside>
+    <!-- PAGE CONTENT -->
+    <section id="main">
 
-        <!-- RIGHT CONTENT -->
-        <aside class="right">
-            <div class="right_content">
-             
-
-            </div>
-
-            <footer>
-                FOOTER
-            </footer>
-        </aside>
     </section>
 
+    <!-- POPUP -->
     <section class="popup">
         <div class="popup__content">
-            <img src="../../images/close.png" alt="" class="close">
-
+            <img src="images/close.png" alt="" class="close">
+            
             <div class="form_user-profile">
                 <h2>User Profile</h2>
                 <form action="#">
@@ -75,10 +69,8 @@
                     <input type="text" name="phone" id="phone" placeholder="Enter your phone">
                     <div class="profile__gender signup__gender">
                         <h5>Gender</h5>
-                        <input type="radio" name="" id="">
-                        <p>Male</p>
-                        <input type="radio" name="" id="">
-                        <p>Female</p>
+                        <input type="radio" name="" id=""> <p>Male</p>
+                        <input type="radio" name="" id=""> <p>Female</p>
                     </div>
                     <input type="text" name="address" id="address" placeholder="Enter your address">
                     <div class="form__button">
@@ -102,7 +94,9 @@
 
     </section>
 
-    <script src="../../js/userPopup.js"></script>
+
+    <script src="js/userPopup.js"></script>
+
 </body>
 
 </html>

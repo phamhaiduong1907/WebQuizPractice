@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
 <head>
@@ -22,7 +23,7 @@
         <div class="user_bar">
             <div class="user_log">
                 <i class="fa fa-user-circle"></i>
-                <span class="user_name">Hello, Expert</span>
+                <span class="user_name">Salesperson</span>
                 <div class="submenu">
                     <ul>
                         <li><a href="#" id="openProfile">User Profile</a></li>
@@ -40,9 +41,9 @@
             <nav>
                 <ul>
                     <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Course</a></li>
-                    <li><a href="#">Test</a></li>
-                    <li><a href="#">Quiz</a></li>
+                    <li><a href="#">Registration</a></li>
+                    <li><a href="#">Posts</a></li>
+                    <li><a href="#">Sliders</a></li>
                 </ul>
             </nav>
         </aside>
