@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
@@ -32,9 +32,9 @@
             </div>
             <nav>
                 <ul class="nav_links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="view/subject/subjectlist.html">Subject</a></li>
-                    <li><a href="view/blog/list.html">Blog</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                    <li><a href="view/blog/list.jsp">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
             </nav>
@@ -382,11 +382,10 @@
                             </div>
                             <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
                             <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
-                            <input type="password" name="password" id="password"  placeholder="Password" required>
-                            <input type="password" name="confirmPassword" id="confirmPassword"
-                                   placeholder="Confirm password" required>
+                            <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
                             <div class="form__button">
-                                <button type="submit">Register</button>
+                                <button type="submit" >Register</button>
                             </div>
                         </form>
                     </div>
@@ -418,6 +417,7 @@
         <script src="js/script.js"></script>
         <!-- Initialize Swiper -->
         <script src="js/swiper.js"></script>
+        <script src="js/register.js"></script>
     </body>
 
 </html>

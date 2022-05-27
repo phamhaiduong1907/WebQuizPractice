@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
 <head>
@@ -29,9 +30,9 @@
         </div>
         <nav>
             <ul class="nav_links">
-                <li><a href="../../index.html">Home</a></li>
-                <li><a href="subjectlist.html">Subject</a></li>
-                <li><a href="../blog/list.html">Blog</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                <li><a href="view/blog/list.jsp">Blog</a></li>
                 <li><a href="#" class="login" id="loginButton">Log in</a></li>
             </ul>
         </nav>
@@ -205,23 +206,24 @@
             <img src="../../images/close.png" alt="" class="close">
 
             <div class="popup__login-form">
-                <h2>Welcome to Quiz Practice</h2>
-                <div class="form__login">
-                    <form action="#">
-                        <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
-                        <input type="text" name="password" id="password" placeholder="Enter your password">
-                        <div class="popup__reset">
-                            <a href="#">Forgot password?</a>
-                        </div>
-                        <div class="form__button">
-                            <button type="submit">Login</button>
-                        </div>
-                    </form>
+                    <h2>Welcome to Quiz Practice</h2>
+                    <div class="form__login">
+                        <form action="login" method="POST">
+                            <input type="text" name="email" id="emailLogin" placeholder="Enter your email" required>
+                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                            <div class="popup__reset">
+                                <a href="#">Forgot password?</a>
+                            </div>
+                            <div class="form__button">
+                                <button type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="popup__signup">
+                        <a href="#">Don't have any account? Sign up here</a>
+                    </div>
                 </div>
-                <div class="popup__signup">
-                    <a href="#">Don't have any account? Sign up here</a>
-                </div>
-            </div>
 
             <div class="popup__signup-form" style="display: none;">
                 <i class="fa fa-arrow-left"></i>
