@@ -47,7 +47,7 @@
 
 
                     <div class="post__item">
-                        <div class="post__thumbnail"><img src="images/blog/post_thumbmail_id${p.postID}.png" alt="alt"/></div>
+                        <div class="post__thumbnail"><img src="images/blog/${p.thumbnailUrl}" alt="alt"/></div>
                         <div class="post__content">
                             <h3>${p.title}</h3>
                             <div class="post__info">
