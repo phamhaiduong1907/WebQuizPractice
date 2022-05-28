@@ -103,4 +103,40 @@ public class AccountDBContext extends DBContext {
         }
         return null;
     }
+    
+    public void insertAccount(Account account){
+        String sql = "INSERT INTO [Account]\n" +
+                    "           ([username]\n" +
+                    "           ,[password]\n" +
+                    "           ,[roleID])\n" +
+                    "     VALUES\n" +
+                    "           (?\n" +
+                    "           ,?\n" +
+                    "           ,?)";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getUsername());
+            stm.setString(2, account.getPassword());
+            stm.setInt(3, account.getRole().getRoleID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(stm != null)
+                try {
+                    stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(connection != null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="css/popup.css">
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/common/home.css">
         
 
     </head>
@@ -344,13 +345,30 @@
             </div>
         </section>
 
-        <section class="popup">
+        <section class="popup" style="display: <c:choose>
+                     <c:when test="${requestScope.login_status != null || requestScope.register_status != null  }">
+                         <%="flex; "%>
+                     </c:when>
+                     <c:otherwise>
+                         <%="none;"%>
+                     </c:otherwise>
+                 </c:choose>">
+
             <div class="popup__content">
                 <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
 
-                <div class="popup__login-form">
+                <div class="popup__login-form" style="display: <c:choose>
+                         <c:when test="${requestScope.login_status != null }">
+                             <%="block; "%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
+
                     <h2>Welcome to Quiz Practice</h2>
-                    <div class="form__login">
+                    <div class="form__login" >
+
                         <form action="login" method="POST">
                             <input type="text" name="email" id="emailLogin" placeholder="Enter your email" required>
                             <input type="password" name="password" id="password" placeholder="Enter your password" required>
@@ -362,19 +380,30 @@
                             </div>
                         </form>
                     </div>
+                    <div class="message__box">
+                        <p>${requestScope.login_status}</p>                       
+                    </div>
 
-                    <div class="popup__signup">
+
+                    <div class="popup__signup" >
                         <a href="#">Don't have any account? Sign up here</a>
                     </div>
                 </div>
 
-                <div class="popup__signup-form" style="display: none;">
+                <div class="popup__signup-form" style="display: <c:choose>
+                         <c:when test="${requestScope.register_status != null}">
+                             <%="block; "%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
                     <i class="fa fa-arrow-left"></i>
                     <h2>Register for Quiz Practice</h2>
                     <div class="form__signup">
                         <form action="register" method="POST">
-                            <input type="text" name="firstName" id="firstName" pattern="[a-zA-Z]+" title="Must be letters" placeholder="First Name" required>
-                            <input type="text" name="lastName" id="lastName" pattern="[a-zA-Z]+" title="Must be letters" placeholder="Last Name" required>
+                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
                             <div class="signup__gender">
                                 <h5>Gender</h5>
                                 <input type="radio" name="gender" value="male" required>Male
@@ -382,16 +411,24 @@
                             </div>
                             <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
                             <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
+                            <input type="text" name="address" id="address" title="Must not be empty" placeholder="Address" required>
                             <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
-                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required>
+                            <input type="password" name="confirmPasswordReg" id="confirmPassword" placeholder="Confirm password" required>
                             <div class="form__button">
                                 <button type="submit" >Register</button>
                             </div>
                         </form>
                     </div>
+                    <div class="message__box">
+                        <p>${requestScope.register_status}</p>                       
+                    </div>
                 </div>
 
-                <div class="popup__reset-form" style="display: none;">
+                <div class="popup__reset-form" style="display: <c:choose>
+                         <c:when test="${requestScope.login_status != null || requestScope.register_status != null}">
+                             <%="none; "%>
+                         </c:when>
+                     </c:choose>">
                     <i class="fa fa-arrow-left"></i>
                     <h2>Reset Password</h2>
                     <div class="form__reset">

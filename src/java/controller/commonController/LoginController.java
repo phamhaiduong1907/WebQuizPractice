@@ -45,12 +45,13 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = request.getParameter("password");
+        String login_status = "Wrong email or password, please try again!";
         AccountDBContext db = new AccountDBContext();
         Account account = db.getAccount(username, password);
         if(account == null)
         {
-            request.getSession().setAttribute("login_status", "Wrong email or password, please try again!");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.setAttribute("login_status", login_status);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         else
         {
