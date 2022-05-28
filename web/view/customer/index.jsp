@@ -39,7 +39,7 @@
                         <ul>
                             <li><a href="#" id="openProfile">User Profile</a></li>
                             <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
+                            <li><a href="logout">Log out</a></li>
                         </ul>
                     </div>
                 </li>
