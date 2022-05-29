@@ -1,8 +1,9 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,8 +14,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/admin/index.css">
     <link rel="stylesheet" href="../../css/popup.css">
-    <link rel="stylesheet" href="../../css/admin/setting_detail.css">
-
+    <link rel="stylesheet" href="../../css/admin/system.css">
 </head>
 
 <body>
@@ -37,8 +37,9 @@
             </div>
         </div>
     </header>
+
     <section class="main">
-        
+        <!-- LEFT NAVIGATION BAR -->
         <aside class="left">
             <nav>
                 <ul>
@@ -54,43 +55,90 @@
             </nav>
         </aside>
 
+        <!-- RIGHT CONTENT -->
         <aside class="right">
             <div class="right_content">
-                <h1>Setting Details</h1>
-                <div class="detail_form">
-                    <form action="#" id="formEdit">
-                        <div class="form_content">
-                            <div class="form_item">
-                                <label for="lessonType">Type*</label>
-                                <select name="" id="lessonType">
-                                    <option value="">Lesson Type</option>
-                                    <option value="">Option 1</option>
-                                    <option value="">Option 2</option>
-                                </select>
-                            </div>
-                            <div class="form_item">
-                                <label for="order">Order*</label>
-                                <input type="text" name="" id="order">
-                            </div>
-                            <div class="form_item">
-                                <label for="value">Value</label>
-                                <input type="text" name="" id="value">
-                            </div>
-                            <div class="form_item" id="statusItem">
-                                <label for="status">Status</label>
-                                <input type="radio" name="">Active
-                                <input type="radio" name="">Inactive
-                            </div>
-                            <div class="form_item" id="descriptionItem">
-                                <label for="description">Description</label>
-                                <textarea name="" id="description"></textarea>
-                            </div>
-                            
-                        </div>
-                        <button type="submit">Submit</button>
-                    </form>
+                <div class="right_header">
+                    <h1><i class="fa fa-cog"></i>System Settings</h1>
+                </div>
+                <div class="setting_tool">
+                    <div class="search_form">
+                        <form action="#" id="search">
+                            <select name="" id="#">
+                                <option value="">All settings type</option>
+                                <option value="">Option 1</option>
+                                <option value="">Option 2</option>
+                                <option value="">...</option>
+                            </select>
+                            <select name="" id="#">
+                                <option value="">All statuses</option>
+                                <option value="">Option 1</option>
+                                <option value="">Option 2</option>
+                                <option value="">...</option>
+                            </select>
+                            <input type="text" name="" id="" placeholder="Type setting name to search">
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="add_setting">
+                        <a href="setting_detail.html">Add Setting</a>
+                    </div>
+                </div>
+                <table class="setting_list">
+                    <tr>
+                        <td>ID</td>
+                        <td>Setting Type</td>
+                        <td>Order</td>
+                        <td>Value</td>
+                        <td>Status</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Subject Category</td>
+                        <td>2</td>
+                        <td>Axb</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="setting_detail.html">Edit</a>
+                            <a href="#">Deactive</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Subject Category</td>
+                        <td>2</td>
+                        <td>200</td>
+                        <td>Inactive</td>
+                        <td>
+                            <a href="setting_detail.html">Edit</a>
+                            <a href="#">Active</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Post Category</td>
+                        <td>3</td>
+                        <td>100</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="setting_detail.html">Edit</a>
+                            <a href="#">Deactive</a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="pagination">
+                    <ul>
+                        <li>
+                            << </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li> >> </li>
+                    </ul>
                 </div>
             </div>
+
             <footer>
                 FOOTER
             </footer>
@@ -139,7 +187,6 @@
     </section>
 
     <script src="../../js/userPopup.js"></script>
-    
 </body>
 
 </html>

@@ -32,8 +32,8 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Role(ArrayList<Feature> features) {
-        this.features = features;
+    public Role() {
+        this.features = new ArrayList<>();
     }
 
     public ArrayList<Feature> getFeatures() {
