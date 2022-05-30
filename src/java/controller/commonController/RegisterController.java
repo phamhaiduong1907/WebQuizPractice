@@ -105,11 +105,15 @@ public class RegisterController extends HttpServlet {
                 user.setAddress(address);
                 user.setProfilePictureUrl("none");
 
-                dbUser.insertUser(user);
-                dbAccount.insertAccount(account);
-
-                request.setAttribute("register_status", "Register successfully");
+                boolean checkUser = dbUser.insertUser(user);
+                boolean checkAccount = dbAccount.insertAccount(account);
+                if (!checkUser || !checkAccount) {
+                    request.setAttribute("register_status", register_status);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }else{
+                    request.setAttribute("register_status", "Register successfully");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             }
         }
     }

@@ -5,6 +5,7 @@
 package controller.commonController;
 
 import dal.AccountDBContext;
+import dal.UserDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import model.Account;
+import model.User;
 
 /**
  *
@@ -47,6 +49,8 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         String login_status = "Wrong email or password, please try again!";
         AccountDBContext db = new AccountDBContext();
+        UserDBContext dbUser = new UserDBContext();
+        
         Account account = db.getAccount(username, password);
         if(account == null)
         {
@@ -55,7 +59,10 @@ public class LoginController extends HttpServlet {
         }
         else
         {
+            User user = dbUser.getUser(account);
             request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("user", user);
+            
             switch (account.getRole().getRoleID()) {
                 case 1:
                     request.getRequestDispatcher("/view/customer/index.jsp").forward(request, response);

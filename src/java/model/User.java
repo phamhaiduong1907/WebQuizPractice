@@ -74,4 +74,8 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
