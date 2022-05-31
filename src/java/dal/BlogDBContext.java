@@ -117,7 +117,7 @@ public class BlogDBContext extends DBContext {
                 Account a = new Account();
                 Post p = new Post();
                 sc.setCategoryID(rs.getInt("subcategoryID"));
-                sc.setSubcategoryname(rs.getString("subcategoryName"));
+                sc.setSubcategoryName(rs.getString("subcategoryName"));
                 a.setUsername(rs.getString("author"));
                 p.setSubcategory(sc);
                 p.setAuthor(a);

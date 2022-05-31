@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
@@ -55,7 +56,7 @@
                             <div class="post__content">
                                 <h3>${p.title}</h3>
                                 <div class="post__info">
-                                    <p><i class="fa fa-align-justify"></i> Category: ${p.subcategory.subcategoryname}</p>
+                                    <p><i class="fa fa-align-justify"></i> Category: ${p.subcategory.subcategoryName}</p>
                                     <p><i class="fa fa-calendar-alt"></i> Post on: ${p.updatedDate}</p>
                                 </div>
                                 <p class="post__review">${p.briefInfo}</p>
@@ -93,7 +94,7 @@
                                                     <div class="accordion-body">
                                                         <c:forEach items="${cate.subcategories}" var="sc">
                                                             <div class="subcategory">
-                                                                <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryname}</span>
+                                                                <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
                                                             </div>
                                                         </c:forEach></div>
                                                 </div>
@@ -131,6 +132,7 @@
                         <form action="#">
                             <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
                             <input type="text" name="password" id="password" placeholder="Enter your password">
+
                             <div class="popup__reset">
                                 <a href="#">Forgot password?</a>
                             </div>
@@ -185,5 +187,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <script>pagger("pagination", <%=pageindex%>, <%=totalpage%>, 3);</script>
     </body>
+
 
 </html>

@@ -59,7 +59,7 @@
                                 <i class="fa-solid fa-pen-nib"></i> ${requestScope.post.author.username}
                             </p>
                             <p>
-                                <i class="fa-solid fa-folder"></i> ${requestScope.post.subcategory.subcategoryname}
+                                <i class="fa-solid fa-folder"></i> ${requestScope.post.subcategory.subcategoryName}
                             </p>
                         </div>
                         <div class="blog__preview">
@@ -98,7 +98,7 @@
                                                     <div class="accordion-body">
                                                         <c:forEach items="${cate.subcategories}" var="sc">
                                                             <div class="subcategory">
-                                                                <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryname}</span>
+                                                                <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
                                                             </div>
                                                         </c:forEach></div>
                                                 </div>

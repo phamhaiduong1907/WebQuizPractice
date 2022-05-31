@@ -1,3 +1,9 @@
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dal;
 
 import java.sql.Connection;
@@ -16,9 +22,10 @@ import java.util.logging.Logger;
  * @author FPT University - PRJ301
  */
 public class DBContext {
+
     protected Connection connection;
-    public DBContext()
-    {
+
+    public DBContext() {
         //@Students: You are allowed to edit user, pass, url variables to fit 
         //your system configuration
         //You can also add more methods for Database Interaction tasks. 

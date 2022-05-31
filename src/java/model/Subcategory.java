@@ -11,7 +11,7 @@ package model;
 public class Subcategory {
     private int subcategoryID;
     private int categoryID;
-    private String subcategoryname;
+    private String subcategoryName;
 
     public int getSubcategoryID() {
         return subcategoryID;
@@ -29,12 +29,12 @@ public class Subcategory {
         this.categoryID = categoryID;
     }
 
-    public String getSubcategoryname() {
-        return subcategoryname;
+    public String getSubcategoryName() {
+        return subcategoryName;
     }
 
-    public void setSubcategoryname(String subcategoryname) {
-        this.subcategoryname = subcategoryname;
+    public void setSubcategoryName(String subcategoryName) {
+        this.subcategoryName = subcategoryName;
     }
 
     

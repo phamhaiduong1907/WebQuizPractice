@@ -103,5 +103,4 @@ public class Course {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    
 }

@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/src/java/dal/BlogDBContext.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/web/view/subject/subjectdetail.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/web/css/subject/detail.css</file>
-            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/src/java/controller/publicController/BlogSearchController.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/src/java/controller/publicController/SubjectDetailController.java</file>
+            <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/web/view/blog/post-details.jsp</file>
             <file>file:/E:/Semester%205/SWP391/QuizPractice/summer2022-se1617-g6/src/java/controller/publicController/BlogListController.java</file>
         </group>
     </open-files>

@@ -16,6 +16,9 @@ public class Role {
     private String roleName;
     private ArrayList<Feature> features;
 
+    public Role() {
+    }
+
     public int getRoleID() {
         return roleID;
     }

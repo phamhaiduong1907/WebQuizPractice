@@ -31,7 +31,7 @@ public class SubCategoryDBContext extends DBContext {
             while (rs.next()) {
                 Subcategory sc = new Subcategory();
                 sc.setSubcategoryID(rs.getInt("subcategoryID"));
-                sc.setSubcategoryname(rs.getString("subcategoryName"));
+                sc.setSubcategoryName(rs.getString("subcategoryName"));
                 sc.setCategoryID(categoryID);
                 subcategories.add(sc);
             }
@@ -53,7 +53,7 @@ public class SubCategoryDBContext extends DBContext {
             while (rs.next()) {
                 sc.setSubcategoryID(rs.getInt("subcategoryID"));
                 sc.setCategoryID(rs.getInt("categoryID"));
-                sc.setSubcategoryname(rs.getString("subcategoryName"));
+                sc.setSubcategoryName(rs.getString("subcategoryName"));
                 return sc;
             }
         } catch (SQLException ex) {

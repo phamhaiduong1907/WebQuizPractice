@@ -23,6 +23,7 @@ public class Post {
    private Date updatedDate;
    private String thumbnailUrl;
 
+
     public Subcategory getSubcategory() {
         return subcategory;
     }
@@ -102,7 +103,6 @@ public class Post {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
-
    
    
 }
