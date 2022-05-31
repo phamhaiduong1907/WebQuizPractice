@@ -47,7 +47,8 @@ public class RegisterController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDBContext dbUser = new UserDBContext();
-        AccountDBContext dbAccount = new AccountDBContext();
+        AccountDBContext dbAccount1 = new AccountDBContext();
+        AccountDBContext dbAccount2 = new AccountDBContext();
         RoleDBContext dbRole = new RoleDBContext();
         // get parameter from register form
         String raw_firstName = request.getParameter("firstName");
@@ -78,7 +79,7 @@ public class RegisterController extends HttpServlet {
             if (!raw_email.matches(formatEmail) || !raw_phone.matches(formatPhone) || !raw_passwordReg.matches(formatPass) || !raw_confirmPasswordReg.matches(raw_passwordReg)) {
                 request.setAttribute("register_status", register_status);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else if (dbAccount.isExistUser(raw_email)) {
+            } else if (dbAccount1.isExistUser(raw_email)) {
                 request.setAttribute("register_status", "This email have already been registered, please try another one!");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } //business logic
@@ -106,13 +107,13 @@ public class RegisterController extends HttpServlet {
                 user.setProfilePictureUrl("none");
 
                 boolean checkUser = dbUser.insertUser(user);
-                boolean checkAccount = dbAccount.insertAccount(account);
+                boolean checkAccount = dbAccount2.insertAccount(account);
                 if (!checkUser || !checkAccount) {
                     request.setAttribute("register_status", register_status);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
-                }else{
+                } else {
                     request.setAttribute("register_status", "Register successfully");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
             }
         }

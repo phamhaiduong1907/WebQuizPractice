@@ -12,13 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 
-
 /**
  *
  * @author Zuys
  */
 public class AccountDBContext extends DBContext {
-
 
     /**
      * Check the permission for an account to a specific function/url
@@ -55,6 +53,9 @@ public class AccountDBContext extends DBContext {
             stm.setString(1, username);
             rs = stm.executeQuery();
             if (rs.next()) {
+                rs.close();
+                stm.close();
+                connection.close();
                 return true;
             }
         } catch (SQLException ex) {
@@ -82,9 +83,9 @@ public class AccountDBContext extends DBContext {
             String sql = "SELECT username,password,roleID FROM Account \n"
                     + "WHERE username = ? AND password = ?";
             RoleDBContext dbRole = new RoleDBContext();
-            
+
             PreparedStatement stm = connection.prepareStatement(sql);
-            
+
             stm.setString(1, username);
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
@@ -103,42 +104,71 @@ public class AccountDBContext extends DBContext {
         }
         return null;
     }
-    
-    public boolean insertAccount(Account account){
-        String sql = "INSERT INTO [Account]\n" +
-                    "           ([username]\n" +
-                    "           ,[password]\n" +
-                    "           ,[roleID])\n" +
-                    "     VALUES\n" +
-                    "           (?\n" +
-                    "           ,?\n" +
-                    "           ,?)";
+
+    public boolean changePassword(Account account) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "   SET [password] = ?\n"
+                + " WHERE [username] = ?";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
-            stm.setString(1, account.getUsername());
-            stm.setString(2, account.getPassword());
-            stm.setInt(3, account.getRole().getRoleID());
-            return stm.executeUpdate()>=1;
+            stm.setString(1, account.getPassword());
+            stm.setString(2, account.getUsername());
+            stm.close();
+            connection.close();
+            return stm.executeUpdate() >= 1;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
-            if(stm != null)
+        } finally {
+            if (stm != null)
                 try {
-                    stm.close();
+                stm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(connection != null)
+            if (connection != null)
                 try {
-                    connection.close();
+                connection.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
     }
-    
+
+    public boolean insertAccount(Account account) {
+        String sql = "INSERT INTO [Account]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[roleID])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getUsername());
+            stm.setString(2, account.getPassword());
+            stm.setInt(3, account.getRole().getRoleID());
+            return stm.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stm != null)
+                try {
+                stm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (connection != null)
+                try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
+    }
+
 }

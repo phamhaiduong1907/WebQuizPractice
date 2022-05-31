@@ -20,6 +20,10 @@
         <servlet-name>UserProfileController</servlet-name>
         <servlet-class>controller.commonController.UserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.commonController.ChangePasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -40,6 +44,30 @@
         <servlet-name>UserProfileController</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
+    <context-param>
+        <param-name>tempfile.dir</param-name>
+        <param-value>tmpfiles</param-value>
+    </context-param>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+    <context-param>
+        <param-name>EmailRegex</param-name>
+        <param-value>^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$</param-value>
+    </context-param>
+    <context-param>
+        <param-name>PasswordRegex</param-name>
+        <param-value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$</param-value>
+    </context-param>
+    <context-param>
+        <param-name>PhoneRegex</param-name>
+        <param-value>0-9]{9,10}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>EmailRegex</param-name>
+        <param-value>^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$</param-value>
+    </context-param>
     <session-config>
         <session-timeout>
             30

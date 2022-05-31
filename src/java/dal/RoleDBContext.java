@@ -18,7 +18,7 @@ import model.Role;
 public class RoleDBContext extends DBContext{
     public Role getRole(int roleid){
         try {
-            String sql = "SELECT roleID,roleName FROM Role \n" +
+            String sql = "SELECT roleID,roleName FROM [Role] \n" +
                     "WHERE roleID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, roleid);

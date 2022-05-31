@@ -16,10 +16,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 }
 
 #uploadBtn{
-    height: 40px;
-    width: 80%;
+    height: 44px;
+    width: 88%;
     position: absolute;
-    top: 35%;
+    top: 48%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
