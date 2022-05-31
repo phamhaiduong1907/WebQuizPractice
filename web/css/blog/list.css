@@ -72,8 +72,20 @@
     justify-content: flex-end;
 }
 
-.post__detail a {
+.post__detail button {
     display: inline-block;
+    width: 120px;
+    padding: 4px;
+}
+
+.subcategory__list{
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+}
+
+.subcategory{
+    
 }
 
 .pagination ul{
@@ -159,3 +171,4 @@
     justify-content: center;
     align-items: center;
 }
+

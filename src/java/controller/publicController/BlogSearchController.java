@@ -22,7 +22,7 @@ import model.Subcategory;
  *
  * @author Hai Tran
  */
-public class BlogListController extends HttpServlet {
+public class BlogSearchController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -36,8 +36,10 @@ public class BlogListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDBContext dbBlog = new BlogDBContext();
+        BlogDBContext dbBlogforSearch = new BlogDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
+        SubCategoryDBContext db = new SubCategoryDBContext();
+        Subcategory sc = db.getSubcategory(10);
         int pagesize = 3;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
@@ -47,12 +49,27 @@ public class BlogListController extends HttpServlet {
         if (pageindex <= 0) {
             pageindex = 1;
         }
-        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
         ArrayList<Category> categories = dbCate.getCategories(1);
-        int count = dbBlog.count();
+        String search = request.getParameter("search");
+        String string = "";
+        String subcateID = "";
+        if (request.getParameterValues("subcategory") != null) {
+            String[] subcategory = request.getParameterValues("subcategory");
+            if (subcategory.length != 0) {
+                for (int i = 0; i < subcategory.length; i++) {
+                    string += subcategory[i] + ", ";
+                }
+            }
+            subcateID = string.substring(0, string.trim().length() - 1);
+            search = search.trim();
+        }
+        subcateID = subcateID.trim();
+        ArrayList<Post> searchPost = dbBlogforSearch.searchPost(search, subcateID, pageindex, pagesize);
+        int count = searchPost.size();
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+        log(pageindex + " " + totalpage + " " + count);
         request.setAttribute("categories", categories);
-        request.setAttribute("posts", posts);
+        request.setAttribute("posts", searchPost);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
         request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);

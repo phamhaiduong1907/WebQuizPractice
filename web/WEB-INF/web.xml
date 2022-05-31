@@ -12,6 +12,18 @@
         <servlet-name>BlogListController</servlet-name>
         <servlet-class>controller.publicController.BlogListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>controller.publicController.BlogDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogSearchController</servlet-name>
+        <servlet-class>controller.publicController.BlogSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectDetailController</servlet-name>
+        <servlet-class>controller.publicController.SubjectDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -23,6 +35,18 @@
     <servlet-mapping>
         <servlet-name>BlogListController</servlet-name>
         <url-pattern>/bloglist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blogdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogSearchController</servlet-name>
+        <url-pattern>/blogsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectDetailController</servlet-name>
+        <url-pattern>/subjectdetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

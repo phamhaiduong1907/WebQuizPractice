@@ -2,28 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller.publicController;
 
-import dal.BlogDBContext;
-import dal.CategoryDBContext;
-import dal.SubCategoryDBContext;
+import dal.CourseDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Category;
-import model.Post;
-import model.Subcategory;
+import model.Course;
 
 /**
  *
  * @author Hai Tran
  */
-public class BlogListController extends HttpServlet {
-
+public class SubjectDetailController extends HttpServlet {
+ 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -36,26 +32,16 @@ public class BlogListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDBContext dbBlog = new BlogDBContext();
-        CategoryDBContext dbCate = new CategoryDBContext();
-        int pagesize = 3;
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
+        //int subjectID = Integer.parseInt(request.getParameter("subjectID"));
+        CourseDBContext db = new CourseDBContext();
+        Course course = db.getCourse(1);
+        if (course != null) {
+            log("oke anh oi ");
+        } else {
+            log("deo co cc gi anh oi");
         }
-        int pageindex = Integer.parseInt(page);
-        if (pageindex <= 0) {
-            pageindex = 1;
-        }
-        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
-        ArrayList<Category> categories = dbCate.getCategories(1);
-        int count = dbBlog.count();
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        request.setAttribute("categories", categories);
-        request.setAttribute("posts", posts);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("pageindex", pageindex);
-        request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);
+        request.setAttribute("course", course);
+        request.getRequestDispatcher("view/subject/subjectdetail.jsp").forward(request, response);
     }
 
     /**
@@ -69,7 +55,6 @@ public class BlogListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     /**

@@ -18,18 +18,21 @@ import model.Category;
  */
 public class CategoryDBContext extends DBContext {
 
-    public ArrayList<Category> getCategories() {
+    public ArrayList<Category> getCategories(int categoryTypeID) {
         ArrayList<Category> categories = new ArrayList<>();
         try {
             String sql = "SELECT categoryID, categoryName "
                     + "FROM Category\n"
-                    + "WHERE categoryTypeID = 1";
+                    + "WHERE categoryTypeID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, categoryTypeID);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
                 Category category = new Category();
                 category.setCategoryID(rs.getInt("categoryID"));
                 category.setCategoryName(rs.getString("categoryName"));
+                category.setSubcategories(dbSubCate.getSubcategories(rs.getInt("categoryID")));
                 categories.add(category);
             }
         } catch (SQLException ex) {

@@ -1,14 +1,20 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%-- 
+    Document   : post-details
+    Created on : May 30, 2022, 8:38:19 AM
+    Author     : long
+--%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="model.Post"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Blogs</title>
+        <title>Blog Detail</title>
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -20,13 +26,8 @@
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/popup.css">
         <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/blog/list.css">
-        <%
-        Integer pageindex = (Integer)request.getAttribute("pageindex");
-        Integer totalpage = (Integer)request.getAttribute("totalpage");
-        %>
+        <link rel="stylesheet" href="css/blog/detail.css">
     </head>
-
     <body>
         <header>
             <div class="heading_logo">
@@ -34,42 +35,46 @@
             </div>
             <nav>
                 <ul class="nav_links">
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../../../index.html">Home</a></li>
                     <li><a href="../subject/subjectlist.html">Subject</a></li>
-                    <li><a href="list.jsp">Blog</a></li>
+                    <li><a href="list.html">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
             </nav>
         </header>
-        <div class="heading">
-            <h1>LASTEST BLOG</h1>
-        </div>
 
         <div class="main">
-            <section class="post__list">
-                <c:forEach items="${requestScope.posts}" var="p">
-                    <form action="blogdetail" method="GET">
-                        <input type="hidden" name="postID" value="${p.postID}">
-                        <div class="post__item">
-                            <div class="post__thumbnail"><img src="images/blog/${p.thumbnailUrl}" alt="alt"/></div>
-                            <div class="post__content">
-                                <h3>${p.title}</h3>
-                                <div class="post__info">
-                                    <p><i class="fa fa-align-justify"></i> Category: ${p.subcategory.subcategoryname}</p>
-                                    <p><i class="fa fa-calendar-alt"></i> Post on: ${p.updatedDate}</p>
-                                </div>
-                                <p class="post__review">${p.briefInfo}</p>
-                                <div class="post__detail">                                  
-                                    <button type="submit">More Detail</button>
-                                </div>
-                            </div>
+            <section class="left__side">
+                <div class="blog__wrapper">
+                    <div class="blog__thumbnail">
+                        <img src="images/blog/${requestScope.post.thumbnailUrl}" alt=""/>
+                    </div>
+                    <div class="blog__short-description">
+                        <h2 class="blog__title">${requestScope.post.title}</h2>
+                        <div class="blog__brief-info">
+                            <p>
+                                <i class="fa-solid fa-calendar-days"></i> ${requestScope.post.updatedDate}
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-pen-nib"></i> ${requestScope.post.author.username}
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-folder"></i> ${requestScope.post.subcategory.subcategoryname}
+                            </p>
                         </div>
-                    </form>
-                </c:forEach>
-
-                <div id="pagination" class="pagination"></div>
+                        <div class="blog__preview">
+                            <p>
+                                ${requestScope.post.briefInfo}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="blog__content">
+                        <p>
+                            ${requestScope.post.description}
+                        </p>
+                    </div>
+                </div>
             </section>
-
 
             <!-- RIGHT -->
             <section class="option__box">
@@ -120,10 +125,9 @@
             </section>
         </div>
 
-        <!-- POPUP -->
         <section class="popup">
             <div class="popup__content">
-                <img src="images/close.png" alt="" class="close">
+                <img src="../../images/close.png" alt="" class="close">
 
                 <div class="popup__login-form">
                     <h2>Welcome to Quiz Practice</h2>
@@ -178,12 +182,13 @@
                 </div>
             </div>
         </section>
+
         <footer>
             <p>COPYRIGHT</p>
         </footer>
-        <script src="js/script.js"></script>
+
+        <script src="../../js/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>pagger("pagination", <%=pageindex%>, <%=totalpage%>, 3);</script>
     </body>
 
 </html>
