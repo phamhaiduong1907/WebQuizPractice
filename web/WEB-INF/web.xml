@@ -52,22 +52,6 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/changepass</url-pattern>
     </servlet-mapping>
-    <context-param>
-        <param-name>EmailRegex</param-name>
-        <param-value>^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$</param-value>
-    </context-param>
-    <context-param>
-        <param-name>PasswordRegex</param-name>
-        <param-value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$</param-value>
-    </context-param>
-    <context-param>
-        <param-name>PhoneRegex</param-name>
-        <param-value>0-9]{9,10}</param-value>
-    </context-param>
-    <context-param>
-        <param-name>EmailRegex</param-name>
-        <param-value>^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$</param-value>
-    </context-param>
     <session-config>
         <session-timeout>
             30

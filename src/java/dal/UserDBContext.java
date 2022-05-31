@@ -122,9 +122,6 @@ public class UserDBContext extends DBContext {
                 user.setPhoneNumber(rs.getString("phoneNumber"));
                 user.setAddress(rs.getString("address"));
                 user.setProfilePictureUrl(rs.getString("profilePictureURL"));
-                rs.close();
-                stm.close();
-                connection.close();
                 return user;
             }
         } catch (SQLException ex) {

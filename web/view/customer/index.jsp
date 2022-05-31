@@ -81,7 +81,7 @@
 
                         <div class="user__avatar">
                             <c:choose>
-                                <c:when test="${requestScope.user.profilePictureUrl != none}">
+                                <c:when test="${requestScope.user.profilePictureUrl == none}">
                                     <img src="<c:out value="${sessionScope.user.profilePictureUrl}"/>" id="photo">
                                 </c:when>
                                 <c:otherwise>
