@@ -58,7 +58,7 @@
 
         <!-- POPUP -->
         <section class="popup" style="display: <c:choose>
-                     <c:when test="${requestScope.profile_status != null || requestScope.changepass_status != null}">
+                     <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
                          <%="flex; "%>
                      </c:when>
                      <c:otherwise>
@@ -69,7 +69,7 @@
                 <img src="images/close.png" alt="" class="close">
 
                 <div class="form_user-profile" style="display: <c:choose>
-                     <c:when test="${requestScope.profile_status != null}">
+                     <c:when test="${sessionScope.profile_status != null}">
                          <%="block; "%>
                      </c:when>
                      <c:otherwise>
@@ -81,7 +81,7 @@
 
                         <div class="user__avatar">
                             <c:choose>
-                                <c:when test="${requestScope.user.profilePictureUrl == none}">
+                                <c:when test="${sessionScope.user.profilePictureUrl} != none">
                                     <img src="<c:out value="${sessionScope.user.profilePictureUrl}"/>" id="photo">
                                 </c:when>
                                 <c:otherwise>
@@ -113,12 +113,12 @@
                         </div>
                     </form>
                     <div class="message__box">
-                        <p>${requestScope.profile_status}</p>
+                        <p>${sessionScope.profile_status}</p>
                     </div>
                 </div>
 
                 <div class="form__change-password" style="display: <c:choose>
-                     <c:when test="${requestScope.changepass_status != null}">
+                     <c:when test="${sessionScope.changepass_status != null}">
                          <%="block; "%>
                      </c:when>
                      <c:otherwise>
@@ -135,7 +135,7 @@
                         </div>
                     </form>
                     <div class="message__box">
-                        <p>${requestScope.changepass_status}</p>
+                        <p>${sessionScope.changepass_status}</p>
                     </div>
                 </div>
             </div>

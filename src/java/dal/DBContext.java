@@ -22,23 +22,18 @@ import java.util.logging.Logger;
  * @author FPT University - PRJ301
  */
 public class DBContext {
-
     protected Connection connection;
-
-    public DBContext() {
-        //@Students: You are allowed to edit user, pass, url variables to fit 
-        //your system configuration
-        //You can also add more methods for Database Interaction tasks. 
-        //But we recommend you to do it in another class
-        // For example : StudentDBContext extends DBContext , 
-        //where StudentDBContext is located in dal package, 
+    public DBContext()
+    {
         try {
-            String user = "sa";
-            String pass = "123456";
-            String url = "jdbc:sqlserver://LAPTOP-0NEMNKJ3\\HAITRAN:1433;databaseName=Quiz website";
+            String user = "duy";
+            String pass = "a";
+            String url = "jdbc:sqlserver://ZUYS\\\\DUY:1433;databaseName=Quiz website";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

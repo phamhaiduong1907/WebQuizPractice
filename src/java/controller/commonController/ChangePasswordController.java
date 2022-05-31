@@ -53,22 +53,22 @@ public class ChangePasswordController extends HttpServlet {
         if (raw_cpass == null || raw_cpass.trim().length() == 0
                 || raw_npass == null || raw_npass.trim().length() == 0
                 || raw_cnpass == null || raw_cnpass.trim().length() == 0) {
-            request.setAttribute("changepass_status", "No input problem");
-            request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+            request.getSession().setAttribute("changepass_status", "No input problem");
+            response.sendRedirect("home");
         } else if (raw_cpass.matches(raw_npass)) {
-            request.setAttribute("changepass_status", "New password can't be the same as the old password");
-            request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+            request.getSession().setAttribute("changepass_status", "New password can't be the same as the old password");
+            response.sendRedirect("home");
         } else if (!raw_npass.matches(raw_cnpass)) {
-            request.setAttribute("changepass_status", "Confirm password must be the same as the new password");
-            request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+            request.getSession().setAttribute("changepass_status", "Confirm password must be the same as the new password");
+            response.sendRedirect("home");
         } else {
             account.setPassword(raw_npass);
             if (dbAcc.changePassword(account)) {
-                request.setAttribute("changepass_status", "Change password sucessfully");
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                request.getSession().setAttribute("changepass_status", "Change password sucessfully");
+                response.sendRedirect("home");
             } else {
-                request.setAttribute("changepass_status", "Something is wrong, please try again!");
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                request.getSession().setAttribute("changepass_status", "Something is wrong, please try again!");
+                response.sendRedirect("home");
             }
         }
     }
