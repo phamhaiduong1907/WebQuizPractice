@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import model.Account;
 
 /**
@@ -25,12 +26,12 @@ public abstract class AuthorizationController extends HttpServlet {
         } else {
             AccountDBContext dbAccount = new AccountDBContext();
             String username = account.getUsername();
-            String uri = request.getRequestURI();
-            boolean permission = dbAccount.getPermission(username, uri);
+            String[] uri = request.getRequestURI().split("[?]");
+            boolean permission = dbAccount.getPermission(username, uri[0]);
             return permission;
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,13 +47,15 @@ public abstract class AuthorizationController extends HttpServlet {
         if (isAuthorized(request)) {
             processGet(request, response);
         } else {
-            //Handling access deniance
             Account account = (Account) request.getSession().getAttribute("account");
             if (account == null) {
-                response.sendRedirect("login");
+                //require login
+                boolean requiredLogin = true;
+                request.setAttribute("requiredLogin", requiredLogin);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
-                //redirect to access deniance page
-                response.sendRedirect("deny");
+                //Handling access deniance
+                response.sendRedirect("/summer2022-se1617-g6/deny");
             }
         }
     }
@@ -71,13 +74,15 @@ public abstract class AuthorizationController extends HttpServlet {
         if (isAuthorized(request)) {
             processPost(request, response);
         } else {
-            //Handling access deniance
             Account account = (Account) request.getSession().getAttribute("account");
             if (account == null) {
-                response.sendRedirect("login");
+                //require login
+                boolean requiredLogin = true;
+                request.setAttribute("requiredLogin", requiredLogin);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } else {
-                //redirect to access deniance page
-                response.sendRedirect("deny");
+                //Handling access deniance
+                response.sendRedirect("/summer2022-se1617-g6/deny");
             }
         }
     }

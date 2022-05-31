@@ -17,6 +17,7 @@ public class User {
     private String phoneNumber;
     private String address;
     private String profilePictureUrl;
+    private boolean status;
 
     public Account getAccount() {
         return account;
@@ -73,5 +74,15 @@ public class User {
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
     }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    
 
 }

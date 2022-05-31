@@ -45,26 +45,12 @@
             <!-- LEFT NAVIGATION BAR -->
             <aside class="left">
                 <nav>
-                    <ul>
-                        <c:if test="${sessionScope.account.role.roleID != 2 }">
-                        <li><a href="#">Dashboard</a></li>
-                        <c:if test="${sessionScope.account.role.roleID != 3}">
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                        </c:if>
-                        </c:if>
-                        <c:if test="${sessionScope.account.role.roleID == 3}">
-                        <li><a href="#">Registration</a></li>
-                        </c:if>
-                        <c:if test="${sessionScope.account.role.roleID == 2 || sessionScope.account.role.roleID == 1}">
-                        <li><a href="#">Course</a></li>
-                        <li><a href="#">Test</a></li>
-                        <li><a href="#">Quiz</a></li>
-                        </c:if>
-                        <c:if test="${sessionScope.account.role.roleID == 1}">
-                        <li><a href="#">System Settings</a></li>
-                        <li><a href="#">Users</a></li>
-                        </c:if>
+                    <ul> 
+                        <c:forEach items="${sessionScope.account.role.features}" var="f">
+                            <c:if test="${f.isDisplayed == true}">
+                                <li><a href="${f.url}">${f.featureName}</a></li>
+                            </c:if>                            
+                        </c:forEach>
                     </ul>
                 </nav>
             </aside>

@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author ADMIN
@@ -14,11 +12,6 @@ public class Account {
     private String username;
     private String password;
     private Role role;
-    private ArrayList<Feature> inactiveFeatures;
-
-    public Account() {
-        inactiveFeatures = new ArrayList<>();
-    }
 
     public String getUsername() {
         return username;
@@ -42,14 +35,6 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public ArrayList<Feature> getInactiveFeatures() {
-        return inactiveFeatures;
-    }
-
-    public void setInactiveFeatures(ArrayList<Feature> inactiveFeatures) {
-        this.inactiveFeatures = inactiveFeatures;
     }
     
 }

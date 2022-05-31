@@ -6,20 +6,18 @@
 package controller.admin;
 
 import controller.AuthorizationController;
-import dal.UserDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.User;
 
 /**
  *
  * @author Hai Duong
  */
-public class UserListController extends AuthorizationController {
+public class LoadFeatureController extends AuthorizationController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,13 +28,9 @@ public class UserListController extends AuthorizationController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        UserDBContext dbUsers = new UserDBContext();
-        ArrayList<User> users = dbUsers.getUsers();
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("../view/admin/user_list.jsp").forward(request, response);
+        String username = request.getParameter("username");
+        int roleID = Integer.parseInt(request.getParameter("role"));
     } 
-
-
 
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

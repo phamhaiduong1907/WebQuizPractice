@@ -14,10 +14,10 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/header.css">
-    <link rel="stylesheet" href="../../css/popup.css">
-    <link rel="stylesheet" href="../../css/customer/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
 </head>
 
 <body>
@@ -28,14 +28,14 @@
         </div>
         <nav>
             <ul class="nav_links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Home</a></li>
                 <li><a href="#">Subject</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="registration.html">My Registration</a></li>
-                <li><a href="pratice.html">Practice</a></li>
+                <li><a href="#">My Registration</a></li>
+                <li><a href="#">Practice</a></li>
                 <li>
                     <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                        User Name
+                       ${requestScope.user.lastName} ${requestScope.user.firstName} 
                     </a>
                     <div class="submenu">
                         <ul>
