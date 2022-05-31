@@ -62,22 +62,22 @@
                             <div class="info">
                                 <div class="info_item">
                                     <label for="name">First Name</label>
-                                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"
+                                    <input type="text" id="firstNameInput" name="firstName" placeholder="Enter your first name"
                                            value="${requestScope.user.firstName}">
                                 </div>
                                 <div class="info_item">
                                     <label for="name">Last Name</label>
-                                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name"
+                                    <input type="text" id="lastNameInput" name="lastName" placeholder="Enter your last name"
                                            value="${requestScope.user.lastName}">
                                 </div>
                                 <div class="info_item">
                                     <label for="email">Email</label>
-                                    <input type="text" id="email" name="email" placeholder="abc@gmail.com"
+                                    <input type="text" id="emailInput" name="email" placeholder="abc@gmail.com"
                                            value="${requestScope.user.account.username}" readonly>
                                 </div>
                                 <div class="info_item">
                                     <label for="mobile">Mobile</label>
-                                    <input type="text" id="mobile" name="phone" placeholder="Mobile"
+                                    <input type="text" id="mobileInput" name="phone" placeholder="Mobile"
                                            value="${requestScope.user.phoneNumber}">
                                 </div>
                                 <div class="info_item">
@@ -129,14 +129,14 @@
                             </div> 
                             <div class="authorize_item">
                                 <label for="status">Status</label>
-                                <select name="status" id="status">
+                                <select name="status" id="statusInput">
                                     <option value="active" ${requestScope.user.status?"selected":""}>active</option>
                                     <option value="inactive" ${requestScope.user.status?"":"selected"}>inactive</option>
                                 </select>
                             </div> 
                             <div class="authorize_item authorize_address">
                                 <label for="address">Address</label>
-                                <input type="text" name="address" id="address" placeholder="Enter your adress"
+                                <input type="text" name="address" id="addressInput" placeholder="Enter your adress"
                                        value="${requestScope.user.address}"/>
                             </div> 
                         </div>
@@ -151,7 +151,7 @@
 
         <section class="popup">
             <div class="popup__content">
-                <img src="../../images/close.png" alt="" class="close">
+                <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
 
                 <div class="form_user-profile">
                     <h2>User Profile</h2>
@@ -165,8 +165,8 @@
                         <input type="text" name="phone" id="phone" placeholder="Enter your phone">
                         <div class="profile__gender signup__gender">
                             <h5>Gender</h5>
-                            <input type="radio" name="" id=""> <p>Male</p>
-                            <input type="radio" name="" id=""> <p>Female</p>
+                            <input type="radio" name=""> <p>Male</p>
+                            <input type="radio" name=""> <p>Female</p>
                         </div>
                         <input type="text" name="address" id="address" placeholder="Enter your address">
                         <div class="form__button">
@@ -195,14 +195,13 @@
         <script>
                                     function loadFeature() {
                                         var role = document.getElementById("roleSelect").value.trim();
-                                        var username = document.getElementById("email").value.trim();
+                                        var username = document.getElementById("emailInput").value.trim();  
                                         $.ajax({
                                             url: "/summer2022-se1617-g6/admin/load_feature",
                                             type: "get",
                                             data: {
                                                 role : role,
                                                 username: username
-//                                                name: nameToSearch
                                             },
                                             success: function (data) {
                                                 var row = document.getElementById("featureOption");
