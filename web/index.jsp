@@ -58,8 +58,6 @@
                                     <img src="images/slider/${s.imageUrl}">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h5>${s.title}</h5>
-                                    <p>Some representative placeholder content for the first slide.</p>
                                 </div>
                             </a>
                         </div>
@@ -93,6 +91,9 @@
                                 <div class="post__title">
                                     <p>${p.title}</p>
                                 </div>
+                                <div class="post__info">
+                                    <p>${p.briefInfo}</p>
+                                </div>
                             </div>
                             <div class="post__detail">
                                 <button type="submit">View Detail <i class="fa fa-arrow-circle-right"></i></button>
@@ -105,7 +106,7 @@
         </section>
 
         <section class="subject">
-            <h1>POPULAR SUBJECT</h1>
+            <h1>POPULAR COURSES</h1>
             <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
             <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
             <div class="subject__container">
@@ -114,7 +115,7 @@
                         <div class="subject__card">
                             <div class="subject__card-content">
                                 <div class="subject__thumnail post__thumbnail">
-                                    <p>THUMBNAIL</p>
+                                    <img src="images/thumbnails/${c.thumbnailUrl}">
                                 </div>
                                 <div class="subject__title post__title">
                                     <p>${c.courseName}</p>
@@ -123,7 +124,7 @@
                                     <p>${c.briefInfo}</p>
                                 </div>
                             </div>
-                            <div class="post__detail">
+                            <div class="course__detail">
                                 <a href="view/subject/subjectdetail.html">View Detail <i
                                         class="fa fa-arrow-circle-right"></i></a>
                             </div>

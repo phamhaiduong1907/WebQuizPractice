@@ -22,7 +22,7 @@
 .post__wrapper {
     display: flex;
     width: 90%;
-    height: 55vh;
+    height: 60vh;
     margin: 0 auto;
     justify-content: space-around;
     margin-top: 30px;
@@ -91,6 +91,14 @@
 .post__detail {
     text-align: center;
     margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 27%;
+}
+
+.post__detail button{
+    padding: 6px;
+    border-radius: 15px;
 }
 
 .subject {
@@ -136,6 +144,16 @@
 
 .subject__description{
     height: 400px;
+}
+
+
+.course__detail{
+    position: absolute;
+    bottom: 50px;
+}
+
+.course__detail a:hover{
+    opacity: 0.6;
 }
 
 .pre-btn,

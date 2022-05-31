@@ -35,9 +35,9 @@
             </div>
             <nav>
                 <ul class="nav_links">
-                    <li><a href="../../../index.html">Home</a></li>
-                    <li><a href="../subject/subjectlist.html">Subject</a></li>
-                    <li><a href="list.html">Blog</a></li>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
             </nav>

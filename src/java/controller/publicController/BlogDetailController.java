@@ -5,12 +5,15 @@
 package controller.publicController;
 
 import dal.BlogDBContext;
+import dal.CategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Category;
 import model.Post;
 
 /**
@@ -32,8 +35,11 @@ public class BlogDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDBContext dbBlog = new BlogDBContext();
+        CategoryDBContext dbCate = new CategoryDBContext();
+        ArrayList<Category> categories = dbCate.getCategories(1);
         int postID = Integer.parseInt(request.getParameter("postID"));
         Post post = dbBlog.getPost(postID);
+        request.setAttribute("categories", categories);
         request.setAttribute("post", post);
         request.getRequestDispatcher("view/blog/post-details.jsp").forward(request, response);
     }

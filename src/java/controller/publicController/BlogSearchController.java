@@ -51,6 +51,10 @@ public class BlogSearchController extends HttpServlet {
         }
         ArrayList<Category> categories = dbCate.getCategories(1);
         String search = request.getParameter("search");
+        String sort = request.getParameter("sort");
+        if(sort == null || sort.trim().length() == 0){
+            sort = "DESC";
+        }
         String string = "";
         String subcateID = "";
         if (request.getParameterValues("subcategory") != null) {
@@ -64,7 +68,7 @@ public class BlogSearchController extends HttpServlet {
             search = search.trim();
         }
         subcateID = subcateID.trim();
-        ArrayList<Post> searchPost = dbBlogforSearch.searchPost(search, subcateID, pageindex, pagesize);
+        ArrayList<Post> searchPost = dbBlogforSearch.searchPost(search, subcateID, sort, pageindex, pagesize);
         int count = searchPost.size();
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
         log(pageindex + " " + totalpage + " " + count);
@@ -72,6 +76,8 @@ public class BlogSearchController extends HttpServlet {
         request.setAttribute("posts", searchPost);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
+        request.setAttribute("count", count);
+        request.setAttribute("search", search);
         request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);
     }
 

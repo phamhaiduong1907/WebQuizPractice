@@ -35,9 +35,9 @@
             </div>
             <nav>
                 <ul class="nav_links">
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="home">Home</a></li>
                     <li><a href="../subject/subjectlist.html">Subject</a></li>
-                    <li><a href="list.jsp">Blog</a></li>
+                    <li><a href="bloglist">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
             </nav>
@@ -47,30 +47,37 @@
         </div>
 
         <div class="main">
-            <section class="post__list">
-                <c:forEach items="${requestScope.posts}" var="p">
-                    <form action="blogdetail" method="GET">
-                        <input type="hidden" name="postID" value="${p.postID}">
-                        <div class="post__item">
-                            <div class="post__thumbnail"><img src="images/blog/${p.thumbnailUrl}" alt="alt"/></div>
-                            <div class="post__content">
-                                <h3>${p.title}</h3>
-                                <div class="post__info">
-                                    <p><i class="fa fa-align-justify"></i> Category: ${p.subcategory.subcategoryName}</p>
-                                    <p><i class="fa fa-calendar-alt"></i> Post on: ${p.updatedDate}</p>
+            <c:choose>
+                <c:when test="${requestScope.count != 0}">
+                    <section class="post__list">
+                        <c:forEach items="${requestScope.posts}" var="p">
+                            <form action="blogdetail" method="GET">
+                                <input type="hidden" name="postID" value="${p.postID}">
+                                <div class="post__item">
+                                    <div class="post__thumbnail"><img src="images/blog/${p.thumbnailUrl}" alt="alt"/></div>
+                                    <div class="post__content">
+                                        <h3>${p.title}</h3>
+                                        <div class="post__info">
+                                            <p><i class="fa fa-align-justify"></i> Category: ${p.subcategory.subcategoryName}</p>
+                                            <p><i class="fa fa-calendar-alt"></i> Post on: ${p.updatedDate}</p>
+                                        </div>
+                                        <p class="post__review">${p.briefInfo}</p>
+                                        <div class="post__detail">                                  
+                                            <button type="submit">More Detail</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="post__review">${p.briefInfo}</p>
-                                <div class="post__detail">                                  
-                                    <button type="submit">More Detail</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </c:forEach>
-
-                <div id="pagination" class="pagination"></div>
-            </section>
-
+                            </form>
+                        </c:forEach>
+                        <div id="pagination" class="pagination"></div>
+                    </section>
+                </c:when>
+                <c:otherwise>
+                    <section class="post__list">
+                        <h1>No matching result for keyword: ${requestScope.search}</h1>
+                    </section>
+                </c:otherwise>
+            </c:choose>
 
             <!-- RIGHT -->
             <section class="option__box">
@@ -104,10 +111,10 @@
                                 </div>
                             </div>
                             <div class="option__sort">
-                                <select name="" id="">
-                                    <option value="All">All</option>
-                                    <option value="">SortItem1</option>
-                                    <option value="">SortItem2</option>
+                                <select name="sort">
+                                    <option selected disabled>Sort by:</option>
+                                    <option value="DESC">Date added(newest)</option>
+                                    <option value="ASC">Date added(oldest)</option>
                                 </select>
                             </div>
                             <div class="search__button">

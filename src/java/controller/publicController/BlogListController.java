@@ -55,6 +55,7 @@ public class BlogListController extends HttpServlet {
         request.setAttribute("posts", posts);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
+        request.setAttribute("search", count);
         request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);
     }
 

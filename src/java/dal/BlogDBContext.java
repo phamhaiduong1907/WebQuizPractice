@@ -137,7 +137,7 @@ public class BlogDBContext extends DBContext {
         return null;
     }
 
-    public ArrayList<Post> searchPost(String search, String subcateID, int pageindex, int pagesize) {
+    public ArrayList<Post> searchPost(String search, String subcateID, String sort, int pageindex, int pagesize) {
         ArrayList<Post> posts = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         try {
@@ -149,7 +149,7 @@ public class BlogDBContext extends DBContext {
                 String and = " AND subcategoryID IN(" + subcateID + ")";
                 sb.append(and);
             }
-            String offset = " ORDER BY [updatedDate] DESC OFFSET ? * ? ROWS FETCH NEXT ? ROWS ONLY";
+            String offset = " ORDER BY [updatedDate] " + sort + " OFFSET ? * ? ROWS FETCH NEXT ? ROWS ONLY";
 //            sql += offset;
             sb.append(offset);
             String sql_final = sb.toString();
