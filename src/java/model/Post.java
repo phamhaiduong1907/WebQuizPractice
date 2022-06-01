@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 public class Post {
 
-   private Category category;
+   private Subcategory subcategory;
    private String title;
    private String briefInfo;
    private String description;
@@ -23,12 +23,13 @@ public class Post {
    private Date updatedDate;
    private String thumbnailUrl;
 
-    public Category getCategory() {
-        return category;
+
+    public Subcategory getSubcategory() {
+        return subcategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setSubcategory(Subcategory subcategory) {
+        this.subcategory = subcategory;
     }
 
     public String getTitle() {
@@ -102,7 +103,6 @@ public class Post {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
-   
    
    
 }

@@ -1,9 +1,13 @@
 .block__item {
     width: 100%;
-    height: 50vh;
+    height: 90vh;
     background-color: #d4d4d4;
 }
 
+.block__item img{
+    width: 100%;
+    height: 100%;
+}
 .post {
     padding: 40px;
 }
@@ -18,6 +22,7 @@
 .post__wrapper {
     display: flex;
     width: 90%;
+    height: 60vh;
     margin: 0 auto;
     justify-content: space-around;
     margin-top: 30px;
@@ -28,6 +33,15 @@
     padding: 15px;
     position: relative;
     box-shadow: 1px 1px 1px 1px grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .post__info {
@@ -60,6 +74,11 @@
     justify-content: center;
 }
 
+.post__thumbnail img{
+    width: 100%;
+    height: 100%;
+}
+
 .post__item .post__detail a {
     color: #000;
     text-decoration: none;
@@ -72,6 +91,14 @@
 .post__detail {
     text-align: center;
     margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 27%;
+}
+
+.post__detail button{
+    padding: 6px;
+    border-radius: 15px;
 }
 
 .subject {
@@ -117,6 +144,16 @@
 
 .subject__description{
     height: 400px;
+}
+
+
+.course__detail{
+    position: absolute;
+    bottom: 50px;
+}
+
+.course__detail a:hover{
+    opacity: 0.6;
 }
 
 .pre-btn,

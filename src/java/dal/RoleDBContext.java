@@ -11,11 +11,16 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Feature;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Role;
 
 /**
  *
- * @author Hai Duong
+ * <<<<<<< HEAD
+ * @a
+ *
+ * uthor Hai Duong
  */
 public class RoleDBContext extends DBContext {
 
@@ -39,7 +44,7 @@ public class RoleDBContext extends DBContext {
                 stm_feature.setInt(1, rs.getInt("roleID"));
                 ResultSet rs_feature = stm_feature.executeQuery();
                 ArrayList<Feature> features = new ArrayList<>();
-                while(rs_feature.next()){
+                while (rs_feature.next()) {
                     Feature f = new Feature();
                     f.setFeatureID(rs_feature.getInt("featureID"));
                     f.setUrl(rs_feature.getString("URL"));
@@ -67,7 +72,7 @@ public class RoleDBContext extends DBContext {
         }
         return roles;
     }
-    
+
     public Role getRoleById(int roleID) {
         String sql = "select r.roleID, r.roleName from [Role] r where r.roleID = ?";
         PreparedStatement stm;
@@ -77,7 +82,7 @@ public class RoleDBContext extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, roleID);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 Role role = new Role();
                 role.setRoleID(rs.getInt("roleID"));
                 role.setRoleName(rs.getString("roleName"));
@@ -88,7 +93,7 @@ public class RoleDBContext extends DBContext {
                 stm_feature.setInt(1, rs.getInt("roleID"));
                 ResultSet rs_feature = stm_feature.executeQuery();
                 ArrayList<Feature> features = new ArrayList<>();
-                while(rs_feature.next()){
+                while (rs_feature.next()) {
                     Feature f = new Feature();
                     f.setFeatureID(rs_feature.getInt("featureID"));
                     f.setUrl(rs_feature.getString("URL"));

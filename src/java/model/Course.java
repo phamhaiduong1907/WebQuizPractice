@@ -15,7 +15,7 @@ public class Course {
     private int courseID;
     private String courseName;
     private boolean status;
-    private Category category;
+    private Subcategory subcategory;
     private boolean isFeatured;
     private String description;
     private String tagline;
@@ -45,6 +45,14 @@ public class Course {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Subcategory getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(Subcategory subcategory) {
+        this.subcategory = subcategory;
     }
 
     public boolean isIsFeatured() {
@@ -93,14 +101,6 @@ public class Course {
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
 }

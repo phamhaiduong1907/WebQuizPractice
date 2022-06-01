@@ -74,15 +74,12 @@ public class User {
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
     }
-
+    
     public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-    
-    
-
+    } 
 }

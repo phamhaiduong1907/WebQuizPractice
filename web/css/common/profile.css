@@ -1,0 +1,33 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : May 29, 2022, 2:40:58 PM
+    Author     : Zuys
+*/
+#photo{
+    height: 100%;
+    width: 100%;
+}
+
+#profilePicture{
+    display: none;
+}
+
+#uploadBtn{
+    height: 44px;
+    width: 88%;
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: wheat;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    display: none;
+}
