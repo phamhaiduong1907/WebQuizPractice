@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="css/popup.css">
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/blog/list.css">
+        <link rel="stylesheet" href="css/customer/header.css">
         <%
         Integer pageindex = (Integer)request.getAttribute("pageindex");
         Integer totalpage = (Integer)request.getAttribute("totalpage");
@@ -38,7 +39,23 @@
                     <li><a href="home">Home</a></li>
                     <li><a href="../subject/subjectlist.html">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
+                        <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login" id="loginButton">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
+                                <c:out value="${sessionScope.account.username}"/>
+                            </a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="#" id="openProfile">User Profile</a></li>
+                                    <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                    <li><a href="logout">Log out</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:if>
                 </ul>
             </nav>
         </header>
@@ -127,66 +144,67 @@
                     </div>
             </section>
         </div>
+        <c:if  test="${sessionScope.account == null}">
+            <!-- POPUP -->
+            <section class="popup">
+                <div class="popup__content">
+                    <img src="images/close.png" alt="" class="close">
 
-        <!-- POPUP -->
-        <section class="popup">
-            <div class="popup__content">
-                <img src="images/close.png" alt="" class="close">
+                    <div class="popup__login-form">
+                        <h2>Welcome to Quiz Practice</h2>
+                        <div class="form__login">
+                            <form action="#">
+                                <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
+                                <input type="text" name="password" id="password" placeholder="Enter your password">
 
-                <div class="popup__login-form">
-                    <h2>Welcome to Quiz Practice</h2>
-                    <div class="form__login">
-                        <form action="#">
-                            <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
-                            <input type="text" name="password" id="password" placeholder="Enter your password">
-
-                            <div class="popup__reset">
-                                <a href="#">Forgot password?</a>
-                            </div>
-                            <div class="form__button">
-                                <button type="submit">Login</button>
-                            </div>
-                        </form>
+                                <div class="popup__reset">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <div class="form__button">
+                                    <button type="submit">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="popup__signup">
+                            <a href="#">Don't have any account? Sign up here</a>
+                        </div>
                     </div>
-                    <div class="popup__signup">
-                        <a href="#">Don't have any account? Sign up here</a>
+
+                    <div class="popup__signup-form" style="display: none;">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Register for Quiz Practice</h2>
+                        <div class="form_signup">
+                            <form action="#">
+                                <input type="text" name="firstName" id="firstName" placeholder="First Name">
+                                <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+                                <input type="text" name="email" id="emailSignup" placeholder="Email">
+                                <input type="text" name="phone" id="phone" placeholder="Phone Number">
+                                <input type="password" name="password" id="password" placeholder="Password">
+                                <input type="password" name="confirmPassword" id="confirmPassword"
+                                       placeholder="Confirm password">
+                                <div class="form__button">
+                                    <button type="submit">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="popup__reset-form" style="display: none;">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Reset Password</h2>
+                        <div class="form__reset">
+                            <form action="#">
+                                <input type="text" name="email" id="emailReset"
+                                       placeholder="Enter your email to reset your password">
+                                <div class="form__button">
+                                    <button type="submit">Verify your email</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-                <div class="popup__signup-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Register for Quiz Practice</h2>
-                    <div class="form_signup">
-                        <form action="#">
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name">
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name">
-                            <input type="text" name="email" id="emailSignup" placeholder="Email">
-                            <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                            <input type="password" name="password" id="password" placeholder="Password">
-                            <input type="password" name="confirmPassword" id="confirmPassword"
-                                   placeholder="Confirm password">
-                            <div class="form__button">
-                                <button type="submit">Register</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="popup__reset-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Reset Password</h2>
-                    <div class="form__reset">
-                        <form action="#">
-                            <input type="text" name="email" id="emailReset"
-                                   placeholder="Enter your email to reset your password">
-                            <div class="form__button">
-                                <button type="submit">Verify your email</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </c:if>
         <footer>
             <p>COPYRIGHT</p>
         </footer>

@@ -54,8 +54,8 @@ public class LoginController extends HttpServlet {
         Account account = db.getAccount(username, password);
         if(account == null)
         {
-            request.setAttribute("login_status", login_status);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getSession().setAttribute("login_status", login_status);
+            response.sendRedirect("home");
         }
         else
         {

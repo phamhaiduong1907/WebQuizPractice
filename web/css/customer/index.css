@@ -45,8 +45,8 @@
 }
 
 .post__info {
-    width: 100%;    
     font-size: 17px;
+    width: 100%;
 }
 
 .post__short {
@@ -94,7 +94,7 @@
     margin-top: 20px;
     position: absolute;
     bottom: 20px;
-    left: 27%;
+    left: 25%;
 }
 
 .post__detail button{

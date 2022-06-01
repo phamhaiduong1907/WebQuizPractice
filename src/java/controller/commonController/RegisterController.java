@@ -73,15 +73,15 @@ public class RegisterController extends HttpServlet {
                 || raw_address == null || raw_address.trim().length() == 0
                 || raw_passwordReg == null || raw_passwordReg.trim().length() == 0
                 || raw_confirmPasswordReg == null || raw_confirmPasswordReg.trim().length() == 0) {
-            request.setAttribute("register_status", register_status);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getSession().setAttribute("register_status", register_status);
+            response.sendRedirect("home");
         } else {
             if (!raw_email.matches(formatEmail) || !raw_phone.matches(formatPhone) || !raw_passwordReg.matches(formatPass) || !raw_confirmPasswordReg.matches(raw_passwordReg)) {
-                request.setAttribute("register_status", register_status);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getSession().setAttribute("register_status", register_status);
+                response.sendRedirect("home");
             } else if (dbAccount1.isExistUser(raw_email)) {
-                request.setAttribute("register_status", "This email have already been registered, please try another one!");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getSession().setAttribute("register_status", "This email have already been registered, please try another one!");
+                response.sendRedirect("home");
             } //business logic
             else {
                 String firstName = raw_firstName;
@@ -95,7 +95,7 @@ public class RegisterController extends HttpServlet {
                 Account account = new Account();
                 account.setUsername(email);
                 account.setPassword(passwordReg);
-                account.setRole(dbRole.getRole(1));
+                account.setRole(dbRole.getRole(5));
 
                 User user = new User();
                 user.setAccount(account);
@@ -109,11 +109,11 @@ public class RegisterController extends HttpServlet {
                 boolean checkUser = dbUser.insertUser(user);
                 boolean checkAccount = dbAccount2.insertAccount(account);
                 if (!checkUser || !checkAccount) {
-                    request.setAttribute("register_status", register_status);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getSession().setAttribute("register_status", register_status);
+                    response.sendRedirect("home");
                 } else {
-                    request.setAttribute("register_status", "Register successfully");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getSession().setAttribute("register_status", "Register successfully");
+                    response.sendRedirect("home");
                 }
             }
         }

@@ -75,12 +75,12 @@ public class UserProfileController extends HttpServlet {
                 || raw_gender == null || raw_gender.trim().length() == 0
                 || raw_phone == null || raw_phone.trim().length() == 0
                 || raw_address == null || raw_address.trim().length() == 0) {
-            request.setAttribute("profile_status", "No input problem");
-            request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+            request.getSession().setAttribute("profile_status", "No input problem");
+            response.sendRedirect("home");
         } else if (checkFileType(profilePicName)) {
             if (profilePicName.length() > 0) {
-                request.setAttribute("profile_status", "You need to use a picture!");
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                request.getSession().setAttribute("profile_status", "You need to use a picture!");
+                response.sendRedirect("home");
             } else {
                 User user = new User();
                 user.setAccount(account);
@@ -92,24 +92,24 @@ public class UserProfileController extends HttpServlet {
                 user.setProfilePictureUrl("images/profile/" + account.getUsername() + ".png");
 
                 dbUser.updateUser(user);
-                request.setAttribute("profile_status", "Update successfully!");
+                request.getSession().setAttribute("profile_status", "Update successfully!");
                 request.getSession().setAttribute("user", user);
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                response.sendRedirect("home");
             }
 
         } else {//business logic 
             try {
                 profilePic.write(this.getFolderUpload().getAbsolutePath() + File.separator + profilePicName);
             } catch (Exception e) {
-                request.setAttribute("profile_status", "Write file to disk failed");
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                request.getSession().setAttribute("profile_status", "Write file to disk failed");
+                response.sendRedirect("home");
 
             }
 
-            File file = new File("D:\\SWP\\I1\\summer2022-se1617-g6\\web\\images\\profile\\" + profilePicName);
+            File file = new File("E:\\Semester 5\\SWP391\\QuizPractice\\summer2022-se1617-g6\\web\\images\\profile" + profilePicName);
             if (file.exists()) {
-                Path source = Paths.get("D:\\SWP\\I1\\summer2022-se1617-g6\\web\\images\\profile\\" + profilePicName);
-                Files.move(source, source.resolveSibling("D:\\SWP\\I1\\summer2022-se1617-g6\\web\\images\\profile\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                Path source = Paths.get("E:\\Semester 5\\SWP391\\QuizPractice\\summer2022-se1617-g6\\web\\images\\profile" + profilePicName);
+                Files.move(source, source.resolveSibling("E:\\Semester 5\\SWP391\\QuizPractice\\summer2022-se1617-g6\\web\\images\\profile" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
 
                 User user = new User();
                 user.setAccount(account);
@@ -121,12 +121,12 @@ public class UserProfileController extends HttpServlet {
                 user.setProfilePictureUrl("images/profile/" + account.getUsername() + ".png");
 
                 dbUser.updateUser(user);
-                request.setAttribute("profile_status", "Update successfully!");
+                request.getSession().setAttribute("profile_status", "Update successfully!");
                 request.getSession().setAttribute("user", user);
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                response.sendRedirect("home");      
             } else {
-                request.setAttribute("profile_status", "File saving problem");
-                request.getRequestDispatcher("view/" + account.getRole().getRoleName().toLowerCase() + "/index.jsp").forward(request, response);
+                request.getSession().setAttribute("profile_status", "File saving problem");
+                response.sendRedirect("home");
             }
         }
     }

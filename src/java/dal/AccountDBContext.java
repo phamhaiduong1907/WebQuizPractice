@@ -114,8 +114,6 @@ public class AccountDBContext extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setString(1, account.getPassword());
             stm.setString(2, account.getUsername());
-            stm.close();
-            connection.close();
             return stm.executeUpdate() >= 1;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
