@@ -50,12 +50,33 @@ public abstract class AuthorizationController extends HttpServlet {
             Account account = (Account) request.getSession().getAttribute("account");
             if (account == null) {
                 //require login
-                boolean requiredLogin = true;
-                request.setAttribute("requiredLogin", requiredLogin);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                response.setContentType("text/html;charset=utf-8");
+                PrintWriter writer = response.getWriter();
+                writer.println("<!DOCTYPE html>");
+                writer.println("<html>");
+                writer.println("<head>");
+                writer.println("</head>");
+                writer.println("<body>");
+                writer.println("<script>\n"
+                        + "		sessionStorage.setItem(\"requiredlogin\",\"true\");\n"
+                        + "		history.go(-1);\n"
+                        + "	</script>");
+                writer.println("</body>");
+                writer.println("</html>");
             } else {
-                //Handling access deniance
-                response.sendRedirect("/summer2022-se1617-g6/deny");
+                response.setContentType("text/html;charset=utf-8");
+                PrintWriter writer = response.getWriter();
+                writer.println("<!DOCTYPE html>");
+                writer.println("<html>");
+                writer.println("<head>");
+                writer.println("</head>");
+                writer.println("<body>");
+                writer.println("<script>\n"
+                        + "		sessionStorage.setItem(\"unauthorizedAcess\",\"true\");\n"
+                        + "		history.go(-1);\n"
+                        + "	</script>");
+                writer.println("</body>");
+                writer.println("</html>");
             }
         }
     }
