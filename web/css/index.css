@@ -8,6 +8,7 @@
     width: 100%;
     height: 100%;
 }
+
 .post {
     padding: 40px;
 }
@@ -22,7 +23,6 @@
 .post__wrapper {
     display: flex;
     width: 90%;
-    height: 80vh;
     margin: 0 auto;
     justify-content: space-around;
     margin-top: 30px;
@@ -36,16 +36,23 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 70vh;
+    overflow: clip;
+}
+
+.post__item:hover{
+    box-shadow: 10px 10px 10px 10px grey;
 }
 
 .post__form{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    height: 100%;
 }
 
 .post__info {
-    width: 100%;    
+    width: 100%;
     font-size: 17px;
 }
 
@@ -64,6 +71,7 @@
 .post__title {
     font-weight: 600;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .post__thumbnail {
@@ -90,16 +98,12 @@
 }
 
 .post__detail {
-    text-align: center;
-    margin-top: 20px;
-    position: absolute;
-    bottom: 20px;
-    left: 27%;
-}
-
-.post__detail button{
-    padding: 6px;
-    border-radius: 15px;
+    background: none;
+    border: none;
+    text-align: left;
+    height: 100%;
+    display: inline-flex;
+    justify-content: flex-start;
 }
 
 .subject {
@@ -132,6 +136,8 @@
     padding: 15px;
     margin-right: 40px;
     box-shadow: 1px 1px 1px 1px grey;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .subject__card .post__detail a{
@@ -149,8 +155,7 @@
 
 
 .course__detail{
-    position: absolute;
-    bottom: 50px;
+    position: relative;
 }
 
 .course__detail a:hover{

@@ -4,14 +4,20 @@ header{
     align-items: center;
     background-color: #000;
     color: #fff;
+    height: 90px;
 }
 
 .heading_logo{
+    width: 20%;
     cursor: pointer;
     display: flex;
     align-items: center;
     margin-right: auto;
     padding-left: 20px;
+}
+
+.heading_logo img {
+    width: 100%;
 }
 
 .nav_links{
@@ -22,6 +28,7 @@ header{
     display: inline-block;
     margin: 0;
     transition: all 0.5s ease;
+    height: 90px;
 }
 
 .nav_links li a{
@@ -29,8 +36,11 @@ header{
     transition: all 0.25s ease;
     color: #fff;
     display: inline-block;
-    padding: 15px 30px;
+    padding: 15px 70px;
     word-spacing: 0px;
+    height: 100%;
+    line-height: 65px;
+    font-size: 25px;
 }
 
 .nav_links li:hover{

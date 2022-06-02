@@ -30,7 +30,7 @@
     <body>
         <header>
             <div class="heading_logo">
-                <p>LOGO</p>
+                <img src="images/logo.png" alt="alt"/>
             </div>
             <nav>
                 <ul class="nav_links">
@@ -79,24 +79,23 @@
                 <c:forEach items="${requestScope.posts}" var="p">
                     <div class="post__item">
                         <form action="blogdetail" method="GET" class="post__form">
-                            <input type="hidden" value="${p.postID}" name="postID">
-                            <div class="post__short">
-                                <p>${p.updatedDate}</p>
-                            </div>
-                            <div class="post__info">
-                                <div class="post__thumbnail">
-                                    <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
-                                </div>
-                                <div class="post__title">
-                                    <p>${p.title}</p>
+                            <button type="submit" class="post__detail">
+                                <input type="hidden" value="${p.postID}" name="postID">
+                                <div class="post__short">
+                                    <p>${p.updatedDate}</p>
                                 </div>
                                 <div class="post__info">
-                                    <p>${p.briefInfo}</p>
+                                    <div class="post__thumbnail">
+                                        <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
+                                    </div>
+                                    <div class="post__title">
+                                        <p>${p.title}</p>
+                                    </div>
+                                    <div class="post__info">
+                                        <p>${p.briefInfo}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="post__detail">
-                                <button type="submit">View Detail <i class="fa fa-arrow-circle-right"></i></button>
-                            </div>
+                            </button>
                         </form>
                     </div>
                 </c:forEach>
