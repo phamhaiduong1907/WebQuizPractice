@@ -1,4 +1,3 @@
- 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,30 +11,16 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
-<<<<<<< HEAD
- * @author Zuys
- * @author Haiduong
-=======
- * @author FPT University - PRJ301
->>>>>>> 3d7429444bab55d362501ea9b11a774c39640135
- */
 public class DBContext {
+
     protected Connection connection;
-    public DBContext()
-    {
+
+    public DBContext() {
         try {
+
             String user = "Admin";
             String pass = "123";
             String url = "jdbc:sqlserver://localhost:1433;databaseName=Quiz website";
-
-
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException ex) {

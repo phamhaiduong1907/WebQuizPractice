@@ -30,8 +30,6 @@ public class EmailUtils {
 
     private final String KEY = "dsacnq&23nd3";
 
-    
-
     public static void send(Email email) throws Exception {
         Properties prop = new Properties();
 

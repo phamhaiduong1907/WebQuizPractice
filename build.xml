@@ -7,9 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-
-<project name="SWP391-SE1617NET-QuizWebsite" default="default" basedir=".">
-    <description>Builds, tests, and runs the project SWP391-SE1617NET-QuizWebsite.</description>
+<project name="SWP391-SE1617NET-QuizWebsite-G06" default="default" basedir=".">
+    <description>Builds, tests, and runs the project SWP391-SE1617NET-QuizWebsite-G06.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

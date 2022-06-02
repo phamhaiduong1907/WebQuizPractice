@@ -17,6 +17,7 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<<<<<<< HEAD
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
@@ -30,6 +31,17 @@
         <%
             Integer pageindex = (Integer) request.getAttribute("pageindex");
             Integer totalpage = (Integer) request.getAttribute("totalpage");
+=======
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/popup.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/blog/list.css">
+        <link rel="stylesheet" href="css/customer/header.css">
+        <%
+        Integer pageindex = (Integer)request.getAttribute("pageindex");
+        Integer totalpage = (Integer)request.getAttribute("totalpage");
+>>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
         %>
     </head>
 
@@ -41,7 +53,11 @@
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
+<<<<<<< HEAD
                     <li><a href="subjectList">Subject</a></li>
+=======
+                    <li><a href="../subject/subjectlist.html">Subject</a></li>
+>>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
                     <li><a href="bloglist">Blog</a></li>
                         <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton">Log in</a></li>
@@ -148,6 +164,7 @@
                     </div>
             </section>
         </div>
+<<<<<<< HEAD
         <c:if test="${sessionScope.account != null}">
             <section class="popup" style="display: <c:choose>
                          <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
@@ -234,6 +251,8 @@
 
             </section>
         </c:if>
+=======
+>>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
         <c:if  test="${sessionScope.account == null}">
             <!-- POPUP -->
             <section class="popup">
@@ -298,15 +317,22 @@
         <footer>
             <p>COPYRIGHT</p>
         </footer>
+<<<<<<< HEAD
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
 
+=======
+        <script src="js/script.js"></script>
+>>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
         <script>pagger("pagination", <%=pageindex%>, <%=totalpage%>, 3);</script>
     </body>
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
 </html>

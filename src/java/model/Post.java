@@ -102,5 +102,4 @@ public class Post {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
-
 }

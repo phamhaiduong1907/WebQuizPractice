@@ -1,5 +1,4 @@
-
-
+    
 
 <!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -29,22 +28,19 @@
     </head>
 
     <body>
-
         <header>
             <div class="heading_logo">
-                <img src="images/logo.png" width="100px" height="75px" alt="alt"/>
+                <img src="images/logo.png" alt="alt"/>
             </div>
             <nav>
                 <ul class="nav_links">
-
                     <li><a href="home">Home</a></li>
-                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
             </nav>
         </header>
-
         <section class="slider">
             <div id="slider" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -83,24 +79,23 @@
                 <c:forEach items="${requestScope.posts}" var="p">
                     <div class="post__item">
                         <form action="blogdetail" method="GET" class="post__form">
-                            <input type="hidden" value="${p.postID}" name="postID">
-                            <div class="post__short">
-                                <p>${p.updatedDate}</p>
-                            </div>
-                            <div class="post__info">
-                                <div class="post__thumbnail">
-                                    <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
-                                </div>
-                                <div class="post__title">
-                                    <p>${p.title}</p>
+                            <button type="submit" class="post__detail">
+                                <input type="hidden" value="${p.postID}" name="postID">
+                                <div class="post__short">
+                                    <p>${p.updatedDate}</p>
                                 </div>
                                 <div class="post__info">
-                                    <p>${p.briefInfo}</p>
+                                    <div class="post__thumbnail">
+                                        <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
+                                    </div>
+                                    <div class="post__title">
+                                        <p>${p.title}</p>
+                                    </div>
+                                    <div class="post__info">
+                                        <p>${p.briefInfo}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="post__detail">
-                                <button type="submit">View Detail <i class="fa fa-arrow-circle-right"></i></button>
-                            </div>
+                            </button>
                         </form>
                     </div>
                 </c:forEach>
@@ -127,12 +122,13 @@
                                     <p>${c.briefInfo}</p>
                                 </div>
                             </div>
+                            <div class="course__detail">
+                                <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
+                                        class="fa fa-arrow-circle-right"></i></a>
+                            </div>  
 
                         </div>
-                        <div class="course__detail">
-                            <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
-                                    class="fa fa-arrow-circle-right"></i></a>
-                        </div>      
+
 
                     </c:forEach>
 
@@ -171,7 +167,6 @@
                         <form action="login" method="POST">
                             <input type="text" name="email" id="emailLogin" placeholder="Enter your email" required>
                             <input type="password" name="password" id="password" placeholder="Enter your password" required>
-
                             <div class="popup__reset">
                                 <a href="#">Forgot password?</a>
                             </div>

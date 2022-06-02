@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * @author ADMIN
  */
 public class Category {
-
     private int categoryID;
     private String categoryName;
     private ArrayList<Subcategory> subcategories;
@@ -31,7 +30,6 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-
     public ArrayList<Subcategory> getSubcategories() {
         return subcategories;
     }
@@ -39,5 +37,4 @@ public class Category {
     public void setSubcategories(ArrayList<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
-
 }

@@ -36,7 +36,6 @@
     </head>
 
     <body>
-
         <header>
             <div class="heading_logo">
                 <p>LOGO</p>
