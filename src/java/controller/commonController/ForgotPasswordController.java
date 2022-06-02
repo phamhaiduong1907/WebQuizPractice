@@ -92,13 +92,15 @@ public class ForgotPasswordController extends HttpServlet {
                 response.sendRedirect("home?resetPasswordMessage=" + sendEmailsuccessfullyMessage);
 
             } catch (Exception ex) {
-                response.sendRedirect("home?resetPasswordMessage=" + sendEmailFailedmessage);
 
                 Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
             }
 //            request.getRequestDispatcher("index.jsp").forward(request, response);
 
 ////            response.sendRedirect("home");
+        } else {
+            response.sendRedirect("home?resetPasswordMessage=" + sendEmailFailedmessage);
+
         }
     }
 

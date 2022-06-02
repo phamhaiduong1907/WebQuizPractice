@@ -22,7 +22,6 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-<<<<<<< HEAD
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
@@ -32,13 +31,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog/detail.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
-=======
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/blog/detail.css">
->>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
     </head>
     <body>
         <header>
@@ -48,10 +40,9 @@
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
-<<<<<<< HEAD
                     <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
-                    <c:if  test="${sessionScope.account == null}">
+                        <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
@@ -68,11 +59,6 @@
                             </div>
                         </li>
                     </c:if>
-=======
-                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
-                    <li><a href="bloglist">Blog</a></li>
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
->>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
                 </ul>
             </nav>
         </header>
@@ -159,7 +145,6 @@
             </section>
         </div>
 
-<<<<<<< HEAD
         <c:if test="${sessionScope.account != null}">
             <section class="popup" style="display: <c:choose>
                          <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
@@ -291,97 +276,48 @@
                         </div>
                     </div>
 
-                    <div class="popup__reset-form" style="display: none;">
+                    <div class="popup__reset-form" style="display: <c:choose>
+                             <c:when test="${param.resetPasswordMessage != null}">
+                                 <%="block;"%>
+                             </c:when>
+                             <c:otherwise>
+                                 <%="none;"%>
+                             </c:otherwise>
+                         </c:choose>">
                         <i class="fa fa-arrow-left"></i>
                         <h2>Reset Password</h2>
                         <div class="form__reset">
-                            <form action="#">
+                            <form action="forgotPassword" method="POST">
                                 <input type="text" name="email" id="emailReset"
-                                       placeholder="Enter your email to reset your password">
+                                       placeholder="Enter your email to reset your password" onkeyup='check();'>
                                 <div class="form__button">
-                                    <button type="submit">Verify your email</button>
+                                    <button type="submit" id="resetButton">Verify your email</button>
                                 </div>
                             </form>
+
+                        </div>
+                        <div class="message__box">
+                            <p id="validFormMessage"></p>
+                            <p>${param.resetPasswordMessage}</p>  
                         </div>
                     </div>
                 </div>
             </section>
         </c:if>
-=======
-        <section class="popup">
-            <div class="popup__content">
-                <img src="../../images/close.png" alt="" class="close">
-
-                <div class="popup__login-form">
-                    <h2>Welcome to Quiz Practice</h2>
-                    <div class="form__login">
-                        <form action="#">
-                            <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
-                            <input type="text" name="password" id="password" placeholder="Enter your password">
-                            <div class="popup__reset">
-                                <a href="#">Forgot password?</a>
-                            </div>
-                            <div class="form__button">
-                                <button type="submit">Login</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="popup__signup">
-                        <a href="#">Don't have any account? Sign up here</a>
-                    </div>
-                </div>
-
-                <div class="popup__signup-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Register for Quiz Practice</h2>
-                    <div class="form_signup">
-                        <form action="#">
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name">
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name">
-                            <input type="text" name="email" id="emailSignup" placeholder="Email">
-                            <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                            <input type="password" name="password" id="password" placeholder="Password">
-                            <input type="password" name="confirmPassword" id="confirmPassword"
-                                   placeholder="Confirm password">
-                            <div class="form__button">
-                                <button type="submit">Register</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="popup__reset-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Reset Password</h2>
-                    <div class="form__reset">
-                        <form action="#">
-                            <input type="text" name="email" id="emailReset"
-                                   placeholder="Enter your email to reset your password">
-                            <div class="form__button">
-                                <button type="submit">Verify your email</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
->>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
 
         <footer>
             <p>COPYRIGHT</p>
         </footer>
 
-<<<<<<< HEAD
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        
+
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
-=======
-        <script src="../../js/script.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
+        <script src="${pageContext.request.contextPath}/js/common/home.js"></script>
+
+
     </body>
 
 </html>

@@ -28,14 +28,14 @@
     <body>
         <header>
             <div class="heading_logo">
-                <p>LOGO</p>
+                <img src="images/logo.png" alt="alt"/>
             </div>
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
                     <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
-                    <c:if  test="${sessionScope.account == null}">
+                        <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
@@ -355,19 +355,31 @@
                         </div>
                     </div>
 
-                    <div class="popup__reset-form" style="display: none;">
-                        <i class="fa fa-arrow-left"></i>
-                        <h2>Reset Password</h2>
-                        <div class="form__reset">
-                            <form action="#">
-                                <input type="text" name="email" id="emailReset"
-                                       placeholder="Enter your email to reset your password">
-                                <div class="form__button">
-                                    <button type="submit">Verify your email</button>
-                                </div>
-                            </form>
-                        </div>
+                      <div class="popup__reset-form" style="display: <c:choose>
+                         <c:when test="${param.resetPasswordMessage != null}">
+                             <%="block;"%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
+                    <i class="fa fa-arrow-left"></i>
+                    <h2>Reset Password</h2>
+                    <div class="form__reset">
+                        <form action="forgotPassword" method="POST">
+                            <input type="text" name="email" id="emailReset"
+                                   placeholder="Enter your email to reset your password" onkeyup='check();'>
+                            <div class="form__button">
+                                <button type="submit" id="resetButton">Verify your email</button>
+                            </div>
+                        </form>
+
                     </div>
+                    <div class="message__box">
+                        <p id="validFormMessage"></p>
+                        <p>${param.resetPasswordMessage}</p>  
+                    </div>
+                </div>
                 </div>
             </section>
         </c:if>

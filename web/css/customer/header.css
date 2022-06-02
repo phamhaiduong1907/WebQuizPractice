@@ -34,10 +34,10 @@ nav ul li:last-child:hover .submenu{
 
 
 #loginButton{
-    padding: 0 10px;
-    height: 100%;
-    line-height: 60px;
-    }
+    padding: 0 10px !important;
+    height: 100% !important;
+    line-height: 90px !important;
+}
 
 .submenu li:hover{
     background-color: blue;

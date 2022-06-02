@@ -35,7 +35,7 @@
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
-                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                    <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
@@ -110,21 +110,23 @@
             <div class="subject__container">
                 <div class="subject__content">
                     <c:forEach items="${requestScope.courses}" var="c">
+
                         <div class="subject__card">
                             <div class="subject__card-content">
                                 <div class="subject__thumnail post__thumbnail">
                                     <img src="images/thumbnails/${c.thumbnailUrl}">
                                 </div>
+
                                 <div class="subject__title post__title">
-                                    <p>${c.courseName}</p>
+                                    <a href="subjectdetail?subjectID=${c.courseID}"><p>${c.courseName}</p></a>
+
+
                                 </div>
                                 <div class="subject__description">
                                     <p>${c.briefInfo}</p>
                                 </div>
                             </div>
                             <div class="course__detail">
-                                <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
-                                        class="fa fa-arrow-circle-right"></i></a>
                             </div>  
 
                         </div>
