@@ -1,0 +1,43 @@
+
+
+.option {
+  margin: 50px 0;
+  font-size: 20px;
+  text-align: left;
+}
+
+.option .sub__option {
+  margin-left: auto;
+  width: 70%;
+  margin-top: 20px;
+}
+
+.option .nav__link{
+  text-align: right;
+  margin: 40px 50px 20px 0;
+}
+
+.nav__link a{
+  margin: 10px;
+}
+
+.table__content table, th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+.table__content td:nth-child(4),:nth-child(5){
+  text-align: left;
+}
+
+.sub__option #title{
+  margin-bottom: 10px;
+}
+
+
+
+footer{
+  margin-top: 20px;
+}

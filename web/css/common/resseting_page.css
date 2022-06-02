@@ -1,0 +1,37 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 26, 2022, 9:19:39 PM
+    Author     : ADMIN
+*/
+
+
+.form table{
+    margin: auto;
+    padding: 20px;
+    margin-top: 100px;
+    font-size: 16px;
+    background-color: #382d8b;
+    font-family: "Source Sans Pro",Arial,sans-serif;
+    font-weight: 600;
+    box-shadow: 1px 1px 1px 1px grey;
+    color: white;
+    border-radius: 5px;
+
+}
+
+
+
+.messageBox{
+    text-align: center;
+}
+
+.success__message{
+    color: green;
+}
+
+.failed__message{
+    color: red;
+}

@@ -1,0 +1,26 @@
+.right_content{
+    padding: 30px;
+}
+
+.right_content h1{
+    font-size: 30px;
+}
+
+label, select,input, textarea{
+    display: block;
+    width: 100%;
+}
+
+.form_content{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+#statusItem input{
+    display: inline;
+    width: auto;
+}
+
+#descriptionItem{
+    grid-column: 1 / span 2;
+}

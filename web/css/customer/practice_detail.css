@@ -1,0 +1,27 @@
+.detail__wrapper{
+    width: 30%;
+    border: 1px solid black;
+    margin: 30px auto;
+    padding: 30px 15px;
+}
+
+.detail__heading{
+    margin-bottom: 30px;
+}
+
+.detail__options-item label,
+.detail__options-item input,
+.detail__options-item select{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.detail__options-item input,
+.detail__options-item select{
+    padding: 5px;
+    width: 100%;
+}
+
+.detail__form-submit-btn button{
+    padding: 5px;
+}

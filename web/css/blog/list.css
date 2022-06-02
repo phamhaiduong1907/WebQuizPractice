@@ -1,0 +1,203 @@
+.heading {
+    margin-top: 15px;
+}
+
+.heading h1 {
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+}
+
+.main {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post__list {
+    width: 70%;
+}
+
+.post__item {
+    /* border: 1px solid black; */
+    box-shadow: 0 0 3px 3px lightgray;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.post__thumbnail {
+    width: 30%;
+    background-color: #dedede;
+    align-self: stretch;
+}
+
+.post__thumbnail img{
+    width: 100%;
+    height: 100%
+}
+
+.post__content {
+    width: 67%;
+}
+
+.post__content h3 {
+    margin-bottom: 0;
+}
+
+.post__info p {
+    font-size: 12px;
+    color: #696464;
+}
+
+/* reduce word */
+
+.post__review {
+    font-size: 16px;
+    font-weight: 500;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+/* width: 100px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis */
+
+.post__detail {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post__detail button {
+    display: inline-block;
+    width: 120px;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.subcategory__list{
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+}
+
+.pagination ul{
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.pagination{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.pagination ul li{
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.pagination ul li a{
+    text-decoration: none;
+}
+
+.option__box {
+    width: 25%;
+    /* height: 300px; */
+}
+
+.option__filter{
+    padding: 15px;
+    box-shadow: 0 0 3px 3px lightgray;
+}
+
+.option__searchbar form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option__searchbar input, .option__searchbar button, .option__sort select{
+    font-size: 16px;
+    padding: 5px;
+}
+
+.option__searchbar input, .option__sort select{
+    width: 100%;
+}
+
+.option__checkbox{
+    margin-top: 15px;
+}
+
+.option__checkbox h5{
+    margin: 0;
+}
+
+.option__checkbox input{
+    display: inline-block;
+}
+
+.option__options-value{
+    display: flex;
+    flex-direction: column;
+}
+
+.option__sort{
+    margin-top: 15px;
+}
+
+.search__button{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search__button button{
+    padding: 5px;
+}
+
+.contact__link{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.pagination span
+{
+    color: white;
+    font-size: 27px;
+    border: 1px;
+    padding: 10px 25px;
+    background-color: #4CAF50;
+    border-radius: 10px;
+}
+
+.pagination a
+{
+    transition: background-color .2s;
+    color: black;
+    text-decoration: none;
+    font-size: 27px;
+    border:1px;
+    padding: 10px 25px;
+    border-radius: 10px;
+
+}
+
+.pagination a:hover{
+    color: white;
+    background: grey;
+}

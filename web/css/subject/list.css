@@ -1,0 +1,179 @@
+.heading {
+    margin-top: 15px;
+}
+
+.heading h1 {
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+}
+
+.main {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subject__list {
+    width: 70%;
+}
+
+.subject__item {
+    /* border: 1px solid black; */
+    box-shadow: 0 0 3px 3px lightgray;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.subject__thumbnail {
+    width: 22%;
+    background-color: #dedede;
+    align-self: stretch;
+}
+
+.subject__content {
+    width: 75%;
+}
+
+.sbject__content h3 {
+    margin-bottom: 0;
+}
+
+.subject__info p {
+    font-size: 12px;
+    color: #696464;
+}
+
+/* reduce word */
+
+.subject__briefInfo {
+    font-size: 16px;
+    font-weight: 500;
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+/* width: 100px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis */
+.backlink__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.backlink__container div {
+    margin: 0px 12px;
+    text-align: center;
+}
+
+.subject__register {
+    display: inline-block;  
+}
+.subject__register button{
+    padding: 1px 15px;
+    border-radius: 15px;
+}
+.subject__register button:hover{
+    box-shadow: #CCCCCC 2px 2px 3px 3px;
+}
+.subject__detail {
+    display: inline-block;
+}
+
+.subject__detail a {
+    display: inline-block;
+}
+
+.pagination ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.pagination {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.pagination ul li {
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.pagination ul li a {
+    text-decoration: none;
+}
+
+.option__box {
+    width: 25%;
+    /* height: 300px; */
+}
+
+.option__filter {
+    padding: 15px;
+    box-shadow: 0 0 3px 3px lightgray;
+}
+
+.option__searchbar form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option__searchbar input,
+.option__searchbar button,
+.option__sort select {
+    font-size: 16px;
+    padding: 5px;
+}
+
+.option__searchbar input,
+.option__sort select {
+    width: 100%;
+}
+
+.option__checkbox {
+    margin-top: 15px;
+}
+
+.option__checkbox h5 {
+    margin: 0;
+}
+
+.option__checkbox input {
+    display: inline-block;
+}
+
+.option__options-value {
+    display: flex;
+    flex-direction: column;
+}
+
+.option__sort {
+    margin-top: 15px;
+}
+
+.search__button {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search__button button {
+    padding: 5px;
+}
+
+.contact__link {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
