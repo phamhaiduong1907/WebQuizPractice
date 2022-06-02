@@ -6,9 +6,10 @@ package model;
 
 /**
  *
- * @author Hai Tran
+ * @author ADMIN
  */
 public class Subcategory {
+
     private int subcategoryID;
     private int categoryID;
     private String subcategoryName;
@@ -37,5 +38,4 @@ public class Subcategory {
         this.subcategoryName = subcategoryName;
     }
 
-    
 }

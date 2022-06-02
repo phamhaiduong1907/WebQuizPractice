@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Category;
 import model.Post;
-import model.Subcategory;
 
 /**
  *
@@ -47,8 +46,9 @@ public class BlogListController extends HttpServlet {
         if (pageindex <= 0) {
             pageindex = 1;
         }
-        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
         ArrayList<Category> categories = dbCate.getCategories(1);
+
+        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
         int count = dbBlog.count();
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
         request.setAttribute("categories", categories);

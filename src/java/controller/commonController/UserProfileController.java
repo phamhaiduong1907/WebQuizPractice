@@ -30,9 +30,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Zuys
  */
-@MultipartConfig(location = "D:\\Uni\\Summer 2022\\swp\\project\\SWP391-SE1617NET-QuizWebsite-G06\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UserProfileController extends HttpServlet {
+
+    final static String PICTUREPROFILEURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003\\web\\images\\profile";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -106,10 +108,10 @@ public class UserProfileController extends HttpServlet {
 
             }
 
-            File file = new File("D:\\Uni\\Summer 2022\\swp\\project\\SWP391-SE1617NET-QuizWebsite-G06\\web\\images\\profile\\" + profilePicName);
+            File file = new File(PICTUREPROFILEURI+"\\" + profilePicName);
             if (file.exists()) {
-                Path source = Paths.get("D:\\Uni\\Summer 2022\\swp\\project\\SWP391-SE1617NET-QuizWebsite-G06\\web\\images\\profile\\" + profilePicName);
-                Files.move(source, source.resolveSibling("D:\\Uni\\Summer 2022\\swp\\project\\SWP391-SE1617NET-QuizWebsite-G06\\web\\images\\profile\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                Path source = Paths.get(PICTUREPROFILEURI+"\\" + profilePicName);
+                Files.move(source, source.resolveSibling(PICTUREPROFILEURI+"\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
 
                 User user = new User();
                 user.setAccount(account);
@@ -123,7 +125,7 @@ public class UserProfileController extends HttpServlet {
                 dbUser.updateUser(user);
                 request.getSession().setAttribute("profile_status", "Update successfully!");
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("home");      
+                response.sendRedirect("home");
             } else {
                 request.getSession().setAttribute("profile_status", "File saving problem");
                 response.sendRedirect("home");
@@ -147,7 +149,7 @@ public class UserProfileController extends HttpServlet {
     }
 
     public File getFolderUpload() {
-        File folderUpload = new File("D:\\SWP\\I1\\summer2022-se1617-g6\\web\\images\\profile");
+        File folderUpload = new File(PICTUREPROFILEURI);
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();
         }

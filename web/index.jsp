@@ -127,11 +127,13 @@
                                     <p>${c.briefInfo}</p>
                                 </div>
                             </div>
-                            <div class="course__detail">
-                                <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
-                                        class="fa fa-arrow-circle-right"></i></a>
-                            </div>
+
                         </div>
+                        <div class="course__detail">
+                            <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
+                                    class="fa fa-arrow-circle-right"></i></a>
+                        </div>      
+
                     </c:forEach>
 
                 </div>
@@ -142,7 +144,7 @@
 
         <section class="popup" style="display: <c:choose>
 
-                 <c:when test="${requestScope.login_status != null || requestScope.register_status != null || param.resetPasswordMessage != null }">
+                 <c:when test="${sessionScope.login_status != null || sessionScope.register_status != null || param.resetPasswordMessage != null }">
                      <%="flex; "%>
                  </c:when>
                  <c:otherwise>
@@ -180,7 +182,8 @@
 
                     </div>
                     <div class="message__box">
-                        <p>${requestScope.login_status}</p>                       
+                        <p>${sessionScope.login_status}</p>   
+                        <c:remove var="login_status" scope="session"/>
                     </div>
 
 
@@ -192,7 +195,7 @@
 
 
                 <div class="popup__signup-form" style="display: <c:choose>
-                         <c:when test="${requestScope.register_status != null}">
+                         <c:when test="${sessionScope.register_status != null}">
                              <%="block; "%>
                          </c:when>
                          <c:otherwise>
@@ -221,7 +224,8 @@
                         </form>
                     </div>
                     <div class="message__box">
-                        <p>${requestScope.register_status}</p>                       
+                        <p>${sessionScope.register_status}</p>
+                        <c:remove var="register_status" scope="session"/>
                     </div>
                 </div>
 

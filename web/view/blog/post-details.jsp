@@ -22,11 +22,15 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/blog/detail.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog/list.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog/detail.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
     </head>
     <body>
         <header>
@@ -36,9 +40,25 @@
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
-                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                    <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login" id="loginButton">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
+                                <c:out value="${sessionScope.account.username}"/>
+                            </a>
+                            <div class="submenu">
+                                <ul>
+                                    <li><a href="#" id="openProfile">User Profile</a></li>
+                                    <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                    <li><a href="logout">Log out</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </c:if>
                 </ul>
             </nav>
         </header>
@@ -125,70 +145,164 @@
             </section>
         </div>
 
-        <section class="popup">
-            <div class="popup__content">
-                <img src="../../images/close.png" alt="" class="close">
+        <c:if test="${sessionScope.account != null}">
+            <section class="popup" style="display: <c:choose>
+                         <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
+                             <%="flex; "%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
+                <div class="popup__content" style="height: 98%;">
+                    <img src="images/close.png" alt="" class="close">
 
-                <div class="popup__login-form">
-                    <h2>Welcome to Quiz Practice</h2>
-                    <div class="form__login">
-                        <form action="#">
-                            <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
-                            <input type="text" name="password" id="password" placeholder="Enter your password">
-                            <div class="popup__reset">
-                                <a href="#">Forgot password?</a>
+                    <div class="form_user-profile" style="display: <c:choose>
+                             <c:when test="${sessionScope.profile_status != null}">
+                                 <%="block; "%>
+                             </c:when>
+                             <c:otherwise>
+                                 <%="none;"%>
+                             </c:otherwise>
+                         </c:choose>">
+                        <h2>User Profile</h2>
+                        <form action="profile" method="POST" enctype="multipart/form-data">
+
+                            <div class="user__avatar">
+                                <c:choose>
+                                    <c:when test="${sessionScope.user.profilePictureUrl != 'none'}">
+                                        <img src="<c:out value="${sessionScope.user.profilePictureUrl}"/>" id="photo">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="images/profile/default.jpg" id="photo">
+                                    </c:otherwise>
+                                </c:choose>
+                                <input type="file" name="profilePicture" id="profilePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
+                                <label for="profilePicture" title="Please update your picture!" id="uploadBtn" style="top: 35%">Choose Photo</label>
                             </div>
+                            <input type="text" name="email" id="email" value="<c:out value="${sessionScope.user.account.username}"/>" disabled placeholder="Your email">
+                            <input type="text" name="firstName" id="firstName" value="<c:out value="${sessionScope.user.firstName}"/>" title="Your name can't be empty" placeholder="Enter your first name" required>
+                            <input type="text" name="lastName" id="lastName" value="<c:out value="${sessionScope.user.lastName}"/>" title="Your name can't be empty" placeholder="Enter your last name" required>
+                            <input type="text" name="phone" id="phone" value="<c:out value="${sessionScope.user.phoneNumber}"/>" pattern="[0-9]{9,10}" title="Please enter a valid phone number (9-10 number with no separator)" placeholder="Enter your phone" required>
+                            <div class="profile__gender signup__gender">
+                                <h5>Gender</h5>
+
+                                <input type="radio" name="gender" value="male" <c:if test="${sessionScope.user.gender}">
+                                       checked="checked"
+                                    </c:if> id="" required> <p>Male</p>
+
+                                <input type="radio" name="gender" value="female" <c:if test="${!sessionScope.user.gender}">
+                                       checked="checked"
+                                    </c:if> id="" required> <p>Female</p>
+
+                            </div>
+                            <input type="text" name="address" id="address" title="Your address can't be empty" value="<c:out value="${sessionScope.user.address}"/>" placeholder="Enter your address" required>
                             <div class="form__button">
-                                <button type="submit">Login</button>
+                                <button type="submit">Save</button>
                             </div>
                         </form>
+                        <div class="message__box">
+                            <p>${sessionScope.profile_status}</p>
+                        </div>
                     </div>
-                    <div class="popup__signup">
-                        <a href="#">Don't have any account? Sign up here</a>
+
+                    <div class="form__change-password" style="display: <c:choose>
+                             <c:when test="${sessionScope.changepass_status != null}">
+                                 <%="block; "%>
+                             </c:when>
+                             <c:otherwise>
+                                 <%="none;"%>
+                             </c:otherwise>
+                         </c:choose>">
+                        <h2>Change Password</h2>
+                        <form action="changepass" method="POST" onsubmit="return checkOldNewPass()">
+                            Enter current password: <input type="password" name="currentPassword" id="currentPassword" required pattern="${sessionScope.account.password}" title="Must matches current password" placeholder="Enter your current password">
+                            Enter new password: <input type="password" name="newPassword" id="newPassword" onchange="checkPassword()" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="Enter new password">
+                            Confirm new password: <input type="password" name="confirmNewPassword" id="confirmNewPassword" required placeholder="Reenter your new password">
+                            <div class="form__button">
+                                <button type="submit">Save</button>
+                            </div>
+                        </form>
+                        <div class="message__box">
+                            <p>${sessionScope.changepass_status}</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="popup__signup-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Register for Quiz Practice</h2>
-                    <div class="form_signup">
-                        <form action="#">
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name">
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name">
-                            <input type="text" name="email" id="emailSignup" placeholder="Email">
-                            <input type="text" name="phone" id="phone" placeholder="Phone Number">
-                            <input type="password" name="password" id="password" placeholder="Password">
-                            <input type="password" name="confirmPassword" id="confirmPassword"
-                                   placeholder="Confirm password">
-                            <div class="form__button">
-                                <button type="submit">Register</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            </section>
+        </c:if>
+        <c:if  test="${sessionScope.account == null}">
+            <!-- POPUP -->
+            <section class="popup">
+                <div class="popup__content">
+                    <img src="images/close.png" alt="" class="close">
 
-                <div class="popup__reset-form" style="display: none;">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Reset Password</h2>
-                    <div class="form__reset">
-                        <form action="#">
-                            <input type="text" name="email" id="emailReset"
-                                   placeholder="Enter your email to reset your password">
-                            <div class="form__button">
-                                <button type="submit">Verify your email</button>
-                            </div>
-                        </form>
+                    <div class="popup__login-form">
+                        <h2>Welcome to Quiz Practice</h2>
+                        <div class="form__login">
+                            <form action="#">
+                                <input type="text" name="email" id="emailLogin" placeholder="Enter your email">
+                                <input type="text" name="password" id="password" placeholder="Enter your password">
+
+                                <div class="popup__reset">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <div class="form__button">
+                                    <button type="submit">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="popup__signup">
+                            <a href="#">Don't have any account? Sign up here</a>
+                        </div>
+                    </div>
+
+                    <div class="popup__signup-form" style="display: none;">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Register for Quiz Practice</h2>
+                        <div class="form_signup">
+                            <form action="#">
+                                <input type="text" name="firstName" id="firstName" placeholder="First Name">
+                                <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+                                <input type="text" name="email" id="emailSignup" placeholder="Email">
+                                <input type="text" name="phone" id="phone" placeholder="Phone Number">
+                                <input type="password" name="password" id="password" placeholder="Password">
+                                <input type="password" name="confirmPassword" id="confirmPassword"
+                                       placeholder="Confirm password">
+                                <div class="form__button">
+                                    <button type="submit">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="popup__reset-form" style="display: none;">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Reset Password</h2>
+                        <div class="form__reset">
+                            <form action="#">
+                                <input type="text" name="email" id="emailReset"
+                                       placeholder="Enter your email to reset your password">
+                                <div class="form__button">
+                                    <button type="submit">Verify your email</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </c:if>
 
         <footer>
             <p>COPYRIGHT</p>
         </footer>
 
-        <script src="../../js/script.js"></script>
+        <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
+        <script src="${pageContext.request.contextPath}/js/profile.js"></script>
+        <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
     </body>
 
 </html>

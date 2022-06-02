@@ -149,7 +149,7 @@
 
 
 .course__detail{
-    position: absolute;
+    position: relative;
     bottom: 50px;
 }
 

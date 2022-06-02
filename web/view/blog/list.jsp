@@ -17,13 +17,14 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/blog/list.css">
-        <link rel="stylesheet" href="css/customer/header.css">
-        <link rel="stylesheet" href="css/common/profile.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog/list.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
 
 
         <%
@@ -40,7 +41,7 @@
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
-                    <li><a href="../subject/subjectlist.html">Subject</a></li>
+                    <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
                         <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton">Log in</a></li>
@@ -156,7 +157,7 @@
                              <%="none;"%>
                          </c:otherwise>
                      </c:choose>">
-                <div class="popup__content" style="height: 98%;">
+                <div class="popup__content" >
                     <img src="images/close.png" alt="" class="close">
 
                     <div class="form_user-profile" style="display: <c:choose>
@@ -172,7 +173,7 @@
 
                             <div class="user__avatar">
                                 <c:choose>
-                                    <c:when test="${sessionScope.user.profilePictureUrl} != none">
+                                    <c:when test="${sessionScope.user.profilePictureUrl != 'none'}">
                                         <img src="<c:out value="${sessionScope.user.profilePictureUrl}"/>" id="photo">
                                     </c:when>
                                     <c:otherwise>
