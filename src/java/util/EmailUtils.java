@@ -18,7 +18,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.Account;
 import model.Email;
 
 /**
@@ -29,6 +28,7 @@ import model.Email;
 public class EmailUtils {
 
     private final String KEY = "dsacnq&23nd3";
+    private final int EXPIRED = 30;
 
     public static void send(Email email) throws Exception {
         Properties prop = new Properties();
@@ -69,7 +69,7 @@ public class EmailUtils {
                 .claim("username", username)
                 .signWith(SignatureAlgorithm.HS512, KEY)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                .setExpiration(Date.from(now.plus(EXPIRED, ChronoUnit.MINUTES)))
                 .compact();
     }
 

@@ -17,6 +17,7 @@ public class Role {
     private ArrayList<Feature> features;
 
     public Role() {
+        this.features = new ArrayList<>();
     }
 
     public int getRoleID() {
@@ -33,10 +34,6 @@ public class Role {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
-    }
-
-    public Role(ArrayList<Feature> features) {
-        this.features = features;
     }
 
     public ArrayList<Feature> getFeatures() {

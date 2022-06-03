@@ -1,8 +1,7 @@
-    
-
 <!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -23,8 +22,6 @@
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/common/home.css">
-
-
     </head>
 
     <body>
@@ -140,7 +137,7 @@
 
 
 
-        <section class="popup" style="display: <c:choose>
+        <section class="popup" id="popupSection" style="display: <c:choose>
 
                  <c:when test="${sessionScope.login_status != null || sessionScope.register_status != null || param.resetPasswordMessage != null }">
                      <%="flex; "%>
@@ -154,7 +151,7 @@
             <div class="popup__content">
                 <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
 
-                <div class="popup__login-form" style="display: <c:choose>
+                <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
                          <c:when test="${sessionScope.login_status != null }">
                              <c:out value="block;"/>
                          </c:when>
@@ -269,6 +266,7 @@
         <script src="js/common/home.js"></script>
 
         <script src="js/register.js"></script>
+        <script src="js/requireLogin.js"></script>
     </body>
 
 </html>

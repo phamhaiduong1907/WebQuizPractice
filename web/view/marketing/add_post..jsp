@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz List</title>
+    <title>Post</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../../css/marketing/default_marketing.css">
     <link rel="stylesheet" href="../../css/admin/index.css">
     <link rel="stylesheet" href="../../css/popup.css">
-    <link rel="stylesheet" href="../../css/testcontent/detail.css">
-
+    <link rel="stylesheet" href="../../css/marketing/add_post.css">
 </head>
 
 <body>
@@ -24,7 +26,7 @@
         <div class="user_bar">
             <div class="user_log">
                 <i class="fa fa-user-circle"></i>
-                <span class="user_name">Administrator</span>
+                <span class="user_name">Marketing</span>
                 <div class="submenu">
                     <ul>
                         <li><a href="#" id="openProfile">User Profile</a></li>
@@ -35,81 +37,72 @@
             </div>
         </div>
     </header>
+
     <section class="main">
+        <!-- LEFT NAVIGATION BAR -->
         <aside class="left">
             <nav>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Posts</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="post.html">Posts</a></li>
                     <li><a href="#">Sliders</a></li>
-                    <li><a href="../admin/system.html">System Settings</a></li>
-                    <li><a href="../admin/user_list.html">Users</a></li>
-                    <li><a href="#">Course</a></li>
-                    <li><a href="quizlist.html">Test</a></li>
-                    <li><a href="#">Quiz</a></li>
                 </ul>
             </nav>
         </aside>
+
+        <!-- RIGHT CONTENT -->
         <aside class="right">
             <div class="right_content">
-                <div class="right_header">
-                    <h1><i class="fa-solid fa-question" aria-hidden="true"></i></i>Edit quiz detail</h1>
-                </div>
-                <div class="quiz__detail">
-                    <div class="quiz__left">
-                        <div class="quiz__name">
-                            <label>Quiz name: </label>
-                            <input type="text">
-                        </div>
-                        <div class="subject__name">
-                            <label>Subject: </label>
-                            <input type="text">
-                        </div>
-                        <div class="quiz__type">
-                            <label>Quiz type: </label>
-                            <select>
-                                <option value="" disabled selected>Quiz Type</option>
-                                <option value="">Image</option>
-                                <option value="">Theory</option>
-                            </select>
-                        </div>
-                        <div class="quiz__attachment">
-                            <button>
-                                <input type="file" name="" id="file" style="display: none;">
-                                <label for="file">Add quiz attachment</label>
-                            </button>
-                            <i class="fa-solid fa-upload"></i>
-                        </div>
-                        <div class="quiz__save">
-                            <button>Save</button>
-                        </div>
-                    </div>
-                    <div class="quiz__right">
-                        <div class="quiz__level">
-                            <label for="">Level: </label>
-                            <select name="" id="">
-                                <option value="" disabled selected>Level</option>
-                                <option value="">Easy</option>
-                                <option value="">Medium</option>
-                                <option value="">Hard</option>
-                            </select>
-                        </div>
-                        <div class="quiz__duration">
-                            <label for="">Duration: </label>
-                            <input type="text">
-                            <label for="">hours</label>
-                            <input type="text">
-                            <label for="">minutes</label>
-                        </div>
-                        <div class="quiz__download">
-                            <a href="" download="">Download quiz template
-                            </a>
-                            <i class="fa-solid fa-download"></i>
-                        </div>
-                    </div>
-                </div>
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Post</a></li>
+                    <li><a href="#">Add a post</a></li>
+
+                  </ul>
             </div>
 
+            <div class="input__table">
+                <table>
+                    <tr>
+                        <td>Thumbnail: </td>
+                        <td><input type="text" name="thumbnail" id="thumbnail"></td>
+                    </tr>
+                    <tr>
+                        <td>Category: </td>
+                        <td><select name="category" id="category">
+                            <option value="">Option 1</option>
+                            <option value="">Option 2</option>
+                            <option value="">Option 3</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Title: </td>
+                        <td><input type="text" name="title" id="title"></td>
+                    </tr>
+                    <tr>
+                        <td>Brief information: </td>
+                        <td><input type="text" name="briefInfo" id="briefInfo"></td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td><input type="text" name="description" id="description"></td>
+                    </tr>
+                    <tr>
+                        <td>Feature: </td>
+                        <td><input type="checkbox" name="isFeature" id="isFeature"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <input type="submit"></td>
+                    </tr>
+
+                </table>
+
+               
+            </div>
+
+          
+            
             <footer>
                 FOOTER
             </footer>

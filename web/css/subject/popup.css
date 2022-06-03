@@ -16,6 +16,7 @@
 }
 
 .register__form {
+    z-index: 10000;
     position: relative;
     width: 35%;
     background-color: white;

@@ -6,9 +6,7 @@ package controller.publicController;
 
 import dal.BlogDBContext;
 import dal.CategoryDBContext;
-import dal.SubCategoryDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,7 +52,7 @@ public class BlogListController extends HttpServlet {
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("search", count);
-        request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);
+        request.getRequestDispatcher("view/blog/list.jsp").forward(request, response);
     }
 
     /**

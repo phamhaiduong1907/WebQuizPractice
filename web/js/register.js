@@ -1,4 +1,6 @@
 
+
+
 function matchPassword() {
     var pw1 = document.getElementById("passwordReg");
     var pw2 = document.getElementById("confirmPassword");
@@ -6,3 +8,5 @@ function matchPassword() {
     pw2.pattern = pw1.value;
 }
 
+
+//

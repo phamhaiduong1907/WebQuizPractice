@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +7,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Question List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../../css/admin/index.css">
     <link rel="stylesheet" href="../../css/popup.css">
-    <link rel="stylesheet" href="../../css/testcontent/list.css">
-
+    <link rel="stylesheet" href="../../css/admin/system.css">
 </head>
 
 <body>
@@ -36,6 +36,7 @@
         </div>
     </header>
     <section class="main">
+
         <aside class="left">
             <nav>
                 <ul>
@@ -45,128 +46,105 @@
                     <li><a href="../admin/system.html">System Settings</a></li>
                     <li><a href="../admin/user_list.html">Users</a></li>
                     <li><a href="#">Course</a></li>
-                    <li><a href="quizlist.html">Test</a></li>
+                    <li><a href="#">Test</a></li>
                     <li><a href="#">Quiz</a></li>
                 </ul>
             </nav>
         </aside>
+
         <aside class="right">
             <div class="right_content">
-                <div class="right_header">
-                    <h1><i class="fa-solid fa-question" aria-hidden="true"></i></i>Quiz List</h1>
-                </div>
-                <div class="quiz__list__tool">
+                <h1>QUESTION LIST</h1>
+                <div class="setting_tool">
                     <div class="search_form">
-                        <form action="#" class="search__section">
+                        <form action="#" id="search">
                             <select name="" id="#">
-                                <option value="" disabled selected>Subjects</option>
+                                <option value="">All subject</option>
                                 <option value="">Subject 1</option>
                                 <option value="">Subject 2</option>
-                                <option value="">Subject 3</option>
+                                <option value="">...</option>
                             </select>
                             <select name="" id="#">
-                                <option value="" disabled selected>Quiz Type</option>
+                                <option value="">All lesson</option>
+                                <option value="">Lesson 1</option>
+                                <option value="">Lesson 2</option>
+                                <option value="">...</option>
+                            </select>
+                            <select name="" id="#">
+                                <option value="">All dimension</option>
+                                <option value="">Dimension 1</option>
+                                <option value="">Dimension 2</option>
+                                <option value="">...</option>
+                            </select>
+                            <select name="" id="#">
+                                <option value="">All level</option>
+                                <option value="">Easy</option>
+                                <option value="">Medium</option>
+                                <option value="">Hard</option>
+                            </select>
+                            <select name="" id="#">
+                                <option value="">All status</option>
                                 <option value="">Active</option>
                                 <option value="">Inactive</option>
                             </select>
-                            <input type="text" name="" id="" placeholder="Search by name">
+                            <input type="text" name="" id="" placeholder="Type name to search">
                             <button type="submit">Search</button>
                         </form>
                     </div>
-                    <div class="adding__quiz">
-                        <a href="addingquiz.html">Add a quiz</a>
+                    <div class="add_setting">
+                        <a href="#">Import Question</a>
                     </div>
                 </div>
-                <table class="quiz__list">
+                <table class="setting_list">
                     <tr>
                         <td>ID</td>
-                        <td>Name</td>
+                        <td>Content</td>
                         <td>Subject</td>
+                        <td>Dimension</td>
+                        <td>Lesson</td>
                         <td>Level</td>
-                        <td>Question</td>
-                        <td>Duration</td>
-                        <td>Pass rate</td>
-                        <td>Quiz type</td>
-                        <td>Function</td>
+                        <td>Status</td>
+                        <td>Action</td>
                     </tr>
                     <tr>
-                        <td>142</td>
-                        <td>Quiz 1</td>
-                        <td>Math</td>
+                        <td>1</td>
+                        <td>Content of lesson 1</td>
+                        <td>Subject 1</td>
+                        <td>Dimension 1</td>
+                        <td>Lesson 1</td>
                         <td>Easy</td>
-                        <td>U/K</td>
-                        <td>1 hour</td>
-                        <td>90%</td>
-                        <td>Image</td>
+                        <td>Active</td>
                         <td>
-                            <a href="quizdetail.html">Edit quiz detail</a>
+                            <a href="#">Edit</a>
+                            <a href="#">Deactive</a>
                         </td>
                     </tr>
                     <tr>
-                        <td>143</td>
-                        <td>Quiz 2</td>
-                        <td>Math</td>
-                        <td>Easy</td>
-                        <td>U/K</td>
-                        <td>1 hour</td>
-                        <td>90%</td>
-                        <td>Image</td>
-                        <td>
-                            <a href="quizdetail.html">Edit quiz detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>144</td>
-                        <td>Quiz 3</td>
-                        <td>Math</td>
+                        <td>2</td>
+                        <td>Content of lesson 2</td>
+                        <td>Subject 2</td>
+                        <td>Dimension 2</td>
+                        <td>Lesson 2</td>
                         <td>Medium</td>
-                        <td>U/K</td>
-                        <td>1 hour</td>
-                        <td>80%</td>
-                        <td>Image</td>
+                        <td>Inactive</td>
                         <td>
-                            <a href="quizdetail.html">Edit quiz detail</a>
+                            <a href="#">Edit</a>
+                            <a href="#">Activate</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>145</td>
-                        <td>Quiz 4</td>
-                        <td>Math</td>
-                        <td>Medium</td>
-                        <td>U/K</td>
-                        <td>1 hour</td>
-                        <td>80%</td>
-                        <td>Image</td>
-                        <td>
-                            <a href="quizdetail.html">Edit quiz detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>146</td>
-                        <td>Quiz 5</td>
-                        <td>Math</td>
-                        <td>Hard</td>
-                        <td>U/K</td>
-                        <td>1 hour</td>
-                        <td>75%</td>
-                        <td>Image</td>
-                        <td>
-                            <a href="quizdetail.html">Edit quiz detail</a>
-                        </td>
-                    </tr>
+
                 </table>
                 <div class="pagination">
                     <ul>
                         <li>
                             << </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li> >> </li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li> >> </li>
                     </ul>
                 </div>
             </div>
-
             <footer>
                 FOOTER
             </footer>
@@ -217,6 +195,7 @@
     </section>
 
     <script src="../../js/userPopup.js"></script>
+
 </body>
 
 </html>

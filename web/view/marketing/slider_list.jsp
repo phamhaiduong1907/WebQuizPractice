@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +7,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sale Index</title>
+    <title>Slider List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/admin/index.css">
     <link rel="stylesheet" href="../../css/popup.css">
+    <link rel="stylesheet" href="../../css/slider/slider list.css">
 </head>
 
 <body>
@@ -22,7 +25,7 @@
         <div class="user_bar">
             <div class="user_log">
                 <i class="fa fa-user-circle"></i>
-                <span class="user_name">Salesperson</span>
+                <span class="user_name">Marketing</span>
                 <div class="submenu">
                     <ul>
                         <li><a href="#" id="openProfile">User Profile</a></li>
@@ -40,7 +43,6 @@
             <nav>
                 <ul>
                     <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Registration</a></li>
                     <li><a href="#">Posts</a></li>
                     <li><a href="#">Sliders</a></li>
                 </ul>
@@ -50,9 +52,83 @@
         <!-- RIGHT CONTENT -->
         <aside class="right">
             <div class="right_content">
-
+                <form action="#" method="POST">
+                    <select name="Satus" id="Status">
+                        <option value="#">Status</option>
+                    </select>
+                    <br>
+                    <input type="search" id="searchByTitle" name="searchByTitle" placeholder="search by title">
+                    <input type="search" id="searchByBacklink" name="searchByBacklink" placeholder="search by backlink">
+                    <input type="submit" value="Search">
+                    <a class="link" href="#">Add a slider</a>
+                </form>
+                <div>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Title</th>
+                            <th>Backlink</th>
+                            <th>Show</th>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Cate1</td>
+                            <td>Title1</td>
+                            <td>www.asd.com</td>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td class="no_border">
+                                <img src="../../images/media-icon.png" alt="Images">
+                            </td>
+                            <td class="no_border">
+                                <a href="#">Slider detail</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Cate1</td>
+                            <td>Title1</td>
+                            <td>www.asd.com</td>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td class="no_border">
+                                <img src="../../images/media-icon.png" alt="Images">
+                            </td>
+                            <td class="no_border">
+                                <a href="#">Slider detail</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1231</td>
+                            <td>Cate1</td>
+                            <td>Title1</td>
+                            <td>www.asd.com</td>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td class="no_border">
+                                <img src="../../images/media-icon.png" alt="Images">
+                            </td>
+                            <td class="no_border">
+                                <a href="#">Slider detail</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#">1</a>
+                    <a class="active" href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">&raquo;</a>
+                </div>
             </div>
-
             <footer>
                 FOOTER
             </footer>

@@ -1,12 +1,5 @@
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- 
-    Document   : coursedetails
-    Created on : May 30, 2022, 9:39:27 AM
-    Author     : long
---%>
-
-<%@page import="model.Course"%>
+<!DOCTYPE html>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +8,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Subject Name</title>
+        <title>Home Page</title>
         <!-- FontAwesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -28,31 +21,30 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/detail.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/list.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
-
     </head>
 
     <body>
         <header>
             <div class="heading_logo">
-                <p>LOGO</p>
+                <img src="images/logo.png" alt="alt"/>
             </div>
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
                     <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
-                    <c:if  test="${sessionScope.account == null}">
+                        <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
+                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
                                 <c:out value="${sessionScope.account.username}"/>
-                            </a>
+                            </p>
                             <div class="submenu">
                                 <ul>
                                     <li><a href="#" id="openProfile">User Profile</a></li>
@@ -65,173 +57,11 @@
                 </ul>
             </nav>
         </header>
-        <div class="heading">
+        <div class="error">
+            <p>You do not have the permission to access this URL</p>
         </div>
 
-
-        <div class="main">
-
-            <!-- LEFT  -->
-            <section class="subject__list">
-
-                <div class="subject__item">
-                    <div class="subject__thumbnail">
-                        <img src="images/thumbnails/${requestScope.course.thumbnailUrl}" alt=""/>
-                    </div>
-                    <div class="subject__content">
-                        <label>${requestScope.course.courseName}</label>
-                        <div class="subject__info">
-                            <p><i class="fa fa-align-justify"></i> Category: ${requestScope.course.subcategory.subcategoryName}</p>
-                        </div>
-                        <div class="subject__review">
-                            <p>&emsp;&emsp;${requestScope.course.briefInfo}</p>
-                        </div>
-                        <div class="subject__description">
-                            <p>&emsp;&emsp;${requestScope.course.description}</p>
-
-                        </div>
-
-                        <div class="backlink__container">
-
-                            <div class="subject__detail">
-
-                                <div>
-                                    <p>${requestScope.course.tagline}</p>
-                                </div>
-                                <p>Start at ${requestScope.course.pricePackages[0].priceName} only for $${requestScope.course.pricePackages[0].listPrice}</p>
-
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                            </div>
-                            <div class="subject__register">
-                                <button onclick="openPopup()">Register</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- RIGHT -->
-            <section class="option__box">
-                <div class="option__filter">
-                    <div class="option__searchbar">
-                        <form action="#">
-                            <input type="text" placeholder="Type something to search...">
-                            <!-- <button type="submit">Search</button> -->
-                        </form>
-                    </div>
-                    <div class="option__checkbox">
-                        <h5>Category</h5>
-                        <div class="option__options-value">
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 1</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 2</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 3</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 4</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="option__sort">
-                        <select name="" id="">
-                            <option value="All">All</option>
-                            <option value="">SortItem1</option>
-                            <option value="">SortItem2</option>
-                        </select>
-                    </div>
-                    <div class="search__button">
-                        <button type="submit">Search</button>
-                    </div>
-                    <div class="contact__link">
-                        <a href="#">Contact Information</a>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- POPUP REGISTER -->
-        <div class="register__popup" id="register__popup">
-            <div class="register__form">
-                <div class="exit__button">
-                    <button onclick="closePopup()">
-                        <i class=" fa fa-times-circle" aria-hidden="true"></i>
-                    </button>
-                </div>
-                <div class="subject__name">${requestScope.course.courseName}</div>
-
-                <div class="subject__category">
-                    <p><i class="fa fa-align-justify"></i> Category: ${requestScope.course.subcategory.subcategoryName}</p>
-                </div>
-                <form method="POST" action="courseRegistration">
-                    <div class="subject__price">Price package:
-                        <select name="pricePackageID">
-                            <c:forEach items="${requestScope.course.pricePackages}" var="p">
-                                <c:choose>
-                                    <c:when test="${p.isOnSale}">
-                                        <option value="${p.pricePackageID}">${p.priceName} : ${p.salePrice}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${p.pricePackageID}">${p.priceName} : ${p.listPrice}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <c:choose>
-                        <c:when test="${sessionScope.user != null}">
-                            <input type="hidden" name="firstName" value="${sessionScope.user.firstName}"><br>
-                            <input type="hidden" name="lastName"  value="${sessionScope.user.lastName}"><br>
-                            <input type="hidden" name="email" value="${sessionScope.user.account.username}"><br>
-                            <input type="hidden" name="phoneNumber" value="${sessionScope.user.phoneNumber}"><br>
-                            <input type="hidden" name="courseID" value="${requestScope.course.courseID}">
-                            <input type="hidden" name="gender" value="${sessionScope.user.gender}">
-
-                        </c:when>
-                        <c:otherwise>
-                            <h5>Please fill in your information below</h5>
-
-                            <div class="user__information__form">
-                                <input type="text" name="firstName" required="required" placeholder="First name"><br>
-                                <input type="text" name="lastName" required="required" placeholder="Last name"><br>
-                                <input type="text" name="email" required="required" placeholder="Email"><br>
-                                <input type="text" name="phoneNumber" required="required" placeholder="Mobile phone"><br>
-                                <input type="hidden" name="courseID" value="${requestScope.course.courseID}">
-
-                                <div class="user__information__gender">
-
-                                    <label for="">Gender: </label>
-                                    <input type="radio" checked="checked" name="gender" value="male">
-                                    <label for="">Male</label>
-                                    <input type="radio" name="gender" value="female">
-                                    <label for="">Female</label>
-                                </div>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-
-
-                    <div class="register__confirm" onclick="openComplete()">
-                        <button>Register</button>
-                    </div>
-                </form>
-<!--                <div class="register__complete"   id="register__complete">
-                    <img src="../../images/Green-Tick-Vector-PNG-Images.png" alt="">
-                    <h4>Thank you for your registration</h4>
-                    <button onclick="closeAllForm()">Close</button>
-                </div>-->
-            </div>
-
-            <!-- POPUP LOGIN -->
-            <c:if test="${sessionScope.account != null}">
+        <c:if test="${sessionScope.account != null}">
             <section class="popup" style="display: <c:choose>
                          <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
                              <%="flex; "%>
@@ -240,7 +70,7 @@
                              <%="none;"%>
                          </c:otherwise>
                      </c:choose>">
-                <div class="popup__content" style="height: 98%;">
+                <div class="popup__content">
                     <img src="images/close.png" alt="" class="close">
 
                     <div class="form_user-profile" style="display: <c:choose>
@@ -289,6 +119,7 @@
                         </form>
                         <div class="message__box">
                             <p>${sessionScope.profile_status}</p>
+                            <c:remove var="profile_status" scope="session"/>
                         </div>
                     </div>
 
@@ -311,6 +142,7 @@
                         </form>
                         <div class="message__box">
                             <p>${sessionScope.changepass_status}</p>
+                            <c:remove var="changepass_status" scope="session"/>
                         </div>
                     </div>
                 </div>
@@ -435,32 +267,21 @@
             </section>
         </c:if>
 
-        </div>
         <footer>
             <p>COPYRIGHT</p>
         </footer>
 
-
-
-        <script src="${pageContext.request.contextPath}/js/public/subjectdetail.js"></script>
+        <script src="${pageContext.request.contextPath}/js/registerPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-                        $(document).ready(function () {
-            <c:choose>
-                <c:when test="${param.registerSucessfully == 'true'}">
-                            alert("Register successfully");
-                </c:when>
-
-            </c:choose>
-                        });
-
-
-        </script>     
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+        <!-- Initialize Swiper -->
+        <script src="js/common/home.js"></script>
+        <script src="js/register.js"></script>
     </body>
 
 </html>

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import model.Account;
 import model.User;
 
@@ -95,7 +94,7 @@ public class RegisterController extends HttpServlet {
                 Account account = new Account();
                 account.setUsername(email);
                 account.setPassword(passwordReg);
-                account.setRole(dbRole.getRole(5));
+                account.setRole(dbRole.getRoleById(5));
 
                 User user = new User();
                 user.setAccount(account);

@@ -1,6 +1,9 @@
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,13 +53,6 @@
                     <li><a href="#">Quiz</a></li>
                 </ul>
             </nav>
-            <!-- <ul>
-                <span class="admin_feature">System Management</span>
-                <li><a href="#">Post</a></li>
-                <li><a href="#">Slider</a></li>
-                <li><a href="system.html">System Settings</a></li>
-                <li><a href="user_list.html">User lists</a></li>
-            </ul> -->
         </aside>
 
         <!-- RIGHT CONTENT -->

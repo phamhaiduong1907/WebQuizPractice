@@ -37,5 +37,4 @@ public class Account {
         this.role = role;
     }
     
-    
 }

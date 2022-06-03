@@ -30,11 +30,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Zuys
  */
-@MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Copy - Copy\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UserProfileController extends HttpServlet {
 
-    final static String PICTUREPROFILEURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003\\web\\images\\profile";
+    final static String PICTUREPROFILEURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Copy - Copy\\web\\images\\profile";
 
     /**
      * Handles the HTTP <code>GET</code> method.
