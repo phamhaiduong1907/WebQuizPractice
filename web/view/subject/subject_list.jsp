@@ -151,11 +151,11 @@
                             </form>
 
                         </div>
-                        <div class="register__complete" id="register__complete">
+<!--                        <div class="register__complete" id="register__complete">
                             <img src="../../images/Green-Tick-Vector-PNG-Images.png" alt="">
                             <h4>Thank you for your registration</h4>
                             <button onclick="closeAllForm(${c.courseID})">Close</button>
-                        </div>
+                        </div>-->
                     </div>
                 </c:forEach>
 
