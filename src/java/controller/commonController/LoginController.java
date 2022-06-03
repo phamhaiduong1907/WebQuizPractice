@@ -50,20 +50,20 @@ public class LoginController extends HttpServlet {
         String login_status = "Wrong email or password, please try again!";
         AccountDBContext db = new AccountDBContext();
         UserDBContext dbUser = new UserDBContext();
-        
+
         Account account = db.getAccount(username, password);
-        if(account == null)
-        {
-            request.setAttribute("login_status", login_status);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-        else
-        {
+        if (account == null) {
+            request.getSession().setAttribute("login_status", login_status);
+            response.sendRedirect("home");
+        } else {
             User user = dbUser.getUser(account);
             request.getSession().setAttribute("account", account);
             request.getSession().setAttribute("user", user);
-            
-            response.sendRedirect("home");
+            if (user.getAccount().getRole().getRoleID() == 5) {
+                response.sendRedirect("home");
+            } else {
+                response.sendRedirect("dashboard");
+            }
         }
     }
 

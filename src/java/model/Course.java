@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.sql.Date;
 public class Course {
 
     private int courseID;
+    private ArrayList<PricePackage> pricePackages;
     private String courseName;
     private boolean status;
     private Subcategory subcategory;
@@ -22,6 +24,14 @@ public class Course {
     private Date updatedDate;
     private String briefInfo;
     private String thumbnailUrl;
+
+    public ArrayList<PricePackage> getPricePackages() {
+        return pricePackages;
+    }
+
+    public void setPricePackages(ArrayList<PricePackage> pricePackages) {
+        this.pricePackages = pricePackages;
+    }
 
     public int getCourseID() {
         return courseID;
@@ -103,4 +113,5 @@ public class Course {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    
 }

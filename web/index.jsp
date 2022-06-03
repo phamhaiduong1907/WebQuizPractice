@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,22 +20,19 @@
         <link rel="stylesheet" href="css/header.css">
         <link rel="stylesheet" href="css/popup.css">
         <link rel="stylesheet" href="css/footer.css">
-
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/common/home.css">
-
-
     </head>
 
     <body>
         <header>
             <div class="heading_logo">
-                <p>LOGO</p>
+                <img src="images/logo.png" alt="alt"/>
             </div>
             <nav>
                 <ul class="nav_links">
                     <li><a href="home">Home</a></li>
-                    <li><a href="view/subject/subjectlist.jsp">Subject</a></li>
+                    <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
                     <li><a href="#" class="login" id="loginButton">Log in</a></li>
                 </ul>
@@ -78,24 +76,23 @@
                 <c:forEach items="${requestScope.posts}" var="p">
                     <div class="post__item">
                         <form action="blogdetail" method="GET" class="post__form">
-                            <input type="hidden" value="${p.postID}" name="postID">
-                            <div class="post__short">
-                                <p>${p.updatedDate}</p>
-                            </div>
-                            <div class="post__info">
-                                <div class="post__thumbnail">
-                                    <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
-                                </div>
-                                <div class="post__title">
-                                    <p>${p.title}</p>
+                            <button type="submit" class="post__detail">
+                                <input type="hidden" value="${p.postID}" name="postID">
+                                <div class="post__short">
+                                    <p>${p.updatedDate}</p>
                                 </div>
                                 <div class="post__info">
-                                    <p>${p.briefInfo}</p>
+                                    <div class="post__thumbnail">
+                                        <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
+                                    </div>
+                                    <div class="post__title">
+                                        <p>${p.title}</p>
+                                    </div>
+                                    <div class="post__info">
+                                        <p>${p.briefInfo}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="post__detail">
-                                <button type="submit">View Detail <i class="fa fa-arrow-circle-right"></i></button>
-                            </div>
+                            </button>
                         </form>
                     </div>
                 </c:forEach>
@@ -123,34 +120,41 @@
                                 </div>
                             </div>
                             <div class="course__detail">
-                                <a href="view/subject/subjectdetail.html">View Detail <i
+                                <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
                                         class="fa fa-arrow-circle-right"></i></a>
-                            </div>
+                            </div>  
+
                         </div>
+
+
                     </c:forEach>
 
                 </div>
             </div>
         </section>
 
-        <section class="popup" style="display: <c:choose>
-                     <c:when test="${requestScope.login_status != null || requestScope.register_status != null  }">
-                         <%="flex; "%>
-                     </c:when>
-                     <c:otherwise>
-                         <%="none;"%>
-                     </c:otherwise>
-                 </c:choose>">
+
+
+        <section class="popup" id="popupSection" style="display: <c:choose>
+
+                 <c:when test="${sessionScope.login_status != null || sessionScope.register_status != null || param.resetPasswordMessage != null }">
+                     <%="flex; "%>
+                 </c:when>
+                 <c:otherwise>
+                     <%="none;"%>
+                 </c:otherwise>
+            </c:choose>">
+
 
             <div class="popup__content">
                 <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
 
-                <div class="popup__login-form" style="display: <c:choose>
-                         <c:when test="${requestScope.login_status != null }">
-                             <%="block; "%>
+                <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
+                         <c:when test="${sessionScope.login_status != null }">
+                             <c:out value="block;"/>
                          </c:when>
                          <c:otherwise>
-                             <%="none;"%>
+                             <c:out value="none;"/>
                          </c:otherwise>
                      </c:choose>">
 
@@ -167,72 +171,85 @@
                                 <button type="submit">Login</button>
                             </div>
                         </form>
+
+                    </div>
+                    <div class="message__box">
+                        <p>${sessionScope.login_status}</p>   
+                        <c:remove var="login_status" scope="session"/>
                     </div>
 
-                    <div class="popup__signup">
-                        <div class="message__box">
-                            <p>${requestScope.login_status}</p>                       
-                        </div>
 
-
-                        <div class="popup__signup" >
-                            <a href="#">Don't have any account? Sign up here</a>
-                        </div>
-                    </div>
-
-                    <div class="popup__signup-form" style="display: <c:choose>
-                             <c:when test="${requestScope.register_status != null}">
-                                 <%="block; "%>
-                             </c:when>
-                             <c:otherwise>
-                                 <%="none;"%>
-                             </c:otherwise>
-                         </c:choose>">
-                        <i class="fa fa-arrow-left"></i>
-                        <h2>Register for Quiz Practice</h2>
-                        <div class="form__signup">
-                            <form action="register" method="POST">
-                                <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
-                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
-                                <div class="signup__gender">
-                                    <h5>Gender</h5>
-                                    <input type="radio" name="gender" value="male" required>Male
-                                    <input type="radio" name="gender" value="female" required>Female
-                                </div>
-                                <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
-                                <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
-                                <input type="text" name="address" id="address" title="Must not be empty" placeholder="Address" required>
-                                <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
-                                <input type="password" name="confirmPasswordReg" id="confirmPassword" placeholder="Confirm password" required>
-                                <div class="form__button">
-                                    <button type="submit" >Register</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="message__box">
-                            <p>${requestScope.register_status}</p>                       
-                        </div>
-                    </div>
-
-                    <div class="popup__reset-form" style="display: <c:choose>
-                             <c:when test="${requestScope.login_status != null || requestScope.register_status != null}">
-                                 <%="none; "%>
-                             </c:when>
-                         </c:choose>">
-                        <i class="fa fa-arrow-left"></i>
-                        <h2>Reset Password</h2>
-                        <div class="form__reset">
-                            <form action="forgotPassword">
-                                <input type="text" name="email" id="emailReset"
-                                       placeholder="Enter your email to reset your password">
-                                <div class="form__button">
-                                    <button type="submit">Verify your email</button>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="popup__signup" >
+                        <a href="#">Don't have any account? Sign up here</a>
                     </div>
                 </div>
+
+
+
+                <div class="popup__signup-form" style="display: <c:choose>
+                         <c:when test="${sessionScope.register_status != null}">
+                             <%="block; "%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
+                    <i class="fa fa-arrow-left"></i>
+                    <h2>Register for Quiz Practice</h2>
+                    <div class="form__signup">
+                        <form action="register" method="POST">
+                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+                            <div class="signup__gender">
+                                <h5>Gender</h5>
+                                <input type="radio" name="gender" value="male" required>Male
+                                <input type="radio" name="gender" value="female" required>Female
+                            </div>
+                            <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
+                            <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
+                            <input type="text" name="address" id="address" title="Must not be empty" placeholder="Address" required>
+                            <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
+                            <input type="password" name="confirmPasswordReg" id="confirmPassword" placeholder="Confirm password" required>
+                            <div class="form__button">
+                                <button type="submit" >Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="message__box">
+                        <p>${sessionScope.register_status}</p>
+                        <c:remove var="register_status" scope="session"/>
+                    </div>
+                </div>
+
+                <div class="popup__reset-form" style="display: <c:choose>
+                         <c:when test="${param.resetPasswordMessage != null}">
+                             <%="block;"%>
+                         </c:when>
+                         <c:otherwise>
+                             <%="none;"%>
+                         </c:otherwise>
+                     </c:choose>">
+                    <i class="fa fa-arrow-left"></i>
+                    <h2>Reset Password</h2>
+                    <div class="form__reset">
+                        <form action="forgotPassword" method="POST">
+                            <input type="text" name="email" id="emailReset"
+                                   placeholder="Enter your email to reset your password" onkeyup='check();'>
+                            <div class="form__button">
+                                <button type="submit" id="resetButton">Verify your email</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="message__box">
+                        <p id="validFormMessage"></p>
+                        <p>${param.resetPasswordMessage}</p>  
+                    </div>
+                </div>
+
+            </div>
         </section>
+
 
         <footer>
             <p>COPYRIGHT</p>
@@ -244,7 +261,10 @@
         <script src="js/script.js"></script>
         <!-- Initialize Swiper -->
         <script src="js/swiper.js"></script>
+        <script src="js/common/home.js"></script>
+
         <script src="js/register.js"></script>
+        <script src="js/requireLogin.js"></script>
     </body>
 
 </html>

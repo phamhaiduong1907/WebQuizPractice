@@ -59,7 +59,7 @@ public abstract class AuthorizationController extends HttpServlet {
                 writer.println("<body>");
                 writer.println("<script>\n"
                         + "		sessionStorage.setItem(\"requiredlogin\",\"true\");\n"
-                        + "		history.go(-1);\n"
+                        + "		history.back();\n"
                         + "	</script>");
                 writer.println("</body>");
                 writer.println("</html>");
@@ -73,7 +73,7 @@ public abstract class AuthorizationController extends HttpServlet {
                 writer.println("<body>");
                 writer.println("<script>\n"
                         + "		sessionStorage.setItem(\"unauthorizedAcess\",\"true\");\n"
-                        + "		history.go(-1);\n"
+                        + "		var u = history.go(-1);\n"
                         + "	</script>");
                 writer.println("</body>");
                 writer.println("</html>");

@@ -6,7 +6,7 @@ package util;
 
 /**
  *
- * @author Zuys
+ *
  */
 public class Validation {
 
@@ -21,16 +21,16 @@ public class Validation {
 
     public boolean checkMatches(String[] str1, String[] str2) {
         for (int i = 0; i < str1.length; i++) {
-            if(str1[i].matches(str2[i])){
+            if (str1[i].matches(str2[i])) {
                 return false;
             }
         }
         return true;
     }
-    
+
     public boolean checkFileType(String fileName, String[] allowedTypes) {
         for (String allowedType : allowedTypes) {
-            if(fileName.matches(allowedType)){
+            if (fileName.matches(allowedType)) {
                 return true;
             }
         }

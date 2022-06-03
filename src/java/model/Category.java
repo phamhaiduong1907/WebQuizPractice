@@ -37,5 +37,4 @@ public class Category {
     public void setSubcategories(ArrayList<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
-    
 }

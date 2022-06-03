@@ -197,7 +197,7 @@
                                         var role = document.getElementById("roleSelect").value.trim();
                                         var username = document.getElementById("emailInput").value.trim();  
                                         $.ajax({
-                                            url: "/summer2022-se1617-g6/admin/load_feature",
+                                            url: "/SWP391-SE1617-NET_Group06-QuizWebsite/admin/load_feature",
                                             type: "get",
                                             data: {
                                                 role : role,

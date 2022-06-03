@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Course;
 import model.Post;
 import model.Slider;
@@ -37,13 +38,21 @@ public class HomePageController extends HttpServlet {
         SliderDBContext dbSlider = new SliderDBContext();
         BlogDBContext dbBlog = new BlogDBContext();
         CourseDBContext dbCourse = new CourseDBContext();
+        Account account = (Account) request.getSession().getAttribute("account");
         ArrayList<Course> courses = dbCourse.getCourses();
         ArrayList<Post> posts = dbBlog.getPostForHome(1, 2, 3, 4);
         ArrayList<Slider> sliders = dbSlider.getSliders();
         request.setAttribute("sliders", sliders);
         request.setAttribute("posts", posts);
         request.setAttribute("courses", courses);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        if(account == null){
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }else if(account.getRole().getRoleID()==5){
+            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("view/markerting/dashboard.jsp").forward(request, response);
+        }
+        
     }
 
     /**

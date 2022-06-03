@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.publicController;
 
 import dal.CourseDBContext;
@@ -18,7 +17,6 @@ import model.Course;
  * @author Hai Tran
  */
 public class SubjectDetailController extends HttpServlet {
- 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -31,14 +29,10 @@ public class SubjectDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //int subjectID = Integer.parseInt(request.getParameter("subjectID"));
+        int subjectID = Integer.parseInt(request.getParameter("subjectID"));
         CourseDBContext db = new CourseDBContext();
-        Course course = db.getCourse(1);
-        if (course != null) {
-            log("oke anh oi ");
-        } else {
-            log("deo co cc gi anh oi");
-        }
+        Course course = db.getCourse(subjectID);
+
         request.setAttribute("course", course);
         request.getRequestDispatcher("view/subject/subjectdetail.jsp").forward(request, response);
     }

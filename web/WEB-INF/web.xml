@@ -28,6 +28,13 @@
         <servlet-class>controller.admin.LoadFeatureController</servlet-class>
     </servlet>
     <servlet>
+
+        <servlet-name>ForgotPasswordNextStepController</servlet-name>
+        <servlet-class>controller.commonController.ForgotPasswordNextStepController</servlet-class>
+    </servlet>
+
+    <servlet>
+
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.publicController.HomePageController</servlet-class>
     </servlet>
@@ -64,6 +71,14 @@
         <servlet-class>controller.commonController.UserProfileController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CourseRegistrationController</servlet-name>
+        <servlet-class>controller.publicController.CourseRegistrationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectListController</servlet-name>
+        <servlet-class>controller.publicController.SubjectListController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.commonController.ChangePasswordController</servlet-class>
     </servlet>
@@ -79,6 +94,10 @@
         <servlet-name>DashboardController</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordNextStepController</servlet-name>
+        <url-pattern>/forgotPasswordNext</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -127,6 +146,14 @@
         <servlet-name>UserProfileController</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseRegistrationController</servlet-name>
+        <url-pattern>/courseRegistration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectListController</servlet-name>
+        <url-pattern>/subjectList</url-pattern>
+    </servlet-mapping>
     <context-param>
         <param-name>tempfile.dir</param-name>
         <param-value>tmpfiles</param-value>
@@ -137,7 +164,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            1
         </session-timeout>
     </session-config>
 </web-app>

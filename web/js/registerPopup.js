@@ -1,10 +1,11 @@
-let popup = document.getElementById("register__popup");
 let registerComplete = document.getElementById("register__complete");
 
-function openPopup() {
+function openPopup(courseID) {
+    var popup = document.getElementById(courseID);
     popup.classList.add("open__popup");
 }
-function closePopup() {
+function closePopup(courseID) {
+    var popup = document.getElementById(courseID);
     popup.classList.remove("open__popup");
 }
 
@@ -14,7 +15,7 @@ function openComplete() {
 function closeComplete() {
     registerComplete.classList.remove("register__complete__add");
 }
-function closeAllForm(){
+function closeAllForm(courseID) {
     closeComplete();
-    closePopup();
+    closePopup(courseID);
 }

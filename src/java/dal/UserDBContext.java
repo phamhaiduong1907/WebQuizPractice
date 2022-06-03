@@ -290,4 +290,27 @@ public class UserDBContext extends DBContext {
         }
         return false;
     }
+
+    
+    
+
+    public boolean isUserExist(String username) {
+        String sql = "select username from [User]\n"
+                + "where username = ?";
+
+        PreparedStatement stm;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+
+    }
 }

@@ -12,17 +12,16 @@ import java.sql.Date;
  */
 public class Post {
 
-   private Subcategory subcategory;
-   private String title;
-   private String briefInfo;
-   private String description;
-   private boolean  isFeatured;
-   private boolean  status;
-   private int postID;
-   private Account author;
-   private Date updatedDate;
-   private String thumbnailUrl;
-
+    private Subcategory subcategory;
+    private String title;
+    private String briefInfo;
+    private String description;
+    private boolean isFeatured;
+    private boolean status;
+    private int postID;
+    private Account author;
+    private Date updatedDate;
+    private String thumbnailUrl;
 
     public Subcategory getSubcategory() {
         return subcategory;
@@ -103,6 +102,4 @@ public class Post {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
-   
-   
 }
