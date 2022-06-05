@@ -1,0 +1,116 @@
+.right h1 {
+    font-size: 30px;
+}
+
+.right h1 i {
+    margin-right: 10px;
+}
+
+.quiz__detail {
+    margin-top: 100px;
+    position: relative;
+    left: 20%;
+    width: 60%;
+    height: 50vh;
+    display: flex;
+    justify-content: space-around;
+    border: 1px black solid;
+    font-size: 18px;
+}
+
+.quiz__left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.quiz__left div {
+    margin: 10px;
+}
+
+.quiz__name input {
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.subject__name input {
+    padding: 4px;
+    border-radius: 5px;
+    margin-left: 25px;
+}
+
+.quiz__type select {
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 100px;
+}
+
+.quiz__attachment button {
+    padding: 5px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.quiz__attachment button:hover {
+    box-shadow: #CCCCCC 3px 3px 3px 3px;
+}
+
+.quiz__attachment i {
+    margin-left: 10px;
+    font-size: 25px;
+}
+
+.quiz__save button {
+    padding: 5px;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.quiz__save button:hover {
+    box-shadow: #CCCCCC 3px 3px 3px 3px;
+}
+
+.quiz__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
+}
+
+.quiz__right div {
+    margin: 10px;
+}
+
+.quiz__level select {
+    font-size: 17px;
+    border-radius: 5px;
+    margin-left: 10px;
+    width: 100px;
+}
+.quiz__duration input{
+    width: 60px;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 3px;
+}
+
+.quiz__download a{
+    border: 1px black solid;
+    background-color: #f1f1f1cb;
+    font-size: 15px;
+    text-decoration: none;
+    padding: 5px;
+    color: black;
+    border-radius: 5px;
+}
+.quiz__download a:hover{
+    box-shadow: #CCCCCC 3px 3px 3px 3px;
+}
+.quiz__download i{
+    margin-left: 10px;
+    font-size: 25px;
+}

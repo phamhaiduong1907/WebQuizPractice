@@ -1,0 +1,88 @@
+.right h1 {
+    font-size: 30px;
+}
+
+.right h1 i {
+    margin-right: 10px;
+}
+
+.quiz__list {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.quiz__list__tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.search_form {
+    width: 50%;
+
+}
+
+.search__section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.search__section select,
+input,
+button {
+    padding: 5px;
+    width: 170px;
+    font-size: 17px;
+}
+
+.search__section select {
+    margin: 0px 15px 10px 15px;
+}
+
+.search__section input {
+    margin: 0px 0px 10px 15px;
+    width: 300px;
+}
+
+.search__section button {
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+/* .setting_tool select, .setting_tool input{
+    display: block;
+} */
+
+.adding__quiz {
+    display: flex;
+    align-items: center;
+}
+
+.adding__quiz a{
+    font-size: 17px;
+}
+
+table,
+tr,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 17px;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination li {
+    display: inline-block;
+}
+.pagination a{
+    font-size: 25px;
+    margin: 7px;
+}

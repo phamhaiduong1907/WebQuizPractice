@@ -1,0 +1,133 @@
+.register__popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    background: rgba(117, 117, 117, 0.33);
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.register__form {
+    z-index: 10000;
+    position: relative;
+    width: 35%;
+    background-color: white;
+    top: 4%;
+    left: 33%;
+    border-radius: 25px;
+}
+
+.open__popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.register__popup div {
+    margin: 8px;
+}
+
+.register__popup .exit__button button {
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+}
+
+.exit__button {
+    position: absolute;
+    top: 0%;
+    right: 2%;
+}
+
+.subject__category p {
+    margin-left: 2%;
+}
+
+.register__popup .subject__name {
+    margin-left: 5%;
+    font-size: 40px;
+}
+
+.subject__price select {
+    width: 270px;
+    padding: 4px;
+    border-radius: 15px;
+}
+
+.register__popup h5 {
+    margin-top: 20px;
+    margin-left: 5%;
+}
+
+.user__information__form input[type="text"] {
+    margin: 8px 15%;
+    padding: 5px;
+    width: 65%;
+    box-shadow: #CCCCCC 18px 8px 20px -7px;
+    border-radius: 15px;
+}
+
+.user__information__gender {
+    position: relative;
+    left: 15%;
+}
+
+.register__confirm button {
+    position: relative;
+    bottom: 0px;
+    left: 34%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 30%;
+    border-radius: 30px;
+}
+
+.register__confirm button:hover {
+    box-shadow: #CCCCCC 2px 2px 3px 3px;
+}
+
+.register__complete {
+    position: relative;
+    width: 35%;
+    background-color: white;
+    top: 50%;
+    left: 0.5%;
+    height: 89%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transform: translate(-50%, -50%) scale(0.1);
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    
+}
+
+.register__complete__add{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.register__complete img {
+    margin-top: 35%;
+    width: 30%;
+    height: auto;
+}
+.register__complete button{
+    margin-top: 5vh;
+    width: 50%;
+    padding: 10px;
+    box-shadow: #CCCCCC 10px 5px 10px 3px;
+    border-radius: 30px;
+}
