@@ -182,6 +182,32 @@ public class AccountDBContext extends DBContext {
         }
         return null;
     }
+    
+    public Account getAccount(String username){
+        try {
+            String sql = "SELECT username,password,roleID FROM Account \n"
+                    + "WHERE username = ?";
+            RoleDBContext dbRole = new RoleDBContext();
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(dbRole.getRole(rs.getInt("roleID")));
+                rs.close();
+                stm.close();
+                connection.close();
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public boolean insertAccount(Account account) {
         String sql = "INSERT INTO [Account]\n"

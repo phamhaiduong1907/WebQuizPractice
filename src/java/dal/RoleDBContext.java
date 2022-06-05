@@ -72,6 +72,26 @@ public class RoleDBContext extends DBContext {
         }
         return roles;
     }
+    
+    public Role getRole(int roleid){
+        try {
+            String sql = "SELECT roleID,roleName FROM [Role] \n" +
+                    "WHERE roleID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, roleid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next())
+            {
+                Role role = new Role();
+                role.setRoleID(roleid);
+                role.setRoleName(rs.getString("roleName"));
+                return role;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public Role getRoleById(int roleID) {
         String sql = "select r.roleID, r.roleName from [Role] r where r.roleID = ?";
