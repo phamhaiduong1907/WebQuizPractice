@@ -20,6 +20,12 @@ import model.Subcategory;
  */
 public class BlogDBContext extends DBContext {
 
+    /**
+     *
+     * @param pageindex
+     * @param pagesize
+     * @return return an posts data in form of pagination
+     */
     public ArrayList<Post> getPosts(int pageindex, int pagesize) {
         ArrayList<Post> posts = new ArrayList<>();
         try {
@@ -55,6 +61,10 @@ public class BlogDBContext extends DBContext {
         return posts;
     }
 
+    /**
+     *
+     * @return the number of records in post table
+     */
     public int count() {
         try {
             String sql = "SELECT COUNT(*) as Total FROM Post";
@@ -69,6 +79,14 @@ public class BlogDBContext extends DBContext {
         return -1;
     }
 
+    /**
+     *
+     * @param postID1
+     * @param postID2
+     * @param postID3
+     * @param postID4
+     * @return
+     */
     public ArrayList<Post> getPostForHome(int postID1, int postID2, int postID3, int postID4) {
         ArrayList<Post> posts = new ArrayList<>();
         try {
@@ -103,6 +121,11 @@ public class BlogDBContext extends DBContext {
         return posts;
     }
 
+    /**
+     *
+     * @param postID
+     * @return the post with the according postID
+     */
     public Post getPost(int postID) {
         try {
             String sql = "SELECT postID, p.subcategoryID, sc.subcategoryName, title, briefInfo, [description], isFeatured,[status], author, updatedDate, thumbnailURL\n"
@@ -137,6 +160,15 @@ public class BlogDBContext extends DBContext {
         return null;
     }
 
+    /**
+     *
+     * @param search
+     * @param subcateID
+     * @param sort
+     * @param pageindex
+     * @param pagesize
+     * @return the post after being filtered
+     */
     public ArrayList<Post> searchPost(String search, String subcateID, String sort, int pageindex, int pagesize) {
         ArrayList<Post> posts = new ArrayList<>();
         StringBuilder sb = new StringBuilder();

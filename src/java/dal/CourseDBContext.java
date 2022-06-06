@@ -20,6 +20,10 @@ import model.Subcategory;
  */
 public class CourseDBContext extends DBContext {
 
+    /**
+     *
+     * @return all the courses in the database
+     */
     public ArrayList<Course> getCourses() {
         ArrayList<Course> courses = new ArrayList<>();
         String sql = "SELECT [courseID]\n"
@@ -72,6 +76,11 @@ public class CourseDBContext extends DBContext {
         return courses;
     }
 
+    /**
+     *
+     * @param courseID
+     * @return the course with the matching courseID
+     */
     public Course getCourse(int courseID) {
         Course c = new Course();
         try {
@@ -104,54 +113,58 @@ public class CourseDBContext extends DBContext {
         return c;
     }
 
-    public Course getCourseByCourseID(int id) {
-        String sql = "SELECT [courseID]\n"
-                + "      ,[courseName]\n"
-                + "      ,[subCategoryID]\n"
-                + "      ,[status]\n"
-                + "      ,[isFeatured]\n"
-                + "      ,[description]\n"
-                + "      ,[tagline]\n"
-                + "      ,[updatedDate]\n"
-                + "      ,[briefInfo]\n"
-                + "      ,[thumbnailURL]\n"
-                + "  FROM [dbo].[Course] where courseID = ?";
-
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-
-        try {
-            stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
-            rs = stm.executeQuery();
-            if (rs.next()) {
-                ArrayList<PricePackage> pricePackages = new ArrayList<>();
-                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
-                pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
-                Course c = new Course();
-                Subcategory ca = new Subcategory();
-                c.setCourseName(rs.getString("courseName"));
-                c.setCourseID(rs.getInt("courseID"));
-                ca.setCategoryID(rs.getInt("categoryID"));
-                ca.setCategoryID(rs.getInt("subCategoryID"));
-                ca.setSubcategoryName(rs.getString("subCategoryName"));
-                c.setSubcategory(ca);
-                c.setStatus(rs.getBoolean("status"));
-                c.setIsFeatured(rs.getBoolean("isFeatured"));
-                c.setDescription(rs.getString("description"));
-                c.setTagline(rs.getString("tagline"));
-                c.setUpdatedDate(rs.getDate("updatedDate"));
-                c.setBriefInfo(rs.getString("briefInfo"));
-                c.setThumbnailUrl(rs.getString("thumbnailURL"));
-                c.setPricePackages(pricePackages);
-
-                return c;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
+    /**
+     *
+     * @param id
+     * @return return the course by
+     */
+//    public Course getCourseByCourseID(int id) {
+//        String sql = "SELECT [courseID]\n"
+//                + "      ,[courseName]\n"
+//                + "      ,[subCategoryID]\n"
+//                + "      ,[status]\n"
+//                + "      ,[isFeatured]\n"
+//                + "      ,[description]\n"
+//                + "      ,[tagline]\n"
+//                + "      ,[updatedDate]\n"
+//                + "      ,[briefInfo]\n"
+//                + "      ,[thumbnailURL]\n"
+//                + "  FROM [dbo].[Course] where courseID = ?";
+//
+//        PreparedStatement stm = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            stm = connection.prepareStatement(sql);
+//            stm.setInt(1, id);
+//            rs = stm.executeQuery();
+//            if (rs.next()) {
+//                ArrayList<PricePackage> pricePackages = new ArrayList<>();
+//                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+//                pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
+//                Course c = new Course();
+//                Subcategory ca = new Subcategory();
+//                c.setCourseName(rs.getString("courseName"));
+//                c.setCourseID(rs.getInt("courseID"));
+//                ca.setCategoryID(rs.getInt("categoryID"));
+//                ca.setCategoryID(rs.getInt("subCategoryID"));
+//                ca.setSubcategoryName(rs.getString("subCategoryName"));
+//                c.setSubcategory(ca);
+//                c.setStatus(rs.getBoolean("status"));
+//                c.setIsFeatured(rs.getBoolean("isFeatured"));
+//                c.setDescription(rs.getString("description"));
+//                c.setTagline(rs.getString("tagline"));
+//                c.setUpdatedDate(rs.getDate("updatedDate"));
+//                c.setBriefInfo(rs.getString("briefInfo"));
+//                c.setThumbnailUrl(rs.getString("thumbnailURL"));
+//                c.setPricePackages(pricePackages);
+//
+//                return c;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return null;
+//    }
 }
