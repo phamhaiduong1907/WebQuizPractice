@@ -28,13 +28,10 @@
         <servlet-class>controller.admin.LoadFeatureController</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
         <servlet-class>controller.commonController.ForgotPasswordNextStepController</servlet-class>
     </servlet>
-
     <servlet>
-
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.publicController.HomePageController</servlet-class>
     </servlet>
@@ -82,6 +79,10 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.commonController.ChangePasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterNextStepController</servlet-name>
+        <servlet-class>controller.commonController.RegisterNextStepController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -93,7 +94,7 @@
     <servlet-mapping>
         <servlet-name>DashboardController</servlet-name>
         <url-pattern>/dashboard</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
         <url-pattern>/forgotPasswordNext</url-pattern>
@@ -161,6 +162,10 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterNextStepController</servlet-name>
+        <url-pattern>/registernext</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

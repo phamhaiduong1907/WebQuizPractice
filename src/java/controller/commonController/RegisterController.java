@@ -12,14 +12,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
+import model.Email;
 import model.User;
+import util.EmailUtils;
+import util.MiscUtil;
 
 /**
  *
  * @author Zuys
  */
 public class RegisterController extends HttpServlet {
+
+    final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
+    final static String COMPANYGMAIL_PASSWORD = "hung123qwq";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,9 +53,8 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDBContext dbUser = new UserDBContext();
-        AccountDBContext dbAccount1 = new AccountDBContext();
-        AccountDBContext dbAccount2 = new AccountDBContext();
+        MiscUtil encpt = new MiscUtil();
+        AccountDBContext dbAccount = new AccountDBContext();
         RoleDBContext dbRole = new RoleDBContext();
         // get parameter from register form
         String raw_firstName = request.getParameter("firstName");
@@ -78,7 +85,7 @@ public class RegisterController extends HttpServlet {
             if (!raw_email.matches(formatEmail) || !raw_phone.matches(formatPhone) || !raw_passwordReg.matches(formatPass) || !raw_confirmPasswordReg.matches(raw_passwordReg)) {
                 request.getSession().setAttribute("register_status", register_status);
                 response.sendRedirect("home");
-            } else if (dbAccount1.isExistUser(raw_email)) {
+            } else if (dbAccount.isExistUser(raw_email)) {
                 request.getSession().setAttribute("register_status", "This email have already been registered, please try another one!");
                 response.sendRedirect("home");
             } //business logic
@@ -93,8 +100,9 @@ public class RegisterController extends HttpServlet {
 
                 Account account = new Account();
                 account.setUsername(email);
-                account.setPassword(passwordReg);
+                account.setPassword(encpt.encryptString(passwordReg));
                 account.setRole(dbRole.getRoleById(5));
+                request.getSession().setAttribute("accountReg", account);
 
                 User user = new User();
                 user.setAccount(account);
@@ -104,15 +112,29 @@ public class RegisterController extends HttpServlet {
                 user.setPhoneNumber(phone);
                 user.setAddress(address);
                 user.setProfilePictureUrl("none");
+                request.getSession().setAttribute("userReg", user);
 
-                boolean checkUser = dbUser.insertUser(user);
-                boolean checkAccount = dbAccount2.insertAccount(account);
-                if (!checkUser || !checkAccount) {
-                    request.getSession().setAttribute("register_status", register_status);
-                    response.sendRedirect("home");
-                } else {
-                    request.getSession().setAttribute("register_status", "Register successfully");
-                    response.sendRedirect("home");
+                //send verification email
+                Email e = new Email();
+                e.setFrom(COMPANYGMAIL);
+                e.setTo(account.getUsername());
+                e.setFromPassword(COMPANYGMAIL_PASSWORD);
+                e.setSubject("Verify your email");
+
+                MiscUtil rand = new MiscUtil();
+                String activateCode = rand.getRandom();
+                StringBuilder sb = new StringBuilder();
+                sb.append("This is your verification code: " + activateCode);
+
+                EmailUtils emailUtils = new EmailUtils();
+                e.setContent(sb.toString());
+
+                try {
+                    EmailUtils.send(e);
+                    request.getSession().setAttribute("activateCode", activateCode);
+                    response.sendRedirect("registernext");
+                } catch (Exception ex) {
+                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

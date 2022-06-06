@@ -14,13 +14,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import model.Account;
 import model.User;
-import util.MiscUtil;
 
 /**
  *
  * @author Zuys
  */
-public class LoginController extends HttpServlet {
+public class RegisterNextStepController extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -33,6 +32,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher("view/common/validate_email.jsp").forward(request, response);
     }
 
     /**
@@ -46,25 +46,30 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MiscUtil check = new MiscUtil();
-        String username = request.getParameter("email");
-        String password = request.getParameter("password");
-        String login_status = "Wrong email or password, please try again!";
-        AccountDBContext db = new AccountDBContext();
         UserDBContext dbUser = new UserDBContext();
+        AccountDBContext dbAccount = new AccountDBContext();
 
-        Account account = db.getAccount(username);
-        if (account == null || !check.checkEncryptString(password, account.getPassword())) {
-            request.getSession().setAttribute("login_status", login_status);
-            response.sendRedirect("home");
+        String activateCode = (String) request.getSession().getAttribute("activateCode");
+        Account account = (Account) request.getSession().getAttribute("accountReg");
+        User user = (User) request.getSession().getAttribute("userReg");
+
+        String confirmCode = request.getParameter("confirmCode");
+        if (confirmCode == null || confirmCode.trim().length() == 0 || !confirmCode.matches(activateCode)) {
+            request.getSession().setAttribute("validate_email_status", "Error registering user! Please try again!");
+            request.getRequestDispatcher("view/common/validate_email.jsp").forward(request, response);
         } else {
-            User user = dbUser.getUser(account);
-            request.getSession().setAttribute("account", account);
-            request.getSession().setAttribute("user", user);
-            if (user.getAccount().getRole().getRoleID() == 5) {
+            boolean checkUser = dbUser.insertUser(user);
+            boolean checkAccount = dbAccount.insertAccount(account);
+            if (!checkUser || !checkAccount) {
+                request.getSession().setAttribute("register_status", "Error registering user! Please try again!");
                 response.sendRedirect("home");
             } else {
-                response.sendRedirect("dashboard");
+                request.getSession().removeAttribute("activateCode");
+                request.getSession().removeAttribute("accountReg");
+                request.getSession().removeAttribute("userReg");
+                
+                request.getSession().setAttribute("register_status", "Register successfully");
+                response.sendRedirect("home");
             }
         }
     }

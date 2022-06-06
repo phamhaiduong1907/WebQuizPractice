@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import util.EmailUtils;
+import util.MiscUtil;
 
 /**
  *
@@ -20,12 +21,26 @@ import util.EmailUtils;
 public class ForgotPasswordNextStepController extends HttpServlet {
 
     private final String RESETTINGPAGE = "view/common/resetting_page.jsp";
+    private final String EXPIREDLINKPAGE = "view/common/expired_link.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String token = request.getParameter("token");
+        EmailUtils emailUtils = new EmailUtils();
+        String messageFailTokenExpired = "The link has been expired";
+        String username = null;
 
+        try {
+            username = emailUtils.readUsernameFromToken(token);
+
+        } catch (Exception IllegalArgumentException) {
+            request.setAttribute("messageExpired", messageFailTokenExpired);
+            request.getRequestDispatcher(EXPIREDLINKPAGE).forward(request, response);
+
+        }
         request.getRequestDispatcher(RESETTINGPAGE).forward(request, response);
+
     }
 
     /**
@@ -39,6 +54,8 @@ public class ForgotPasswordNextStepController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        EmailUtils emailUtils = new EmailUtils();
+
         String token = request.getParameter("token");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
@@ -48,12 +65,19 @@ public class ForgotPasswordNextStepController extends HttpServlet {
         String messageFailUpdate = "Can't update new password";
         String messageFailTokenExpired = "The link has been expired";
         String regexPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        String username = null;
+        try {
+            username = emailUtils.readUsernameFromToken(token);
+
+        } catch (Exception IllegalArgumentException) {
+            request.setAttribute("messageExpired", messageFailTokenExpired);
+
+        }
         try {
             if (password.equals(confirmPassword) && password.matches(regexPassword)) {
-                EmailUtils emailUtils = new EmailUtils();
-                String username = emailUtils.readUsernameFromToken(token);
                 AccountDBContext accountDBContext = new AccountDBContext();
-                boolean isUpdate = accountDBContext.changePassword(username, password);
+                MiscUtil msMiscUtil = new MiscUtil();
+                boolean isUpdate = accountDBContext.changePassword(username, msMiscUtil.encryptString(password));
                 if (isUpdate) {
                     request.setAttribute("messageUpdate", messageSuccess);
                 } else {

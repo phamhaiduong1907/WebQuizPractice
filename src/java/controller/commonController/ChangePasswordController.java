@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import model.Account;
+import util.MiscUtil;
 
 /**
  *
@@ -43,6 +44,7 @@ public class ChangePasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        MiscUtil check = new MiscUtil();
         AccountDBContext dbAcc = new AccountDBContext();
         Account account = (Account) request.getSession().getAttribute("account");
 
@@ -55,6 +57,9 @@ public class ChangePasswordController extends HttpServlet {
                 || raw_cnpass == null || raw_cnpass.trim().length() == 0) {
             request.getSession().setAttribute("changepass_status", "No input problem");
             response.sendRedirect("home");
+        } else if (!check.checkEncryptString(raw_cpass, account.getPassword())) {
+            request.getSession().setAttribute("changepass_status", "Current password not correct, please try again!");
+            response.sendRedirect("home");
         } else if (raw_cpass.matches(raw_npass)) {
             request.getSession().setAttribute("changepass_status", "New password can't be the same as the old password");
             response.sendRedirect("home");
@@ -62,7 +67,7 @@ public class ChangePasswordController extends HttpServlet {
             request.getSession().setAttribute("changepass_status", "Confirm password must be the same as the new password");
             response.sendRedirect("home");
         } else {
-            account.setPassword(raw_npass);
+            account.setPassword(check.encryptString(raw_npass));
             if (dbAcc.changePassword(account)) {
                 request.getSession().setAttribute("changepass_status", "Change password sucessfully");
                 response.sendRedirect("home");

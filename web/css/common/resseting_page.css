@@ -74,3 +74,11 @@ html{
 .input__lable{
    padding: 5px 10px;
 }
+
+.expired__message{
+    padding: 100px 100px;
+    color: red;
+    font-size: 50px;
+    font-family: sans-serif;
+    text-align: center;
+}
