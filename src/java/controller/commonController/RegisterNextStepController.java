@@ -55,7 +55,7 @@ public class RegisterNextStepController extends HttpServlet {
 
         String confirmCode = request.getParameter("confirmCode");
         if (confirmCode == null || confirmCode.trim().length() == 0 || !confirmCode.matches(activateCode)) {
-            request.getSession().setAttribute("validate_email_status", "Error registering user! Please try again!");
+            request.setAttribute("validate_email_status", "Wrong verification code, please try again!");
             request.getRequestDispatcher("view/common/validate_email.jsp").forward(request, response);
         } else {
             boolean checkUser = dbUser.insertUser(user);

@@ -15,10 +15,10 @@
     </head>
     <body>
         <div class="form">
-            <p>Check your registered email and enter your confirmation code here:</p>
             <form action="registernext" method="POST">
                 <table class="input__table">
                     <tr>
+                        <td>Check your registered email and enter your confirmation code here:</td>
                         <td><input type="text" name="confirmCode" id="confirmCode" class="confirmCode"></td>
                     </tr>
                 </table>
