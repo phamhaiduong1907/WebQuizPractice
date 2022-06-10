@@ -24,6 +24,17 @@ public class Course {
     private Date updatedDate;
     private String briefInfo;
     private String thumbnailUrl;
+    private boolean isRegistered;
+
+    public boolean isIsRegistered() {
+        return isRegistered;
+    }
+
+    public void setIsRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
+    }
+    
+    
 
     public ArrayList<PricePackage> getPricePackages() {
         return pricePackages;

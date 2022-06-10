@@ -25,7 +25,7 @@ import util.EmailUtils;
 public class ForgotPasswordController extends HttpServlet {
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
-    final static String COMPANYGMAIL_PASSWORD = "hung123qwq";
+    final static String COMPANYGMAIL_PASSWORD = "kfdhvpiafobpgllh";
     final static String HOMESERVLETNAME = "HomePageController";
 
     /**

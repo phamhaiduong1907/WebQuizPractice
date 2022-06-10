@@ -17,12 +17,16 @@ public class Registration {
     private User user;
     private Timestamp registrationTime;
     private Course course;
-    private ArrayList<PricePackage> pricePackages;
-    private double totalCost;
+    private PricePackage pricePackage;
+    private float totalCost;
     private boolean status; // true == paid, false == unpaid
     private Date validFrom;
     private Date validTo;
     private User updatedBy;
+
+ 
+    
+    
     
 
     public int getRegistrationID() {
@@ -57,21 +61,25 @@ public class Registration {
         this.course = course;
     }
 
-    public ArrayList<PricePackage> getPricePackages() {
-        return pricePackages;
+    public PricePackage getPricePackage() {
+        return pricePackage;
     }
 
-    public void setPricePackages(ArrayList<PricePackage> pricePackages) {
-        this.pricePackages = pricePackages;
+    public void setPricePackage(PricePackage pricePackage) {
+        this.pricePackage = pricePackage;
     }
 
-    public double getTotalCost() {
+    public float getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(double totalCost) {
+    public void setTotalCost(float totalCost) {
         this.totalCost = totalCost;
     }
+
+   
+
+ 
 
     public boolean isStatus() {
         return status;
@@ -103,6 +111,11 @@ public class Registration {
 
     public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
     

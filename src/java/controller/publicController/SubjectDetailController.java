@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Course;
 
 /**
@@ -17,6 +18,7 @@ import model.Course;
  * @author Hai Tran
  */
 public class SubjectDetailController extends HttpServlet {
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -31,7 +33,8 @@ public class SubjectDetailController extends HttpServlet {
             throws ServletException, IOException {
         int subjectID = Integer.parseInt(request.getParameter("subjectID"));
         CourseDBContext db = new CourseDBContext();
-        Course course = db.getCourse(subjectID);
+        Account account = (Account) request.getSession().getAttribute("account");
+        Course course = db.getCourseByCourseID(subjectID, account);
 
         request.setAttribute("course", course);
         request.getRequestDispatcher("view/subject/subjectdetail.jsp").forward(request, response);

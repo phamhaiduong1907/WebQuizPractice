@@ -15,6 +15,7 @@ import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -31,8 +32,15 @@ public class EmailUtils {
     private final int EXPIRED = 30;
 
     public static void send(Email email) throws Exception {
-        Properties prop = new Properties();
+//        Properties props = new Properties();
+//        props.put("mail.imap.ssl.enable", "true"); // required for Gmail
+//        props.put("mail.imap.auth.mechanisms", "XOAUTH2");
+//        Session session = Session.getInstance(props);
+//        Store store = session.getStore("imap");
+//        store.connect("imap.gmail.com", username, oauth2_access_token);
 
+        Properties prop = new Properties();
+//
         prop.setProperty("mail.transport.protocol", "smtp");
         prop.setProperty("mail.host", "smtp.gmail.com");
         prop.put("mail.smtp.auth", "true");

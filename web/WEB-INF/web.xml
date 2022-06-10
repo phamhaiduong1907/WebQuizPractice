@@ -83,6 +83,18 @@
         <servlet-name>RegisterNextStepController</servlet-name>
         <servlet-class>controller.commonController.RegisterNextStepController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerRegistrationController</servlet-name>
+        <servlet-class>controller.customerControllers.CustomerRegistrationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSubjectListController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageSubjectListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCustomerRegistrationController</servlet-name>
+        <servlet-class>controller.customerControllers.SearchCustomerRegistrationController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -166,6 +178,18 @@
     <servlet-mapping>
         <servlet-name>RegisterNextStepController</servlet-name>
         <url-pattern>/registernext</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerRegistrationController</servlet-name>
+        <url-pattern>/myregistration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSubjectListController</servlet-name>
+        <url-pattern>/manager/subjectlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCustomerRegistrationController</servlet-name>
+        <url-pattern>/registrationsearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
