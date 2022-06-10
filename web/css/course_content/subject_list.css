@@ -1,0 +1,17 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jun 8, 2022, 4:30:48 PM
+    Author     : Zuys
+*/
+
+.subject_manage tr td{
+    border: 1px solid black;
+}
+
+.subject_table{
+    font-size: 18px;
+    width: 70%;
+}
