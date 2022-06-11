@@ -58,6 +58,49 @@ public class UserDBContext extends DBContext {
         return users;
     }
 
+    public ArrayList<User> getPaginatedUsers(int pageindex, int pagesize){
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username order by a.roleID asc"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3,pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+    
     public User getUser(String username) {
         try {
             String sql = "select u.*, a.[password] from [User] u inner join Account a\n"

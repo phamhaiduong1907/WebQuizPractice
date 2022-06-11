@@ -28,7 +28,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author Zuys
  */
-@MultipartConfig(location = "D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UserProfileController extends HttpServlet {
 
@@ -104,10 +104,10 @@ public class UserProfileController extends HttpServlet {
 
             }
 
-            File file = new File("D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile\\" + profilePicName);
+            File file = new File("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile\\" + profilePicName);
             if (file.exists()) {
                 Path source = Paths.get("D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile\\" + profilePicName);
-                Files.move(source, source.resolveSibling("D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                Files.move(source, source.resolveSibling("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
 
                 User user = new User();
                 user.setAccount(account);
@@ -145,7 +145,7 @@ public class UserProfileController extends HttpServlet {
     }
 
     public File getFolderUpload() {
-        File folderUpload = new File("D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile");
+        File folderUpload = new File("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile");
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();
         }

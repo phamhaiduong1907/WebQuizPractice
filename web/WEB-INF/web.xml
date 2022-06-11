@@ -28,13 +28,10 @@
         <servlet-class>controller.admin.LoadFeatureController</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
         <servlet-class>controller.commonController.ForgotPasswordNextStepController</servlet-class>
     </servlet>
-
     <servlet>
-
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.publicController.HomePageController</servlet-class>
     </servlet>
@@ -82,6 +79,30 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.commonController.ChangePasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SliderListController</servlet-name>
+        <servlet-class>controller.slider.SliderListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SliderDetailController</servlet-name>
+        <servlet-class>controller.slider.SliderDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatusFilterController</servlet-name>
+        <servlet-class>controller.slider.StatusFilterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusController</servlet-name>
+        <servlet-class>controller.slider.ChangeStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSliderController</servlet-name>
+        <servlet-class>controller.slider.AddSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <servlet-class>controller.slider.UpdateSliderController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -93,7 +114,7 @@
     <servlet-mapping>
         <servlet-name>DashboardController</servlet-name>
         <url-pattern>/dashboard</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
         <url-pattern>/forgotPasswordNext</url-pattern>
@@ -158,13 +179,41 @@
         <param-name>tempfile.dir</param-name>
         <param-value>tmpfiles</param-value>
     </context-param>
+    <context-param>
+        <param-name>pagesize</param-name>
+        <param-value>3</param-value>
+    </context-param>
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/changepass</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SliderListController</servlet-name>
+        <url-pattern>/slider/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SliderDetailController</servlet-name>
+        <url-pattern>/slider/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatusFilterController</servlet-name>
+        <url-pattern>/slider/statusList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusController</servlet-name>
+        <url-pattern>/slider/changeStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSliderController</servlet-name>
+        <url-pattern>/slider/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSliderController</servlet-name>
+        <url-pattern>/slider/update</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            1
+            30
         </session-timeout>
     </session-config>
 </web-app>
