@@ -186,10 +186,14 @@ public class BlogDBContext extends DBContext {
             sb.append(offset);
             String sql_final = sb.toString();
             PreparedStatement stm = connection.prepareStatement(sql_final);
-            stm.setString(1, "%" + search + "%");
+            if (search.trim().equals("")) {
+                stm.setString(1, "%");
+            } else {
+                stm.setString(1, "%" + search + "%");
+            }
             stm.setInt(2, pageindex - 1);
             stm.setInt(3, pagesize);
-            stm.setInt(4, pagesize);;
+            stm.setInt(4, pagesize);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
@@ -210,6 +214,35 @@ public class BlogDBContext extends DBContext {
             Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return posts;
+    }
+
+    public int countSearchBlog(String search, String subcateID) {
+        int count = 0;
+        try {
+            StringBuilder sb = new StringBuilder();
+            String sql = "SELECT COUNT(*) AS Total\n"
+                    + "FROM Post\n"
+                    + "WHERE title LIKE ?";
+            sb.append(sql);
+            if (!subcateID.isEmpty()) {
+                String and = " AND subcategoryID IN(" + subcateID + ")";
+                sb.append(and);
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if (search.trim().equals("")) {
+                search = "%";
+            }else{
+                search = "%"+search+"%";
+            }
+            stm.setString(1, search);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
 }

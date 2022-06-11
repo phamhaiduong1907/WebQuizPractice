@@ -24,7 +24,62 @@ public class CourseDBContext extends DBContext {
      *
      * @return all the courses in the database
      */
-    public ArrayList<Course> getCourses() {
+    public ArrayList<Course> getCourses(int pageindex, int pagesize) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT courseID, courseName, subCategoryID, [status], isFeatured, \n"
+                    + "[description], tagline, updatedDate, briefInfo, thumbnailURL, [owner]\n"
+                    + "FROM Course \n"
+                    + "ORDER BY updatedDate DESC\n"
+                    + "OFFSET (? - 1) * ? ROWS\n"
+                    + "FETCH NEXT ? ROWS ONLY";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ArrayList<PricePackage> pricePackages = new ArrayList<>();
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                Course c = new Course();
+                c.setCourseName(rs.getString("courseName"));
+                c.setCourseID(rs.getInt("courseID"));
+                c.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subCategoryID")));
+                c.setStatus(rs.getBoolean("status"));
+                c.setIsFeatured(rs.getBoolean("isFeatured"));
+                c.setDescription(rs.getString("description"));
+                c.setTagline(rs.getString("tagline"));
+                c.setUpdatedDate(rs.getDate("updatedDate"));
+                c.setBriefInfo(rs.getString("briefInfo"));
+                c.setThumbnailUrl(rs.getString("thumbnailURL"));
+                c.setPricePackages(pricePackages);
+                courses.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
+
+    public int countCourse() {
+        int total = 0;
+        try {
+            String sql = "SELECT COUNT(*) AS Total\n"
+                    + "FROM Course";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                total = rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return total;
+    }
+
+    public ArrayList<Course> getCoursesForHomePage() {
         ArrayList<Course> courses = new ArrayList<>();
         String sql = "SELECT [courseID]\n"
                 + "      ,[courseName]\n"
@@ -67,7 +122,6 @@ public class CourseDBContext extends DBContext {
                 c.setThumbnailUrl(rs.getString("thumbnailURL"));
                 c.setPricePackages(pricePackages);
                 courses.add(c);
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);

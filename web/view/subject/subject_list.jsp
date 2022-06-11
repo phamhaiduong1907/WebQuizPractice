@@ -151,28 +151,14 @@
                             </form>
 
                         </div>
-<!--                        <div class="register__complete" id="register__complete">
-                            <img src="../../images/Green-Tick-Vector-PNG-Images.png" alt="">
-                            <h4>Thank you for your registration</h4>
-                            <button onclick="closeAllForm(${c.courseID})">Close</button>
-                        </div>-->
+                        <!--                        <div class="register__complete" id="register__complete">
+                                                    <img src="../../images/Green-Tick-Vector-PNG-Images.png" alt="">
+                                                    <h4>Thank you for your registration</h4>
+                                                    <button onclick="closeAllForm(${c.courseID})">Close</button>
+                                                </div>-->
                     </div>
                 </c:forEach>
-
-
-
-
-                <div class="pagination">
-                    <ul>
-                        <li><a href="#">
-                                << </a>
-                        </li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">>></a></li>
-                    </ul>
-                </div>
+                <div id="pagination" class="pagination"></div>
             </section>
 
 
@@ -180,48 +166,50 @@
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
-                        <form action="#">
-                            <input type="text" placeholder="Type something to search...">
-                            <!-- <button type="submit">Search</button> -->
+                        <form action="blogsearch" method="GET">
+                            <input type="text" name="search" placeholder="Type something to search...">
+                            </div>
+                            <div class="option__checkbox">
+                                <h3>Category: </h3>
+                                <div class="option__options-value">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <c:forEach items="${requestScope.categories}" var="cate">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        <input type="checkbox">&emsp;<span>${cate.categoryName}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        <c:forEach items="${cate.subcategories}" var="sc">
+                                                            <div class="subcategory">
+                                                                <input type="checkbox" id="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
+                                                            </div>
+                                                        </c:forEach></div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="option__sort">
+                                <select name="sort">
+                                    <option selected disabled>Sort by:</option>
+                                    <option value="DESC">Date added(newest)</option>
+                                    <option value="ASC">Date added(oldest)</option>
+                                </select>
+                            </div>
+                            <div class="search__button">
+                                <button type="submit">Search</button>
+                            </div>
+                            <div class="contact__link">
+                                <a href="#">Contact Information</a>
+                            </div>
                         </form>
                     </div>
-                    <div class="option__checkbox">
-                        <h5>Category</h5>
-                        <div class="option__options-value">
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 1</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 2</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 3</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 4</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="option__sort">
-                        <select name="" id="">
-                            <option value="All">All</option>
-                            <option value="">SortItem1</option>
-                            <option value="">SortItem2</option>
-                        </select>
-                    </div>
-                    <div class="search__button">
-                        <button type="submit">Search</button>
-                    </div>
-                    <div class="contact__link">
-                        <a href="#">Contact Information</a>
-                    </div>
-                </div>
             </section>
         </div>
-
         <!-- POPUP REGISTER -->
 
         <c:if test="${sessionScope.account != null}">
@@ -316,118 +304,118 @@
             <!-- POPUP -->
             <section class="popup" id="popupSection" style="display: <c:choose>
 
-                 <c:when test="${sessionScope.login_status != null || sessionScope.register_status != null || param.resetPasswordMessage != null }">
-                     <%="flex; "%>
-                 </c:when>
-                 <c:otherwise>
-                     <%="none;"%>
-                 </c:otherwise>
-            </c:choose>">
+                     <c:when test="${sessionScope.login_status != null || sessionScope.register_status != null || param.resetPasswordMessage != null }">
+                         <%="flex; "%>
+                     </c:when>
+                     <c:otherwise>
+                         <%="none;"%>
+                     </c:otherwise>
+                </c:choose>">
 
 
-            <div class="popup__content">
-                <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
+                <div class="popup__content">
+                    <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
 
-                <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
-                         <c:when test="${sessionScope.login_status != null }">
-                             <c:out value="block;"/>
-                         </c:when>
-                         <c:otherwise>
-                             <c:out value="none;"/>
-                         </c:otherwise>
-                     </c:choose>">
+                    <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
+                             <c:when test="${sessionScope.login_status != null }">
+                                 <c:out value="block;"/>
+                             </c:when>
+                             <c:otherwise>
+                                 <c:out value="none;"/>
+                             </c:otherwise>
+                         </c:choose>">
 
-                    <h2>Welcome to Quiz Practice</h2>
-                    <div class="form__login" >
+                        <h2>Welcome to Quiz Practice</h2>
+                        <div class="form__login" >
 
-                        <form action="login" method="POST">
-                            <input type="text" name="email" id="emailLogin" placeholder="Enter your email" required>
-                            <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                            <div class="popup__reset">
-                                <a href="#">Forgot password?</a>
-                            </div>
-                            <div class="form__button">
-                                <button type="submit">Login</button>
-                            </div>
-                        </form>
+                            <form action="login" method="POST">
+                                <input type="text" name="email" id="emailLogin" placeholder="Enter your email" required>
+                                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                                <div class="popup__reset">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <div class="form__button">
+                                    <button type="submit">Login</button>
+                                </div>
+                            </form>
 
+                        </div>
+                        <div class="message__box">
+                            <p>${sessionScope.login_status}</p>   
+                            <c:remove var="login_status" scope="session"/>
+                        </div>
+
+
+                        <div class="popup__signup" >
+                            <a href="#">Don't have any account? Sign up here</a>
+                        </div>
                     </div>
-                    <div class="message__box">
-                        <p>${sessionScope.login_status}</p>   
-                        <c:remove var="login_status" scope="session"/>
-                    </div>
 
 
-                    <div class="popup__signup" >
-                        <a href="#">Don't have any account? Sign up here</a>
+
+                    <div class="popup__signup-form" style="display: <c:choose>
+                             <c:when test="${sessionScope.register_status != null}">
+                                 <%="block; "%>
+                             </c:when>
+                             <c:otherwise>
+                                 <%="none;"%>
+                             </c:otherwise>
+                         </c:choose>">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Register for Quiz Practice</h2>
+                        <div class="form__signup">
+                            <form action="register" method="POST">
+                                <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+                                <div class="signup__gender">
+                                    <h5>Gender</h5>
+                                    <input type="radio" name="gender" value="male" required>Male
+                                    <input type="radio" name="gender" value="female" required>Female
+                                </div>
+                                <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
+                                <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
+                                <input type="text" name="address" id="address" title="Must not be empty" placeholder="Address" required>
+                                <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
+                                <input type="password" name="confirmPasswordReg" id="confirmPassword" placeholder="Confirm password" required>
+                                <div class="form__button">
+                                    <button type="submit" >Register</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="message__box">
+                            <p>${sessionScope.register_status}</p>
+                            <c:remove var="register_status" scope="session"/>
+                        </div>
                     </div>
+
+                    <div class="popup__reset-form" style="display: <c:choose>
+                             <c:when test="${param.resetPasswordMessage != null}">
+                                 <%="block;"%>
+                             </c:when>
+                             <c:otherwise>
+                                 <%="none;"%>
+                             </c:otherwise>
+                         </c:choose>">
+                        <i class="fa fa-arrow-left"></i>
+                        <h2>Reset Password</h2>
+                        <div class="form__reset">
+                            <form action="forgotPassword" method="POST">
+                                <input type="text" name="email" id="emailReset"
+                                       placeholder="Enter your email to reset your password" onkeyup='check();'>
+                                <div class="form__button">
+                                    <button type="submit" id="resetButton">Verify your email</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="message__box">
+                            <p id="validFormMessage"></p>
+                            <p>${param.resetPasswordMessage}</p>  
+                        </div>
+                    </div>
+
                 </div>
-
-
-
-                <div class="popup__signup-form" style="display: <c:choose>
-                         <c:when test="${sessionScope.register_status != null}">
-                             <%="block; "%>
-                         </c:when>
-                         <c:otherwise>
-                             <%="none;"%>
-                         </c:otherwise>
-                     </c:choose>">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Register for Quiz Practice</h2>
-                    <div class="form__signup">
-                        <form action="register" method="POST">
-                            <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
-                            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required>
-                            <div class="signup__gender">
-                                <h5>Gender</h5>
-                                <input type="radio" name="gender" value="male" required>Male
-                                <input type="radio" name="gender" value="female" required>Female
-                            </div>
-                            <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" placeholder="Email" required>
-                            <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" placeholder="Phone Number" required>
-                            <input type="text" name="address" id="address" title="Must not be empty" placeholder="Address" required>
-                            <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"  placeholder="Password" required>
-                            <input type="password" name="confirmPasswordReg" id="confirmPassword" placeholder="Confirm password" required>
-                            <div class="form__button">
-                                <button type="submit" >Register</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="message__box">
-                        <p>${sessionScope.register_status}</p>
-                        <c:remove var="register_status" scope="session"/>
-                    </div>
-                </div>
-
-                <div class="popup__reset-form" style="display: <c:choose>
-                         <c:when test="${param.resetPasswordMessage != null}">
-                             <%="block;"%>
-                         </c:when>
-                         <c:otherwise>
-                             <%="none;"%>
-                         </c:otherwise>
-                     </c:choose>">
-                    <i class="fa fa-arrow-left"></i>
-                    <h2>Reset Password</h2>
-                    <div class="form__reset">
-                        <form action="forgotPassword" method="POST">
-                            <input type="text" name="email" id="emailReset"
-                                   placeholder="Enter your email to reset your password" onkeyup='check();'>
-                            <div class="form__button">
-                                <button type="submit" id="resetButton">Verify your email</button>
-                            </div>
-                        </form>
-
-                    </div>
-                    <div class="message__box">
-                        <p id="validFormMessage"></p>
-                        <p>${param.resetPasswordMessage}</p>  
-                    </div>
-                </div>
-
-            </div>
-        </section>
+            </section>
         </c:if>
 
         <footer>
@@ -445,6 +433,7 @@
         <!-- Initialize Swiper -->
         <script src="js/common/home.js"></script>
         <script src="js/register.js"></script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 
 </html>

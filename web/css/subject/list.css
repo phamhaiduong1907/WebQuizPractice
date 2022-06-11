@@ -29,9 +29,10 @@
 }
 
 .subject__thumbnail {
-    width: 22%;
+    width: 27%;
     background-color: #dedede;
     align-self: stretch;
+    margin-right: 10px;
 }
 
 .subject__content {
@@ -74,7 +75,7 @@
 }
 
 .subject__register {
-    display: inline-block;  
+    display: inline-block;
 }
 .subject__register button{
     padding: 1px 15px;
@@ -176,4 +177,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.pagination{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.pagination span
+{
+    color: white;
+    font-size: 27px;
+    border: 1px;
+    padding: 10px 25px;
+    background-color: #4CAF50;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.pagination a
+{
+    transition: background-color .2s;
+    color: black;
+    text-decoration: none;
+    font-size: 27px;
+    border:1px;
+    padding: 10px 25px;
+    border-radius: 10px;
+
+}
+
+.pagination a:hover{
+    color: white;
+    background: grey;
 }
