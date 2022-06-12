@@ -20,6 +20,12 @@ import model.Role;
  */
 public class AccountDBContext extends DBContext {
 
+    /**
+     *
+     * @param username
+     * @param uri
+     * @return a boolean (yes means that the user can access the uri and the otherwise)
+     */
     public boolean getPermission(String username, String uri) {
         try {
             String sql = "select count(*) as permission from Account a inner join\n"
@@ -44,6 +50,11 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param username
+     * @return an account if it exists in the database
+     */
     public Account isExistAccount(String username) {
         String sql = "Select username, password, r.roleID, r.roleName"
                 + " from Account a join Role r on a.roleID = r.roleID where username = ?";
@@ -70,7 +81,12 @@ public class AccountDBContext extends DBContext {
         return null;
 
     }
-    
+
+    /**
+     *
+     * @param username
+     * @return true if there is an account with the matching username in the database
+     */
     public boolean isExistUser(String username) {
         String sql = "Select username, password from Account where username = ?";
         PreparedStatement stm = null;
@@ -105,6 +121,12 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return true if the password has been changed by this function
+     */
     public boolean changePassword(String username, String password) {
         String sql = "update Account\n"
                 + "set [password] = ?\n"
@@ -123,6 +145,12 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return an account with every related attributes
+     */
     public Account getAccount(String username, String password) {
         String sql = "select a.username, a.[password], r.* from\n"
                 + "Account a inner join [Role] r on r.roleID = a.roleID\n"
@@ -182,6 +210,32 @@ public class AccountDBContext extends DBContext {
         }
         return null;
     }
+    
+    public Account getAccount(String username){
+        try {
+            String sql = "SELECT username,password,roleID FROM Account \n"
+                    + "WHERE username = ?";
+            RoleDBContext dbRole = new RoleDBContext();
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("username"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(dbRole.getRole(rs.getInt("roleID")));
+                rs.close();
+                stm.close();
+                connection.close();
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public boolean insertAccount(Account account) {
         String sql = "INSERT INTO [Account]\n"
@@ -208,6 +262,11 @@ public class AccountDBContext extends DBContext {
         return false;
     }
 
+    /**
+     *
+     * @param account
+     * @return true if the password has been changed successfully
+     */
     public boolean changePassword(Account account) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + "   SET [password] = ?\n"
@@ -241,6 +300,10 @@ public class AccountDBContext extends DBContext {
         }
         return false;
     }
+    
+    
+    
+   
 
 //    public boolean insertAccount(Account account) {
 //        String sql = "INSERT INTO [Account]\n"

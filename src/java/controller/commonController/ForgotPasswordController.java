@@ -25,7 +25,7 @@ import util.EmailUtils;
 public class ForgotPasswordController extends HttpServlet {
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
-    final static String COMPANYGMAIL_PASSWORD = "hung123qwq";
+    final static String COMPANYGMAIL_PASSWORD = "kfdhvpiafobpgllh";
     final static String HOMESERVLETNAME = "HomePageController";
 
     /**
@@ -83,7 +83,7 @@ public class ForgotPasswordController extends HttpServlet {
             EmailUtils emailUtils = new EmailUtils();
             String token = emailUtils.createToken(username);
 
-            sb.append("http://localhost:9999/SWP391-SE1617-NET_Group06-QuizWebsite/forgotPasswordNext?token="
+            sb.append("http://localhost:1907/SWP391-SE1617-NET_Group06-QuizWebsite/forgotPasswordNext?token="
                     + token);
             email.setContent(sb.toString());
 
@@ -92,13 +92,15 @@ public class ForgotPasswordController extends HttpServlet {
                 response.sendRedirect("home?resetPasswordMessage=" + sendEmailsuccessfullyMessage);
 
             } catch (Exception ex) {
-                response.sendRedirect("home?resetPasswordMessage=" + sendEmailFailedmessage);
 
                 Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
             }
 //            request.getRequestDispatcher("index.jsp").forward(request, response);
 
 ////            response.sendRedirect("home");
+        } else {
+            response.sendRedirect("home?resetPasswordMessage=" + sendEmailFailedmessage);
+
         }
     }
 

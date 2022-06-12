@@ -51,7 +51,7 @@
                         <div class="carousel-item active" data-bs-interval="5000">
                             <a href="${s.backlink}">
                                 <div class="block__item">
-                                    <img src="images/slider/${s.imageUrl}">
+                                    <img src="${s.imageUrl}">
                                 </div>
                                 <div class="carousel-caption d-none d-md-block">
                                 </div>
@@ -107,21 +107,23 @@
             <div class="subject__container">
                 <div class="subject__content">
                     <c:forEach items="${requestScope.courses}" var="c">
+
                         <div class="subject__card">
                             <div class="subject__card-content">
                                 <div class="subject__thumnail post__thumbnail">
                                     <img src="images/thumbnails/${c.thumbnailUrl}">
                                 </div>
+
                                 <div class="subject__title post__title">
-                                    <p>${c.courseName}</p>
+                                    <a href="subjectdetail?subjectID=${c.courseID}"><p>${c.courseName}</p></a>
+
+
                                 </div>
                                 <div class="subject__description">
                                     <p>${c.briefInfo}</p>
                                 </div>
                             </div>
                             <div class="course__detail">
-                                <a href="subjectdetail?subjectID=${c.courseID}">View Detail <i
-                                        class="fa fa-arrow-circle-right"></i></a>
                             </div>  
 
                         </div>

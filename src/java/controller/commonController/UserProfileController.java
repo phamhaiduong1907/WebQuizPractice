@@ -5,7 +5,6 @@
 package controller.commonController;
 
 import dal.UserDBContext;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -20,9 +19,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import model.Account;
 import model.User;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -31,6 +27,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @MultipartConfig(location = "D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UserProfileController extends HttpServlet {
+
+    final static String PICTUREPROFILEURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Copy - Copy\\web\\images\\profile";
 
     /**
      * Handles the HTTP <code>GET</code> method.

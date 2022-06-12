@@ -56,6 +56,12 @@ function pagger(id, pageindex, totalpage, gap)
     container.innerHTML = result;
 }
 
+function disableButton(buttonID) {
+    var button = document.getElementById(buttonID);
+    button.disabled = true;
+    button.innerHTML = 'Registered';
+}
+
 
 
 

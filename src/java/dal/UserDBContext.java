@@ -58,17 +58,31 @@ public class UserDBContext extends DBContext {
         return users;
     }
 
-    public ArrayList<User> getPaginatedUsers(int pageindex, int pagesize){
+    public int count() {
+        try {
+            String sql = "select count(*) as Total from [User]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsers(int pageindex, int pagesize) {
         ArrayList<User> users = new ArrayList<>();
         try {
             String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
-                    + "on u.username = a.username order by a.roleID asc"
+                    + "on u.username = a.username order by a.roleID\n"
                     + "offset (? - 1 ) * ? rows fetch next ? rows only";
             connection.setAutoCommit(false);
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, pageindex);
             stm.setInt(2, pagesize);
-            stm.setInt(3,pagesize);
+            stm.setInt(3, pagesize);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -100,7 +114,7 @@ public class UserDBContext extends DBContext {
         }
         return users;
     }
-    
+
     public User getUser(String username) {
         try {
             String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
@@ -138,6 +152,189 @@ public class UserDBContext extends DBContext {
             }
         }
         return null;
+    }
+
+    public int countByStatus(boolean status) {
+        try {
+            String sql = "select count(*) as Total from [User] where [status] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByStatus(int pageindex, int pagesize, boolean status) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.[status] = ? order by u.gender asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
+    public int countByGender(boolean gender) {
+        try {
+            String sql = "select count(*) as Total from [User] where [gender] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, gender);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByGender(int pageindex, int pagesize, boolean gender) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.[gender] = ? order by u.gender asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, gender);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
+    public int countByQuery(String query) {
+        try {
+            String sql = "select count(*) from [User] u where u.lastName + ' ' + u.firstName = ?\n"
+                    + "or u.username = ? or u.phoneNumber = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, query);
+            stm.setString(2, query);
+            stm.setString(3, query);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByQuery(int pageindex, int pagesize, String query) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.lastName + ' ' + u.firstName = ?\n"
+                    + "or u.username = ? or u.phoneNumber = ? order by u.username asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, query);
+            stm.setString(2, query);
+            stm.setString(3, query);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
+            stm.setInt(6, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
     }
 
     public void updateUser(String username, String firstName, String lastName, String[] featureIDs,
@@ -334,9 +531,6 @@ public class UserDBContext extends DBContext {
         return false;
     }
 
-    
-    
-
     public boolean isUserExist(String username) {
         String sql = "select username from [User]\n"
                 + "where username = ?";
@@ -346,7 +540,7 @@ public class UserDBContext extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {

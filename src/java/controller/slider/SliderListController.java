@@ -4,7 +4,6 @@
  */
 package controller.slider;
 
-import controller.AuthorizationController;
 import dal.SliderDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -86,6 +85,11 @@ public class SliderListController extends HttpServlet {
 
         // ====================================================================
         // ====================== REQUIRED ATTRIBUTES =========================
+        
+
+        
+
+
         // ====================================================================
         // ============================ LOGIC =================================
         if ((statusParam == null && title == null)) {
@@ -147,12 +151,6 @@ public class SliderListController extends HttpServlet {
                 count = dbSlider.countByTitle(titleSearch.trim());
                 totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
                 pageindex = Integer.parseInt(page);
-//                if (pageindex < 1) {
-//                    pageindex = 1;
-//                }
-//                if (pageindex > totalpage) {
-//                    pageindex = totalpage;
-//                }
                 String titleQuery = "";
                 for(int i = 0; i < titleParts.length; i++){
                     titleQuery += titleParts[i];
@@ -167,14 +165,9 @@ public class SliderListController extends HttpServlet {
         // ====================================================================
         // ============================ LOGIC =================================
 
-//        int count = dbSlider.count();
-//        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
-//        int pageindex = Integer.parseInt(page);
-//        if(pageindex < 1)
-//            pageindex = 1;
-//        if(pageindex > totalpage)
-//            pageindex = totalpage;
-//        ArrayList<Slider> sliders = dbSlider.getPaginatedSliders(pageindex, pagesize);
+
+        
+        
         // ====================================================================
         // ======================== SET ATTRIBUTES ============================
         request.setAttribute("url", url);
@@ -191,6 +184,10 @@ public class SliderListController extends HttpServlet {
 
         // ====================================================================
         // ======================== SET ATTRIBUTES ============================
+        
+
+
+    
         // ====================================================================
         // =================== FORWARD REQUEST RESOURCES ======================
         request.getRequestDispatcher("../view/marketing/slider_list.jsp").forward(request, response);

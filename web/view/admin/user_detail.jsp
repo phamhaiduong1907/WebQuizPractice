@@ -105,7 +105,7 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-                                <div class="authorized__feature">
+<!--                                <div class="authorized__feature">
                                     <p>(Choose/Unchoose items to modify user's features accessibility)</p>
                                     <div id="featureOption">
                                         <%for (Feature fid : roleById.getFeatures()) {%>
@@ -125,7 +125,7 @@
                                         <%=(fid.getFeatureName())%>
                                         <%}%>
                                     </div>
-                                </div>  
+                                </div>  -->
                             </div> 
                             <div class="authorize_item">
                                 <label for="status">Status</label>

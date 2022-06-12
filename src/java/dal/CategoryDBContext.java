@@ -18,6 +18,11 @@ import model.Category;
  */
 public class CategoryDBContext extends DBContext {
 
+    /**
+     *
+     * @param categoryTypeID
+     * @return get sub categories by typeID
+     */
     public ArrayList<Category> getCategories(int categoryTypeID) {
         ArrayList<Category> categories = new ArrayList<>();
         try {
@@ -41,6 +46,11 @@ public class CategoryDBContext extends DBContext {
         return categories;
     }
 
+    /**
+     *
+     * @param categoryID
+     * @return a category with the matching categoryID
+     */
     public Category getCategory(int categoryID) {
         try {
             String sql = "SELECT categoryID, categoryName \n"

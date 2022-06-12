@@ -34,8 +34,8 @@
     box-shadow: 1px 1px 1px 1px grey;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 70vh;
+    justify-content: flex-start;
+    height: 60vh;
     overflow: clip;
 }
 

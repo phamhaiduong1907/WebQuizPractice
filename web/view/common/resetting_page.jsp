@@ -16,33 +16,33 @@
     <body>
         <div class="form">
             <form method="POST" action="forgotPasswordNext">
-                <table>
+                <table class="input__table">
                     <tr>
                         <td>New password:</td>
-                        <td><input type="password" name="password" id="password" onkeyup='check();'>
-                            <input type="hidden" value="${param.token}" name="token" id="token">
+                        <td><input type="password" name="password" id="password" onkeyup='check();' class="input__lable">
+                            <input type="hidden" value="${param.token}" name="token" id="token" >
                         </td>
                     </tr>
                     <tr>
                         <td>Confirm password:</td>
-                        <td><input type="password" name="confirmPassword" id="confirmPassword" onkeyup='check();'></td>
+                        <td><input type="password" name="confirmPassword" id="confirmPassword" onkeyup='check();' class="input__lable"></td>
                         <td>  <span id='matchingMessage'></span></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" id="resetButton"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
+
+
 
                 </table>
+                <div class="button_wrapper">
+                    <input type="submit" id="resetButton">
+
+                </div>
+
             </form>
 
         </div>
 
         <div class="messageBox">
-            
+
             <p class="success__message">${requestScope.messageUpdate}</p>
             <p class="failed__message">${requestScope.messageExpired}</p>
             <p class="failed__message">${requestScope.messageFailMatchPassword}</p>

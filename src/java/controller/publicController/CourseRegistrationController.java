@@ -4,6 +4,7 @@
  */
 package controller.publicController;
 
+import dal.AccountDBContext;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
 import dal.RegistrationDBContext;
@@ -62,7 +63,7 @@ public class CourseRegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Validation validation = new Validation();
-
+        AccountDBContext accountDBContext = new AccountDBContext();
         PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
         RegistrationDBContext registrationDBContext = new RegistrationDBContext();
         String rawFirstName = request.getParameter("firstName");
@@ -73,6 +74,9 @@ public class CourseRegistrationController extends HttpServlet {
         String rawPricePackageID = request.getParameter("pricePackageID");
         String rawCourseID = request.getParameter("courseID");
         String data[] = {rawFirstName, rawLastName, rawEmail, rawPhoneNumber, rawGender, rawPricePackageID};
+
+        Account account = (Account) request.getSession().getAttribute("account");
+
         if (validation.checkNullOrBlank(data)) {
             int pricePackageID = Integer.parseInt(rawPricePackageID);
             PricePackage pricePackage = pricePackageDBContext.getPricePackageByID(pricePackageID);
@@ -85,15 +89,34 @@ public class CourseRegistrationController extends HttpServlet {
             user.setAccount(a);
             user.setPhoneNumber(rawPhoneNumber);
             int courseID = Integer.parseInt(rawCourseID);
-            boolean isSucessfull = registrationDBContext.insertRegistration(courseID, pricePackage, user);
-            if (isSucessfull) {
 
-                response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=true");
+            if (registrationDBContext.isRegistered(rawEmail, courseID)) { // has a record in registration table
+                if (accountDBContext.isExistAccount(rawEmail) == null) { // guest have unregisterd gmail 
+                    response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=registered");
+                } else {
+                    if (account == null) {
+                        response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=duplicateGmail");
+
+                    } else {
+                        response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=duplicateGmailLoggedIn");
+
+                    }
+
+                }
 
             } else {
-                response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=false");
 
+                boolean isSucessfull = registrationDBContext.insertRegistration(courseID, pricePackage, user);
+                if (isSucessfull) {
+
+                    response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=true");
+
+                } else {
+                    response.sendRedirect("subjectdetail?subjectID=" + request.getParameter("courseID") + "&registerSucessfully=false");
+
+                }
             }
+
         }
 
     }
