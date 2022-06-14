@@ -4,6 +4,7 @@
  */
 package controller.publicController;
 
+import controller.AuthorizationController;
 import dal.BlogDBContext;
 import dal.CourseDBContext;
 import dal.SliderDBContext;
@@ -49,8 +50,18 @@ public class HomePageController extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }else if(account.getRole().getRoleID()==5){
             request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
+            
+        }else if(account.getRole().getRoleID()==4){
+            request.getRequestDispatcher("view/marketing/index.jsp").forward(request, response);
+            
+        }else if(account.getRole().getRoleID()==3){
+            request.getRequestDispatcher("view/sale/index.jsp").forward(request, response);
+            
+        }else if(account.getRole().getRoleID()==2){
+            request.getRequestDispatcher("view/expert/index.jsp").forward(request, response);
+            
         }else{
-            request.getRequestDispatcher("view/markerting/dashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("view/admin/index.jsp").forward(request, response);
         }
         
     }

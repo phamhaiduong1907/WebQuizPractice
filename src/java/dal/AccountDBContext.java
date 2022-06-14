@@ -301,9 +301,35 @@ public class AccountDBContext extends DBContext {
         return false;
     }
     
-    
-    
-   
+    public ArrayList<Account> getAccountByRole(int roleid){
+        ArrayList<Account> accounts = new ArrayList<>();
+        try {
+            String sql = "select username from Account where roleID = ?";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, roleid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Account account = new Account();
+                account.setUsername(rs.getString("username"));
+                accounts.add(account);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return accounts;
+    }
 
 //    public boolean insertAccount(Account account) {
 //        String sql = "INSERT INTO [Account]\n"

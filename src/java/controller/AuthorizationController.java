@@ -78,7 +78,7 @@ public abstract class AuthorizationController extends HttpServlet {
 //                writer.println("</body>");
 //                writer.println("</html>");
 //            }
-            response.sendRedirect("../deny");
+            response.sendRedirect("deny");
         }
     }
 

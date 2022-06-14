@@ -57,6 +57,13 @@ function pagger(id, pageindex, totalpage, gap, url, querystring)
     container.innerHTML = result;
 }
 
+function checkAllBox(source, cateID) {
+    checkboxes = document.getElementsByClassName(cateID);
+    for (var i = 0, n = checkboxes.length; i < n; i++) {
+        checkboxes[i].checked = source.checked;
+    }
+}
+
 
 function disableButton(buttonID) {
     var button = document.getElementById(buttonID);

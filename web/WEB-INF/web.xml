@@ -118,8 +118,18 @@
     <servlet>
         <servlet-name>ChangeBlogStatusController</servlet-name>
         <servlet-class>controller.marketingController.ChangeBlogStatusController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CourseSearchController</servlet-name>
         <servlet-class>controller.publicController.CourseSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewSubjectController</servlet-name>
+        <servlet-class>controller.courseContentController.NewSubjectController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSearchController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageSearchController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -211,7 +221,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageSubjectListController</servlet-name>
-        <url-pattern>/manager/subjectlist</url-pattern>
+        <url-pattern>/managesubject</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
@@ -240,8 +250,19 @@
     <servlet-mapping>
         <servlet-name>ChangeBlogStatusController</servlet-name>
         <url-pattern>/marketing/changeblogstatus</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CourseSearchController</servlet-name>
         <url-pattern>/coursesearch</url-pattern>
+        </servlet-mapping>
+   
+    <servlet-mapping>
+        <servlet-name>NewSubjectController</servlet-name>
+        <url-pattern>/newsubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSearchController</servlet-name>
+        <url-pattern>/managesearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
