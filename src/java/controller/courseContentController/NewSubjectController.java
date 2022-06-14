@@ -100,7 +100,23 @@ public class NewSubjectController extends HttpServlet {
         String raw_description = request.getParameter("description");
         String[] input = {raw_subjectName, raw_owner, raw_subcategoryid, raw_published, raw_featured, raw_description};
 
-        if (v.checkNullOrBlank(input)) {
+        if ((raw_subjectName == null || raw_subjectName.trim().length() == 0)
+                && (raw_owner == null || raw_owner.trim().length() == 0) && (raw_description == null || raw_description.trim().length() == 0)) {
+            if (raw_category != null && raw_category.trim().length() != 0) {
+                categoryid = Integer.parseInt(raw_category);
+            }
+
+            ArrayList<Category> categories = dbCate.getCategories(2);
+            ArrayList<Subcategory> subcategories = dbSubcate2.getSubcategories(categoryid);
+            ArrayList<Account> accounts = dbAccount.getAccountByRole(2);
+            if (accounts != null) {
+                request.setAttribute("cid", categoryid);
+                request.setAttribute("categories", categories);
+                request.setAttribute("subcategories", subcategories);
+                request.setAttribute("expertList", accounts);
+                request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
+            }
+        }else if (v.checkNullOrBlank(input)) {
             Account owner = dbAccount.isExistAccount(raw_owner);
             if (owner != null && owner.getRole().getRoleID() == 2) {
                 if (checkFileType(subjectPicName)) {
@@ -129,8 +145,7 @@ public class NewSubjectController extends HttpServlet {
                         } else {
                             request.setAttribute("create_subject_status", "Add course failed! Please try again!");
                         }
-                    }
-                    else{
+                    } else {
                         request.setAttribute("create_subject_status", "Error saving file!");
                     }
                 } else {
