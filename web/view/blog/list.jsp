@@ -98,12 +98,12 @@
                 </c:otherwise>
             </c:choose>
 
-            <!-- RIGHT -->
+            <!-- RIGHT start of filter/option box -->
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
                         <form action="blogsearch" method="GET">
-                            <input type="text" name="search" required placeholder="Type something to search...">
+                            <input type="text" name="search"  placeholder="Type something to search...">
                             </div>
                             <div class="option__checkbox">
                                 <h3>Category: </h3>
@@ -360,7 +360,7 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>pagger("pagination", <%=pageindex%>, <%=totalpage%>, 3);</script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 
 

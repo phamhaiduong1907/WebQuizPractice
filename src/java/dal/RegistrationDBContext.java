@@ -260,7 +260,6 @@ public class RegistrationDBContext extends DBContext {
                 if (rs.getString("updatedBy") != null) {
                     r.setUpdatedBy(userDBContext.getUser(rs.getString("updatedBy")));
                 }
-                
 
                 registrations.add(r);
 
@@ -355,7 +354,7 @@ public class RegistrationDBContext extends DBContext {
             stm.setString(1, username);
             stm.setInt(2, courseID);
             rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getInt("number") >= 1;
             }
         } catch (SQLException ex) {
@@ -364,6 +363,39 @@ public class RegistrationDBContext extends DBContext {
 
         return false;
 
+    }
+
+    public boolean updateRegistration(int pricePackageID, String username, int registrationID) {
+        String sql = "update Registration\n"
+                + "set registrationTime = GETDATE(), pricePackageID = ?, totalCost = ?\n"
+                + ",updatedBy = ?\n"
+                + "where registrationID = ?";
+
+        PreparedStatement stm = null;
+
+        try {
+            PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+            PricePackage pricePackage = pricePackageDBContext.getPricePackageByID(pricePackageID);
+
+            float totalCost = 0;
+            if (pricePackage.isIsOnSale()) {
+                totalCost = pricePackage.getSalePrice();
+            } else {
+                totalCost = pricePackage.getListPrice();
+            }
+
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, pricePackageID);
+            stm.setFloat(2, totalCost);
+            stm.setString(3, username);
+            stm.setInt(4, registrationID);
+            return stm.executeUpdate() >= 1;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
 }

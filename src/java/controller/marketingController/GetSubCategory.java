@@ -2,25 +2,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.publicController;
+package controller.marketingController;
 
-import dal.BlogDBContext;
-import dal.CategoryDBContext;
+import dal.SubCategoryDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Category;
-import model.Post;
+import model.Subcategory;
 
 /**
  *
- * @author Hai Tran
+ * @author ADMIN
  */
-public class BlogListController extends HttpServlet {
+public class GetSubCategory extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -33,27 +41,6 @@ public class BlogListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDBContext dbBlog = new BlogDBContext();
-        CategoryDBContext dbCate = new CategoryDBContext();
-        int pagesize = 3;
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
-        ArrayList<Category> categories = dbCate.getCategories(1);
-        int count = dbBlog.count();
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        if (pageindex <= 0 || pageindex > totalpage)
-            pageindex = 1;
-        request.setAttribute("categories", categories);
-        request.setAttribute("posts", posts);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("search", count);
-         request.setAttribute("url", "bloglist");
-        request.getRequestDispatcher("view/blog/list.jsp").forward(request, response);
     }
 
     /**
@@ -67,7 +54,19 @@ public class BlogListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charater=UTF-8");
+        response.setCharacterEncoding("utf-8");
+        SubCategoryDBContext subCategoryDBContext = new SubCategoryDBContext();
+        int ID = Integer.parseInt(request.getParameter("ID"));
+        ArrayList<Subcategory> subcategories = subCategoryDBContext.getSubcategories(ID);
+        String result = "<select class = 'form-control' id='' name = 'subcategoryID'>";
+        for (Subcategory s : subcategories) {
+            result += "<option value = " + s.getSubcategoryID() + ">" + s.getSubcategoryName() + " </option>";
+        }
 
+        result += "</select>";
+
+        response.getWriter().println(result);
     }
 
     /**

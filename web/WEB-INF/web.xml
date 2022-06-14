@@ -95,6 +95,30 @@
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
         <servlet-class>controller.customerControllers.SearchCustomerRegistrationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateCustomerRegistrationController</servlet-name>
+        <servlet-class>controller.customerControllers.UpdateCustomerRegistrationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingBlogListController</servlet-name>
+        <servlet-class>controller.marketingController.MarketingBlogListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBlogController</servlet-name>
+        <servlet-class>controller.marketingController.AddBlogController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSubCategory</servlet-name>
+        <servlet-class>controller.marketingController.GetSubCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewModifyPostController</servlet-name>
+        <servlet-class>controller.marketingController.ViewModifyPostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeBlogStatusController</servlet-name>
+        <servlet-class>controller.marketingController.ChangeBlogStatusController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -190,6 +214,30 @@
     <servlet-mapping>
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
         <url-pattern>/registrationsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustomerRegistrationController</servlet-name>
+        <url-pattern>/updateCustomerRegistration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingBlogListController</servlet-name>
+        <url-pattern>/marketing/bloglist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogController</servlet-name>
+        <url-pattern>/marketing/addblog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSubCategory</servlet-name>
+        <url-pattern>/getsubcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewModifyPostController</servlet-name>
+        <url-pattern>/marketing/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeBlogStatusController</servlet-name>
+        <url-pattern>/marketing/changeblogstatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

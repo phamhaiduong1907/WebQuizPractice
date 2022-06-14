@@ -128,19 +128,21 @@ public class BlogDBContext extends DBContext {
      */
     public Post getPost(int postID) {
         try {
-            String sql = "SELECT postID, p.subcategoryID, sc.subcategoryName, title, briefInfo, [description], isFeatured,[status], author, updatedDate, thumbnailURL\n"
+            String sql = "SELECT postID, p.subcategoryID, sc.subcategoryName, title, briefInfo, [description], isFeatured,[status], author, updatedDate, thumbnailURL,sc.categoryID\n"
                     + "FROM Post p join SubCategory sc\n"
                     + "ON p.subcategoryID = sc.subcategoryID\n"
                     + "WHERE P.postID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, postID);
             ResultSet rs = stm.executeQuery();
+            CategoryDBContext categoryDBContext = new CategoryDBContext();
             if (rs.next()) {
                 Subcategory sc = new Subcategory();
                 Account a = new Account();
                 Post p = new Post();
-                sc.setCategoryID(rs.getInt("subcategoryID"));
+                sc.setCategoryID(rs.getInt("categoryID"));
                 sc.setSubcategoryName(rs.getString("subcategoryName"));
+                sc.setSubcategoryID(rs.getInt("subcategoryID"));
                 a.setUsername(rs.getString("author"));
                 p.setSubcategory(sc);
                 p.setAuthor(a);
@@ -210,6 +212,129 @@ public class BlogDBContext extends DBContext {
             Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return posts;
+    }
+
+    public int countSearchBlog(String search, String subcateID) {
+        int count = 0;
+        try {
+            StringBuilder sb = new StringBuilder();
+            String sql = "SELECT COUNT(*) AS Total\n"
+                    + "FROM Post\n"
+                    + "WHERE title LIKE ?";
+            sb.append(sql);
+            if (!subcateID.isEmpty()) {
+                String and = " AND subcategoryID IN(" + subcateID + ")";
+                sb.append(and);
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if (search.trim().equals("")) {
+                search = "%";
+            } else {
+                search = "%" + search + "%";
+            }
+            stm.setString(1, search);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public int insertPost(int subCategoryID, String title, String briefInfo, String description, boolean isFeatured,
+            boolean isStatus, String author) {
+        String generatedColumns[] = {"ID"};
+        String sql = "INSERT INTO [dbo].[Post]\n"
+                + "           ([subCategoryID]\n"
+                + "           ,[title]\n"
+                + "           ,[briefInfo]\n"
+                + "           ,[description]\n"
+                + "           ,[isFeatured]\n"
+                + "           ,[status]\n"
+                + "           ,[author]\n"
+                + "           ,[updatedDate]\n"
+                + "           ,[thumbnailURL])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,GETDATE(),'')\n"
+                + "\n"
+                + "declare @id1 as int set @id1=(select SCOPE_IDENTITY());\n"
+                + "\n"
+                + "update Post \n"
+                + "set thumbnailURL = 'post_thumbnail_id' + cast(@id1 as varchar(max)) +'.png' "
+                + " where postID = @id1 \n";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql, generatedColumns);
+            stm.setInt(1, subCategoryID);
+            stm.setString(2, title);
+            stm.setString(3, briefInfo);
+            stm.setString(4, description);
+            stm.setBoolean(5, isFeatured);
+            stm.setBoolean(6, isStatus);
+            stm.setString(7, author);
+            stm.executeUpdate();
+            rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                return id;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+
+    }
+
+    public boolean updatePost(int subCategoryID, String title, String briefInfo,
+            String description, boolean isFeatured, boolean status, int postID) {
+        String sql = "update Post\n"
+                + "set subCategoryID = ?, title=?,briefInfo=?,[description]=?,isFeatured=?,[status]=?,updatedDate=GETDATE()\n"
+                + "where postID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, subCategoryID);
+            stm.setString(2, title);
+            stm.setString(3, briefInfo);
+            stm.setString(4, description);
+            stm.setBoolean(5, isFeatured);
+            stm.setBoolean(6, status);
+            stm.setInt(7, postID);
+            return stm.executeUpdate() >= 1;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public boolean updateStatus(boolean status, int postID) {
+        String sql = "update Post \n"
+                + "set status = ?\n"
+                + "where postID = ?";
+        PreparedStatement stm = null;
+        
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            stm.setInt(2, postID);
+            return stm.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return false;
     }
 
 }

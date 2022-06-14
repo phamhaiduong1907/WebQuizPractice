@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/registration.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/popup.css">
-
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
@@ -105,7 +104,9 @@
                                             <input type="hidden" value="${r.registrationID}" name="registrationID">
                                             <input type="submit" value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
                                         </form>
-                                        <button onclick="openPopup(${r.course.courseID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
+
+
+                                        <button onclick="openPopup(${r.registrationID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
 
 
                                     </td>
@@ -124,10 +125,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="register__popup" id="${r.course.courseID}">
+                                <!--Edit popup-->
+                                <div class="register__popup" id="${r.registrationID}"> 
                                     <div class="register__form">
                                         <div class="exit__button">
-                                            <button onclick="closePopup(${r.course.courseID})">
+                                            <button onclick="closePopup(${r.registrationID})">
                                                 <i class=" fa fa-times-circle" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -140,7 +142,7 @@
                                         <div class="subject__info">
                                             <p style="font-size: 20px;"></p>
                                         </div>
-                                        <form method="POST" action="courseRegistration">
+                                        <form method="POST" action="updateCustomerRegistration">
                                             <div class="subject__price">Price package:
                                                 <select name="pricePackageID">
                                                     <c:forEach items="${r.course.pricePackages}" var="p">
@@ -155,12 +157,8 @@
 
                                             <c:choose>
                                                 <c:when test="${sessionScope.user != null}">
-                                                    <input type="hidden" name="firstName" value="${sessionScope.user.firstName}"><br>
-                                                    <input type="hidden" name="lastName"  value="${sessionScope.user.lastName}"><br>
-                                                    <input type="hidden" name="email" value="${sessionScope.user.account.username}"><br>
-                                                    <input type="hidden" name="phoneNumber" value="${sessionScope.user.phoneNumber}"><br>
-                                                    <input type="hidden" name="courseID" value="${c.courseID}">
-                                                    <input type="hidden" name="gender" value="${sessionScope.user.gender}">
+                                                    <input type="hidden" value="${r.registrationID}" name="registrationID">
+                                                    <input type="hidden" value="${requestScope.queryString}" name="queryString">
 
                                                 </c:when>
                                                 <c:otherwise>

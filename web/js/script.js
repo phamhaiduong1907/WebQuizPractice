@@ -33,28 +33,30 @@ document.querySelector(".popup__reset-form i").addEventListener("click", functio
     document.querySelector(".popup__reset-form").style.display = "none";
 });
 
-function pagger(id, pageindex, totalpage, gap)
+function pagger(id, pageindex, totalpage, gap, url, querystring)
 {
+    querystring = "&" + querystring;
     var container = document.getElementById(id);
     var result = '';
     if (pageindex - gap > 1)
-        result += '<a href="bloglist?page=1">' + 'First' + '</a>';
+        result += '<a href="' + url + '?page=1' + querystring + '">' + 'First' + '</a>';
 
     for (var i = pageindex - gap; i < pageindex; i++)
         if (i > 0)
-            result += '<a href="bloglist?page=' + i + '">' + i + '</a>';
+            result += '<a href="' + url + '?page=' + i + querystring + '">' + i + '</a>';
 
     result += '<span>' + pageindex + '</span>';
 
     for (var i = pageindex + 1; i <= pageindex + gap; i++)
         if (i <= totalpage)
-            result += '<a href="bloglist?page=' + i + '">' + i + '</a>';
+            result += '<a href="' + url + '?page=' + i + querystring + '">' + i + '</a>';
 
     if (pageindex + gap < totalpage)
-        result += '<a href="bloglist?page=' + totalpage + '">' + 'Last' + '</a>';
+        result += '<a href="' + url + '?page=' + totalpage + querystring + '">' + 'Last' + '</a>';
 
     container.innerHTML = result;
 }
+
 
 function disableButton(buttonID) {
     var button = document.getElementById(buttonID);
