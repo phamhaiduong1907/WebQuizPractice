@@ -5,20 +5,39 @@
 package controller.courseContentController;
 
 import dal.AccountDBContext;
+import dal.CategoryDBContext;
+import dal.CourseDBContext;
+import dal.SubCategoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 import model.Account;
+import model.Category;
+import model.Course;
+import model.Subcategory;
+import util.Validation;
 
 /**
  *
  * @author Zuys
  */
+@MultipartConfig(location = "D:\\SWP\\I2\\summer2022-se1617-g6-master\\web\\images\\subject", fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class NewSubjectController extends HttpServlet {
+
+    final static String SUBJECTPICTUREURI = "D:\\SWP\\I2\\summer2022-se1617-g6-master\\web\\images\\subject";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,6 +51,12 @@ public class NewSubjectController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountDBContext dbAccount = new AccountDBContext();
+        CategoryDBContext dbCate = new CategoryDBContext();
+        SubCategoryDBContext dbSubcate = new SubCategoryDBContext();
+        int categoryid = 1;
+
+        ArrayList<Category> categories = dbCate.getCategories(2);
+        ArrayList<Subcategory> subcategories = dbSubcate.getSubcategories(categoryid);
         ArrayList<Account> accounts = dbAccount.getAccountByRole(2);
         if (accounts != null) {
             StringBuilder sb = new StringBuilder();
@@ -50,8 +75,11 @@ public class NewSubjectController extends HttpServlet {
             sb.insert(0, "[");
             sb.append("]");
             String expertList = sb.toString();
+
+            request.setAttribute("cid", categoryid);
+            request.setAttribute("categories", categories);
+            request.setAttribute("subcategories", subcategories);
             request.setAttribute("expertList", expertList);
-            log(expertList);
             request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
         }
     }
@@ -67,6 +95,125 @@ public class NewSubjectController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Validation v = new Validation();
+        AccountDBContext dbAccount = new AccountDBContext();
+        CategoryDBContext dbCate = new CategoryDBContext();
+        SubCategoryDBContext dbSubcate1 = new SubCategoryDBContext();
+        SubCategoryDBContext dbSubcate2 = new SubCategoryDBContext();
+        CourseDBContext dbCourse1 = new CourseDBContext();
+        CourseDBContext dbCourse2 = new CourseDBContext();
+        int categoryid = 1;
+        int courseID = dbCourse1.getTopCourseID();
+
+        Part subjectPic = request.getPart("profilePicture");
+        String subjectPicName = extractFileName(subjectPic);
+        subjectPicName = new File(subjectPicName).getName();
+        String raw_category = request.getParameter("category");
+        String raw_subjectName = request.getParameter("name");
+        String raw_owner = request.getParameter("owner");
+        String raw_subcategoryid = request.getParameter("subcategory");
+        String raw_published = request.getParameter("published");
+        String raw_featured = request.getParameter("featured");
+        String raw_description = request.getParameter("description");
+        String[] input = {raw_subjectName, raw_owner, raw_subcategoryid, raw_published, raw_featured, raw_description};
+
+        if (v.checkNullOrBlank(input)) {
+            Account owner = dbAccount.isExistAccount(raw_owner);
+            if (owner != null && owner.getRole().getRoleID() == 2) {
+                if (checkFileType(subjectPicName)) {
+                    try {
+                        subjectPic.write(this.getFolderUpload().getAbsolutePath() + File.separator + subjectPicName);
+                    } catch (IOException e) {
+                        request.setAttribute("create_subject_status", "Write file to disk failed");
+                    }
+
+                    File file = new File(SUBJECTPICTUREURI + "\\" + subjectPicName);
+                    if (file.exists()) {
+                        Path source = Paths.get(SUBJECTPICTUREURI + "\\" + subjectPicName);
+                        Files.move(source, source.resolveSibling(SUBJECTPICTUREURI + "\\" + courseID + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                        Course course = new Course();
+                        course.setCourseID(courseID);
+                        course.setCourseName(raw_subjectName);
+                        course.setOwner(raw_owner);
+                        course.setSubcategory(dbSubcate1.getSubcategory(Integer.parseInt(raw_subcategoryid)));
+                        course.setStatus(raw_published.matches("1"));
+                        course.setIsFeatured(raw_featured.matches("1"));
+                        course.setDescription(raw_description);
+                        course.setThumbnailUrl("images/subject/" + courseID + ".png");
+
+                        if (dbCourse2.insertCourse(course)) {
+                            request.setAttribute("create_subject_status", "Add course successfully!");
+                        } else {
+                            request.setAttribute("create_subject_status", "Add course failed! Please try again!");
+                        }
+                    }
+                    else{
+                        request.setAttribute("create_subject_status", "Error saving file!");
+                    }
+                } else {
+                    request.setAttribute("create_subject_status", "You need to use an picture!");
+                }
+            } else {
+                request.setAttribute("create_subject_status", "Owner does not exist or is not an expert!");
+            }
+        } else {
+            request.setAttribute("create_subject_status", "No input problem!");
+        }
+
+        if (raw_category != null && raw_category.trim().length() != 0) {
+            categoryid = Integer.parseInt(raw_category);
+        }
+
+        ArrayList<Category> categories = dbCate.getCategories(2);
+        ArrayList<Subcategory> subcategories = dbSubcate2.getSubcategories(categoryid);
+        ArrayList<Account> accounts = dbAccount.getAccountByRole(2);
+        if (accounts != null) {
+            StringBuilder sb = new StringBuilder();
+            for (Account a : accounts) {
+                sb.append(",");
+
+                sb.append("\"");
+
+                sb.append(a.getUsername());
+
+                sb.append("\"");
+            }
+            if (sb.length() > 0) {
+                sb.deleteCharAt(0);
+            }
+            sb.insert(0, "[");
+            sb.append("]");
+            String expertList = sb.toString();
+
+            request.setAttribute("cid", categoryid);
+            request.setAttribute("categories", categories);
+            request.setAttribute("subcategories", subcategories);
+            request.setAttribute("expertList", expertList);
+            request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
+        }
+    }
+
+    private boolean checkFileType(String fileName) {
+        return fileName.toLowerCase().endsWith("jpg") || fileName.toLowerCase().endsWith("jpeg") || fileName.toLowerCase().endsWith("png") || fileName.toLowerCase().endsWith("gif");
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+
+    public File getFolderUpload() {
+        File folderUpload = new File(SUBJECTPICTUREURI);
+        if (!folderUpload.exists()) {
+            folderUpload.mkdirs();
+        }
+        return folderUpload;
     }
 
     /**

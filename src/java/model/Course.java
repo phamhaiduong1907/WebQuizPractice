@@ -24,6 +24,15 @@ public class Course {
     private Date updatedDate;
     private String briefInfo;
     private String thumbnailUrl;
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public ArrayList<PricePackage> getPricePackages() {
         return pricePackages;
@@ -113,5 +122,4 @@ public class Course {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    
 }

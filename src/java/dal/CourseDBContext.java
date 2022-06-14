@@ -154,4 +154,58 @@ public class CourseDBContext extends DBContext {
         return null;
     }
 
+    public boolean insertCourse(Course course) {
+        String sql = "INSERT INTO [dbo].[Course]\n"
+                + "           ([courseID]\n"
+                + "           ,[courseName]\n"
+                + "           ,[subCategoryID]\n"
+                + "           ,[status]\n"
+                + "           ,[isFeatured]\n"
+                + "           ,[description]\n"
+                + "           ,[updatedDate]\n"
+                + "           ,[thumbnailURL]\n"
+                + "           ,[owner])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?)";
+        java.util.Date date = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, course.getCourseID());
+            stm.setString(2, course.getCourseName());
+            stm.setInt(3, course.getSubcategory().getSubcategoryID());
+            stm.setBoolean(4, course.isStatus());
+            stm.setBoolean(5, course.isIsFeatured());
+            stm.setString(6, course.getDescription());
+            stm.setDate(7, sqlDate);
+            stm.setString(8, course.getThumbnailUrl());
+            stm.setString(9, course.getOwner());
+            return stm.executeUpdate() >= 1;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return false;
+    }
+    
+    public int getTopCourseID(){
+        String sql = "select top 1 courseID from Course order by courseID desc";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("courseID")+1;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return 0;
+    }
 }

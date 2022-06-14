@@ -4,6 +4,7 @@
     Author     : Zuys
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,7 @@
         <link rel="stylesheet" href="css/admin/index.css">
         <link rel="stylesheet" href="css/popup.css">
         <link rel="stylesheet" href="css/course_content/new_subject.css">
+        <link rel="stylesheet" href="css/common/home.css">
     </head>
 
     <body>
@@ -59,37 +61,38 @@
                     <div class="function_name">
                         <h1>New subject</h1>
                     </div>
-                    <form action="#" autocomplete="off">
+                    <form action="newsubject" method="POST" id="frmSearch" autocomplete="off" enctype="multipart/form-data">
                         <div class="course_info">
                             <div class="info">
                                 <div class="info_item">
                                     <label for="name">Subject name</label>
-                                    <input type="text" id="name" placeholder="Enter subject name">
+                                    <input type="text" id="name" name="name" placeholder="Enter subject name" required>
                                 </div>
                                 <div class="info_item autocomplete">
                                     <label for="owner">Owner email</label>
-                                    <input type="text" id="owner" name="myCountry" placeholder="Enter owner's email">
+                                    <input type="text" id="owner" name="owner" placeholder="Enter owner's email" required>
                                 </div>
                                 <div class="info_item">
                                     <label for="category">Choose the category:</label>
-                                    <select id="category" class="category">
-                                        <option value="">Category 1</option>
-                                        <option value="">Category 2</option>
-                                        <option value="">Category 3</option>
+                                    <select id="category" name="category" class="category" onchange="submitForm();">
+                                        <c:forEach var="c" items="${requestScope.categories}">
+                                            <option ${(c.categoryID==requestScope.cid)?"selected=\"selected\"":""}
+                                                value="${c.categoryID}">${c.categoryName}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="info_item">
                                     <label for="subcategory">Choose the subcategory:</label>
-                                    <select id="subcategory" class="subcategory">
-                                        <option value="">Subcategory 1</option>
-                                        <option value="">Subcategory 2</option>
-                                        <option value="">Subcategory 3</option>
+                                    <select id="subcategory" class="subcategory" name="subcategory">
+                                        <c:forEach var="sc" items="${requestScope.subcategories}">
+                                            <option value="${sc.subcategoryID}">${sc.subcategoryName}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="thumbnail">
                                 <img src="images/subject/default.png" id="photo">
-                                <input type="file" name="profilePicture" id="coursePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
+                                <input type="file" name="profilePicture" id="profilePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
                                 <label for="profilePicture" title="Please update your picture!" id="uploadBtn">Choose Photo</label>
                             </div>
                         </div>
@@ -111,12 +114,15 @@
                             <div class="authorize_item description">
                                 <br><br>
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" rows="10" cols="90" placeholder="Enter the course description.."></textarea>
+                                <textarea required name="description" id="description" rows="10" cols="90" placeholder="Enter the course description.."></textarea>
                             </div>
                         </div>
                         <br>
                         <div class="save_button_new_subject">
                             <button type="submit">Save</button>
+                        </div>
+                        <div class="message__box">
+                            <p>${requestScope.create_subject_status}</p>
                         </div>
 
                     </form>
@@ -175,6 +181,7 @@
             var expertList = ${requestScope.expertList};
             autocomplete(document.getElementById("owner"), expertList);
         </script>
+        <script src="js/new_subject.js"></script>
         <script src="js/userPopup.js"></script>
         <script src="js/profile.js"></script>
     </body>
