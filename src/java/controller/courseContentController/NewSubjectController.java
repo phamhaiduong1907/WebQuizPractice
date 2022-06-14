@@ -59,27 +59,10 @@ public class NewSubjectController extends HttpServlet {
         ArrayList<Subcategory> subcategories = dbSubcate.getSubcategories(categoryid);
         ArrayList<Account> accounts = dbAccount.getAccountByRole(2);
         if (accounts != null) {
-            StringBuilder sb = new StringBuilder();
-            for (Account a : accounts) {
-                sb.append(",");
-
-                sb.append("\"");
-
-                sb.append(a.getUsername());
-
-                sb.append("\"");
-            }
-            if (sb.length() > 0) {
-                sb.deleteCharAt(0);
-            }
-            sb.insert(0, "[");
-            sb.append("]");
-            String expertList = sb.toString();
-
             request.setAttribute("cid", categoryid);
             request.setAttribute("categories", categories);
             request.setAttribute("subcategories", subcategories);
-            request.setAttribute("expertList", expertList);
+            request.setAttribute("expertList", accounts);
             request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
         }
     }
@@ -168,27 +151,10 @@ public class NewSubjectController extends HttpServlet {
         ArrayList<Subcategory> subcategories = dbSubcate2.getSubcategories(categoryid);
         ArrayList<Account> accounts = dbAccount.getAccountByRole(2);
         if (accounts != null) {
-            StringBuilder sb = new StringBuilder();
-            for (Account a : accounts) {
-                sb.append(",");
-
-                sb.append("\"");
-
-                sb.append(a.getUsername());
-
-                sb.append("\"");
-            }
-            if (sb.length() > 0) {
-                sb.deleteCharAt(0);
-            }
-            sb.insert(0, "[");
-            sb.append("]");
-            String expertList = sb.toString();
-
             request.setAttribute("cid", categoryid);
             request.setAttribute("categories", categories);
             request.setAttribute("subcategories", subcategories);
-            request.setAttribute("expertList", expertList);
+            request.setAttribute("expertList", accounts);
             request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
         }
     }

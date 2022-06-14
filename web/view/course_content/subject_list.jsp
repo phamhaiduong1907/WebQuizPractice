@@ -1,156 +1,139 @@
-<%-- 
-    Document   : subject_list
-    Created on : Jun 8, 2022, 1:03:21 PM
-    Author     : Zuys
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Subject List</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course_content/subject_list.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course_content/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+              integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Bootstrap's CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+
+
     </head>
 
     <body>
-        <header>
-            <div class="logo">
-                <p>LOGO</p>
-            </div>
-
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Administrator</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="logout">Log out</a></li>
-                        </ul>
-                    </div>
+        <div class="top__header">
+            <div class="top__header__logo">Logo</div>
+            <div class="dropdown dropdown_menu">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    User
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">User profile</a>
+                    <a class="dropdown-item" href="#">Change password</a>
+                    <a class="dropdown-item" href="#">Logout</a>
                 </div>
             </div>
-        </header>
+        </div>
 
+        <div class="nav__header">
+            <nav>
+                <ul class="nav__body">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="post.html">Posts</a></li>
+                    <li><a href="#">Sliders</a></li>
+                </ul>
+            </nav>
+        </div>
         <section class="main">
-            <!-- LEFT NAVIGATION BAR -->
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                        <li><a href="system.html">System Settings</a></li>
-                        <li><a href="user_list.html">Users</a></li>
-                        <li><a href="#">Course</a></li>
-                        <li><a href="#">Test</a></li>
-                        <li><a href="#">Quiz</a></li>
-                    </ul>
-                </nav>
-            </aside>
-
-            <!-- RIGHT CONTENT -->
-            <aside class="right">
-                <div class="subject__list">
-                    <h1>Subject List</h1>
-                    <div class="add__hyperlink">
-                        <a href="newsubject">Add new course</a>
-                    </div>
-                    <div class="subject_table">
-                        <table class="subject_manage">
-                            <tr>
-                                <td>ID</td>
-                                <td>Name</td>
-                                <td>Category</td>
-                                <td>Description</td>
-                                <td>Number of lessons</td>
-                                <td>Owner</td>
-                                <td>Status</td>
-                                <td>Action</td>
+            <section class="left__block">
+                <div >
+                    <table class="subject__table">
+                        <tr class="table__row">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>NoL</th>
+                            <th>Owner</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        <c:forEach var="c" items="${requestScope.courses}">
+                            <tr class="table__row">
+                                <td>${c.courseID}</td>
+                                <td>${c.courseName}</td>
+                                <td>${c.subcategory.subcategoryName}</td>
+                                <td>${c.description}</td>
+                                <td>0</td>
+                                <td>${c.owner}</td>
+                                <td>${c.status?"Published":"Unpublished"}</td>
+                                <td><a href="#">Edit</a></td>
                             </tr>
-                            <c:forEach items="${requestScope.courses}" var="c">
-                                <tr class="subject_table_row">
-                                    <td>${c.courseID}</td>
-                                    <td>${c.courseName}</td>
-                                    <td>${c.subcategory.subcategoryName}</td>
-                                    <td>${c.description}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>${c.isFeatured}</td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                    </div>
-
-                    <div class="pagination">
-                        <a href="#">First</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <span>...</span>
-                        <a href="#">Last</a>
-                    </div>
+                        </c:forEach>
+                    </table>
                 </div>
+                <div id="pagination" class="pagination"></div>
+            </section>
 
-                <div class="subject__search">
-
-                </div>
-            </aside>
+            <section class="right__block">
+                <div class="option__filter">
+                    <div class="option__searchbar">
+                        <form action="managesearch" method="GET">
+                            <input type="text" name="search" placeholder="Type something to search...">
+                            </div>
+                            <div class="option__checkbox">
+                                <h3>Category: </h3>
+                                <div class="option__options-value">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <c:forEach items="${requestScope.categories}" var="cate">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;<span>${cate.categoryName}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        <c:forEach items="${cate.subcategories}" var="sc">
+                                                            <div class="subcategory">
+                                                                <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="option__sort">
+                                <select name="sort">
+                                    <option selected disabled>Sort by:</option>
+                                    <option value="DESC">Date added(newest)</option>
+                                    <option value="ASC">Date added(oldest)</option>
+                                </select>
+                            </div>
+                            <div class="search__button">
+                                <button type="submit">Search</button>
+                            </div>
+                            <div class="contact__link">
+                                <a href="#">Contact Information</a>
+                            </div>
+                        </form>
+                    </div>
+            </section>
         </section>
 
-        <section class="popup">
-            <div class="popup__content">
-                <img src="images/close.png" alt="" class="close">
-
-                <div class="form_user-profile">
-                    <h2>User Profile</h2>
-                    <form action="#">
-                        <div class="user__avatar">
-                            <!-- <input type="file" name="" id=""> -->
-                        </div>
-                        <input type="text" name="email" id="email" disabled placeholder="Your email">
-                        <input type="text" name="firstName" id="firstName" placeholder="Enter your first name">
-                        <input type="text" name="lastName" id="lastName" placeholder="Enter your last name">
-                        <input type="text" name="phone" id="phone" placeholder="Enter your phone">
-                        <div class="profile__gender signup__gender">
-                            <h5>Gender</h5>
-                            <input type="radio" name="" id="">
-                            <p>Male</p>
-                            <input type="radio" name="" id="">
-                            <p>Female</p>
-                        </div>
-                        <input type="text" name="address" id="address" placeholder="Enter your address">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="form__change-password" style="display: none;">
-                    <h2>Change Password</h2>
-                    <form action="#">
-                        <input type="password" placeholder="Enter your current password">
-                        <input type="password" placeholder="Enter new password">
-                        <input type="password" placeholder="Reenter your new password">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </section>
-
-        <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
+        <script src="${pageContext.request.contextPath}/js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 
 </html>

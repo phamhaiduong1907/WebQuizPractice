@@ -3,25 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.courseContentController;
+package controller;
 
-import dal.CategoryDBContext;
-import dal.CourseDBContext;
-import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Category;
-import model.Course;
 
 /**
  *
  * @author Zuys
  */
-public class ManageSubjectListController extends HttpServlet { 
+@WebServlet(name="CloneJSP", urlPatterns={"/CloneJSP"})
+public class CloneJSP extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-spx`ecific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+   
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -32,30 +40,7 @@ public class ManageSubjectListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CourseDBContext courseDBContext = new CourseDBContext();
-        CategoryDBContext dbCate = new CategoryDBContext();
-        
-        int pagesize = 5;
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int count = courseDBContext.countCourse();
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
-        }
-        ArrayList<Category> categories = dbCate.getCategories(2);
-        ArrayList<Course> courses = courseDBContext.getCourses(pageindex, pagesize);
-
-        request.setAttribute("categories", categories);
-        request.setAttribute("courses", courses);
-        request.setAttribute("url", "managesubject");
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-
-        request.getRequestDispatcher("view/course_content/subject_list.jsp").forward(request, response);
+        request.getRequestDispatcher("view/clone.jsp").forward(request, response);
     } 
 
     /** 

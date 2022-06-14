@@ -61,7 +61,7 @@ footer {
 }
 
 .save_button_new_subject {
-    transform: translateX(50%);
+    transform: translateX(48%);
 }
 
 .save_button_new_subject button {
@@ -69,8 +69,7 @@ footer {
     padding: 10px;
 }
 
-.save_button_new_subject{
-}
+
 
 .add_photo {
     background-color: rgba(0, 0, 0, 0.2);
@@ -83,46 +82,6 @@ footer {
 
 .function_name {
     text-align: center;
-}
-
-
-/* autocomplete css */
-
-.autocomplete {
-    /*the container must be positioned relative:*/
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 99;
-    /*position the autocomplete items to be the same width as the container:*/
-    top: 100%;
-    left: 0;
-    right: 0;
-}
-
-.autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
-}
-
-.autocomplete-items div:hover {
-    /*when hovering an item:*/
-    background-color: #e9e9e9;
-}
-
-.autocomplete-active {
-    /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
-    color: #ffffff;
 }
 
 .thumbnail{

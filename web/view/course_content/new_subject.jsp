@@ -15,10 +15,10 @@
         <title>New subject</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
               />
-        <link rel="stylesheet" href="css/admin/index.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link rel="stylesheet" href="css/course_content/new_subject.css">
-        <link rel="stylesheet" href="css/common/home.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course_content/new_subject.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
     </head>
 
     <body>
@@ -68,9 +68,14 @@
                                     <label for="name">Subject name</label>
                                     <input type="text" id="name" name="name" placeholder="Enter subject name" required>
                                 </div>
-                                <div class="info_item autocomplete">
+                                <div class="info_item">
                                     <label for="owner">Owner email</label>
-                                    <input type="text" id="owner" name="owner" placeholder="Enter owner's email" required>
+                                    <input type="text" list="owners" id="owner" name="owner" placeholder="Enter owner's email" required>
+                                    <datalist id="owners">
+                                        <c:forEach items="${requestScope.expertList}" var="e">
+                                            <option value="${e.username}">
+                                        </c:forEach>
+                                    </datalist>
                                 </div>
                                 <div class="info_item">
                                     <label for="category">Choose the category:</label>
@@ -121,6 +126,7 @@
                         <div class="save_button_new_subject">
                             <button type="submit">Save</button>
                         </div>
+                        <br>
                         <div class="message__box">
                             <p>${requestScope.create_subject_status}</p>
                         </div>
@@ -175,12 +181,6 @@
             </div>
 
         </section>
-        <script src="js/autocomplete.js">
-        </script>
-        <script>
-            var expertList = ${requestScope.expertList};
-            autocomplete(document.getElementById("owner"), expertList);
-        </script>
         <script src="js/new_subject.js"></script>
         <script src="js/userPopup.js"></script>
         <script src="js/profile.js"></script>
