@@ -120,7 +120,17 @@
                             </form>
                         </div>
                 </section>
-
+                
+                <c:choose>
+                    <c:when test="${requestScope.posts.size() eq 0}">
+                        <div class="no__result">
+                            There are no records matching the search query
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                      
+                    </c:otherwise>
+                </c:choose>
                 <div class="table__data">
                     <table>
                         <tr>

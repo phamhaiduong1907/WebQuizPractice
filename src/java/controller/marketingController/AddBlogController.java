@@ -21,6 +21,7 @@ import model.Account;
 import model.Category;
 import model.Post;
 import model.User;
+import util.UploadFile;
 import util.Validation;
 
 /**
@@ -117,8 +118,9 @@ public class AddBlogController extends HttpServlet {
                         String realPath = request.getServletContext().getRealPath("/images/blog");
                         String realPathWeb = realPath.substring(0, realPath.indexOf("build"));
                         realPathWeb += "web\\images\\blog";
-                        thumbnail.write(realPathWeb + "/" + fileName);
-                     
+//                        thumbnail.write(realPathWeb + "/" + fileName);
+                        UploadFile.copyPartToFile(thumbnail, realPath + "/" + fileName);
+                        UploadFile.copyPartToFile(thumbnail, realPathWeb + "/" + fileName);
 
                         response.sendRedirect("view?postID=" + postID);
                     } else {

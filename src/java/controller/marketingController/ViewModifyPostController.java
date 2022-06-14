@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import model.Category;
 import model.Post;
 import model.User;
+import util.UploadFile;
 import util.Validation;
 
 /**
@@ -120,8 +121,10 @@ public class ViewModifyPostController extends HttpServlet {
                         String realPathWeb = realPath.substring(0, realPath.indexOf("build"));
                         realPathWeb += "web\\images\\blog";
                         
+                        UploadFile.copyPartToFile(thumbnail, realPath + "/" + fileName);
+                        UploadFile.copyPartToFile(thumbnail, realPathWeb + "/" + fileName);
                         
-                        thumbnail.write(realPathWeb + "/" + fileName); // inserting to the local file destination
+//                        thumbnail.write(realPathWeb + "/" + fileName); // inserting to the local file destination
                         response.sendRedirect("view?postID=" + postID);
                     } else {
                         response.sendRedirect("view?postID=" + postID + "&errorMessage=" + ERRORSQL);
