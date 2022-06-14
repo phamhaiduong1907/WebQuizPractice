@@ -67,3 +67,9 @@ function disableButton(buttonID) {
 
 
 
+function checkAllBox(source, cateID) {
+    checkboxes = document.getElementsByClassName(cateID);
+    for (var i = 0, n = checkboxes.length; i < n; i++) {
+        checkboxes[i].checked = source.checked;
+    }
+}

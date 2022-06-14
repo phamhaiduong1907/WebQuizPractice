@@ -41,18 +41,18 @@ public class BlogListController extends HttpServlet {
             page = "1";
         }
         int pageindex = Integer.parseInt(page);
-        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
         ArrayList<Category> categories = dbCate.getCategories(1);
         int count = dbBlog.count();
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        if (pageindex <= 0 || pageindex > totalpage)
+        if (pageindex <= 0 || pageindex > totalpage) {
             pageindex = 1;
+        }
+        ArrayList<Post> posts = dbBlog.getPosts(pageindex, pagesize);
         request.setAttribute("categories", categories);
         request.setAttribute("posts", posts);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
-        request.setAttribute("search", count);
-         request.setAttribute("url", "bloglist");
+        request.setAttribute("url", "bloglist");
         request.getRequestDispatcher("view/blog/list.jsp").forward(request, response);
     }
 

@@ -55,7 +55,7 @@ public class BlogSearchController extends HttpServlet {
         if (sort == null || sort.trim().length() == 0) {
             sort = "DESC";
         }
-        if (request.getParameter("search").trim() != null) {
+        if (!(request.getParameter("search").trim().equals(""))) {
             search = request.getParameter("search");
         }
         if (request.getParameterValues("subcategory") != null) {
@@ -97,7 +97,7 @@ public class BlogSearchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     /**

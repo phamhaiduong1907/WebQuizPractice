@@ -6,14 +6,12 @@ package controller.publicController;
 
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
-import jakarta.security.auth.message.callback.PrivateKeyCallback;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.PageContext;
 import java.util.ArrayList;
 import model.Account;
 import model.Category;
@@ -21,19 +19,10 @@ import model.Course;
 
 /**
  *
- * @author ADMIN
+ * @author Hai Tran
  */
-public class SubjectListController extends HttpServlet {
+public class CourseSearchController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,8 +35,9 @@ public class SubjectListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDBContext courseDBContext = new CourseDBContext();
         Account account = (Account) request.getSession().getAttribute("account");
+
+        CourseDBContext dbCourse = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
         int pagesize = 3;
         String page = request.getParameter("page");
@@ -55,21 +45,44 @@ public class SubjectListController extends HttpServlet {
             page = "1";
         }
         int pageindex = Integer.parseInt(page);
-        int count = courseDBContext.countCourse();
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
+        if (pageindex <= 0) {
             pageindex = 1;
         }
         ArrayList<Category> categories = dbCate.getCategories(2);
-        ArrayList<Course> courses = courseDBContext.getCourses(pageindex, pagesize,account);
-        log("" + courses.size());
+        String string = "";
+        String subcateID = "";
+        String search = "";
+        String sort = request.getParameter("sort");
+        if (sort == null || sort.trim().length() == 0) {
+            sort = "DESC";
+        }
+        if (!(request.getParameter("search").trim().equals(""))) {
+            search = request.getParameter("search");
+        }
+        if (request.getParameterValues("subcategory") != null) {
+            String[] subcategory = request.getParameterValues("subcategory");
+            if (subcategory.length != 0) {
+                for (int i = 0; i < subcategory.length; i++) {
+                    string += subcategory[i] + ", ";
+                }
+            }
+            subcateID = string.substring(0, string.trim().length() - 1);
+        }
+        search = search.trim();
+        String queryString = request.getQueryString();
+        subcateID = subcateID.trim();
+        ArrayList<Course> searchCourse = dbCourse.searchCourse(search, subcateID, sort, pageindex, pagesize, account);
+        int count = dbCourse.countSearchCourse(search, subcateID);
+        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
         request.setAttribute("categories", categories);
-        request.setAttribute("courses", courses);
-        request.setAttribute("url", "subjectList");
-        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("courses", searchCourse);
         request.setAttribute("totalpage", totalpage);
-        request.getRequestDispatcher("view/subject/subject_list.jsp").forward(request, response);
-
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("count", count);
+        request.setAttribute("search", search);
+        request.setAttribute("url", "coursesearch");
+        request.setAttribute("querystring", queryString);
+        request.getRequestDispatcher("/view/subject/subject_list.jsp").forward(request, response);
     }
 
     /**
@@ -83,7 +96,6 @@ public class SubjectListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     /**

@@ -24,11 +24,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
 
-
-        <%
-            Integer pageindex = (Integer) request.getAttribute("pageindex");
-            Integer totalpage = (Integer) request.getAttribute("totalpage");
-        %>
     </head>
 
     <body>
@@ -103,7 +98,7 @@
                 <div class="option__filter">
                     <div class="option__searchbar">
                         <form action="blogsearch" method="GET">
-                            <input type="text" name="search"  placeholder="Type something to search...">
+                            <input type="text" name="search" placeholder="Type something to search...">
                             </div>
                             <div class="option__checkbox">
                                 <h3>Category: </h3>

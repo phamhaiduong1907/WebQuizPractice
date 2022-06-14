@@ -39,7 +39,7 @@ public class HomePageController extends HttpServlet {
         BlogDBContext dbBlog = new BlogDBContext();
         CourseDBContext dbCourse = new CourseDBContext();
         Account account = (Account) request.getSession().getAttribute("account");
-        ArrayList<Course> courses = dbCourse.getCourses(null);
+        ArrayList<Course> courses = dbCourse.getCoursesForHomePage(account);
         ArrayList<Post> posts = dbBlog.getPostForHome(1, 2, 3, 4);
         ArrayList<Slider> sliders = dbSlider.getSliders();
         request.setAttribute("sliders", sliders);

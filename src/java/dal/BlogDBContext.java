@@ -191,7 +191,7 @@ public class BlogDBContext extends DBContext {
             stm.setString(1, "%" + search + "%");
             stm.setInt(2, pageindex - 1);
             stm.setInt(3, pagesize);
-            stm.setInt(4, pagesize);;
+            stm.setInt(4, pagesize);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
@@ -215,32 +215,38 @@ public class BlogDBContext extends DBContext {
     }
 
     public int countSearchBlog(String search, String subcateID) {
-        int count = 0;
+        StringBuilder sb = new StringBuilder();
         try {
-            StringBuilder sb = new StringBuilder();
             String sql = "SELECT COUNT(*) AS Total\n"
-                    + "FROM Post\n"
-                    + "WHERE title LIKE ?";
+                    + "FROM Post\n";
             sb.append(sql);
-            if (!subcateID.isEmpty()) {
-                String and = " AND subcategoryID IN(" + subcateID + ")";
-                sb.append(and);
+            if (!search.trim().isEmpty() || !subcateID.isEmpty()) {
+                sb.append("WHERE ");
+                if (!search.trim().isEmpty()) {
+                    String and = "title LIKE ? ";
+                    sb.append(and);
+                }
+                if (!subcateID.isEmpty()) {
+                    if (!search.trim().isEmpty()) {
+                        sb.append("AND");
+                    }
+                    String and = " subcategoryID IN(" + subcateID + ")";
+                    sb.append(and);
+                }
             }
-            PreparedStatement stm = connection.prepareStatement(sql);
-            if (search.trim().equals("")) {
-                search = "%";
-            } else {
-                search = "%" + search + "%";
+            String sql_final = sb.toString();
+            PreparedStatement stm = connection.prepareStatement(sql_final);
+            if (!search.trim().isEmpty()) {
+                stm.setString(1, "%" + search + "%");
             }
-            stm.setString(1, search);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                count = rs.getInt("Total");
+                return rs.getInt("Total");
             }
         } catch (SQLException ex) {
             Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return count;
+        return -1;
     }
 
     public int insertPost(int subCategoryID, String title, String briefInfo, String description, boolean isFeatured,

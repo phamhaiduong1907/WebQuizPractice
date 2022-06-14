@@ -161,21 +161,7 @@
                                                 </div>-->
                     </div>
                 </c:forEach>
-
-
-
-
-                <div class="pagination">
-                    <ul>
-                        <li><a href="#">
-                                << </a>
-                        </li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">>></a></li>
-                    </ul>
-                </div>
+                <div id="pagination" class="pagination"></div>
             </section>
 
 
@@ -183,48 +169,50 @@
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
-                        <form action="#">
-                            <input type="text" placeholder="Type something to search...">
-                            <!-- <button type="submit">Search</button> -->
+                        <form action="coursesearch" method="GET">
+                            <input type="text" name="search" placeholder="Type something to search...">
+                            </div>
+                            <div class="option__checkbox">
+                                <h3>Category: </h3>
+                                <div class="option__options-value">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <c:forEach items="${requestScope.categories}" var="cate">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;<span>${cate.categoryName}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        <c:forEach items="${cate.subcategories}" var="sc">
+                                                            <div class="subcategory">
+                                                                <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
+                                                            </div>
+                                                        </c:forEach></div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="option__sort">
+                                <select name="sort">
+                                    <option selected disabled>Sort by:</option>
+                                    <option value="DESC">Date added(newest)</option>
+                                    <option value="ASC">Date added(oldest)</option>
+                                </select>
+                            </div>
+                            <div class="search__button">
+                                <button type="submit">Search</button>
+                            </div>
+                            <div class="contact__link">
+                                <a href="#">Contact Information</a>
+                            </div>
                         </form>
                     </div>
-                    <div class="option__checkbox">
-                        <h5>Category</h5>
-                        <div class="option__options-value">
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 1</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 2</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 3</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 4</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="option__sort">
-                        <select name="" id="">
-                            <option value="All">All</option>
-                            <option value="">SortItem1</option>
-                            <option value="">SortItem2</option>
-                        </select>
-                    </div>
-                    <div class="search__button">
-                        <button type="submit">Search</button>
-                    </div>
-                    <div class="contact__link">
-                        <a href="#">Contact Information</a>
-                    </div>
-                </div>
             </section>
         </div>
-
         <!-- POPUP REGISTER -->
 
         <c:if test="${sessionScope.account != null}">
@@ -458,6 +446,7 @@
         </script>
 
 
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 
 </html>

@@ -118,6 +118,8 @@
     <servlet>
         <servlet-name>ChangeBlogStatusController</servlet-name>
         <servlet-class>controller.marketingController.ChangeBlogStatusController</servlet-class>
+        <servlet-name>CourseSearchController</servlet-name>
+        <servlet-class>controller.publicController.CourseSearchController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -238,6 +240,8 @@
     <servlet-mapping>
         <servlet-name>ChangeBlogStatusController</servlet-name>
         <url-pattern>/marketing/changeblogstatus</url-pattern>
+        <servlet-name>CourseSearchController</servlet-name>
+        <url-pattern>/coursesearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
