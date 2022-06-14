@@ -83,6 +83,10 @@
         <servlet-name>RegisterNextStepController</servlet-name>
         <servlet-class>controller.commonController.RegisterNextStepController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseSearchController</servlet-name>
+        <servlet-class>controller.publicController.CourseSearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -166,6 +170,10 @@
     <servlet-mapping>
         <servlet-name>RegisterNextStepController</servlet-name>
         <url-pattern>/registernext</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseSearchController</servlet-name>
+        <url-pattern>/coursesearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

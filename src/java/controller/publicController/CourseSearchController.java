@@ -4,24 +4,23 @@
  */
 package controller.publicController;
 
-import dal.BlogDBContext;
 import dal.CategoryDBContext;
-import dal.SubCategoryDBContext;
+import dal.CourseDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Category;
-import model.Post;
-import model.Subcategory;
+import model.Course;
 
 /**
  *
  * @author Hai Tran
  */
-public class BlogSearchController extends HttpServlet {
+public class CourseSearchController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -35,7 +34,7 @@ public class BlogSearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDBContext dbBlogforSearch = new BlogDBContext();
+        CourseDBContext dbCourse = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
         int pagesize = 3;
         String page = request.getParameter("page");
@@ -46,7 +45,7 @@ public class BlogSearchController extends HttpServlet {
         if (pageindex <= 0) {
             pageindex = 1;
         }
-        ArrayList<Category> categories = dbCate.getCategories(1);
+        ArrayList<Category> categories = dbCate.getCategories(2);
         String string = "";
         String subcateID = "";
         String search = "";
@@ -69,19 +68,18 @@ public class BlogSearchController extends HttpServlet {
         search = search.trim();
         String queryString = request.getQueryString();
         subcateID = subcateID.trim();
-        ArrayList<Post> searchPost = dbBlogforSearch.searchPost(search, subcateID, sort, pageindex, pagesize);
-        int count = dbBlogforSearch.countSearchBlog(search, subcateID);
-        log("" + count);
+        ArrayList<Course> searchCourse = dbCourse.searchCourse(search, subcateID, sort, pageindex, pagesize);
+        int count = dbCourse.countSearchCourse(search, subcateID);
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
         request.setAttribute("categories", categories);
-        request.setAttribute("posts", searchPost);
+        request.setAttribute("courses", searchCourse);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("count", count);
         request.setAttribute("search", search);
-        request.setAttribute("url", "blogsearch");
+        request.setAttribute("url", "coursesearch");
         request.setAttribute("querystring", queryString);
-        request.getRequestDispatcher("/view/blog/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/subject/subject_list.jsp").forward(request, response);
     }
 
     /**
@@ -95,7 +93,6 @@ public class BlogSearchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
     }
 
     /**

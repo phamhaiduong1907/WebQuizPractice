@@ -166,7 +166,7 @@
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
-                        <form action="blogsearch" method="GET">
+                        <form action="coursesearch" method="GET">
                             <input type="text" name="search" placeholder="Type something to search...">
                             </div>
                             <div class="option__checkbox">
@@ -177,14 +177,14 @@
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="flush-headingOne">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        <input type="checkbox">&emsp;<span>${cate.categoryName}</span>
+                                                        <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;<span>${cate.categoryName}</span>
                                                     </button>
                                                 </h2>
                                                 <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                                     <div class="accordion-body">
                                                         <c:forEach items="${cate.subcategories}" var="sc">
                                                             <div class="subcategory">
-                                                                <input type="checkbox" id="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
+                                                                <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
                                                             </div>
                                                         </c:forEach></div>
                                                 </div>

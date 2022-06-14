@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/web/css/blog/list.css</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/src/java/dal/CourseDBContext.java</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/web/css/subject/list.css</file>
+            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/web/js/script.js</file>
             <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/web/view/subject/subject_list.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/web/view/blog/list.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/src/java/controller/publicController/BlogListController.java</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/src/java/controller/publicController/SubjectListController.java</file>
-            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/src/java/dal/BlogDBContext.java</file>
+            <file>file:/E:/Semester%205/SWP391/SWP391-Project/summer2022-se1617-g6/src/java/controller/publicController/CourseSearchController.java</file>
         </group>
     </open-files>
 </project-private>
