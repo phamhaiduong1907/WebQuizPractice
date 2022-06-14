@@ -5,13 +5,14 @@
 package controller;
 
 import dal.AccountDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import model.Account;
+import model.User;
 
 /**
  *
@@ -25,9 +26,16 @@ public abstract class AuthorizationController extends HttpServlet {
             return false;
         } else {
             AccountDBContext dbAccount = new AccountDBContext();
+            UserDBContext dbUser = new UserDBContext();
             String username = account.getUsername();
+            int roleID = account.getRole().getRoleID();
+            User user = dbUser.getUser(username);
             String[] uri = request.getRequestURI().split("[?]");
-            boolean permission = dbAccount.getPermission(username, uri[0]);
+            boolean permission;
+            if(user.getStatus())
+                permission = dbAccount.getPermission(username, roleID ,uri[0]);
+            else
+                permission = dbAccount.getPermission(username, -1, username);
             return permission;
         }
     }

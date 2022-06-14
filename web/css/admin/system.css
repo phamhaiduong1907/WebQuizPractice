@@ -19,22 +19,21 @@
     margin-top: 20px;
 }
 
-.search_form,
-.search_form form{
-    width: 60%;
+.search_form{
+    width: 80%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
 }
 
 .search_form form select,
-.search_form form input{
+.search_form form input[type="text"]{
     padding: 5px;
     border-radius: 5px;
     font-size: 16px;
 }
 
-.search_form form input{
+.search_form form input[type="text"]{
     outline: none;
     border: 1px solid #ccc;
     width: 300px;
@@ -47,7 +46,7 @@
     border-color: #eee;
 }
 
-.search_form form input:focus{
+.search_form form input[type="text"]:focus{
     border-bottom: 1px solid #333030;
 }
 

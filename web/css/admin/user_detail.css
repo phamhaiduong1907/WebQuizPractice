@@ -20,11 +20,31 @@ form{
 .avatar{
     width: 20%;
     background-color: #d4d4d4;
-    align-self: stretch;
     margin-right: 200px;
     text-align: center;
     line-height: 200px;
     position: relative;
+    height: 250px;
+}
+
+.avatar img{
+    width: 100%;
+    height: 100%;
+}
+
+form input, form select{
+    padding: 0.5rem;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+form button{
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    margin-top: 10px;
 }
 
 label, input[type=text], select{
@@ -36,6 +56,7 @@ label, input[type=text], select{
 .authorize_info{
     display: grid;
     grid-template-columns: repeat(2,1fr);
+    gap: 10px 50px;
 }
 
 .authorize_address{

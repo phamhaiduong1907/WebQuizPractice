@@ -1,3 +1,5 @@
+<%@page import="model.Slider"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,6 +24,9 @@
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/common/home.css">
+        <%
+            ArrayList<Slider> sliders = (ArrayList<Slider>) request.getAttribute("sliders");
+        %>
     </head>
 
     <body>
@@ -41,23 +46,24 @@
         <section class="slider">
             <div id="slider" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active" aria-current="true"
-                            aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#slider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#slider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <%for (int i = 0; i < sliders.size(); i++) {%>
+                    <button type="button" data-bs-target="#slider" data-bs-slide-to="<%=(i)%>" <%if (i == 0) {%>
+                            class="active" aria-current="true"
+                            <%}%>></button>
+                    <%}%>
                 </div>
                 <div class="carousel-inner">
-                    <c:forEach items="${requestScope.sliders}" var="s">
-                        <div class="carousel-item active" data-bs-interval="5000">
-                            <a href="${s.backlink}">
-                                <div class="block__item">
-                                    <img src="${s.imageUrl}">
-                                </div>
-                                <div class="carousel-caption d-none d-md-block">
-                                </div>
-                            </a>
-                        </div>
-                    </c:forEach>
+                    <%for (int i = 0; i < sliders.size(); i++) {%>
+                    <div class="carousel-item <%if(i == 0){%> active <%}%>" data-bs-interval="5000">
+                        <a href="<%=(sliders.get(i).getBacklink())%>">
+                            <div class="block__item">
+                                <img src="<%=(sliders.get(i).getImageUrl())%>">
+                            </div>
+                            <div class="carousel-caption d-none d-md-block">
+                            </div>
+                        </a>
+                    </div>
+                    <%}%>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -28,6 +28,10 @@
         <servlet-class>controller.admin.LoadFeatureController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddUserController</servlet-name>
+        <servlet-class>controller.admin.AddUserController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
         <servlet-class>controller.commonController.ForgotPasswordNextStepController</servlet-class>
     </servlet>
@@ -92,10 +96,6 @@
         <servlet-class>controller.slider.StatusFilterController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ChangeStatusController</servlet-name>
-        <servlet-class>controller.slider.ChangeStatusController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddSliderController</servlet-name>
         <servlet-class>controller.slider.AddSliderController</servlet-class>
     </servlet>
@@ -118,6 +118,10 @@
     <servlet>
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
         <servlet-class>controller.customerControllers.SearchCustomerRegistrationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusController</servlet-name>
+        <servlet-class>controller.slider.ChangeStatusController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -172,6 +176,10 @@
         <url-pattern>/admin/load_feature</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/admin/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
@@ -199,6 +207,10 @@
         <param-name>pagesize</param-name>
         <param-value>3</param-value>
     </context-param>
+    <context-param>
+        <param-name>profilePictureURL</param-name>
+        <param-value>images/default_user_avatar.png</param-value>
+    </context-param>
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/changepass</url-pattern>
@@ -214,10 +226,6 @@
     <servlet-mapping>
         <servlet-name>StatusFilterController</servlet-name>
         <url-pattern>/slider/statusList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeStatusController</servlet-name>
-        <url-pattern>/slider/changeStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddSliderController</servlet-name>
@@ -242,6 +250,10 @@
     <servlet-mapping>
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
         <url-pattern>/registrationsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusController</servlet-name>
+        <url-pattern>/slider/changestatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

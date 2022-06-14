@@ -26,7 +26,7 @@ public class AccountDBContext extends DBContext {
      * @param uri
      * @return a boolean (yes means that the user can access the uri and the otherwise)
      */
-    public boolean getPermission(String username, String uri) {
+    public boolean getPermission(String username, int roleID, String uri) {
         try {
             String sql = "select count(*) as permission from Account a inner join\n"
                     + "[Role] r on a.roleID = r.roleID\n"
@@ -35,11 +35,12 @@ public class AccountDBContext extends DBContext {
                     + "Feature f on f.featureID = auth.featureID\n"
                     + "where f.featureID not in (select ue.featureID from UserException ue inner join\n"
                     + "Feature fe on ue.featureID = fe.featureID)\n"
-                    + "and a.username = ? \n"
+                    + "and a.username = ? and a.roleID = ?\n"
                     + "and f.[URL] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
-            stm.setString(2, uri);
+            stm.setInt(2, roleID);
+            stm.setString(3, uri);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 return rs.getInt("permission") > 0;

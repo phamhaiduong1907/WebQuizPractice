@@ -164,11 +164,12 @@ form button:hover{
     background-color: #4bcb52;
 }
 
-.slider__action a{
+.slider__action a, .slider__action button{
     text-decoration: none;
     padding: 0.2rem;
     border-radius: 0.2rem;
     font-size: 0.8rem;
+    border: none;
 }
 
 .slider__action .slider__hide{

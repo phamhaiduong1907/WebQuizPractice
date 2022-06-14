@@ -4,12 +4,24 @@
  */
 package util;
 
+import java.util.ArrayList;
+
 /**
  *
  *
  */
 public class Validation {
+    
+     public  boolean checkNullOrBlank(ArrayList<String> strings) {
+        for (String str : strings) {
+            if (str == null || str.trim().length() == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    
     public boolean checkNullOrBlank(String[] string) {
         for (String str : string) {
             if (str == null || str.trim().length() == 0) {

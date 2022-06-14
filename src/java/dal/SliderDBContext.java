@@ -41,6 +41,30 @@ public class SliderDBContext extends DBContext {
         }
         return sliders;
     }
+    
+    public Slider getSliderByID(int sliderID) {
+        try {
+            String sql = "SELECT sliderID, title, backlink, [status], imageURL, note \n"
+                    + "FROM Slider\n"
+                    + "WHERE sliderID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sliderID);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Slider s = new Slider();
+                s.setSliderID(rs.getInt("sliderID"));
+                s.setTitle(rs.getString("title"));
+                s.setBacklink(rs.getString("backlink"));
+                s.setStatus(rs.getBoolean("status"));
+                s.setImageUrl(rs.getString("imageURL"));
+                s.setNote(rs.getString("note"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public int count() {
         try {
