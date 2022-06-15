@@ -182,6 +182,7 @@
                     </table>
 
                 </div>
+                <a href="addblog">Add blog</a>
                  <div id="pagination" class="pagination"></div>
 
 

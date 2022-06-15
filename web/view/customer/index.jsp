@@ -70,7 +70,7 @@
                             <div class="carousel-item active" data-bs-interval="5000">
                                 <a href="${s.backlink}">
                                     <div class="block__item">
-                                        <img src="images/slider/${s.imageUrl}">
+                                        <img src="${s.imageUrl}">
                                     </div>
                                     <div class="carousel-caption d-none d-md-block">
                                     </div>
