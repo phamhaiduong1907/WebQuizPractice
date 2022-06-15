@@ -9,6 +9,7 @@ import dal.RoleDBContext;
 import dal.UserDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ import model.User;
  *
  * @author Hai Duong
  */
-public class UserDetailController extends AuthorizationController {
+public class UserDetailController extends HttpServlet {
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         UserDBContext dbUsers = new UserDBContext();
         User user = dbUsers.getUser(username);
@@ -36,20 +37,13 @@ public class UserDetailController extends AuthorizationController {
     }
 
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        boolean gender = request.getParameter("gender").equalsIgnoreCase("male");
-        String address = request.getParameter("address");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("email");
         int roleID = Integer.parseInt(request.getParameter("roleID"));
-        String[] featureIDs = request.getParameterValues("featureID");
         boolean status = request.getParameter("status").equalsIgnoreCase("active");
         
         UserDBContext db = new UserDBContext();
-        db.updateUser(email, firstName, lastName, featureIDs, phone, gender, address, status, roleID);
-        response.sendRedirect("userdetail?username="+email);
-//        response.getWriter().println(featureIDs == null);
+        db.updateUser(status, roleID, username);
+        response.sendRedirect("userdetail?username="+username);
     }
 }

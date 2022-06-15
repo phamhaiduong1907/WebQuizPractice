@@ -5,7 +5,6 @@
 package controller.commonController;
 
 import dal.UserDBContext;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
@@ -14,23 +13,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 import model.Account;
 import model.User;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author Zuys
  */
-@MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Copy - Copy\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UserProfileController extends HttpServlet {
 
@@ -108,10 +102,10 @@ public class UserProfileController extends HttpServlet {
 
             }
 
-            File file = new File(PICTUREPROFILEURI+"\\" + profilePicName);
+            File file = new File("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile\\" + profilePicName);
             if (file.exists()) {
-                Path source = Paths.get(PICTUREPROFILEURI+"\\" + profilePicName);
-                Files.move(source, source.resolveSibling(PICTUREPROFILEURI+"\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                Path source = Paths.get("D:\\SWP391\\summer2022-se1617-g6\\web\\images\\profile\\" + profilePicName);
+                Files.move(source, source.resolveSibling("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile\\" + account.getUsername() + ".png"), StandardCopyOption.REPLACE_EXISTING);
 
                 User user = new User();
                 user.setAccount(account);
@@ -149,7 +143,7 @@ public class UserProfileController extends HttpServlet {
     }
 
     public File getFolderUpload() {
-        File folderUpload = new File(PICTUREPROFILEURI);
+        File folderUpload = new File("D:\\SWP391\\SWP391-SE1617-NET_Group06-QuizWebsite\\web\\images\\profile");
         if (!folderUpload.exists()) {
             folderUpload.mkdirs();
         }

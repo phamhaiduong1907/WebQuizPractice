@@ -14,7 +14,13 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/system.css">
-
+        <%
+            int pageindex = (Integer) request.getAttribute("pageindex");
+            int totalpage = (Integer) request.getAttribute("totalpage");
+            String url = (String) request.getAttribute("url");
+            String queryString = (String) request.getAttribute("queryString");
+            int count = (Integer) request.getAttribute("count");
+        %>
     </head>
 
     <body>
@@ -44,8 +50,8 @@
                         <c:forEach items="${sessionScope.account.role.features}" var="f">
                             <c:if test="${f.isDisplayed == true}">
                                 <li><a href="${f.url}">${f.featureName}</a></li>
-                            </c:if>                            
-                        </c:forEach>
+                                </c:if>                            
+                            </c:forEach>
                     </ul>
                 </nav>
             </aside>
@@ -56,30 +62,50 @@
                     </div>
                     <div class="setting_tool">
                         <div class="search_form">
-                            <form action="#" id="search">
-                                <select name="" id="#">
-                                    <option value="">All roles</option>
-                                    <option value="">Role 1</option>
-                                    <option value="">Role 2</option>
-                                    <option value="">...</option>
+                            <form action="userlist" method="GET">
+                                <select name="role">
+                                    <option value="-1">All roles</option>
+                                    <c:forEach items="${requestScope.roles}" var="r">
+                                        <option value="${r.roleID}" ${requestScope.role == r.roleID?"selected":""}>
+                                            ${r.roleName}
+                                        </option>
+                                    </c:forEach>
                                 </select>
-                                <select name="" id="#">
-                                    <option value="">All statuses</option>
-                                    <option value="">Active</option>
-                                    <option value="">Inactive</option>
+                                <select name="status">
+                                    <option value="all">All statuses</option>
+                                    <option value="active" ${requestScope.status == "active"?"selected":""}>
+                                        Active
+                                    </option>
+                                    <option value="inactive"${requestScope.status == "inactive"?"selected":""}>
+                                        Inactive
+                                    </option>
                                 </select>
-                                <select name="" id="#">
-                                    <option value="">Male</option>
-                                    <option value="">Female</option>
+                                <select name="gender">
+                                    <option value="all">All</option>
+                                    <option value="male" ${requestScope.gender == "male"?"selected":""}>
+                                        Male
+                                    </option>
+                                    <option value="female"${requestScope.gender == "female"?"selected":""}>
+                                        Female
+                                    </option>
                                 </select>
-                                <input type="text" name="" id="" placeholder="Type name to search">
-                                <input type="text" name="" id="" placeholder="Type mobile to search">
-                                <input type="text" name="" id="" placeholder="Type email to search">
+                                <input type="text" name="combination" placeholder="Type name, email or mobile to search"
+                                       value="${requestScope.combination}">
+                                <select name="sortBy">
+                                    <option value="firstName" ${requestScope.sortBy == "firstName"?"selected":""}>Full Name</option>
+                                    <option value="gender" ${requestScope.sortBy == "gender"?"selected":""}>Gender</option>
+                                    <option value="username" ${requestScope.sortBy == "username"?"selected":""}>Email</option>
+                                    <option value="phoneNumber" ${requestScope.sortBy == "phoneNumber"?"selected":""}>Mobile</option>
+                                    <option value="roleID" ${requestScope.sortBy == "roleID"?"selected":""}>Role</option>
+                                    <option value="status" ${requestScope.sortBy == "status"?"selected":""}>Status</option>
+                                </select>
+                                <input type="radio" name="order" value="asc" ${requestScope.order == "asc"?"checked":""}>Ascending
+                                <input type="radio" name="order" value="desc" ${requestScope.order == "desc"?"checked":""}>Descending
                                 <button type="submit">Search</button>
                             </form>
                         </div>
                         <div class="add_setting">
-                            <a href="#">Add User</a>
+                            <a href="add">Add User</a>
                         </div>
                     </div>
                     <table class="setting_list">
@@ -103,18 +129,11 @@
                                 <td>
                                     <a href="${pageContext.request.contextPath}/admin/userdetail?username=${user.account.username}">Edit</a>
                                 </td>
-                            </tr>    
+                            </tr>
                         </c:forEach>
                     </table>
-                    <div class="pagination">
-                        <ul>
-                            <li> << </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li> >> </li>
-                        </ul>
-                    </div>
+                    <div class="pagination"id="pagination"></div>
+                    <!--<p class="not__found">There are no results found!</p>-->
                 </div>
 
                 <footer>
@@ -165,6 +184,10 @@
         </section>
 
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
+        <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
+        <script>
+            pagination('pagination','<%=(url)%>',<%=(pageindex)%>,'<%=(queryString)%>','<%=(totalpage)%>',2);
+        </script>
     </body>
 
 </html>

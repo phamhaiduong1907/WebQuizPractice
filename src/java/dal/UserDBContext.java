@@ -58,6 +58,63 @@ public class UserDBContext extends DBContext {
         return users;
     }
 
+    public int count() {
+        try {
+            String sql = "select count(*) as Total from [User]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsers(int pageindex, int pagesize) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username order by a.roleID\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
     public User getUser(String username) {
         try {
             String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
@@ -95,6 +152,189 @@ public class UserDBContext extends DBContext {
             }
         }
         return null;
+    }
+
+    public int countByStatus(boolean status) {
+        try {
+            String sql = "select count(*) as Total from [User] where [status] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByStatus(int pageindex, int pagesize, boolean status) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.[status] = ? order by u.gender asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
+    public int countByGender(boolean gender) {
+        try {
+            String sql = "select count(*) as Total from [User] where [gender] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, gender);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByGender(int pageindex, int pagesize, boolean gender) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.[gender] = ? order by u.gender asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, gender);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
+    public int countByQuery(String query) {
+        try {
+            String sql = "select count(*) from [User] u where u.lastName + ' ' + u.firstName = ?\n"
+                    + "or u.username = ? or u.phoneNumber = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, query);
+            stm.setString(2, query);
+            stm.setString(3, query);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public ArrayList<User> getPaginatedUsersByQuery(int pageindex, int pagesize, String query) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sql = "select u.*, a.[password] from [User] u inner join Account a\n"
+                    + "on u.username = a.username where u.lastName + ' ' + u.firstName = ?\n"
+                    + "or u.username = ? or u.phoneNumber = ? order by u.username asc\n"
+                    + "offset (? - 1 ) * ? rows fetch next ? rows only";
+            connection.setAutoCommit(false);
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, query);
+            stm.setString(2, query);
+            stm.setString(3, query);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
+            stm.setInt(6, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
     }
 
     public void updateUser(String username, String firstName, String lastName, String[] featureIDs,
@@ -161,6 +401,45 @@ public class UserDBContext extends DBContext {
                 } catch (SQLException ex) {
                     Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+        }
+    }
+
+    public void updateUser(boolean status, int roleID, String username) {
+        String sql_update_user = "update [User]\n"
+                + "set [status] = ?\n"
+                + "where username = ?";
+        String sql_update_role = "update Account\n"
+                + "set roleID = ? where username = ?";
+        PreparedStatement stm_update_user;
+        PreparedStatement stm_update_role;
+
+        try {
+            connection.setAutoCommit(false);
+            stm_update_user = connection.prepareStatement(sql_update_user);
+            stm_update_user.setBoolean(1, status);
+            stm_update_user.setString(2, username);
+            stm_update_user.executeUpdate();
+
+            stm_update_role = connection.prepareStatement(sql_update_role);
+            stm_update_role.setInt(1, roleID);
+            stm_update_role.setString(2, username);
+            stm_update_role.executeUpdate();
+
+            connection.commit();
+
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -238,6 +517,56 @@ public class UserDBContext extends DBContext {
         return null;
     }
 
+    public void addUser(String username, String password, String firstName, String lastName, String phone,
+            boolean gender, String address, int roleID, boolean status, String profilePictureURL) {
+        String sql_insert_account = "INSERT INTO [dbo].[Account]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[roleID])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        String sql_insert_user = "insert into [User] values (?,?,?,?,?,?,?,?)";
+
+        PreparedStatement stm_insert_account;
+        PreparedStatement stm_insert_user;
+        try {
+            connection.setAutoCommit(false);
+
+            stm_insert_user = connection.prepareStatement(sql_insert_user);
+            stm_insert_user.setString(1, username);
+            stm_insert_user.setBoolean(2, gender);
+            stm_insert_user.setString(3, firstName);
+            stm_insert_user.setString(4, lastName);
+            stm_insert_user.setString(5, phone);
+            stm_insert_user.setString(6, address);
+            stm_insert_user.setString(7, profilePictureURL);
+            stm_insert_user.setBoolean(8, status);
+            stm_insert_user.executeUpdate();
+
+            stm_insert_account = connection.prepareStatement(sql_insert_account);
+            stm_insert_account.setString(1, username);
+            stm_insert_account.setString(2, password);
+            stm_insert_account.setInt(3, roleID);
+            stm_insert_account.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public boolean insertUser(User user) {
         String sql = "INSERT INTO [User]\n"
                 + "           ([username]\n"
@@ -291,9 +620,6 @@ public class UserDBContext extends DBContext {
         return false;
     }
 
-    
-    
-
     public boolean isUserExist(String username) {
         String sql = "select username from [User]\n"
                 + "where username = ?";
@@ -303,7 +629,7 @@ public class UserDBContext extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -312,5 +638,188 @@ public class UserDBContext extends DBContext {
 
         return false;
 
+    }
+
+    public ArrayList<User> getUsers(int roleID, Boolean status, Boolean gender, String combination, String sortBy, String order,
+             int pagesize, int pageindex) {
+        ArrayList<User> users = new ArrayList<>();
+        String sql = " select  u.gender, u.firstName,\n"
+                + "u.lastName, u.phoneNumber, u.[address],u.profilePictureURL,u.[status],\n"
+                + "a.*\n"
+                + "from [User] u join Account a\n"
+                + "on u.username = a.username ";
+        
+        String sql_base = " select  u.gender, u.firstName,\n"
+                + "u.lastName, u.phoneNumber, u.[address],u.profilePictureURL,u.[status],\n"
+                + "a.*\n"
+                + "from [User] u join Account a\n"
+                + "on u.username = a.username ";
+
+        String sql_roleID = " where a.roleID = ? ";
+
+        String sql_status = " where u.[status] = ? ";
+
+        String sql_gender = " where gender = ? ";
+
+        String sql_combination = " where u.username = ? \n"
+                + "or phoneNumber = ? or (lastName+' '+firstName) like ? ";
+
+        String sql_order = " order by " + sortBy + " " + order;
+
+        String intersect = " \n intersect \n";
+
+        String pagination = " OFFSET (?-1)*? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY ";
+
+        if (roleID >= 1) {
+            sql += sql_roleID;
+
+        }
+        if (status != null) {
+            sql += intersect;
+            sql += sql_base + sql_status;
+        }
+        if (gender != null) {
+            sql += intersect;
+            sql += sql_base + sql_gender;
+        }
+        if (combination != null && combination.trim().length() > 0) {
+            sql += intersect;
+            sql += sql_base + sql_combination;
+        }
+        if (order != null) {
+            sql += sql_order;
+        }
+        sql += pagination;
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int i = 1;
+        try {
+            stm = connection.prepareStatement(sql);
+            if (roleID >= 1) {
+                stm.setInt(i, roleID);
+                i++;
+            }
+            if (status != null) {
+                stm.setBoolean(i, status);
+                i++;
+            }
+            if (gender != null) {
+                stm.setBoolean(i, gender);
+                i++;
+            }
+            if (combination != null && combination.length() > 0) {
+                stm.setString(i++, combination);
+                stm.setString(i++, combination);
+                stm.setString(i++, "%"+combination+"%");
+            }
+            stm.setInt(i++, pageindex);
+            stm.setInt(i++, pagesize);
+            stm.setInt(i++, pagesize);
+            rs = stm.executeQuery();
+            
+            while(rs.next()){
+                User user = new User();
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setAddress(rs.getString("address"));
+                user.setPhoneNumber(rs.getString("phoneNumber"));
+                user.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                user.setStatus(rs.getBoolean("status"));
+                Account account = new AccountDBContext().getAccount(rs.getString("username"), rs.getString("password"));
+                user.setAccount(account);
+                users.add(user);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return users;
+
+    }
+    
+    public int count(int roleID, Boolean status, Boolean gender, String combination, String sortBy, String order){
+        String finalSql = "select count(*) as Total from ( ";
+        String sql = " select  u.gender, u.firstName,\n"
+                + "u.lastName, u.phoneNumber, u.[address],u.profilePictureURL,u.[status],\n"
+                + "a.*\n"
+                + "from [User] u join Account a\n"
+                + "on u.username = a.username ";
+        
+        String sql_base = " select  u.gender, u.firstName,\n"
+                + "u.lastName, u.phoneNumber, u.[address],u.profilePictureURL,u.[status],\n"
+                + "a.*\n"
+                + "from [User] u join Account a\n"
+                + "on u.username = a.username ";
+
+        String sql_roleID = " where a.roleID = ? ";
+
+        String sql_status = " where u.[status] = ? ";
+
+        String sql_gender = " where gender = ? ";
+
+        String sql_combination = " where u.username = ? \n"
+                + "or phoneNumber = ? or (firstName + ' ' + lastName) like ? ";
+
+        String sql_order = " order by " + sortBy + " " + order;
+
+        String intersect = " \n intersect \n";
+
+        if (roleID >= 1) {
+            sql += sql_roleID;
+
+        }
+        if (status != null) {
+            sql += intersect;
+            sql += sql_base + sql_status;
+        }
+        if (gender != null) {
+            sql += intersect;
+            sql += sql_base + sql_gender;
+        }
+        if (combination != null && combination.trim().length() > 0) {
+            sql += intersect;
+            sql += sql_base + sql_combination;
+        }
+        
+        finalSql += sql + " ) t";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int i = 1;
+        try {
+            stm = connection.prepareStatement(finalSql);
+            if (roleID >= 1) {
+                stm.setInt(i, roleID);
+                i++;
+            }
+            if (status != null) {
+                stm.setBoolean(i, status);
+                i++;
+            }
+            if (gender != null) {
+                stm.setBoolean(i, gender);
+                i++;
+            }
+            if (combination != null && combination.length() > 0) {
+                stm.setString(i, combination);
+                stm.setString(i + 1, combination);
+                stm.setString(i + 2, combination);
+                i = i + 3;
+            }
+            rs = stm.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("Total");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return -1;
     }
 }

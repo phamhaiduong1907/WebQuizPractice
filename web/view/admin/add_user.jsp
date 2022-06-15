@@ -17,10 +17,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/user_detail.css">
-        <%
-            Role roleById = (Role) request.getAttribute("roleById");
-            User user = (User) request.getAttribute("user");
-        %>
     </head>
     <body>
         <header>
@@ -56,34 +52,30 @@
             </aside>
             <aside class="right">
                 <div class="right_content">
-                    <h1>User Details</h1>
-                    <form action="userdetail" method="POST">
+                    <h1>Add User</h1>
+                    <form action="add" method="POST">
                         <div class="personal_info">
                             <div class="info">
                                 <div class="info_item">
                                     <label for="name">First Name</label>
-                                    <input type="text" id="firstNameInput" name="firstName" placeholder="Enter your first name"
-                                           value="${requestScope.user.firstName}" readonly>
+                                    <input type="text" id="firstNameInput" name="firstName" placeholder="Enter your first name" required>
                                 </div>
                                 <div class="info_item">
                                     <label for="name">Last Name</label>
-                                    <input type="text" id="lastNameInput" name="lastName" placeholder="Enter your last name"
-                                           value="${requestScope.user.lastName}" readonly>
+                                    <input type="text" id="lastNameInput" name="lastName" placeholder="Enter your last name" required>
                                 </div>
                                 <div class="info_item">
                                     <label for="email">Email</label>
-                                    <input type="text" id="emailInput" name="email" placeholder="abc@gmail.com"
-                                           value="${requestScope.user.account.username}" readonly>
+                                    <input type="text" id="emailInput" name="email" placeholder="abc@gmail.com" required>
                                 </div>
                                 <div class="info_item">
                                     <label for="mobile">Mobile</label>
-                                    <input type="text" id="mobileInput" name="phone" placeholder="Mobile"
-                                           value="${requestScope.user.phoneNumber}" readonly>
+                                    <input type="text" id="mobileInput" name="phone" placeholder="Mobile" required>
                                 </div>
                                 <div class="info_item">
                                     <label for="gender">Gender</label>
-                                    <input type="radio" name="gender" value="male" ${requestScope.user.gender ? "checked" : ""} disabled>Male
-                                    <input type="radio" name="gender" value="female" ${requestScope.user.gender ? "" : "checked"} disabled>Female
+                                    <input type="radio" name="gender" value="male" checked>Male
+                                    <input type="radio" name="gender" value="female">Female
                                 </div>
                             </div>
                             <div class="avatar">
@@ -93,7 +85,7 @@
                         <div class="authorize_info">
                             <div class="authorize_item">
                                 <label for="role">Role</label>
-                                <select name="roleID" id="roleSelect" onchange="loadFeature()">
+                                <select name="roleID" id="roleSelect">
                                     <c:forEach items="${requestScope.roles}" var="role">
                                         <option value="${role.roleID}" 
                                                 ${role.roleID == requestScope.user.account.role.roleID ?"selected":""}
@@ -102,39 +94,17 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-<!--                                <div class="authorized__feature">
-                                    <p>(Choose/Unchoose items to modify user's features accessibility)</p>
-                                    <div id="featureOption">
-                                        <%for (Feature fid : roleById.getFeatures()) {%>
-                                        <input type="checkbox" name="featureID" value="<%=(fid.getFeatureID())%>"
-                                               <%  boolean unauthorized = true;
-                                                   for (Feature f : user.getAccount().getRole().getFeatures()) {
-                                                       if (fid.getFeatureID() == f.getFeatureID()) {
-                                                           unauthorized = false;
-                                                           break;
-                                                       }
-                                                   }
-                                                   if (unauthorized) { %>
-                                               checked="checked"
-                                               <%}
-                                               %>
-                                               />
-                                        <%=(fid.getFeatureName())%>
-                                        <%}%>
-                                    </div>
-                                </div>  -->
                             </div> 
                             <div class="authorize_item">
                                 <label for="status">Status</label>
                                 <select name="status" id="statusInput">
-                                    <option value="active" ${requestScope.user.status?"selected":""}>active</option>
-                                    <option value="inactive" ${requestScope.user.status?"":"selected"}>inactive</option>
+                                    <option value="active">active</option>
+                                    <option value="inactive">inactive</option>
                                 </select>
                             </div> 
                             <div class="authorize_item authorize_address">
                                 <label for="address">Address</label>
-                                <input type="text" name="address" id="addressInput" placeholder="Enter your adress"
-                                       value="${requestScope.user.address}" readonly/>
+                                <input type="text" name="address" id="addressInput" placeholder="Enter your adress" required>
                             </div> 
                         </div>
                         <button type="submit">Save</button>
@@ -190,23 +160,21 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>                    
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script>
-                                    function loadFeature() {
-                                        var role = document.getElementById("roleSelect").value.trim();
-                                        var username = document.getElementById("emailInput").value.trim();  
-                                        $.ajax({
-                                            url: "/SWP391-SE1617-NET_Group06-QuizWebsite/admin/load_feature",
-                                            type: "get",
-                                            data: {
-                                                role : role,
-                                                username: username
-                                            },
-                                            success: function (data) {
-                                                var row = document.getElementById("featureOption");
-                                                row.innerHTML = data;
-                                            }
-                                        });
-                                        
-                                    }
+//                        function checkSubmit() {
+//                            var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/;
+//                            var phoneRegex = /[0-9]{9,10}/;
+//                            var email = document.getElementById('emailInput').value.trim();
+//                            var phone = document.getElementById('mobileInput').value.trim();
+//                            if (!emailRegex.test(email)) {
+//                                alert('Please check your email again!');
+//                                return false;
+//                            } else if (!phoneRegex.test(phone)) {
+//                                alert('Please check your phone again!');
+//                                return false;
+//                            } else {
+//                                return true;
+//                            }
+//                        }
         </script>
     </body>
 </html>
