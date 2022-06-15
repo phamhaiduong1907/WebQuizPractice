@@ -130,6 +130,18 @@
     <servlet>
         <servlet-name>AddBlogController</servlet-name>
         <servlet-class>controller.marketingController.AddBlogController</servlet-class>
+         </servlet>
+    <servlet>
+        <servlet-name>RegistrationListController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationSearchController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationDetailController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetSubCategory</servlet-name>
@@ -158,6 +170,10 @@
     <servlet>
         <servlet-name>ChangeStatusController</servlet-name>
         <servlet-class>controller.slider.ChangeStatusController</servlet-class>
+             </servlet>
+    <servlet>
+        <servlet-name>GetCourseBySubcategoryID</servlet-name>
+        <servlet-class>controller.marketingController.GetCourseBySubcategoryID</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -298,6 +314,18 @@
     <servlet-mapping>
         <servlet-name>AddBlogController</servlet-name>
         <url-pattern>/marketing/addblog</url-pattern>
+         </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationListController</servlet-name>
+        <url-pattern>/sale/registrationlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationSearchController</servlet-name>
+        <url-pattern>/sale/registrationsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationDetailController</servlet-name>
+        <url-pattern>/sale/registrationdetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetSubCategory</servlet-name>
@@ -327,6 +355,10 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusController</servlet-name>
         <url-pattern>/slider/changestatus</url-pattern>
+         </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCourseBySubcategoryID</servlet-name>
+        <url-pattern>/getcoursebysubcategoryid</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

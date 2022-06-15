@@ -24,7 +24,8 @@ public class AccountDBContext extends DBContext {
      *
      * @param username
      * @param uri
-     * @return a boolean (yes means that the user can access the uri and the otherwise)
+     * @return a boolean (yes means that the user can access the uri and the
+     * otherwise)
      */
     public boolean getPermission(String username, int roleID, String uri) {
         try {
@@ -86,7 +87,8 @@ public class AccountDBContext extends DBContext {
     /**
      *
      * @param username
-     * @return true if there is an account with the matching username in the database
+     * @return true if there is an account with the matching username in the
+     * database
      */
     public boolean isExistUser(String username) {
         String sql = "Select username, password from Account where username = ?";
@@ -99,7 +101,7 @@ public class AccountDBContext extends DBContext {
             if (rs.next()) {
                 rs.close();
                 stm.close();
-                connection.close();
+                //connection.close();
                 return true;
             }
         } catch (SQLException ex) {
@@ -113,7 +115,7 @@ public class AccountDBContext extends DBContext {
                     stm.close();
                 }
                 if (connection != null) {
-                    connection.close();
+                    //connection.close();
                 }
             } catch (SQLException e) {
             }
@@ -211,8 +213,8 @@ public class AccountDBContext extends DBContext {
         }
         return null;
     }
-    
-    public Account getAccount(String username){
+
+    public Account getAccount(String username) {
         try {
             String sql = "SELECT username,password,roleID FROM Account \n"
                     + "WHERE username = ?";
@@ -246,10 +248,9 @@ public class AccountDBContext extends DBContext {
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
-                + "           ,?)";
-        PreparedStatement stm = null;
+                + "           ,?)"; 
         try {
-            stm = connection.prepareStatement(sql);
+            PreparedStatement stm  = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
             stm.setString(2, account.getPassword());
             stm.setInt(3, account.getRole().getRoleID());

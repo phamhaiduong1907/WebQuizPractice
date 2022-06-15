@@ -112,14 +112,13 @@ public class CourseDBContext extends DBContext {
                 ArrayList<PricePackage> pricePackages = new ArrayList<>();
                 PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
                 pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
+                
                 Course c = new Course();
-                Subcategory ca = new Subcategory();
-                c.setCourseName(rs.getString("courseName"));
                 c.setCourseID(rs.getInt("courseID"));
-                ca.setCategoryID(rs.getInt("categoryID"));
-                ca.setSubcategoryID(rs.getInt("subCategoryID"));
-                ca.setSubcategoryName(rs.getString("subCategoryName"));
-                c.setSubcategory(ca);
+                c.setCourseName(rs.getString("courseName"));
+                SubCategoryDBContext db = new SubCategoryDBContext();
+                Subcategory subcat = db.getSubcategory(rs.getInt("subCategoryID"));
+                c.setSubcategory(subcat);
                 c.setStatus(rs.getBoolean("status"));
                 c.setIsFeatured(rs.getBoolean("isFeatured"));
                 c.setDescription(rs.getString("description"));
@@ -425,4 +424,32 @@ public class CourseDBContext extends DBContext {
         return -1;
     }
 
+    public ArrayList<Course> getCoursesBySubcategory(int subcategoryID) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Course] WHERE subCategoryID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, subcategoryID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course c = new Course();
+                c.setCourseID(rs.getInt("courseID"));
+                c.setCourseName(rs.getString("courseName"));
+                SubCategoryDBContext db = new SubCategoryDBContext();
+                Subcategory subcat = db.getSubcategory(rs.getInt("subCategoryID"));
+                c.setSubcategory(subcat);
+                c.setStatus(rs.getBoolean("status"));
+                c.setIsFeatured(rs.getBoolean("isFeatured"));
+                c.setDescription(rs.getString("description"));
+                c.setTagline(rs.getString("tagline"));
+                c.setUpdatedDate(rs.getDate("updatedDate"));
+                c.setBriefInfo(rs.getString("briefInfo"));
+                c.setThumbnailUrl(rs.getString("thumbnailURL"));
+                courses.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Role;
 import model.User;
 
 /**
@@ -622,7 +623,7 @@ public class UserDBContext extends DBContext {
 
     public boolean isUserExist(String username) {
         String sql = "select username from [User]\n"
-                + "where username = ?";
+                + "where [username] = ?";
 
         PreparedStatement stm;
         try {

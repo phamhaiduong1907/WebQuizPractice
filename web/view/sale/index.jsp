@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
-=======
-<!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
->>>>>>> 2a30032236c1920219f8903220e62f23029e3170
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,13 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-<<<<<<< HEAD
-    <link rel="stylesheet" href="css/admin/index.css">
-    <link rel="stylesheet" href="css/popup.css">
-=======
-    <link rel="stylesheet" href="../../css/admin/index.css">
-    <link rel="stylesheet" href="../../css/popup.css">
->>>>>>> 345d5a5f9995295b55249f9306e520573f2b7db3
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 </head>
 
 <body>
@@ -73,7 +64,7 @@
 
     <section class="popup">
         <div class="popup__content">
-            <img src="../../images/close.png" alt="" class="close">
+            <img src="images/close.png" alt="" class="close">
 
             <div class="form_user-profile">
                 <h2>User Profile</h2>
@@ -114,7 +105,7 @@
 
     </section>
 
-    <script src="../../js/userPopup.js"></script>
+    <script src="js/userPopup.js"></script>
 </body>
 
 </html>
