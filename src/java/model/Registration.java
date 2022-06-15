@@ -17,7 +17,7 @@ public class Registration {
     private User user;
     private Timestamp registrationTime;
     private Course course;
-    private ArrayList<PricePackage> pricePackages;
+    private PricePackage pricePackages;
     private double totalCost;
     private boolean status; // true == paid, false == unpaid
     private Date validFrom;
@@ -57,11 +57,11 @@ public class Registration {
         this.course = course;
     }
 
-    public ArrayList<PricePackage> getPricePackages() {
+    public PricePackage getPricePackages() {
         return pricePackages;
     }
 
-    public void setPricePackages(ArrayList<PricePackage> pricePackages) {
+    public void setPricePackages(PricePackage pricePackages) {
         this.pricePackages = pricePackages;
     }
 

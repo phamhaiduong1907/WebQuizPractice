@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Role;
 import model.User;
 
 /**
@@ -291,19 +292,16 @@ public class UserDBContext extends DBContext {
         return false;
     }
 
-    
-    
-
     public boolean isUserExist(String username) {
         String sql = "select username from [User]\n"
-                + "where username = ?";
+                + "where [username] = ?";
 
         PreparedStatement stm;
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {
@@ -312,5 +310,34 @@ public class UserDBContext extends DBContext {
 
         return false;
 
+    }
+
+    public User getUserByUsername(String username) {
+        User u = new User();
+        String sql = "SELECT  *\n"
+                + "  FROM [User]\n"
+                + "  where [username] = ?";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Account a = new Account();
+                RoleDBContext roleDBContext = new RoleDBContext();
+                Role r = roleDBContext.getRole(5);
+                a.setUsername(username);
+                a.setRole(r);
+                u.setAccount(a);
+                u.setFirstName(rs.getString("firstName"));
+                u.setLastName(rs.getString("lastName"));
+                u.setAddress(rs.getString("address"));
+                u.setGender(rs.getBoolean("gender"));
+                u.setProfilePictureUrl(rs.getString("profilePictureURL"));
+                return u;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

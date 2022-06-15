@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.Date;
@@ -24,6 +20,17 @@ public class Course {
     private Date updatedDate;
     private String briefInfo;
     private String thumbnailUrl;
+    private boolean isRegistered;
+
+    public boolean isIsRegistered() {
+        return isRegistered;
+    }
+
+    public void setIsRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
+    }
+    
+    
 
     public ArrayList<PricePackage> getPricePackages() {
         return pricePackages;
