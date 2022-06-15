@@ -19,61 +19,120 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
-
-
-
-
 
     </head>
 
     <body>
+        <!-- HEADER -->
         <header>
-            <div class="logo">
-                <p>LOGO</p>
+            <div class="heading_logo">
+                <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
             </div>
-
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Marketing</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <nav>
+                <ul class="nav_links">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
+                    <li><a href="registrationsearch?search=">Registration</a></li>
+                    <li>
+                        <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>User Name</a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="#" id="openProfile">User Profile</a></li>
+                                <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li><a href="#">Log out</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
         <section class="main">
-            <!-- LEFT NAVIGATION BAR -->
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="post.html">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                    </ul>
-                </nav>
-            </aside>
-
             <!-- RIGHT CONTENT -->
             <aside class="right">
-                <div class="right_content">
-                    <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Post</a></li>
-                        <li><a href="#">Add a post</a></li>
-
-                    </ul>
-                </div>
                 <!--Starting of the filter-->
+
+                <c:choose>
+                    <c:when test="${requestScope.posts.size() eq 0}">
+                        <div class="no__result">
+                            There are no records matching the search query
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+
+                    </c:otherwise>
+                </c:choose>
+                <div class="table__data">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Post ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Feature</th>
+                                <th>Status</th>
+                                <th>Author</th>
+                                <th>Updated date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.posts}" var="p">
+                                <tr>
+                                    <td>${p.postID}</td>
+                                    <td>${p.title}</td>
+                                    <td>${p.subcategory.subcategoryName}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${p.isFeatured}">
+                                                Yes
+                                            </c:when>
+                                            <c:otherwise>
+                                                No
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${p.status}">
+                                                On
+                                            </c:when>
+                                            <c:otherwise>
+                                                Off
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>${p.author.username}</td>
+                                    <td>${p.updatedDate}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${p.status == true}">
+                                                <a href="changeblogstatus?postID=${p.postID}&status=false" class="action">Hide</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="changeblogstatus?postID=${p.postID}&status=true" class="action">Show</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td><a href="view?postID=${p.postID}" class="view">View</a></td>
+
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <a href="addblog">Add blog</a>
+                    <div id="pagination" class="pagination"></div>
+                </div>
+
+
+
                 <section class="option__box">
                     <div class="option__filter">
                         <div class="option__searchbar">
@@ -81,7 +140,7 @@
                                 <input type="text" name="search"  placeholder="Type something to search...">
                                 </div>
                                 <div class="option__checkbox">
-                                    <h3>Category: </h3>
+                                    <h3>Category</h3>
                                     <div class="option__options-value">
                                         <div class="accordion accordion-flush" id="accordionFlushExample">
                                             <c:forEach items="${requestScope.categories}" var="cate">
@@ -120,77 +179,10 @@
                             </form>
                         </div>
                 </section>
-                
-                <c:choose>
-                    <c:when test="${requestScope.posts.size() eq 0}">
-                        <div class="no__result">
-                            There are no records matching the search query
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                      
-                    </c:otherwise>
-                </c:choose>
-                <div class="table__data">
-                    <table>
-                        <tr>
-                            <th>Post ID</th>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Feature</th>
-                            <th>Status</th>
-                            <th>Author</th>
-                            <th>Updated date</th>
-
-                        </tr>
-                        <c:forEach items="${requestScope.posts}" var="p">
-                            <tr>
-                                <td>${p.postID}</td>
-                                <td>${p.title}</td>
-                                <td>${p.subcategory.subcategoryName}</td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${p.isFeatured}">
-                                            Yes
-                                        </c:when>
-                                        <c:otherwise>
-                                            No
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                                <td>
-                                    <c:choose>
-                                        <c:when test="${p.status}">
-                                            On
-                                        </c:when>
-                                        <c:otherwise>
-                                            Off
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                                <td>${p.author.username}</td>
-                                <td>${p.updatedDate}</td>
-                                <td>
-                                    <a disabled="disabled" href="changeblogstatus?postID=${p.postID}&status=true">Show</a>
-                                    <a href="changeblogstatus?postID=${p.postID}&status=false">Hide</a>
-                                </td>
-                                <td><a href="view?postID=${p.postID}">View</a></td>
-                                
-                            </tr>
-
-                        </c:forEach>
-                    </table>
-
-                </div>
-                <a href="addblog">Add blog</a>
-                 <div id="pagination" class="pagination"></div>
-
-
-
-                <footer>
-                    FOOTER
-                </footer>
             </aside>
+            <footer>
+                <p>Copyright</p>
+            </footer>
         </section>
 
         <section class="popup">
@@ -245,7 +237,7 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-                <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
 
     </body>
 </html>

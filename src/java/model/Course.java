@@ -21,6 +21,7 @@ public class Course {
     private String briefInfo;
     private String thumbnailUrl;
     private boolean isRegistered;
+    private String owner;
 
     public boolean isIsRegistered() {
         return isRegistered;
@@ -31,7 +32,7 @@ public class Course {
     }
     
     
-    private String owner;
+    
 
     public String getOwner() {
         return owner;

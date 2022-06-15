@@ -3,29 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/publicController/SubjectListController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/courseContentController/ManageSubjectListController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/customerControllers/CustomerRegistrationController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/marketingController/AddBlogController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/publicController/CourseSearchController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/dal/RegistrationDBContext.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/saleController/RegistrationDetailController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/dal/BlogDBContext.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/admin/UserListController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/course_content/template.css</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/model/Registration.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/saleController/RegistrationListController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/saleController/RegistrationSearchController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/course_content/new_subject.css</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/customerControllers/UpdateCustomerRegistrationController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/publicController/HomePageController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/course_content/subject_list.jsp</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/controller/courseContentController/NewSubjectController.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/dal/DBContext.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/js/script.js</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/model/Course.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/model/PricePackage.java</file>
+            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/customer/registration.css</file>
+            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/marketing/add_post.css</file>
+            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/customer/registration.jsp</file>
+            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/marketing/post_list.jsp</file>
+            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/footer.css</file>
         </group>
     </open-files>
 </project-private>

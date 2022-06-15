@@ -195,6 +195,7 @@ public class BlogDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                AccountDBContext accountDBContext = new AccountDBContext();
                 Post post = new Post();
                 post.setPostID(rs.getInt("postID"));
                 post.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subcategoryID")));
@@ -203,7 +204,9 @@ public class BlogDBContext extends DBContext {
                 post.setDescription(rs.getString("description"));
                 post.setIsFeatured(rs.getBoolean("isFeatured"));
                 post.setStatus(rs.getBoolean("status"));
-
+                Account a = new Account();
+                a.setUsername(rs.getString("author"));
+                post.setAuthor(a);
                 post.setUpdatedDate(rs.getDate("updatedDate"));
                 post.setThumbnailUrl(rs.getString("thumbnailURL"));
                 posts.add(post);

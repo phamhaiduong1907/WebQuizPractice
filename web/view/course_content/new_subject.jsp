@@ -45,14 +45,10 @@
             <aside class="left">
                 <nav>
                     <ul>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                        <li><a href="system.html">System Settings</a></li>
-                        <li><a href="user_list.html">Users</a></li>
-                        <li><a href="#">Course</a></li>
-                        <li><a href="#">Test</a></li>
-                        <li><a href="#">Quiz</a></li>
+                        <li><a href="marketing/bloglist?search=">Posts</a></li>
+                        <li><a href="slider/list">Sliders</a></li>
+                        <li><a href="admin/userlist">Users</a></li>
+                        <li><a href="managesubject">Course</a></li>
                     </ul>
                 </nav>
             </aside>

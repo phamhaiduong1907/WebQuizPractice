@@ -54,6 +54,14 @@
                             </c:forEach>
                     </ul>
                 </nav>
+                 <nav>
+                    <ul>
+                        <li><a href="../marketing/bloglist?search=">Posts</a></li>
+                        <li><a href="../slider/list">Sliders</a></li>
+                        <li><a href="../admin/userlist">Users</a></li>
+                        <li><a href="../managesubject">Course</a></li>
+                    </ul>
+                </nav>
             </aside>
             <aside class="right">
                 <div class="right_content">

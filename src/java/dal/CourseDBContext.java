@@ -381,6 +381,7 @@ public class CourseDBContext extends DBContext {
                 c.setBriefInfo(rs.getString("briefInfo"));
                 c.setThumbnailUrl(rs.getString("thumbnailURL"));
                 c.setPricePackages(pricePackages);
+                c.setOwner(rs.getString("owner"));
                 courses.add(c);
             }
         } catch (SQLException ex) {

@@ -19,9 +19,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
 
 
@@ -32,47 +34,39 @@
 
     <body>
         <header>
-            <div class="logo">
-                <p>LOGO</p>
+            <div class="heading_logo">
+                <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
             </div>
-
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Marketing</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <nav>
+                <ul class="nav_links">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
+                    <li><a href="registrationsearch?search=">Registration</a></li>
+                    <li>
+                        <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>User Name</a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="#" id="openProfile">User Profile</a></li>
+                                <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li><a href="#">Log out</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </header>
+           <ul class="breadcrumb">
+                <li><a href="../home">Home</a></li>
+                <li><a href="bloglist?search=">Post list</a></li>
+                <li><a href="#">Create a post</a></li>
+
+            </ul>
 
         <section class="main">
-            <!-- LEFT NAVIGATION BAR -->
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="post.html">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                    </ul>
-                </nav>
-            </aside>
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
-                <div class="right_content">
-                    <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Post</a></li>
-                        <li><a href="#">Add a post</a></li>
-
-                    </ul>
-                </div>
                 <div class="container">
                     <div class="row">
 
@@ -108,7 +102,7 @@
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="isStatus">Display status</label>
                                     <select class="form-control" name="isStatus" id="isStatus">
@@ -116,8 +110,8 @@
                                         <option value="false">No</option>
                                     </select>
                                 </div>
-                                
-                                 <div class="form-group">
+
+                                <div class="form-group">
                                     <label for="isFeatured">Featured</label>
                                     <select class="form-control" name="isFeatured" id="isStatus">
                                         <option value="true">Yes</option>
@@ -131,13 +125,13 @@
                                     <textarea rows="5" class="form-control" name="description" required></textarea>
                                 </div>
 
-                              
-                                
+
+
                                 <div class="form-group"> 
                                     <label for="thumbnail">Thumbnail</label>
                                     <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file">
                                 </div>
-                                
+
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
@@ -158,11 +152,14 @@
 
 
 
-                <footer>
-                    FOOTER
-                </footer>
+
             </aside>
+         
         </section>
+                                       
+            <footer>
+                FOOTER
+            </footer>
 
         <section class="popup">
             <div class="popup__content">
@@ -227,10 +224,10 @@
                     dataType: 'html',
                     data: {ID: categoryID},
                 })
-                        .done(function(data) {
+                        .done(function (data) {
                             $('#subCategory_by_category').html(data);
                         })
-                        .fail(function(error) {
+                        .fail(function (error) {
                             $('#subCategory_by_category').html("<h1>error</h1>");
                         })
                         .always(function () {

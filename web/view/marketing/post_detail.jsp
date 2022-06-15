@@ -24,6 +24,11 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
 
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+
+
+
 
 
 
@@ -32,47 +37,43 @@
 
     <body>
         <header>
-            <div class="logo">
+            <div class="heading_logo">
                 <p>LOGO</p>
             </div>
-
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Marketing</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <nav>
+                <ul class="nav_links">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
+                    <li><a href="registrationsearch?search=">Registration</a></li>
+                    <li>
+                        <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>User Name</a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="#" id="openProfile">User Profile</a></li>
+                                <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li><a href="#">Log out</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </header>
+        <div class="right_content">
+            <ul class="breadcrumb">
+                <li><a href="../home">Home</a></li>
+                <li><a href="bloglist?search=">Post list</a></li>
+                <li><a href="#">Add a post</a></li>
 
+            </ul>
+        </div>
         <section class="main">
             <!-- LEFT NAVIGATION BAR -->
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="post.html">Posts</a></li>
-                        <li><a href="#">Sliders</a></li>
-                    </ul>
-                </nav>
-            </aside>
+
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
-                <div class="right_content">
-                    <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Post</a></li>
-                        <li><a href="#">Add a post</a></li>
 
-                    </ul>
-                </div>
                 <div class="container">
                     <div class="row">
 
@@ -133,8 +134,8 @@
                                         </c:choose>
                                     </select>
                                 </div>
-                                        
-                                         <div class="form-group">
+
+                                <div class="form-group">
                                     <label for="isFeatured">Display status</label>
                                     <select class="form-control" name="isFeatured" id="isFeatured">
                                         <c:choose>
@@ -183,12 +184,12 @@
 
 
 
-                <footer>
-                    FOOTER
-                </footer>
+
             </aside>
         </section>
-
+        <footer>
+            FOOTER
+        </footer>
         <section class="popup">
             <div class="popup__content">
                 <img src="../../images/close.png" alt="" class="close">

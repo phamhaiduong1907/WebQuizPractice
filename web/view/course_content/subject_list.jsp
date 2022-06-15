@@ -13,39 +13,47 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 
 
     </head>
 
     <body>
-        <div class="top__header">
-            <div class="top__header__logo">Logo</div>
-            <div class="dropdown dropdown_menu">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    User
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">User profile</a>
-                    <a class="dropdown-item" href="#">Change password</a>
-                    <a class="dropdown-item" href="#">Logout</a>
-                </div>
+        <header>
+            <div class="heading_logo">
+                <img src="images/logo.png" alt="alt"/>
             </div>
-        </div>
-
-        <div class="nav__header">
             <nav>
-                <ul class="nav__body">
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="post.html">Posts</a></li>
-                    <li><a href="#">Sliders</a></li>
+                <ul class="nav_links">
+                    <li><a href="home">Home</a></li>
+                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
+                    <!--                    <li><a href="#">My Registration</a></li>
+                                        <li><a href="#">Practice</a></li>-->
+                    <li>
+                        <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
+                            <c:out value="${sessionScope.account.username}"/>
+                        </a>
+                        <div class="submenu">
+                            <ul>
+                                <li><a href="#" id="openProfile">User Profile</a></li>
+                                <li><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li><a href="logout">Log out</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </nav>
-        </div>
+        </header>
+        <a href="newsubject">Create a new subject</a>
+
         <section class="main">
             <section class="left__block">
-                    <table class="subject__table">
+                <table class="subject__table">
+                    <thead>
                         <tr class="table__row">
                             <th>ID</th>
                             <th>Name</th>
@@ -56,6 +64,8 @@
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <c:forEach var="c" items="${requestScope.courses}">
                             <tr class="table__row">
                                 <td>${c.courseID}</td>
@@ -68,7 +78,8 @@
                                 <td><a href="#">Edit</a></td>
                             </tr>
                         </c:forEach>
-                    </table>
+                    </tbody>
+                </table>
                 <div id="pagination" class="pagination"></div>
             </section>
 

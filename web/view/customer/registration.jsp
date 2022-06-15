@@ -34,11 +34,10 @@
             </div>
             <nav>
                 <ul class="nav_links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Subject</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="registration.html">My Registration</a></li>
-                    <li><a href="pratice.html">Practice</a></li>
+                    <li><a href="home">Home</a></li>
+                    <li><a href="subjectList">Subject</a></li>
+                    <li><a href="bloglist">Blog</a></li>
+                    <li><a href="registrationsearch?search=">Registration</a></li>
                     <li>
                         <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>User Name</a>
                         <div class="submenu">
@@ -62,55 +61,67 @@
                 <aside class="left">
                     <div class="registration__list">
                         <table>
-                            <tr>
-                                <td>ID</td>
-                                <td>Subject</td>
-                                <td>Registration Time</td>
-                                <td>Package</td>
-                                <td>Total cost</td>
-                                <td>Status</td>
-                                <td>Valid from</td>
-                                <td>Valid to</td>
-                                <td>Action</td>
-                            </tr>
-                            <c:forEach items="${requestScope.registrations}" var="r">
+                            <thead>
                                 <tr>
-                                    <td>${r.registrationID}</td>
-                                    <td>${r.course.courseName}</td>
-                                    <td>${r.registrationTime}</td>
-                                    <td>${r.pricePackage.priceName}</td>
-                                    <td>${r.totalCost}</td>
-                                    <c:choose>
-                                        <c:when test="${r.status == true}"><td>Paid</td></c:when>
-                                        <c:otherwise><td>Submitted</td> </c:otherwise>
-                                    </c:choose>
-                                    <c:choose>
-                                        <c:when test="${r.validFrom == null && r.validTo == null}">
-                                            <td>The valid from date will be updated when you paid for the course</td>
-                                            <td>The valid to date will be updated when you paid for the course</td>
-                                        </c:when>
-                                        <c:when test="${r.validFrom != null && r.validTo == null}">
-                                            <td>${r.validFrom}</td>
-                                            <td>Permanent</td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td>${r.validFrom}</td>
-                                            <td>${r.validTo}</td>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <td>
-                                        <form method="POST" action="registrationsearch">
-                                            <input type="hidden" value="${requestScope.queryString}" name="queryString">
-                                            <input type="hidden" value="${r.registrationID}" name="registrationID">
-                                            <input type="submit" value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
-                                        </form>
-
-
-                                        <button onclick="openPopup(${r.registrationID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
-
-
-                                    </td>
+                                    <td>ID</td>
+                                    <td>Subject</td>
+                                    <td>Registration Time</td>
+                                    <td>Package</td>
+                                    <td>Total cost</td>
+                                    <td>Status</td>
+                                    <td>Valid from</td>
+                                    <td>Valid to</td>
+                                    <td>Action</td>
                                 </tr>
+                            </thead>
+                            
+                            <c:choose >
+                                <c:when test="${requestScope.registrations.size() == 0}">
+                                    <p>There are no records</p>
+                                </c:when>
+                                <c:otherwise>
+                                    
+                                </c:otherwise>
+                            </c:choose>
+                            <tbody>
+                                <c:forEach items="${requestScope.registrations}" var="r">
+                                    <tr>
+                                        <td>${r.registrationID}</td>
+                                        <td>${r.course.courseName}</td>
+                                        <td>${r.registrationTime}</td>
+                                        <td>${r.pricePackage.priceName}</td>
+                                        <td>${r.totalCost}</td>
+                                        <c:choose>
+                                            <c:when test="${r.status == true}"><td>Paid</td></c:when>
+                                            <c:otherwise><td>Submitted</td> </c:otherwise>
+                                        </c:choose>
+                                        <c:choose>
+                                            <c:when test="${r.validFrom == null && r.validTo == null}">
+                                                <td>The valid from date will be updated when you paid for the course</td>
+                                                <td>The valid to date will be updated when you paid for the course</td>
+                                            </c:when>
+                                            <c:when test="${r.validFrom != null && r.validTo == null}">
+                                                <td>${r.validFrom}</td>
+                                                <td>Permanent</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td>${r.validFrom}</td>
+                                                <td>${r.validTo}</td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <td>
+                                            <form method="POST" action="registrationsearch">
+                                                <input type="hidden" value="${requestScope.queryString}" name="queryString">
+                                                <input type="hidden" value="${r.registrationID}" name="registrationID">
+                                                <input type="submit" value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
+                                            </form>
+
+
+                                            <button onclick="openPopup(${r.registrationID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
+
+
+                                        </td>
+                                    </tr>
 
                                 <div class="subject__item">
                                     <div class="subject__content">
@@ -198,18 +209,12 @@
                                 </div>
 
                             </c:forEach>
+                            </tbody>
 
                         </table>
                     </div>
                     <div id="pagination" class="pagination"></div>
 
-                    <!--                    <div class="registration__pagination">
-                                            <div class="registration__pagination-bar">
-                                                <div id="pagination" class="pagination"></div>
-                    
-                    
-                                            </div>
-                                        </div>-->
                 </aside>
 
 
