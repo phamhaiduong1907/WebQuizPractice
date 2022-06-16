@@ -21,6 +21,7 @@ import model.Account;
 import model.Email;
 import model.Role;
 import util.EmailUtils;
+import util.MiscUtil;
 
 /**
  *
@@ -97,9 +98,12 @@ public class AddUserController extends HttpServlet {
                 sb_password.append(randomChar);
             }
             String password = sb_password.toString();
+            MiscUtil msUtil = new MiscUtil();
+            String passwordEncrypt = msUtil.encryptString(password);
             out.println("generated password: " + password);
             
-            dbUser.addUser(username, password, firstName, lastName, phone, gender, address, roleID, status, profilePictureURL);
+            
+            dbUser.addUser(username, passwordEncrypt, firstName, lastName, phone, gender, address, roleID, status, profilePictureURL);
             Email email = new Email();
             email.setFrom(COMPANYGMAIL);
             email.setTo(username);

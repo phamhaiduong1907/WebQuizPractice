@@ -22,25 +22,8 @@
     </head>
 
     <body>
-        <header>
-            <div class="logo">
-                <p>LOGO</p>
-            </div>
+               <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Administrator</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
         <section class="main">
             <aside class="left">
                 <nav>

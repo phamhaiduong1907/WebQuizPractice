@@ -221,6 +221,3 @@ form button:hover{
 .pagination a:hover:not(.active) {
     background-color: #ddd;
 }
-.submenu{
-    bottom: -270px;
-}

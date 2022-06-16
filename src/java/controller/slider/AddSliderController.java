@@ -16,6 +16,7 @@ import jakarta.servlet.http.Part;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import model.Slider;
+import util.UploadFile;
 
 /**
  *
@@ -59,22 +60,21 @@ public class AddSliderController extends HttpServlet {
         String imageURL;
         Part part = request.getPart("image");
         String contentType = part.getContentType();
-        if (contentType.equals("image/jpg") || contentType.equals("image/png") || contentType.equals("images/jpeg")) {
+        if (contentType.equals("image/jpg") || contentType.equals("image/png") || contentType.equals("image/jpeg")) {
             String realPath = request.getServletContext().getRealPath("/images/slider");
-            out.println("real path: "+realPath);
             String realPathWeb = realPath.substring(0, realPath.indexOf("build"));
+
             realPathWeb += "web\\images\\slider";
-            out.println("real path Web: "+realPathWeb);
+
             String filename = part.getSubmittedFileName();
-            out.println("filename: "+filename);
-//            part.write(realPath + "/" + filename);
-            part.write(realPathWeb+"/"+filename);
-            imageURL = "images/slider/"+filename;
-            out.println("image URL: "+imageURL);
+            UploadFile.copyPartToFile(part, realPath + "/" + filename);
+            UploadFile.copyPartToFile(part, realPathWeb + "/" + filename);
+            imageURL = "images/slider/" + filename;
+
             dbSLiders.insertSlider(title, backlink, status, imageURL, note);
             ArrayList<Slider> sliders = dbSLiders.getAllSliders();
             int sliderID = sliders.get(sliders.size() - 1).getSliderID();
-            response.sendRedirect("detail?sliderID="+sliderID);
+            response.sendRedirect("detail?sliderID=" + sliderID);
         }
 
     }

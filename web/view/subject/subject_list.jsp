@@ -26,7 +26,7 @@
     </head>
 
     <body>
-          <jsp:include page="${pageContext.request.contextPath}../../view/header.jsp"/>
+          <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
         <div class="heading">
             <h1>SUBJECT LIST</h1>
         </div>

@@ -35,11 +35,18 @@ nav ul li:last-child:hover .submenu{
 
 #loginButton{
     padding: 0 10px !important;
-    height: 100% !important;
-    line-height: 90px !important;
     pointer-events: none;
 }
 
 .submenu li:hover{
     background-color: blue;
 }
+
+.welcome__user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #07078e;
+    height: 100%;
+}
+

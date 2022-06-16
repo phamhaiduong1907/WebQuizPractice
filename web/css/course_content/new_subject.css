@@ -116,3 +116,7 @@ footer {
     font-size: 15px;
     cursor: pointer;
 }
+
+.submenu{
+    bottom: -270px;
+}
