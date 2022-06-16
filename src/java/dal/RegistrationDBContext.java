@@ -219,7 +219,7 @@ public class RegistrationDBContext extends DBContext {
                 + "           ,[totalCost]\n"
                 + "           ,[status])\n"
                 + "     VALUES\n"
-                + "           (?,GETDATE(),?,?,?,1)";
+                + "           (?,GETDATE(),?,?,?,0)";
         String sql_insert_user = "INSERT INTO [dbo].[User]\n"
                 + "           ([username]\n"
                 + "           ,[gender]\n"

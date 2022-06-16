@@ -41,7 +41,7 @@ public class HomePageController extends HttpServlet {
         CourseDBContext dbCourse = new CourseDBContext();
         Account account = (Account) request.getSession().getAttribute("account");
         ArrayList<Course> courses = dbCourse.getCoursesForHomePage(account);
-        ArrayList<Post> posts = dbBlog.getPostForHome(1, 2, 3, 4);
+        ArrayList<Post> posts = dbBlog.getPostForHomePage();
         ArrayList<Slider> sliders = dbSlider.getSliders();
         request.setAttribute("sliders", sliders);
         request.setAttribute("posts", posts);
@@ -52,16 +52,16 @@ public class HomePageController extends HttpServlet {
             request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
             
         }else if(account.getRole().getRoleID()==4){
-            request.getRequestDispatcher("view/marketing/index.jsp").forward(request, response);
+            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
             
         }else if(account.getRole().getRoleID()==3){
-            request.getRequestDispatcher("view/sale/index.jsp").forward(request, response);
+            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
             
         }else if(account.getRole().getRoleID()==2){
-            request.getRequestDispatcher("view/expert/index.jsp").forward(request, response);
+            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
             
         }else{
-            request.getRequestDispatcher("view/admin/index.jsp").forward(request, response);
+            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
         }
         
     }

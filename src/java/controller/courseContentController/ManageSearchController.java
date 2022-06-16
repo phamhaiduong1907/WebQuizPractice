@@ -36,7 +36,7 @@ public class ManageSearchController extends HttpServlet {
             throws ServletException, IOException {
         CourseDBContext dbCourse = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
-        int pagesize = 5;
+        int pagesize = 3;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
             page = "1";
@@ -51,7 +51,7 @@ public class ManageSearchController extends HttpServlet {
         String search = "";
         String sort = request.getParameter("sort");
         if (sort == null || sort.trim().length() == 0) {
-            sort = "DESC";
+            sort = "1";
         }
         if (!(request.getParameter("search").trim().equals(""))) {
             search = request.getParameter("search");
@@ -68,8 +68,8 @@ public class ManageSearchController extends HttpServlet {
         search = search.trim();
         String queryString = request.getQueryString();
         subcateID = subcateID.trim();
-        ArrayList<Course> searchCourse = dbCourse.searchCourse(search, subcateID, sort, pageindex, pagesize);
-        int count = dbCourse.countSearchCourse(search, subcateID);
+        ArrayList<Course> searchCourse = dbCourse.searchManageCourse(search, subcateID, sort, pageindex, pagesize);
+        int count = dbCourse.countManageSearchCourse(search, subcateID, sort);
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
         request.setAttribute("categories", categories);
         request.setAttribute("courses", searchCourse);

@@ -26,35 +26,7 @@
     </head>
 
     <body>
-        <header>
-            <div class="heading_logo">
-                <img src="images/logo.png" alt="alt"/>
-            </div>
-            <nav>
-                <ul class="nav_links">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="subjectList">Subject</a></li>
-                    <li><a href="bloglist">Blog</a></li>
-                        <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                        </c:if>
-                        <c:if  test="${sessionScope.account != null}">
-                        <li>
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                            <div class="submenu">
-                                <ul>
-                                    <li><a href="#" id="openProfile">User Profile</a></li>
-                                    <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                    <li><a href="logout">Log out</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </c:if>
-                </ul>
-            </nav>
-        </header>
+          <jsp:include page="${pageContext.request.contextPath}../../view/header.jsp"/>
         <div class="heading">
             <h1>SUBJECT LIST</h1>
         </div>

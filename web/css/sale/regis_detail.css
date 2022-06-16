@@ -53,3 +53,6 @@ input[type=date],[type=submit],[type=radio] {
     padding: 10px;
     width: fit-content;
 }
+.submenu{
+    bottom: -270px;
+}

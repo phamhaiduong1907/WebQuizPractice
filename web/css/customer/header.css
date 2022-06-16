@@ -37,6 +37,7 @@ nav ul li:last-child:hover .submenu{
     padding: 0 10px !important;
     height: 100% !important;
     line-height: 90px !important;
+    pointer-events: none;
 }
 
 .submenu li:hover{

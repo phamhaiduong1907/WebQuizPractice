@@ -332,7 +332,7 @@ public class BlogDBContext extends DBContext {
                 + "set status = ?\n"
                 + "where postID = ?";
         PreparedStatement stm = null;
-        
+
         try {
             stm = connection.prepareStatement(sql);
             stm.setBoolean(1, status);
@@ -341,9 +341,42 @@ public class BlogDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return false;
+    }
+
+    public ArrayList<Post> getPostForHomePage() {
+        ArrayList<Post> posts = new ArrayList<>();
+        String sql = "select top 4 * from Post\n"
+                + "where isFeatured = 1 and [status] = 1\n"
+                + "order by updatedDate desc, postid desc";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                Post post = new Post();
+                post.setPostID(rs.getInt("postID"));
+                post.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subcategoryID")));
+                post.setTitle(rs.getString("title"));
+                post.setBriefInfo(rs.getString("briefInfo"));
+                post.setDescription(rs.getString("description"));
+                post.setIsFeatured(rs.getBoolean("isFeatured"));
+                post.setStatus(rs.getBoolean("status"));
+
+                post.setUpdatedDate(rs.getDate("updatedDate"));
+                post.setThumbnailUrl(rs.getString("thumbnailURL"));
+                posts.add(post);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return posts;
     }
 
 }

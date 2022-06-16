@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Post</title>
+        <title>Post detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -36,29 +36,8 @@
     </head>
 
     <body>
-        <header>
-            <div class="heading_logo">
-                <p>LOGO</p>
-            </div>
-            <nav>
-                <ul class="nav_links">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="subjectList">Subject</a></li>
-                    <li><a href="bloglist">Blog</a></li>
-                    <li><a href="registrationsearch?search=">Registration</a></li>
-                    <li>
-                        <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>User Name</a>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="#">Log out</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+
         <div class="right_content">
             <ul class="breadcrumb">
                 <li><a href="../home">Home</a></li>

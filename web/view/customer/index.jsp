@@ -37,6 +37,7 @@
                     <li><a href="home">Home</a></li>
                     <li><a href="subjectList">Subject</a></li>
                     <li><a href="bloglist">Blog</a></li>
+                    <li><a href="${pageContext.request.contextPath}/registrationsearch?search=">Registration</a></li>
                     <!--                    <li><a href="#">My Registration</a></li>
                                         <li><a href="#">Practice</a></li>-->
                     <li>
