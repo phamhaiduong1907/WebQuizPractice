@@ -68,6 +68,49 @@ public class CourseDBContext extends DBContext {
         }
         return courses;
     }
+    public ArrayList<Course> getManageCourses(int pageindex, int pagesize, Account account) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT courseID, courseName, subCategoryID, [status], isFeatured, \n"
+                    + "[description], tagline, updatedDate, briefInfo, thumbnailURL, [owner]\n"
+                    + "FROM Course \n"
+                    + "ORDER BY courseID ASC\n"
+                    + "OFFSET (? - 1) * ? ROWS\n"
+                    + "FETCH NEXT ? ROWS ONLY";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageindex);
+            stm.setInt(2, pagesize);
+            stm.setInt(3, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                RegistrationDBContext registrationDBContext = new RegistrationDBContext();
+                ArrayList<PricePackage> pricePackages = new ArrayList<>();
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                Course c = new Course();
+                c.setCourseName(rs.getString("courseName"));
+                c.setCourseID(rs.getInt("courseID"));
+                c.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subCategoryID")));
+                c.setStatus(rs.getBoolean("status"));
+                c.setIsFeatured(rs.getBoolean("isFeatured"));
+                c.setDescription(rs.getString("description"));
+                c.setTagline(rs.getString("tagline"));
+                c.setUpdatedDate(rs.getDate("updatedDate"));
+                c.setBriefInfo(rs.getString("briefInfo"));
+                c.setThumbnailUrl(rs.getString("thumbnailURL"));
+                c.setOwner(rs.getString("owner"));
+                c.setPricePackages(pricePackages);
+                if (account != null) {
+                    c.setIsRegistered(registrationDBContext.isRegistered(account.getUsername(), c.getCourseID()));
+                }
+                courses.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
 
     public int countCourse() {
         int total = 0;
@@ -389,6 +432,54 @@ public class CourseDBContext extends DBContext {
         }
         return courses;
     }
+    public ArrayList<Course> searchManageCourse(String search, String subcateID, String sort, int pageindex, int pagesize) {
+        ArrayList<Course> courses = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        try {
+            String sql = "SELECT courseID, courseName, subCategoryID, [status], isFeatured, \n"
+                    + "[description], tagline, updatedDate, briefInfo, thumbnailURL, [owner] \n"
+                    + "FROM Course\n"
+                    + "WHERE courseName LIKE ?";
+            sb.append(sql);
+            if (!subcateID.isEmpty()) {
+                String and = " AND subcategoryID IN(" + subcateID + ")";
+                sb.append(and);
+            }
+            String offset = " AND [status] = ? order by courseID asc OFFSET ? * ? ROWS FETCH NEXT ? ROWS ONLY";
+            sb.append(offset);
+            String sql_final = sb.toString();
+            PreparedStatement stm = connection.prepareStatement(sql_final);
+            stm.setString(1, "%" + search + "%");
+            stm.setString(2, sort);
+            stm.setInt(3, pageindex - 1);
+            stm.setInt(4, pagesize);
+            stm.setInt(5, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ArrayList<PricePackage> pricePackages = new ArrayList<>();
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                pricePackages = pricePackageDBContext.getPricePackagesByCourseID(rs.getInt("courseID"));
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                Course c = new Course();
+                c.setCourseName(rs.getString("courseName"));
+                c.setCourseID(rs.getInt("courseID"));
+                c.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subCategoryID")));
+                c.setStatus(rs.getBoolean("status"));
+                c.setIsFeatured(rs.getBoolean("isFeatured"));
+                c.setDescription(rs.getString("description"));
+                c.setTagline(rs.getString("tagline"));
+                c.setUpdatedDate(rs.getDate("updatedDate"));
+                c.setBriefInfo(rs.getString("briefInfo"));
+                c.setThumbnailUrl(rs.getString("thumbnailURL"));
+                c.setPricePackages(pricePackages);
+                c.setOwner(rs.getString("owner"));
+                courses.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
 
     public int countSearchCourse(String search, String subcateID) {
         try {
@@ -409,6 +500,48 @@ public class CourseDBContext extends DBContext {
                     String and = " subcategoryID IN(" + subcateID + ")";
                     sb.append(and);
                 }
+            }
+            String sql_final = sb.toString();
+            PreparedStatement stm = connection.prepareStatement(sql_final);
+            if (!search.trim().isEmpty()) {
+                stm.setString(1, "%" + search + "%");
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    public int countManageSearchCourse(String search, String subcateID, String status) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            String sql = "SELECT COUNT(*) AS Total\n"
+                    + "FROM Course\n";
+            sb.append(sql);
+            if (!search.trim().isEmpty() || !subcateID.trim().isEmpty() || !status.trim().isEmpty()) {
+                sb.append("WHERE ");
+                if (!search.trim().isEmpty()) {
+                    String and = "courseName LIKE ? ";
+                    sb.append(and);
+                }
+                if (!subcateID.trim().isEmpty()) {
+                    if (!search.trim().isEmpty()) {
+                        sb.append("AND");
+                    }
+                    String and = " subcategoryID IN(" + subcateID + ") ";
+                    sb.append(and);
+                }
+                if (!status.trim().isEmpty()) {
+                    if (!search.trim().isEmpty() || !subcateID.trim().isEmpty()) {
+                        sb.append("AND");
+                    }
+                    String and = " [status] = " + status;
+                    sb.append(and);
+                }
+                
             }
             String sql_final = sb.toString();
             PreparedStatement stm = connection.prepareStatement(sql_final);

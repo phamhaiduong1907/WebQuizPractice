@@ -35,7 +35,7 @@ public class ManageSubjectListController extends HttpServlet {
         CourseDBContext courseDBContext = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
         
-        int pagesize = 5;
+        int pagesize = 3;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
             page = "1";
@@ -47,7 +47,7 @@ public class ManageSubjectListController extends HttpServlet {
             pageindex = 1;
         }
         ArrayList<Category> categories = dbCate.getCategories(2);
-        ArrayList<Course> courses = courseDBContext.getCourses(pageindex, pagesize,null);
+        ArrayList<Course> courses = courseDBContext.getManageCourses(pageindex, pagesize,null);
 
         request.setAttribute("categories", categories);
         request.setAttribute("courses", courses);

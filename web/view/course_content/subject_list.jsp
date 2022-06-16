@@ -115,10 +115,10 @@
                                 </div>
                             </div>
                             <div class="option__sort">
+                                <h3>Status: </h3>
                                 <select name="sort">
-                                    <option selected disabled>Sort by:</option>
-                                    <option value="DESC">Date added(newest)</option>
-                                    <option value="ASC">Date added(oldest)</option>
+                                    <option value="1">Published</option>
+                                    <option value="0">Unpublished</option>
                                 </select>
                             </div>
                             <div class="search__button">

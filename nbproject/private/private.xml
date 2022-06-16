@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/customer/registration.css</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/marketing/add_post.css</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/customer/registration.jsp</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/marketing/post_list.jsp</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/footer.css</file>
+            <file>file:/D:/SWP/I2/summer2022-se1617-g6-master/web/view/course_content/subject_list.jsp</file>
+            <file>file:/D:/SWP/I2/summer2022-se1617-g6-master/src/java/controller/courseContentController/ManageSearchController.java</file>
+            <file>file:/D:/SWP/I2/summer2022-se1617-g6-master/src/java/dal/CourseDBContext.java</file>
+            <file>file:/D:/SWP/I2/summer2022-se1617-g6-master/src/java/controller/courseContentController/ManageSubjectListController.java</file>
         </group>
     </open-files>
 </project-private>
