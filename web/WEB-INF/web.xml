@@ -120,8 +120,60 @@
         <servlet-class>controller.customerControllers.SearchCustomerRegistrationController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateCustomerRegistrationController</servlet-name>
+        <servlet-class>controller.customerControllers.UpdateCustomerRegistrationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarketingBlogListController</servlet-name>
+        <servlet-class>controller.marketingController.MarketingBlogListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBlogController</servlet-name>
+        <servlet-class>controller.marketingController.AddBlogController</servlet-class>
+         </servlet>
+    <servlet>
+        <servlet-name>RegistrationListController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationSearchController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationDetailController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetSubCategory</servlet-name>
+        <servlet-class>controller.marketingController.GetSubCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewModifyPostController</servlet-name>
+        <servlet-class>controller.marketingController.ViewModifyPostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeBlogStatusController</servlet-name>
+        <servlet-class>controller.marketingController.ChangeBlogStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseSearchController</servlet-name>
+        <servlet-class>controller.publicController.CourseSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewSubjectController</servlet-name>
+        <servlet-class>controller.courseContentController.NewSubjectController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSearchController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageSearchController</servlet-class>
+         </servlet>
+    <servlet>
         <servlet-name>ChangeStatusController</servlet-name>
         <servlet-class>controller.slider.ChangeStatusController</servlet-class>
+             </servlet>
+    <servlet>
+        <servlet-name>GetCourseBySubcategoryID</servlet-name>
+        <servlet-class>controller.marketingController.GetCourseBySubcategoryID</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -245,15 +297,68 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManageSubjectListController</servlet-name>
-        <url-pattern>/manager/subjectlist</url-pattern>
+        <url-pattern>/managesubject</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchCustomerRegistrationController</servlet-name>
         <url-pattern>/registrationsearch</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UpdateCustomerRegistrationController</servlet-name>
+        <url-pattern>/updateCustomerRegistration</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingBlogListController</servlet-name>
+        <url-pattern>/marketing/bloglist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBlogController</servlet-name>
+        <url-pattern>/marketing/addblog</url-pattern>
+         </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationListController</servlet-name>
+        <url-pattern>/sale/registrationlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationSearchController</servlet-name>
+        <url-pattern>/sale/registrationsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationDetailController</servlet-name>
+        <url-pattern>/sale/registrationdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetSubCategory</servlet-name>
+        <url-pattern>/getsubcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewModifyPostController</servlet-name>
+        <url-pattern>/marketing/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeBlogStatusController</servlet-name>
+        <url-pattern>/marketing/changeblogstatus</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseSearchController</servlet-name>
+        <url-pattern>/coursesearch</url-pattern>
+        </servlet-mapping>
+   
+    <servlet-mapping>
+        <servlet-name>NewSubjectController</servlet-name>
+        <url-pattern>/newsubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSearchController</servlet-name>
+        <url-pattern>/managesearch</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ChangeStatusController</servlet-name>
         <url-pattern>/slider/changestatus</url-pattern>
+         </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCourseBySubcategoryID</servlet-name>
+        <url-pattern>/getcoursebysubcategoryid</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

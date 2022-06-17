@@ -1,0 +1,258 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jun 14, 2022, 9:59:37 PM
+    Author     : Zuys
+*/
+
+html{
+    font-size: 24px;
+    font-family: sans-serif;
+}
+
+.dropdown_menu{
+    display: inline-block;
+    position: relative;
+}
+.dropdown-item{
+    position: relative;
+
+}
+
+.top__header__logo {
+    color: wheat;
+    display: inline-block;
+}
+
+.top__header{
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav__header{
+    background-color: rgb(222, 219, 219);
+}
+
+.nav__body li{
+    display: inline-block;
+    margin: 20px;
+}
+
+.nav__body{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left__block{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 30px;
+    width: 73%;
+    align-items: center;
+}
+
+.subject__table{
+    width: fit-content;
+}
+
+.subject__table td{
+    font-size: 16px;
+}
+
+.subject__table th{
+    text-align: center;
+    font-size: 20px;
+}
+
+.subject__table th, td{
+    padding: 5px;
+}
+
+.subject__table td:nth-child(1), 
+.subject__table td:nth-child(5), 
+.subject__table td:nth-child(7), 
+.subject__table td:nth-child(8){
+    text-align: center;
+}
+
+.subject__table td:nth-child(4){
+    font-size: 14px;
+}
+
+.right__block{
+    width: 22%;
+    margin-right: 20px;
+}
+
+.option__box {
+    width: 100%;
+    /* height: 300px; */
+}
+
+.option__filter {
+    padding: 15px;
+    box-shadow: 0 0 3px 3px lightgray;
+}
+
+.option__searchbar form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option__searchbar input,
+.option__searchbar button,
+.option__sort select {
+    font-size: 16px;
+    padding: 5px;
+}
+
+.option__searchbar input,
+.option__sort select {
+    width: 100%;
+}
+
+.option__checkbox {
+    margin-top: 15px;
+}
+
+.option__checkbox h5 {
+    margin: 0;
+}
+
+.option__checkbox input {
+    display: inline-block;
+}
+
+.option__options-value {
+    display: flex;
+    flex-direction: column;
+}
+
+.option__sort {
+    margin-top: 15px;
+}
+
+.search__button {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search__button button {
+    padding: 5px;
+}
+
+.contact__link {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.pagination span
+{
+    color: white;
+    font-size: 27px;
+    border: 1px;
+    padding: 10px 25px;
+    background-color: #4CAF50;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.pagination a
+{
+    transition: background-color .2s;
+    color: black;
+    text-decoration: none;
+    font-size: 27px;
+    border:1px;
+    padding: 10px 25px;
+    border-radius: 10px;
+
+}
+
+.pagination a:hover{
+    color: white;
+    background: grey;
+}
+
+.pagination{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+table{
+    border-collapse: collapse;
+    box-shadow: 0  0 10px 5px #e1e5ee;
+    background-color: #fff;
+    text-align: left;
+    overflow: hidden;
+    font-family: Mukta, sans-serif;
+    display: table;
+    width: 100%;
+}
+
+thead{
+    box-shadow: 0 5px 10px #e1e5ee;
+}
+
+th{
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+}
+
+td{
+    padding: 1rem;
+}
+
+tr{
+    width: 100%;
+}
+
+tr td:nth-child(2){
+    width: 10%;
+}
+
+tr td:nth-child(3){
+    width: 20%;
+}
+
+tr td:nth-child(4){
+    width: 30%;
+}
+
+td img{
+    width: 100%;
+    height: 100px;
+}
+
+tr:nth-child(even){
+    background-color: #f4f6fb;
+}

@@ -21,6 +21,7 @@ import model.Account;
 import model.Email;
 import model.Role;
 import util.EmailUtils;
+import util.MiscUtil;
 
 /**
  *
@@ -63,23 +64,14 @@ public class AddUserController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         String firstName = request.getParameter("firstName");
-        out.println("firstName: " + firstName);
         String lastName = request.getParameter("lastName");
-        out.println("lastName: " + lastName);
         String username = request.getParameter("email");
-        out.println("email: " + username);
         String phone = request.getParameter("phone");
-        out.println("phone: " + phone);
         boolean gender = request.getParameter("gender").equalsIgnoreCase("male");
-        out.println("gender: " + gender);
         String address = request.getParameter("address");
-        out.println("address: " + address);
         int roleID = Integer.parseInt(request.getParameter("roleID"));
-        out.println("roleID: " + roleID);
         boolean status = request.getParameter("status").equalsIgnoreCase("active");
-        out.println("status: " + status);
         String profilePictureURL = getServletContext().getInitParameter("profilePictureURL");
-        out.println("avatar: " + profilePictureURL);
 
         UserDBContext dbUser = new UserDBContext();
         AccountDBContext dbAccount = new AccountDBContext();
@@ -97,9 +89,11 @@ public class AddUserController extends HttpServlet {
                 sb_password.append(randomChar);
             }
             String password = sb_password.toString();
-            out.println("generated password: " + password);
+            MiscUtil msUtil = new MiscUtil();
+            String passwordEncrypt = msUtil.encryptString(password);
             
-            dbUser.addUser(username, password, firstName, lastName, phone, gender, address, roleID, status, profilePictureURL);
+            
+            dbUser.addUser(username, passwordEncrypt, firstName, lastName, phone, gender, address, roleID, status, profilePictureURL);
             Email email = new Email();
             email.setFrom(COMPANYGMAIL);
             email.setTo(username);
@@ -120,6 +114,7 @@ public class AddUserController extends HttpServlet {
             }
             response.sendRedirect("userdetail?username=" + username);
         } else {
+            // Processing if account is existed
             response.getWriter().println("account existed");
         }
     }

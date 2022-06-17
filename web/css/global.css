@@ -17,3 +17,23 @@ html, body{
     text-align: center;
     margin: 300px  200px ;
 }
+
+.addlink:link, .addlink:visited {
+    background-color: #0056d2;
+    color: white;
+    padding: 7px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    
+}
+
+.addlink{
+    border-radius: 20px;
+    margin: 20px 0 0 10px;
+}
+
+.addlink:hover, .addlink:active{
+    background-color: #4CAF50;
+    
+}

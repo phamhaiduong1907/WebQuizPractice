@@ -5,6 +5,7 @@ header{
     background-color: #000;
     color: #fff;
     height: 90px;
+    font-size: 0.8rem;
 }
 
 .heading_logo{
@@ -39,11 +40,11 @@ nav{
     transition: all 0.25s ease;
     color: #fff;
     display: inline-block;
-    padding: 15px 70px !important; 
+    padding: 15px 50px !important; 
     word-spacing: 0px;
     height: 100% !important;
     line-height: 65px !important;
-    font-size: 25px;
+    font-size: 0.8rem;
 }
 
 .nav_links li:hover{

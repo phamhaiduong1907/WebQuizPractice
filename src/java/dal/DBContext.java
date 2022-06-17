@@ -14,7 +14,7 @@ public class DBContext {
 
     protected Connection connection;
 
-    public DBContext() {
+     public DBContext() {
         try {
 
             String user = "duongph";
@@ -28,5 +28,8 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
+
 
 }

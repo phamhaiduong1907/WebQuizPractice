@@ -128,19 +128,21 @@ public class BlogDBContext extends DBContext {
      */
     public Post getPost(int postID) {
         try {
-            String sql = "SELECT postID, p.subcategoryID, sc.subcategoryName, title, briefInfo, [description], isFeatured,[status], author, updatedDate, thumbnailURL\n"
+            String sql = "SELECT postID, p.subcategoryID, sc.subcategoryName, title, briefInfo, [description], isFeatured,[status], author, updatedDate, thumbnailURL,sc.categoryID\n"
                     + "FROM Post p join SubCategory sc\n"
                     + "ON p.subcategoryID = sc.subcategoryID\n"
                     + "WHERE P.postID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, postID);
             ResultSet rs = stm.executeQuery();
+            CategoryDBContext categoryDBContext = new CategoryDBContext();
             if (rs.next()) {
                 Subcategory sc = new Subcategory();
                 Account a = new Account();
                 Post p = new Post();
-                sc.setCategoryID(rs.getInt("subcategoryID"));
+                sc.setCategoryID(rs.getInt("categoryID"));
                 sc.setSubcategoryName(rs.getString("subcategoryName"));
+                sc.setSubcategoryID(rs.getInt("subcategoryID"));
                 a.setUsername(rs.getString("author"));
                 p.setSubcategory(sc);
                 p.setAuthor(a);
@@ -189,8 +191,172 @@ public class BlogDBContext extends DBContext {
             stm.setString(1, "%" + search + "%");
             stm.setInt(2, pageindex - 1);
             stm.setInt(3, pagesize);
-            stm.setInt(4, pagesize);;
+            stm.setInt(4, pagesize);
             ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                AccountDBContext accountDBContext = new AccountDBContext();
+                Post post = new Post();
+                post.setPostID(rs.getInt("postID"));
+                post.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subcategoryID")));
+                post.setTitle(rs.getString("title"));
+                post.setBriefInfo(rs.getString("briefInfo"));
+                post.setDescription(rs.getString("description"));
+                post.setIsFeatured(rs.getBoolean("isFeatured"));
+                post.setStatus(rs.getBoolean("status"));
+                Account a = new Account();
+                a.setUsername(rs.getString("author"));
+                post.setAuthor(a);
+                post.setUpdatedDate(rs.getDate("updatedDate"));
+                post.setThumbnailUrl(rs.getString("thumbnailURL"));
+                posts.add(post);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
+    public int countSearchBlog(String search, String subcateID) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            String sql = "SELECT COUNT(*) AS Total\n"
+                    + "FROM Post\n";
+            sb.append(sql);
+            if (!search.trim().isEmpty() || !subcateID.isEmpty()) {
+                sb.append("WHERE ");
+                if (!search.trim().isEmpty()) {
+                    String and = "title LIKE ? ";
+                    sb.append(and);
+                }
+                if (!subcateID.isEmpty()) {
+                    if (!search.trim().isEmpty()) {
+                        sb.append("AND");
+                    }
+                    String and = " subcategoryID IN(" + subcateID + ")";
+                    sb.append(and);
+                }
+            }
+            String sql_final = sb.toString();
+            PreparedStatement stm = connection.prepareStatement(sql_final);
+            if (!search.trim().isEmpty()) {
+                stm.setString(1, "%" + search + "%");
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public int insertPost(int subCategoryID, String title, String briefInfo, String description, boolean isFeatured,
+            boolean isStatus, String author) {
+        String generatedColumns[] = {"ID"};
+        String sql = "INSERT INTO [dbo].[Post]\n"
+                + "           ([subCategoryID]\n"
+                + "           ,[title]\n"
+                + "           ,[briefInfo]\n"
+                + "           ,[description]\n"
+                + "           ,[isFeatured]\n"
+                + "           ,[status]\n"
+                + "           ,[author]\n"
+                + "           ,[updatedDate]\n"
+                + "           ,[thumbnailURL])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,GETDATE(),'')\n"
+                + "\n"
+                + "declare @id1 as int set @id1=(select SCOPE_IDENTITY());\n"
+                + "\n"
+                + "update Post \n"
+                + "set thumbnailURL = 'post_thumbnail_id' + cast(@id1 as varchar(max)) +'.png' "
+                + " where postID = @id1 \n";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql, generatedColumns);
+            stm.setInt(1, subCategoryID);
+            stm.setString(2, title);
+            stm.setString(3, briefInfo);
+            stm.setString(4, description);
+            stm.setBoolean(5, isFeatured);
+            stm.setBoolean(6, isStatus);
+            stm.setString(7, author);
+            stm.executeUpdate();
+            rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                return id;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+
+    }
+
+    public boolean updatePost(int subCategoryID, String title, String briefInfo,
+            String description, boolean isFeatured, boolean status, int postID) {
+        String sql = "update Post\n"
+                + "set subCategoryID = ?, title=?,briefInfo=?,[description]=?,isFeatured=?,[status]=?,updatedDate=GETDATE()\n"
+                + "where postID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, subCategoryID);
+            stm.setString(2, title);
+            stm.setString(3, briefInfo);
+            stm.setString(4, description);
+            stm.setBoolean(5, isFeatured);
+            stm.setBoolean(6, status);
+            stm.setInt(7, postID);
+            return stm.executeUpdate() >= 1;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public boolean updateStatus(boolean status, int postID) {
+        String sql = "update Post \n"
+                + "set status = ?\n"
+                + "where postID = ?";
+        PreparedStatement stm = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, status);
+            stm.setInt(2, postID);
+            return stm.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public ArrayList<Post> getPostForHomePage() {
+        ArrayList<Post> posts = new ArrayList<>();
+        String sql = "select top 4 * from Post\n"
+                + "where isFeatured = 1 and [status] = 1\n"
+                + "order by updatedDate desc, postid desc";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
             while (rs.next()) {
                 SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
                 Post post = new Post();
@@ -209,6 +375,7 @@ public class BlogDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return posts;
     }
 

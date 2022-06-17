@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/user_detail.css">
@@ -23,37 +24,8 @@
         %>
     </head>
     <body>
-        <header>
-            <div class="logo">
-                <p>LOGO</p>
-            </div>
-
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Administrator</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <section class="main">
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <c:forEach items="${sessionScope.account.role.features}" var="f">
-                            <c:if test="${f.isDisplayed == true}">
-                                <li><a href="${f.url}">${f.featureName}</a></li>
-                                </c:if>                            
-                            </c:forEach>
-                    </ul>
-                </nav>
-            </aside>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+        <section class="main"> 
             <aside class="right">
                 <div class="right_content">
                     <h1>User Details</h1>
@@ -87,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="avatar">
-                                <img src="${pageContext.request.contextPath}/images/default_user_avatar.png" alt="alt"/>
+                                <img src="${pageContext.request.contextPath}/${requestScope.user.profilePictureUrl}" alt="alt"/>
                             </div>
                         </div>
                         <div class="authorize_info">

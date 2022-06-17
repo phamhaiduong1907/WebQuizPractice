@@ -27,7 +27,7 @@ import util.MiscUtil;
 public class RegisterController extends HttpServlet {
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
-    final static String COMPANYGMAIL_PASSWORD = "hung123qwq";
+    final static String COMPANYGMAIL_PASSWORD = "kfdhvpiafobpgllh";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -135,6 +135,8 @@ public class RegisterController extends HttpServlet {
                     response.sendRedirect("registernext");
                 } catch (Exception ex) {
                     Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.getSession().setAttribute("register_status", "Send mail failed, please try again later!");
+                    response.sendRedirect("home");
                 }
             }
         }

@@ -51,7 +51,7 @@ header {
     transform: scaleY(0);
     transition: all 0.5s ease;
     left: 0;
-    bottom: -115px;
+    bottom: -270px;
     transform-origin: top;
 }
 
@@ -89,10 +89,6 @@ header {
     background-color: #000;
     width: 15%;
     font-size: 20px;
-}
-
-nav{
-    margin-top: 15px;
 }
 
 ul {

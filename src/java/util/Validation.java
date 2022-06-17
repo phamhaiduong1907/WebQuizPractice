@@ -21,7 +21,8 @@ public class Validation {
         return true;
     }
 
-    
+   
+
     public boolean checkNullOrBlank(String[] string) {
         for (String str : string) {
             if (str == null || str.trim().length() == 0) {

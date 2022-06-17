@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.Date;
@@ -25,6 +21,7 @@ public class Course {
     private String briefInfo;
     private String thumbnailUrl;
     private boolean isRegistered;
+    private String owner;
 
     public boolean isIsRegistered() {
         return isRegistered;
@@ -35,6 +32,15 @@ public class Course {
     }
     
     
+    
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public ArrayList<PricePackage> getPricePackages() {
         return pricePackages;
@@ -124,5 +130,4 @@ public class Course {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    
 }

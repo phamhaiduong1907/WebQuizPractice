@@ -24,43 +24,10 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
 
-
-        <%
-            Integer pageindex = (Integer) request.getAttribute("pageindex");
-            Integer totalpage = (Integer) request.getAttribute("totalpage");
-        %>
     </head>
 
     <body>
-        <header>
-            <div class="heading_logo">
-                <img src="images/logo.png" alt="alt"/>
-            </div>
-            <nav>
-                <ul class="nav_links">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="subjectList">Subject</a></li>
-                    <li><a href="bloglist">Blog</a></li>
-                        <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                        </c:if>
-                        <c:if  test="${sessionScope.account != null}">
-                        <li>
-                            <a href="#" class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </a>
-                            <div class="submenu">
-                                <ul>
-                                    <li><a href="#" id="openProfile">User Profile</a></li>
-                                    <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                    <li><a href="logout">Log out</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </c:if>
-                </ul>
-            </nav>
-        </header>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
         <div class="heading">
             <h1>LASTEST BLOG</h1>
         </div>
@@ -98,12 +65,12 @@
                 </c:otherwise>
             </c:choose>
 
-            <!-- RIGHT -->
+            <!-- RIGHT start of filter/option box -->
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
                         <form action="blogsearch" method="GET">
-                            <input type="text" name="search" required placeholder="Type something to search...">
+                            <input type="text" name="search" placeholder="Type something to search...">
                             </div>
                             <div class="option__checkbox">
                                 <h3>Category: </h3>
@@ -360,7 +327,7 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>pagger("pagination", <%=pageindex%>, <%=totalpage%>, 3);</script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 
 

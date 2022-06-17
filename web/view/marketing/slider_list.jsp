@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slider/slider_list.css">
+
         <%
             int pageindex = (Integer) request.getAttribute("pageindex");
             int totalpage = (Integer) request.getAttribute("totalpage");
@@ -24,37 +25,11 @@
     </head>
 
     <body>
-        <header>
-            <div class="logo">
-                <p>LOGO</p>
-            </div>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Marketing</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
 
         <section class="main">
-            <!-- LEFT NAVIGATION BAR -->
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><a href="${requestScope.url}">Sliders</a></li>
-                    </ul>
-                </nav>
-            </aside>
+
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
@@ -110,7 +85,7 @@
                                                 </span>
                                             </td>
                                             <td class="slider__action">
-                                                <button href="#" class="slider__hide" onclick="changeStatus(this,'status${s.sliderID}','${s.sliderID}','${s.status?"inactive":"active"}')">${s.status?"Hide":"Show"}</button>
+                                                <button href="#" class="slider__hide" onclick="changeStatus(this, 'status${s.sliderID}', '${s.sliderID}', '${s.status?"inactive":"active"}')">${s.status?"Hide":"Show"}</button>
                                                 <a href="detail?sliderID=${s.sliderID}" class="slider__detail">Detail</a>
                                             </td>
                                         </tr>    
@@ -129,50 +104,8 @@
                 </footer>
             </aside>
         </section>
+        <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-        <section class="popup">
-            <div class="popup__content">
-                <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
-
-                <div class="form_user-profile">
-                    <h2>User Profile</h2>
-                    <form action="#">
-                        <div class="user__avatar">
-                            <!-- <input type="file" name="" id=""> -->
-                        </div>
-                        <input type="text" name="email" id="email" disabled placeholder="Your email">
-                        <input type="text" name="firstName" id="firstName" placeholder="Enter your first name">
-                        <input type="text" name="lastName" id="lastName" placeholder="Enter your last name">
-                        <input type="text" name="phone" id="phone" placeholder="Enter your phone">
-                        <div class="profile__gender signup__gender">
-                            <h5>Gender</h5>
-                            <input type="radio" name="" id="">
-                            <p>Male</p>
-                            <input type="radio" name="" id="">
-                            <p>Female</p>
-                        </div>
-                        <input type="text" name="address" id="address" placeholder="Enter your address">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="form__change-password" style="display: none;">
-                    <h2>Change Password</h2>
-                    <form action="#">
-                        <input type="password" placeholder="Enter your current password">
-                        <input type="password" placeholder="Enter new password">
-                        <input type="password" placeholder="Reenter your new password">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!--<a href="list?page=2&status=false"></a>-->
-
-        </section>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
@@ -181,10 +114,10 @@
                                                     function changeStatus(link, id, sliderID, statusParam) {
                                                         var text = link.textContent;
                                                         var status = document.getElementById(id);
-                                                        if(text === "Hide"){
+                                                        if (text === "Hide") {
                                                             link.innerHTML = "Show";
                                                             status.innerHTML = '<span class="status status__inactive">Inactive</span>';
-                                                        } else if(text === "Show"){
+                                                        } else if (text === "Show") {
                                                             link.innerHTML = "Hide";
                                                             status.innerHTML = '<span class="status status__active">Active</span>';
                                                         }

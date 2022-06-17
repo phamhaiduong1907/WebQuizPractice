@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,193 @@ import model.User;
  */
 public class RegistrationDBContext extends DBContext {
 
+    public Registration getARegistration(int id) {
+        try {
+            String sql = "SELECT *\n"
+                    + "  FROM [Registration] \n"
+                    + "  WHERE registrationID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Registration r = new Registration();
+                UserDBContext userDBContext = new UserDBContext();
+                User user = userDBContext.getUser(rs.getString("username"));
+                User updater = userDBContext.getUser(rs.getString("updatedBy"));
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                PricePackage p = pricePackageDBContext.getPricePackageByID(rs.getInt("pricePackageID"));
+                CourseDBContext courseDBContext = new CourseDBContext();
+                Course c = courseDBContext.getCourse(rs.getInt("courseID"));
+                r.setRegistrationID(rs.getInt("registrationID"));
+                r.setUser(user);
+                r.setRegistrationTime(rs.getTimestamp("registrationTime"));
+                r.setCourse(c);
+                r.setPricePackage(p);
+                r.setTotalCost(rs.getFloat("totalCost"));
+                r.setStatus(rs.getBoolean("status"));
+                r.setValidFrom(rs.getDate("validFrom"));
+                r.setValidTo(rs.getDate("validTo"));
+                r.setUpdatedBy(updater);
+                return r;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public int searchCount(String subject, String email, Date fromDate, Date toDate, Boolean status) {
+        int count = 0;
+        try {
+            String sql = "Select COUNT(*) as IndexCount from Registration r join Course c\n"
+                    + "  on r.courseID = c.courseID\n"
+                    + "  where CAST(registrationTime as date) < ?\n"
+                    + "  and CAST(registrationTime as date) > ?\n"
+                    + "  and c.courseName like ?\n"
+                    + "  and (r.username like ? or r.updatedBy like ?)\n";
+            if (status != null) {
+                sql += "and r.[status] = ?\n";
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setDate(1, toDate);
+            stm.setDate(2, fromDate);
+            stm.setString(3, "%" + subject + "%");
+            stm.setString(4, "%" + email + "%");
+            stm.setString(5, "%" + email + "%");
+            if (status != null) {
+                stm.setBoolean(6, status);
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("IndexCount");
+                return count;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public ArrayList<Registration> searchRegistration(String subject, String email, Date fromDate, Date toDate, Boolean status, int pageIndex, int pageSize, String sortBy, String orderBy) {
+        ArrayList<Registration> list = new ArrayList<>();
+        try {
+            String sql = "Select r.*, c.courseName from Registration r join Course c\n"
+                    + "  on r.courseID = c.courseID\n"
+                    + "  where CAST(registrationTime as date) < ?\n"
+                    + "  and CAST(registrationTime as date) > ?\n"
+                    + "  and c.courseName like ?\n"
+                    + "  and (r.username like ? or r.updatedBy like ?)\n";
+            if (status != null) {
+                sql += "and r.[status] = ?\n";
+            }
+            sql += "  ORDER BY " + sortBy + " " + orderBy
+                    + "\n  OFFSET (?-1)*? ROWS\n"
+                    + "  FETCH NEXT ? ROWS ONLY";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setDate(1, toDate);
+            stm.setDate(2, fromDate);
+            stm.setString(3, "%" + subject + "%");
+            stm.setString(4, "%" + email + "%");
+            stm.setString(5, "%" + email + "%");
+            if (status != null) {
+                stm.setBoolean(6, status);
+                stm.setInt(7, pageIndex);
+                stm.setInt(8, pageSize);
+                stm.setInt(9, pageSize);
+            } else {
+                stm.setInt(6, pageIndex);
+                stm.setInt(7, pageSize);
+                stm.setInt(8, pageSize);
+            }
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Registration r = new Registration();
+                UserDBContext userDBContext = new UserDBContext();
+                User user = userDBContext.getUser(rs.getString("username"));
+                User updater = userDBContext.getUser(rs.getString("updatedBy"));
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                PricePackage p = pricePackageDBContext.getPricePackageByID(rs.getInt("pricePackageID"));
+                CourseDBContext courseDBContext = new CourseDBContext();
+                Course c = courseDBContext.getCourse(rs.getInt("courseID"));
+                r.setRegistrationID(rs.getInt("registrationID"));
+                r.setUser(user);
+                r.setRegistrationTime(rs.getTimestamp("registrationTime"));
+                r.setCourse(c);
+                r.setPricePackage(p);
+                r.setTotalCost(rs.getFloat("totalCost"));
+                r.setStatus(rs.getBoolean("status"));
+                r.setValidFrom(rs.getDate("validFrom"));
+                r.setValidTo(rs.getDate("validTo"));
+                r.setUpdatedBy(updater);
+                list.add(r);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int countAll() {
+        int count = 0;
+        try {
+
+            String sql = "SELECT COUNT(*) as IndexNum\n"
+                    + "  FROM [Registration]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("IndexNum");
+                return count;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+
+    public ArrayList<Registration> getRegistrations(int pageIndex, int pageSize, String sortBy, String orderBy) {
+        ArrayList<Registration> list = new ArrayList<>();
+        try {
+            String sql = "SELECT *"
+                    + "  FROM [Registration]\n";
+            sql += "  ORDER BY " + sortBy + " " + orderBy;
+            sql += "\n  OFFSET (?-1)*? ROWS\n"
+                    + "  FETCH NEXT ? ROWS ONLY";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageIndex);
+            stm.setInt(2, pageSize);
+            stm.setInt(3, pageSize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Registration r = new Registration();
+                UserDBContext userDBContext = new UserDBContext();
+                User user = userDBContext.getUser(rs.getString("username"));
+                User updater = userDBContext.getUser(rs.getString("updatedBy"));
+                PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+                PricePackage p = pricePackageDBContext.getPricePackageByID(rs.getInt("pricePackageID"));
+                CourseDBContext courseDBContext = new CourseDBContext();
+                Course c = courseDBContext.getCourse(rs.getInt("courseID"));
+                r.setRegistrationID(rs.getInt("registrationID"));
+                r.setUser(user);
+                r.setRegistrationTime(rs.getTimestamp("registrationTime"));
+                r.setCourse(c);
+                r.setPricePackage(p);
+                r.setTotalCost(rs.getFloat("totalCost"));
+                r.setStatus(rs.getBoolean("status"));
+                r.setValidFrom(rs.getDate("validFrom"));
+                r.setValidTo(rs.getDate("validTo"));
+                r.setUpdatedBy(updater);
+                list.add(r);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public boolean insertRegistration(int courseID, PricePackage pricePackage, User user) {
         String sql_insert_registration = "INSERT INTO [dbo].[Registration]\n"
                 + "           ([username]\n"
@@ -31,7 +219,7 @@ public class RegistrationDBContext extends DBContext {
                 + "           ,[totalCost]\n"
                 + "           ,[status])\n"
                 + "     VALUES\n"
-                + "           (?,GETDATE(),?,?,?,1)";
+                + "           (?,GETDATE(),?,?,?,0)";
         String sql_insert_user = "INSERT INTO [dbo].[User]\n"
                 + "           ([username]\n"
                 + "           ,[gender]\n"
@@ -260,7 +448,6 @@ public class RegistrationDBContext extends DBContext {
                 if (rs.getString("updatedBy") != null) {
                     r.setUpdatedBy(userDBContext.getUser(rs.getString("updatedBy")));
                 }
-                
 
                 registrations.add(r);
 
@@ -343,6 +530,40 @@ public class RegistrationDBContext extends DBContext {
         }
     }
 
+
+    public boolean updateRegistration(int pricePackageID, String username, int registrationID) {
+        String sql = "update Registration\n"
+                + "set registrationTime = GETDATE(), pricePackageID = ?, totalCost = ?\n"
+                + ",updatedBy = ?\n"
+                + "where registrationID = ?";
+
+        PreparedStatement stm = null;
+
+        try {
+            PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
+            PricePackage pricePackage = pricePackageDBContext.getPricePackageByID(pricePackageID);
+
+            float totalCost = 0;
+            if (pricePackage.isIsOnSale()) {
+                totalCost = pricePackage.getSalePrice();
+            } else {
+                totalCost = pricePackage.getListPrice();
+            }
+
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, pricePackageID);
+            stm.setFloat(2, totalCost);
+            stm.setString(3, username);
+            stm.setInt(4, registrationID);
+            return stm.executeUpdate() >= 1;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
     public boolean isRegistered(String username, int courseID) {
         String sql = "select count(*) as number from Registration\n"
                 + "where username = ? and courseID = ?";
@@ -355,7 +576,7 @@ public class RegistrationDBContext extends DBContext {
             stm.setString(1, username);
             stm.setInt(2, courseID);
             rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getInt("number") >= 1;
             }
         } catch (SQLException ex) {
@@ -366,4 +587,32 @@ public class RegistrationDBContext extends DBContext {
 
     }
 
+    public boolean updateRegistration(int courseID, PricePackage pricePackage, Boolean status, int registrationID) {
+        String sql = "update Registration\n"
+                + "  set courseID = ?, pricePackageID = ?, totalCost = ?, [status] = ?, validFrom=GETDATE(),validTo= dateadd(MONTH,?,GETDATE())\n"
+                + "  where registrationID = ?";
+
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            stm.setInt(2, pricePackage.getPricePackageID());
+            float totalCost = 0;
+            if (pricePackage.isIsOnSale()) {
+                totalCost = pricePackage.getSalePrice();
+            } else {
+                totalCost = pricePackage.getListPrice();
+            }
+            stm.setFloat(3, totalCost);
+            stm.setBoolean(4, status);
+            stm.setInt(5, pricePackage.getDuration());
+            stm.setInt(6, registrationID);
+            return stm.executeUpdate() >= 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+
+    }
 }
