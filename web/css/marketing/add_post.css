@@ -142,3 +142,9 @@ footer{
 .option__searchbar{
     margin-bottom: 20px;
 }
+
+.option__filter {
+    padding: 15px;
+    box-shadow: 0 0 3px 3px lightgrey;
+    margin-left: 10px;
+}

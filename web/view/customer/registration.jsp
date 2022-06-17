@@ -25,12 +25,13 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blog/list.css">
 
     </head>
 
     <body>
         <!-- HEADER -->
-          <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
 
 
@@ -92,15 +93,16 @@
                                         </c:choose>
                                         <td>
                                             <c:if test="${r.status == false}">
-                                                <button onclick="openPopup(${r.registrationID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
-                                            </c:if>
-                                            <c:if test="${r.status == true}">
-
+                                                <button class="submit__button" onclick="openPopup(${r.registrationID})" value="${r.course.courseID}" id="${r.course.courseID}button">Edit</button>
                                                 <form method="POST" action="registrationsearch">
                                                     <input type="hidden" value="${requestScope.queryString}" name="queryString">
                                                     <input type="hidden" value="${r.registrationID}" name="registrationID">
                                                     <input type="submit" value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
                                                 </form>
+                                            </c:if>
+                                            <c:if test="${r.status == true}">
+
+
                                             </c:if>
 
 

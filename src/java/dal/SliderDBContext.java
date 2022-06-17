@@ -260,5 +260,110 @@ public class SliderDBContext extends DBContext {
             Logger.getLogger(SliderDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public ArrayList<Slider> getSliders(String combination, Boolean status, int pageindex, int pagesize){
+        ArrayList<Slider> sliders = new ArrayList<>();
+        String sql = " select * from Slider ";
+        
+        String sql_base = " select * from Slider ";
+        
+        String intersect = " \n intersect \n";
+        
+        String sql_status = " where [status] = ? ";
+        
+        String sql_combination = " where LOWER(title) like LOWER(?) or LOWER(backlink) like LOWER(?) ";
+
+        String pagination = " order by sliderID asc OFFSET (?-1)*? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY ";
+        
+        if(status != null){
+            sql += sql_status;
+        }
+        
+        if(combination != null && combination.trim().length() > 0){
+            sql += intersect;
+            sql += sql_base + sql_combination;
+        }
+        
+        sql += pagination;
+        int i = 1;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            if(status != null){
+                stm.setBoolean(i++, status);
+            }
+            
+            if(combination != null && combination.trim().length() > 0){
+                stm.setString(i++, "%"+combination+"%");
+                stm.setString(i++, "%"+combination+"%");
+            }
+            
+            stm.setInt(i++, pageindex);
+            stm.setInt(i++, pagesize);
+            stm.setInt(i++, pagesize);
+            
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Slider slider = new Slider();
+                slider.setSliderID(rs.getInt("sliderID"));
+                slider.setBacklink(rs.getString("backlink"));
+                slider.setImageUrl(rs.getString("imageURL"));
+                slider.setTitle(rs.getString("title"));
+                slider.setStatus(rs.getBoolean("status"));
+                slider.setNote(rs.getString("note"));
+                sliders.add(slider);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return sliders;
+    }
+    
+    public int countSlider(String combination, Boolean status){
+        String finalSql = "select count(*) as Total from ( "; 
+        String sql = " select * from Slider ";
+        
+        String sql_base = " select * from Slider ";
+        
+        String intersect = " \n intersect \n";
+        
+        String sql_status = " where [status] = ? ";
+        
+        String sql_combination = " where LOWER(title) like LOWER(?) or LOWER(backlink) like LOWER(?) ";
+        
+        if(status != null){
+            sql += sql_status;
+        }
+        
+        if(combination != null && combination.trim().length() > 0){
+            sql += intersect;
+            sql += sql_base + sql_combination;
+        }
+        
+        finalSql += sql + " ) t";
+        
+        int i = 1;
+        try {
+            PreparedStatement stm = connection.prepareStatement(finalSql);
+            if(status != null){
+                stm.setBoolean(i++, status);
+            }
+            
+            if(combination != null && combination.trim().length() > 0){
+                stm.setString(i++, "%"+combination+"%");
+                stm.setString(i++, "%"+combination+"%");
+            }
+            
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("Total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 
 }

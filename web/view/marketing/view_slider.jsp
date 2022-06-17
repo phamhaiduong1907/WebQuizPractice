@@ -38,19 +38,19 @@
                             <tr>
                                 <td><label for="title">Title:</label></td>
                                 <td>
-                                    <input type="text" id="title" name="title" value="${requestScope.sliderByID.title}">
+                                    <input type="text" id="title" name="title" value="${requestScope.sliderByID.title}" readonly>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="backlink">Backlink:</label></td>
                                 <td>
-                                    <input type="text" id="backlink" name="backlink" value="${requestScope.sliderByID.backlink}">
+                                    <input type="text" id="backlink" name="backlink" value="${requestScope.sliderByID.backlink}" readonly>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="status">Status:</label></td>
                                 <td>
-                                    <select name="status" id="status">
+                                    <select name="status" id="status" disabled>
                                         <option value="inactive" ${requestScope.sliderByID.status?"":"selected"}>Hide</option>
                                         <option value="active" ${requestScope.sliderByID.status?"selected":""}>Show</option>
                                     </select>
@@ -59,14 +59,12 @@
                             <tr>
                                 <td><label for="note">Note:</label></td>
                                 <td>
-                                    <textarea name="note" id="note">${requestScope.sliderByID.note}</textarea>
+                                    <textarea name="note" id="note" readonly>${requestScope.sliderByID.note}</textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td><label for="imageURL">Slider Image:</label></td>
                                 <td>
-                                    <input type="hidden" name="imageURLDefault" value="${requestScope.sliderByID.imageUrl}">
-                                    <input type='file' id="imageURL" name="imageURLUpdate" onchange="readURL(this); checkValueUpdate('imageURL', 'previewImage','${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}');"/>
                                     <div class="slider__image">
                                         <img id="previewImage" src="${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}"
                                              style="width: 90%; height: 250px;">
@@ -74,9 +72,6 @@
                                 </td>
                             </tr>
                         </table>
-                        <div class="slider__submit">
-                            <input type="submit" value="Save">
-                        </div>
                     </form>
                 </div>
                 <footer>
@@ -88,18 +83,6 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
-        <script src="${pageContext.request.contextPath}/js/slider/uploadFile.js"></script>
-        <script>
-                                        function checkValueUpdate(id, targetId, src) {
-                                            var input = document.getElementById(id).value;
-                                            var image = document.getElementById(targetId);
-                                            if (input === "" || input === undefined) {
-                                                image.src = src;
-                                                image.style.width = '90%';
-                                                image.style.height = '250px';
-                                            }
-                                        }
-        </script>
     </body>
 
 </html>

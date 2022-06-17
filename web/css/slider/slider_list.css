@@ -11,7 +11,7 @@ table{
     border-collapse: collapse;
     box-shadow: 0  0 10px 5px #e1e5ee;
     background-color: #fff;
-    text-align: left;
+    text-align: center;
     overflow: hidden;
     font-family: Mukta, sans-serif;
     display: table;
@@ -220,4 +220,12 @@ form button:hover{
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+}
+
+.slider_edit{
+    background-color: orange!important;
+}
+
+.slider_edit:hover{
+    background-color: #e4b050!important;
 }

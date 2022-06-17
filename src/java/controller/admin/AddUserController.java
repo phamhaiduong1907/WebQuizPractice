@@ -62,7 +62,6 @@ public class AddUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String username = request.getParameter("email");
@@ -75,7 +74,7 @@ public class AddUserController extends HttpServlet {
 
         UserDBContext dbUser = new UserDBContext();
         AccountDBContext dbAccount = new AccountDBContext();
-        
+
         // generate password with specified regex then email to the user
         // code goes here .....
         Account account = dbAccount.isExistAccount(username);
@@ -91,8 +90,7 @@ public class AddUserController extends HttpServlet {
             String password = sb_password.toString();
             MiscUtil msUtil = new MiscUtil();
             String passwordEncrypt = msUtil.encryptString(password);
-            
-            
+
             dbUser.addUser(username, passwordEncrypt, firstName, lastName, phone, gender, address, roleID, status, profilePictureURL);
             Email email = new Email();
             email.setFrom(COMPANYGMAIL);
@@ -106,7 +104,6 @@ public class AddUserController extends HttpServlet {
             sb.append("<br> Please log in our website and change your password!");
             EmailUtils emailUtils = new EmailUtils();
             email.setContent(sb.toString());
-            out.println("Email Content: " + sb.toString());
             try {
                 emailUtils.send(email);
             } catch (Exception ex) {
@@ -115,7 +112,12 @@ public class AddUserController extends HttpServlet {
             response.sendRedirect("userdetail?username=" + username);
         } else {
             // Processing if account is existed
-            response.getWriter().println("account existed");
+            RoleDBContext dbRoles = new RoleDBContext();
+            ArrayList<Role> roles = dbRoles.getRoles();
+            request.setAttribute("roles", roles);
+            String error = "Email " + account.getUsername() + " has already existed";
+            request.setAttribute("error", error);
+            request.getRequestDispatcher("../view/admin/add_user.jsp").forward(request, response);
         }
     }
 

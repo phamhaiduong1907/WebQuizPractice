@@ -6,8 +6,8 @@ function readURL(input) {
         reader.onload = function (e) {
             blah.src = e.target.result;
             blah.style.display = 'block';
-            blah.style.width = '80%';
-            blah.style.height = '150px';
+            blah.style.width = '90%';
+            blah.style.height = '250px';
         };
 
         reader.readAsDataURL(input.files[0]);

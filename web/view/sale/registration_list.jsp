@@ -78,6 +78,7 @@
                             <option value="${u.account.username}"></option>
                         </c:forEach>
                     </datalist>
+                    <br>
                     <select name="sortBy" id="sortBy">
                         <option value="registrationID" checked>Sort by...</option>
                         <option value="registrationID">ID</option>

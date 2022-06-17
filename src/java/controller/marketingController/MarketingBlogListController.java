@@ -45,7 +45,7 @@ public class MarketingBlogListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-           BlogDBContext dbBlogforSearch = new BlogDBContext();
+        BlogDBContext dbBlogforSearch = new BlogDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
         SubCategoryDBContext db = new SubCategoryDBContext();
         int pagesize = 3;

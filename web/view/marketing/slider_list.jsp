@@ -34,24 +34,26 @@
             <!-- RIGHT CONTENT -->
             <aside class="right">
                 <div class="right_content">
-                    <div class="tool__stripe">
-                        <form action="list" method="GET" id="statusFilter">
-                            <label for="status">Choose status to filter: </label>
-                            <select name="status" id="status" onchange="submitForm('statusFilter')">
-                                <option value="all" ${requestScope.status == "all" ?"selected":""}>All</option>
-                                <option value="active" ${requestScope.status == "active" ?"selected":""}>Active</option>
-                                <option value="inactive" ${requestScope.status == "inactive" ?"selected":""}>Inactive</option>
-                            </select>
-                        </form>
-                        <form action="list" method="GET" id="formSearch">
-                            <div class="search__input">
-                                <input type="text" id="searchByTitle" name="title"
-                                       placeholder="Enter title or backlink to search"
-                                       value="${requestScope.title}">
+                    <form action="list" method="GET">
+                        <div class="tool__stripe">
+                            <div id="statusFilter">
+                                <label for="status">Choose status to filter: </label>
+                                <select name="status" id="status">
+                                    <option value="all" ${requestScope.status == "all" ?"selected":""}>All</option>
+                                    <option value="active" ${requestScope.status == "active" ?"selected":""}>Active</option>
+                                    <option value="inactive" ${requestScope.status == "inactive" ?"selected":""}>Inactive</option>
+                                </select>
                             </div>
-                            <button type="submit">Search</button>
-                        </form>
-                    </div>
+                            <div id="formSearch">
+                                <div class="search__input">
+                                    <input type="text" id="searchByTitle" name="title"
+                                           placeholder="Enter title or backlink to search"
+                                           value="${requestScope.title}">
+                                </div>
+                                <button type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="add__hyperlink">
                         <a href="add">Add a slider</a>
                     </div>
@@ -86,7 +88,8 @@
                                             </td>
                                             <td class="slider__action">
                                                 <button href="#" class="slider__hide" onclick="changeStatus(this, 'status${s.sliderID}', '${s.sliderID}', '${s.status?"inactive":"active"}')">${s.status?"Hide":"Show"}</button>
-                                                <a href="detail?sliderID=${s.sliderID}" class="slider__detail">Detail</a>
+                                                <a href="view?sliderID=${s.sliderID}" class="slider__detail">Detail</a>
+                                                <a href="detail?sliderID=${s.sliderID}" class="slider_edit slider__detail">Edit</a>
                                             </td>
                                         </tr>    
                                     </c:forEach>

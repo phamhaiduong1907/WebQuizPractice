@@ -130,7 +130,7 @@
     <servlet>
         <servlet-name>AddBlogController</servlet-name>
         <servlet-class>controller.marketingController.AddBlogController</servlet-class>
-         </servlet>
+    </servlet>
     <servlet>
         <servlet-name>RegistrationListController</servlet-name>
         <servlet-class>controller.saleController.RegistrationListController</servlet-class>
@@ -166,14 +166,22 @@
     <servlet>
         <servlet-name>ManageSearchController</servlet-name>
         <servlet-class>controller.courseContentController.ManageSearchController</servlet-class>
-         </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ChangeStatusController</servlet-name>
         <servlet-class>controller.slider.ChangeStatusController</servlet-class>
-             </servlet>
+    </servlet>
     <servlet>
         <servlet-name>GetCourseBySubcategoryID</servlet-name>
         <servlet-class>controller.marketingController.GetCourseBySubcategoryID</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewSliderController</servlet-name>
+        <servlet-class>controller.slider.ViewSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewUserController</servlet-name>
+        <servlet-class>controller.admin.ViewUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -314,7 +322,7 @@
     <servlet-mapping>
         <servlet-name>AddBlogController</servlet-name>
         <url-pattern>/marketing/addblog</url-pattern>
-         </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegistrationListController</servlet-name>
         <url-pattern>/sale/registrationlist</url-pattern>
@@ -338,12 +346,11 @@
     <servlet-mapping>
         <servlet-name>ChangeBlogStatusController</servlet-name>
         <url-pattern>/marketing/changeblogstatus</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseSearchController</servlet-name>
         <url-pattern>/coursesearch</url-pattern>
-        </servlet-mapping>
-   
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewSubjectController</servlet-name>
         <url-pattern>/newsubject</url-pattern>
@@ -351,14 +358,22 @@
     <servlet-mapping>
         <servlet-name>ManageSearchController</servlet-name>
         <url-pattern>/managesearch</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangeStatusController</servlet-name>
         <url-pattern>/slider/changestatus</url-pattern>
-         </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetCourseBySubcategoryID</servlet-name>
         <url-pattern>/getcoursebysubcategoryid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSliderController</servlet-name>
+        <url-pattern>/slider/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewUserController</servlet-name>
+        <url-pattern>/admin/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
