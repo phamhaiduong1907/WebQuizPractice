@@ -101,11 +101,11 @@ footer {
     display: none;
 }
 
-#uploadBtn{
+#uploadBtnb{
     position: absolute;
-    top: 41%;
-    left: 74%;
-    height: 44px;
+    top: 50%;
+    left: 69.5%;
+    height: 42px;
     width: 400px;
     transform: translateX(-50%);
     text-align: center;

@@ -23,37 +23,10 @@
         %>
     </head>
     <body>
-        <header>
-            <div class="logo">
-                <p>LOGO</p>
-            </div>
+             <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-            <div class="user_bar">
-                <div class="user_log">
-                    <i class="fa fa-user-circle"></i>
-                    <span class="user_name">Administrator</span>
-                    <div class="submenu">
-                        <ul>
-                            <li><a href="#" id="openProfile">User Profile</a></li>
-                            <li><a href="#" id="openChangePassword">Change Password</a></li>
-                            <li><a href="#">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
         <section class="main">
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <c:forEach items="${sessionScope.account.role.features}" var="f">
-                            <c:if test="${f.isDisplayed == true}">
-                                <li><a href="${f.url}">${f.featureName}</a></li>
-                                </c:if>                            
-                            </c:forEach>
-                    </ul>
-                </nav>
-            </aside>
+         
             <aside class="right">
                 <div class="right_content">
                     <h1>User Details</h1>
@@ -87,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="avatar">
-                                <img src="${pageContext.request.contextPath}/images/default_user_avatar.png" alt="alt"/>
+                                <img src="${pageContext.request.contextPath}/${requestScope.user.profilePictureUrl}" alt="alt"/>
                             </div>
                         </div>
                         <div class="authorize_info">
@@ -145,47 +118,9 @@
                 </footer>
             </aside>
         </section>
+             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-        <section class="popup">
-            <div class="popup__content">
-                <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
-
-                <div class="form_user-profile">
-                    <h2>User Profile</h2>
-                    <form action="#">
-                        <div class="user__avatar">
-                            <!-- <input type="file" name="" id=""> -->
-                        </div>
-                        <input type="text" name="email" id="email" disabled placeholder="Your email">
-                        <input type="text" name="firstName" id="firstName" placeholder="Enter your first name">
-                        <input type="text" name="lastName" id="lastName" placeholder="Enter your last name">
-                        <input type="text" name="phone" id="phone" placeholder="Enter your phone">
-                        <div class="profile__gender signup__gender">
-                            <h5>Gender</h5>
-                            <input type="radio" name=""> <p>Male</p>
-                            <input type="radio" name=""> <p>Female</p>
-                        </div>
-                        <input type="text" name="address" id="address" placeholder="Enter your address">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="form__change-password" style="display: none;">
-                    <h2>Change Password</h2>
-                    <form action="#">
-                        <input type="password" placeholder="Enter your current password">
-                        <input type="password" placeholder="Enter new password">
-                        <input type="password" placeholder="Reenter your new password">
-                        <div class="form__button">
-                            <button type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </section>
+      
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>                    
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>

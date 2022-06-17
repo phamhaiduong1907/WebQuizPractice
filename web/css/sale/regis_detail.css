@@ -6,6 +6,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jun 15, 2022, 1:45:44 AM
     Author     : long
 */
+.right_content{
+    font-family: sans-serif;
+}
+
 h1 {
     display: block;
     font-size: 50px;

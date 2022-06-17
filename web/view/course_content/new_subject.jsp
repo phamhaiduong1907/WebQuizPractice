@@ -22,19 +22,10 @@
     </head>
 
     <body>
-               <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+               <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
         <section class="main">
-            <aside class="left">
-                <nav>
-                    <ul>
-                        <li><a href="marketing/bloglist?search=">Posts</a></li>
-                        <li><a href="slider/list">Sliders</a></li>
-                        <li><a href="admin/userlist">Users</a></li>
-                        <li><a href="managesubject">Course</a></li>
-                    </ul>
-                </nav>
-            </aside>
+         
             <aside class="right">
                 <div class="right_content">
                     <div class="function_name">
@@ -77,7 +68,7 @@
                             <div class="thumbnail">
                                 <img src="images/subject/default.png" id="photo">
                                 <input type="file" name="profilePicture" id="profilePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
-                                <label for="profilePicture" title="Please update your picture!" id="uploadBtn">Choose Photo</label>
+                                <label for="profilePicture" title="Please update your picture!" id="uploadBtnb">Choose Photo</label>
                             </div>
                         </div>
                         <div class="authorize_info">
