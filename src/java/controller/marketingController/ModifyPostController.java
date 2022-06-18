@@ -26,7 +26,7 @@ import util.Validation;
  * @author ADMIN
  */
 @MultipartConfig
-public class ViewModifyPostController extends HttpServlet {
+public class ModifyPostController extends HttpServlet {
 
     private static final String WRONGFILETYPE = "The format must be png, jpg or jpeg";
     private static final String MISSINGINPUT = "You must entered required fields";
@@ -41,6 +41,7 @@ public class ViewModifyPostController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -59,12 +60,9 @@ public class ViewModifyPostController extends HttpServlet {
 
         Post post = blogDBContext.getPost(postID);
         ArrayList<Category> categories = dbCate.getCategories(1);
-        Category category = dbCate.getCategoryBySubCategoryID(post.getSubcategory().getSubcategoryID());
         request.setAttribute("categories", categories);
         request.setAttribute("post", post);
-        request.setAttribute("category", category);
-
-        request.getRequestDispatcher("../view/marketing/post_detail.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/marketing/modify_post.jsp").forward(request, response);
     }
 
     /**
@@ -78,7 +76,6 @@ public class ViewModifyPostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String raw_title = request.getParameter("title");
         String raw_briefInfo = request.getParameter("briefInfo");
         String raw_subcategoryID = request.getParameter("subcategoryID");
@@ -122,10 +119,10 @@ public class ViewModifyPostController extends HttpServlet {
                         String realPath = request.getServletContext().getRealPath("/images/blog");
                         String realPathWeb = realPath.substring(0, realPath.indexOf("build"));
                         realPathWeb += "web\\images\\blog";
-                        
+
                         UploadFile.copyPartToFile(thumbnail, realPath + "/" + fileName);
                         UploadFile.copyPartToFile(thumbnail, realPathWeb + "/" + fileName);
-                        
+
 //                        thumbnail.write(realPathWeb + "/" + fileName); // inserting to the local file destination
                         response.sendRedirect("view?postID=" + postID);
                     } else {

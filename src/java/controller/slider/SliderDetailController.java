@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.Slider;
+import util.UploadFile;
 
 /**
  *
@@ -50,8 +51,9 @@ public class SliderDetailController extends HttpServlet {
             String realPathWeb = realPath.substring(0, realPath.indexOf("build"));
             realPathWeb += "web\\images\\slider";
             String filename = "slider_thumbnail_id" + sliderID + ".png";
-            imageURLUpdate.write(realPath + "/" + filename);
-            imageURLUpdate.write(realPathWeb+"/"+filename);
+            UploadFile.copyPartToFile(imageURLUpdate, realPath + "/" + filename);
+            UploadFile.copyPartToFile(imageURLUpdate, realPathWeb + "/" + filename);
+
             imageURL = "images/slider/" + filename;
             dbSLider.updateSlider(sliderID, title, backlink, status, imageURL, note);
             response.sendRedirect("detail?sliderID=" + sliderID);
