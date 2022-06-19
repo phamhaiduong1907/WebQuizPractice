@@ -140,8 +140,8 @@
         <servlet-class>controller.saleController.RegistrationSearchController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegistrationDetailController</servlet-name>
-        <servlet-class>controller.saleController.RegistrationDetailController</servlet-class>
+        <servlet-name>RegistrationViewController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationViewController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetSubCategory</servlet-name>
@@ -178,6 +178,10 @@
     <servlet>
         <servlet-name>ModifyPostController</servlet-name>
         <servlet-class>controller.marketingController.ModifyPostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrationEditController</servlet-name>
+        <servlet-class>controller.saleController.RegistrationEditController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -328,8 +332,8 @@
         <url-pattern>/sale/registrationsearch</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RegistrationDetailController</servlet-name>
-        <url-pattern>/sale/registrationdetail</url-pattern>
+        <servlet-name>RegistrationViewController</servlet-name>
+        <url-pattern>/sale/registrationview</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetSubCategory</servlet-name>
@@ -366,6 +370,10 @@
     <servlet-mapping>
         <servlet-name>ModifyPostController</servlet-name>
         <url-pattern>/marketing/modifypost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationEditController</servlet-name>
+        <url-pattern>/sale/registrationedit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

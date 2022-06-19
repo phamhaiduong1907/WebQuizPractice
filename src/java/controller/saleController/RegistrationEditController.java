@@ -17,11 +17,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Session;
 import model.Account;
 import model.Category;
 import model.Course;
@@ -39,12 +41,12 @@ import util.Validation;
  *
  * @author long
  */
-public class RegistrationDetailController extends HttpServlet {
+public class RegistrationEditController extends HttpServlet {
 
     final static String MISSINGINPUT = "Please fill in required fill";
-    final static String ERRORSQL = "Please try again";
-    final static String SUCESSFULLY = "Email has been sent";
-    final static String SENDEMAILERROR = "Email could not be sent";
+    final static String ERRORSQL = "An accoutn with that username is already exists! Please consider using a different username.";
+    final static String SUCESSFULLY = "Your account is ready! Please check your email for further information.";
+    final static String SENDEMAILERROR = "There were some problem contacting your email! Please try again.";
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
     final static String COMPANYGMAIL_PASSWORD = "kfdhvpiafobpgllh";
@@ -71,6 +73,12 @@ public class RegistrationDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        User loginUser = (User) request.getSession().getAttribute("user");
+//        if (loginUser == null || loginUser.getAccount().getRole().getRoleID() != 3) {
+//            request.setAttribute("mess", "You do not have permission to access this site!");
+//            request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
+//        }
+
         int Id;
         CourseDBContext cdbc = new CourseDBContext();
         RegistrationDBContext rdbc = new RegistrationDBContext();
@@ -81,6 +89,10 @@ public class RegistrationDetailController extends HttpServlet {
         if (request.getParameter("id") != null) {
             Id = Integer.parseInt(request.getParameter("id"));
             Registration r = rdbc.getARegistration(Id);
+//            if (!r.getUser().getAccount().getUsername().equalsIgnoreCase(loginUser.getAccount().getUsername())) {
+//                request.setAttribute("mess", "You do not have permission to edit this registration!");
+//                request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
+//            }
             Course course = cdbc.getCourseByCourseID(r.getCourse().getCourseID(), null);
             User u = r.getUser();
             PricePackageDBContext pdbc = new PricePackageDBContext();
@@ -97,7 +109,7 @@ public class RegistrationDetailController extends HttpServlet {
         request.setAttribute("categories", categories);
         ArrayList<Course> courses = cdbc.getCoursesForHomePage(null);
         request.setAttribute("courses", courses);
-        request.getRequestDispatcher("../view/sale/registration_detail.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/sale/registration_detail_edit.jsp").forward(request, response);
     }
 
     /**
@@ -159,7 +171,7 @@ public class RegistrationDetailController extends HttpServlet {
                         user.setGender(gender);
                         user.setPhoneNumber(raw_phone);
                         udbc.updateUser(user);
-                        response.sendRedirect("../sale/registrationdetail?id=" + registrationID);
+                        response.sendRedirect("../sale/registrationview?id=" + registrationID);
                     } else {
                         MiscUtil miscUtil = new MiscUtil();
                         String password = miscUtil.getRandom();
@@ -171,7 +183,6 @@ public class RegistrationDetailController extends HttpServlet {
                         Role role = new Role();
                         role = roleDBContext.getRole(5);
                         account.setRole(role);
-                        //log(account.getUsername() + "\n" + account.getPassword() + "\n" + account.getRole().getRoleID());
                         User user = new User();
                         user.setAccount(account);
                         user.setFirstName(raw_firstName);
@@ -196,25 +207,23 @@ public class RegistrationDetailController extends HttpServlet {
 
                             try {
                                 emailUtils.send(email);
-                                response.sendRedirect("sale/registrationlist" + "&errorMessage=" + SUCESSFULLY);
-
+                                request.setAttribute("mess", SUCESSFULLY);
+                                request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                             } catch (Exception ex) {
-                                Logger.getLogger(RegistrationDetailController.class.getName()).log(Level.SEVERE, null, ex);
-                                response.sendRedirect("sale/registrationdlist" + "&errorMessage=" + SENDEMAILERROR);
-
+                                Logger.getLogger(RegistrationViewController.class.getName()).log(Level.SEVERE, null, ex);
+                                request.setAttribute("mess", SENDEMAILERROR);
+                                request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                             }
                         } else {
-                            response.sendRedirect("sale/registrationlist" + "&errorMessage=" + ERRORSQL);
                             log("Could not insert account!");
-                            log(account.getUsername() + "\n" + account.getPassword() + "\n" + account.getRole().getRoleID());
+                            request.setAttribute("mess", ERRORSQL);
+                            request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                         }
 
                     }
 
                 }
-
             } else {
-                
                 MiscUtil miscUtil = new MiscUtil();
                 String password = miscUtil.getRandom();
                 String password_clone = password;
@@ -233,7 +242,7 @@ public class RegistrationDetailController extends HttpServlet {
                 user.setGender(gender);
                 user.setPhoneNumber(raw_phone);
                 udbc.insertUser(user);
-                rdbc.insertRegistration(courseID, pricePackage, user);
+                rdbc.insertReg(user, courseID, pricePackage, status, "longdthe161129@fpt.edu.vn");
                 if (accountDBContext.insertAccount(account)) {
                     Email email = new Email();
                     email.setFrom(COMPANYGMAIL);
@@ -241,7 +250,7 @@ public class RegistrationDetailController extends HttpServlet {
                     email.setFromPassword(COMPANYGMAIL_PASSWORD);
                     email.setSubject("New account");
                     StringBuilder sb = new StringBuilder();
-                    sb.append("Your account is ready, Login at http://localhost:8080/SWP391-SE1617-NET_Group06-QuizWebsite/" + "<br>");
+                    sb.append("Your account is ready, Login at: " + "http://localhost:8080/SWP391-SE1617-NET_Group06-QuizWebsite/" + "<br>");
                     sb.append("Your account username is: " + raw_username + "<br>");
                     sb.append("And password is " + password_clone);
 
@@ -251,15 +260,17 @@ public class RegistrationDetailController extends HttpServlet {
 
                     try {
                         emailUtils.send(email);
-                        response.sendRedirect("../sale/registrationlist");
-
+                        request.setAttribute("mess", SUCESSFULLY);
+                        request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                     } catch (Exception ex) {
-                        Logger.getLogger(RegistrationDetailController.class.getName()).log(Level.SEVERE, null, ex);
-                        response.sendRedirect("sale/registrationdlist" + "&errorMessage=" + SENDEMAILERROR);
+                        Logger.getLogger(RegistrationViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        request.setAttribute("mess", SENDEMAILERROR);
+                        request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                     }
                 } else {
-                    response.sendRedirect("sale/registrationlist" + "&errorMessage=" + ERRORSQL);
                     log("Could not insert account!");
+                    request.setAttribute("mess", ERRORSQL);
+                    request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
                 }
             }
         } else {
