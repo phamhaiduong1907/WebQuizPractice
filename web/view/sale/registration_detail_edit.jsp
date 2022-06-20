@@ -18,18 +18,18 @@
 </head>
 
 <body>
-       <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
 
     <section class="main">
         <!-- LEFT NAVIGATION BAR -->
-       
+
 
         <!-- RIGHT CONTENT -->
         <aside class="right">
-            <div class="right_content">
-                <h1>Registration Details</h1>
-                <form action="registrationdetail" method="POST">
+            <div class="right_content">   
+                <h1>Edit Registration Details</h1>
+                <form action="registrationedit" method="POST">
                     <table>
                         <tr>
                             <td colspan="2">
@@ -38,34 +38,26 @@
                         </tr>
                         <tr>
                             <th>Username</th>
-                                <c:choose>
-                                    <c:when test="${requestScope.user == null}">
-                                    <td><input type="email" name="username" placeholder="Enter username..."></td>
-                                    </c:when>
-                                    <c:otherwise>
-                                    <td>
-                                        <input disabled type="text" name="username" value="${requestScope.user.account.username}">
-                                        <input type="hidden" name="username" value="${requestScope.user.account.username}">
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td>
+                                <input disabled  required type="email" name="username" value="${requestScope.user.account.username}" placeholder="Enter username...">
+                            </td>
                         </tr>
                         <tr>
                             <th>First Name</th>
-                            <td><input type="text" name="firstName" id="firstName" value="${requestScope.user.firstName}"></td>
+                            <td><input required type="text" name="firstName" id="firstName" value="${requestScope.user.firstName}"></td>
                         </tr>
                         <tr>
                             <th>Last Name</th>
-                            <td><input type="text" name="lastName" id="lastName" value="${requestScope.user.lastName}"></td>
+                            <td><input required type="text" name="lastName" id="lastName" value="${requestScope.user.lastName}"></td>
                         </tr>
                         <tr>
                             <th>Gender</th>
                             <td>
                                 <c:choose>
                                     <c:when test="${requestScope.user.gender == true}">
-                                        <input name="gender" id="male" type="radio" value="male" checked> <label for="male">Male</label>
+                                        <input required name="gender" id="male" type="radio" value="male" checked> <label for="male">Male</label>
                                         &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
+                                        <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
                                     </c:when>
                                     <c:when test="${requestScope.user.gender == false}">
                                         <input name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
@@ -73,9 +65,9 @@
                                         <input type="radio" id="female" name="gender" value="female" checked> <label for="female">Female</label>
                                     </c:when>
                                     <c:otherwise>
-                                        <input name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
+                                        <input required name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
                                         &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
+                                        <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -84,7 +76,7 @@
                             <th>Email</th>
                                 <c:choose>
                                     <c:when test="${requestScope.user == null}">
-                                    <td><input type="email" name="email" placeholder="Enter email...">
+                                    <td><input required type="email" name="email" placeholder="Enter email...">
                                         <input type="hidden" name="user_exist" value="no">
                                     </td>
                                 </c:when>
@@ -165,14 +157,17 @@
                                             </option>
                                     </c:forEach>
                                     <c:if test="${requestScope.registration == null}">
-                                        <option value="3">
-                                            3 monthc extension, list price: 90.0, is on sale at 100.0
+                                        <option value="1">
+                                            3 month extension, list price: 100.0, is on sale at 90.0
+                                        </option>
+                                        <option value="2">
+                                            6 month extension, list price: 200.0, is on sale at 100.0
                                         </option>
                                         <option value="4">
-                                            6 monthc extension, list price: 180.0, is on sale at 120.0
+                                            10 month extension, list price: 500.0, is on sale at 300.0
                                         </option>
-                                        <option value="5">
-                                            9 monthc extension, list price: 200.0, is on sale at 180.0
+                                        <option value="4">
+                                            Permanent extension, list price: 900.0, is on sale at 800.0
                                         </option>
                                     </c:if>
                                 </select>
@@ -205,8 +200,7 @@
                             <c:when test="${requestScope.registration != null}">
                                 <tr>
                                     <th>Valid Date</th>
-                                    <td>From &emsp;<input disabled type="date" name="fromDate"  value="${requestScope.registration.validFrom}">&emsp; to &emsp;<input disabled type="date" name="toDate" value="${requestScope.registration.validTo}">
-                                        <input type="hidden" name="fromDate"  value="${requestScope.registration.validFrom}"><input  type="hidden" name="toDate" value="${requestScope.registration.validTo}">
+                                    <td>From &emsp;${requestScope.registration.validFrom}&emsp;to&emsp;${requestScope.registration.validTo}
                                     </td>
                                 </tr>
                             </c:when>
@@ -227,7 +221,7 @@
         </aside>
     </section>
 
-          <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
 
     <script src="js/userPopup.js"></script>

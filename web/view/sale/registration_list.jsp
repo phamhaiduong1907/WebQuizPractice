@@ -94,7 +94,7 @@
                     </select>
                     <input type="radio" id="asc" name="orderBy" value="asc"> <label for="asc">Ascending</label>
                     <input type="radio" id="desc" name="orderBy" value="desc"> <label for="desc">Descending</label>
-                    <input type="submit" value="GO">
+                    <input type="submit" value="Search">
                 </form>
                 <br>
                 <c:choose>
@@ -115,7 +115,7 @@
                                     <th>Valid From</th>
                                     <th>Valid To</th>
                                     <th>Upadted By</th>
-                                    <th></th>
+                                    <th colspan="2"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -140,7 +140,8 @@
                                         <td>${r.validFrom}</td>
                                         <td>${r.validTo}</td>
                                         <td>${r.updatedBy.account.username}</td>
-                                        <td><a href="../sale/registrationdetail?id=${r.registrationID}">Edit</a></td>
+                                        <td><a href="../sale/registrationview?id=${r.registrationID}">View</a></td>
+                                        <td><a href="../sale/registrationedit?id=${r.registrationID}">Edit</a></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -148,7 +149,7 @@
                     </c:otherwise>
                 </c:choose>
                 <br>
-                <a class="new_registration_link" href="../sale/registrationdetail">Add new</a>
+                <a class="new_registration_link" href="../sale/registrationedit">Add new</a>
                 <div id="pagination" class="pagination"></div>
             </div>
 

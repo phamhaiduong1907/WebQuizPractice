@@ -530,7 +530,6 @@ public class RegistrationDBContext extends DBContext {
         }
     }
 
-
     public boolean updateRegistration(int pricePackageID, String username, int registrationID) {
         String sql = "update Registration\n"
                 + "set registrationTime = GETDATE(), pricePackageID = ?, totalCost = ?\n"
@@ -614,5 +613,42 @@ public class RegistrationDBContext extends DBContext {
 
         return false;
 
+    }
+
+    public Boolean insertReg(User user, int courseID, PricePackage price, Boolean status, String updatedBy) {
+        try {
+            String sql = "INSERT INTO [dbo].[Registration]\n"
+                    + "           ([username]\n"
+                    + "           ,[registrationTime]\n"
+                    + "           ,[courseID]\n"
+                    + "           ,[pricePackageID]\n"
+                    + "           ,[totalCost]\n"
+                    + "           ,[status]\n"
+                    + "           ,[validFrom]\n"
+                    + "           ,[validTo]\n"
+                    + "           ,[updatedBy])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,GETDATE()\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,GETDATE()\n"
+                    + "           ,DATEADD(Month,?,GETDATE())\n"
+                    + "           ,?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getAccount().getUsername());
+            stm.setInt(2, courseID);
+            stm.setInt(3, price.getPricePackageID());
+            stm.setFloat(4, price.getSalePrice());
+            stm.setBoolean(5, status);
+            stm.setInt(6, price.getDuration());
+            stm.setString(7, updatedBy);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }
