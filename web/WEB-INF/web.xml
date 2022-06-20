@@ -178,6 +178,14 @@
     <servlet>
         <servlet-name>ModifyPostController</servlet-name>
         <servlet-class>controller.marketingController.ModifyPostController</servlet-class>
+          </servlet>
+    <servlet>
+        <servlet-name>ViewSliderController</servlet-name>
+        <servlet-class>controller.slider.ViewSliderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewUserController</servlet-name>
+        <servlet-class>controller.admin.ViewUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -366,6 +374,14 @@
     <servlet-mapping>
         <servlet-name>ModifyPostController</servlet-name>
         <url-pattern>/marketing/modifypost</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSliderController</servlet-name>
+        <url-pattern>/slider/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewUserController</servlet-name>
+        <url-pattern>/admin/view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

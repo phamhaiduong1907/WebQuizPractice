@@ -662,8 +662,8 @@ public class UserDBContext extends DBContext {
 
         String sql_gender = " where gender = ? ";
 
-        String sql_combination = " where u.username = ? \n"
-                + "or phoneNumber = ? or (lastName+' '+firstName) like ? ";
+        String sql_combination = " where LOWER(u.username) = LOWER(?) \n"
+                + "or LOWER(phoneNumber) = LOWER(?) or LOWER((lastName + ' ' + firstName)) like LOWER(?) ";
 
         String sql_order = " order by " + sortBy + " " + order;
 
@@ -762,10 +762,8 @@ public class UserDBContext extends DBContext {
 
         String sql_gender = " where gender = ? ";
 
-        String sql_combination = " where u.username = ? \n"
-                + "or phoneNumber = ? or (firstName + ' ' + lastName) like ? ";
-
-        String sql_order = " order by " + sortBy + " " + order;
+        String sql_combination = " where LOWER(u.username) = LOWER(?) \n"
+                + "or LOWER(phoneNumber) = LOWER(?) or LOWER((lastName + ' ' + firstName)) like LOWER(?) ";
 
         String intersect = " \n intersect \n";
 
@@ -808,7 +806,7 @@ public class UserDBContext extends DBContext {
             if (combination != null && combination.length() > 0) {
                 stm.setString(i, combination);
                 stm.setString(i + 1, combination);
-                stm.setString(i + 2, combination);
+                stm.setString(i + 2, "%"+combination+"%");
                 i = i + 3;
             }
             rs = stm.executeQuery();

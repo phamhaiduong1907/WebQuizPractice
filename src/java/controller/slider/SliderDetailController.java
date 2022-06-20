@@ -56,11 +56,11 @@ public class SliderDetailController extends HttpServlet {
 
             imageURL = "images/slider/" + filename;
             dbSLider.updateSlider(sliderID, title, backlink, status, imageURL, note);
-            response.sendRedirect("detail?sliderID=" + sliderID);
+            response.sendRedirect("view?sliderID=" + sliderID);
         } else {
             imageURL = imageURLDefault;
             dbSLider.updateSlider(sliderID, title, backlink, status, imageURL, note);
-            response.sendRedirect("detail?sliderID=" + sliderID);
+            response.sendRedirect("view?sliderID=" + sliderID);
         }
 
     }

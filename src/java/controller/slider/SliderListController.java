@@ -10,6 +10,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import model.Slider;
 
@@ -72,6 +74,7 @@ public class SliderListController extends HttpServlet {
         int count, totalpage;
         ArrayList<Slider> sliders;
         int pageindex = 0;
+        Boolean status;
 
         /*
         * get pageindex
@@ -85,14 +88,9 @@ public class SliderListController extends HttpServlet {
 
         // ====================================================================
         // ====================== REQUIRED ATTRIBUTES =========================
-        
-
-        
-
-
         // ====================================================================
         // ============================ LOGIC =================================
-        if ((statusParam == null && title == null)) {
+        if (statusParam == null && title == null) {
             count = dbSlider.count();
             totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
             pageindex = Integer.parseInt(page);
@@ -102,72 +100,41 @@ public class SliderListController extends HttpServlet {
             if (pageindex > totalpage) {
                 pageindex = totalpage;
             }
-            sliders = dbSlider.getPaginatedSliders(pageindex, pagesize);
-        } else if (statusParam != null) {
-            if (statusParam.equalsIgnoreCase("all")) {
-                count = dbSlider.count();
-                totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
-                pageindex = Integer.parseInt(page);
-                if (pageindex < 1) {
-                    pageindex = 1;
-                }
-                if (pageindex > totalpage) {
-                    pageindex = totalpage;
-                }
-                sliders = dbSlider.getPaginatedSliders(pageindex, pagesize);
+            sliders = dbSlider.getSliders(null, null, pageindex, pagesize);
+        } else {
+            if (statusParam == null) {
+                status = null;
+            } else if (statusParam.equals("all")) {
+                status = null;
+                request.setAttribute("status", statusParam);
             } else {
-                boolean status = statusParam.equalsIgnoreCase("active");
-                count = dbSlider.countByStatus(status);
-                totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
-                pageindex = Integer.parseInt(page);
-                if (pageindex < 1) {
-                    pageindex = 1;
-                }
-                if (pageindex > totalpage) {
-                    pageindex = totalpage;
-                }
-                queryString = "&status=" + statusParam;
-                sliders = dbSlider.getPaginatedSlidersByStatus(pageindex, pagesize, status);
+                status = statusParam.equalsIgnoreCase("active");
+                queryString += "&status=" + statusParam;
                 request.setAttribute("status", statusParam);
             }
-        } else {
-            if (title.trim().length() == 0) {
-                count = dbSlider.count();
-                totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
-                pageindex = Integer.parseInt(page);
-                if (pageindex < 1) {
-                    pageindex = 1;
-                }
-                if (pageindex > totalpage) {
-                    pageindex = totalpage;
-                }
-                sliders = dbSlider.getPaginatedSliders(pageindex, pagesize);
+
+            if (title == null || title.trim().length() == 0) {
+                title = "";
             } else {
-                String titleParts[] = title.split("\\s+");
-                String titleSearch = "";
-                for (String titlePart : titleParts) {
-                    titleSearch += titlePart + " ";
-                }
-                count = dbSlider.countByTitle(titleSearch.trim());
-                totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
-                pageindex = Integer.parseInt(page);
-                String titleQuery = "";
-                for(int i = 0; i < titleParts.length; i++){
-                    titleQuery += titleParts[i];
-                    if(i < titleParts.length - 1)
-                        titleQuery += "+";
-                }
-                queryString = "&title=" + titleQuery;
-                sliders = dbSlider.getPaginatedSlidersByTitle(pageindex, pagesize, title);
+                queryString += "&title=" + URLEncoder.encode(title.trim(), StandardCharsets.UTF_8.toString());
                 request.setAttribute("title", title);
+                title = title.trim();
             }
+
+            count = dbSlider.countSlider(title, status);
+            totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
+            pageindex = Integer.parseInt(page);
+            if (pageindex < 1) {
+                pageindex = 1;
+            }
+            if (pageindex > totalpage) {
+                pageindex = totalpage;
+            }
+            sliders = dbSlider.getSliders(title, status, pageindex, pagesize);
         }
         // ====================================================================
         // ============================ LOGIC =================================
 
-
-        
-        
         // ====================================================================
         // ======================== SET ATTRIBUTES ============================
         request.setAttribute("url", url);
@@ -184,10 +151,6 @@ public class SliderListController extends HttpServlet {
 
         // ====================================================================
         // ======================== SET ATTRIBUTES ============================
-        
-
-
-    
         // ====================================================================
         // =================== FORWARD REQUEST RESOURCES ======================
         request.getRequestDispatcher("../view/marketing/slider_list.jsp").forward(request, response);

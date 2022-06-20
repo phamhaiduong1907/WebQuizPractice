@@ -74,7 +74,7 @@ public class AddSliderController extends HttpServlet {
             dbSLiders.insertSlider(title, backlink, status, imageURL, note);
             ArrayList<Slider> sliders = dbSLiders.getAllSliders();
             int sliderID = sliders.get(sliders.size() - 1).getSliderID();
-            response.sendRedirect("detail?sliderID=" + sliderID);
+            response.sendRedirect("view?sliderID=" + sliderID);
         }
 
     }

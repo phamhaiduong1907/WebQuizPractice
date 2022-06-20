@@ -12,11 +12,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import model.Role;
 import model.User;
-import util.Validation;
 
 /**
  *
@@ -39,7 +39,7 @@ public class UserListController extends HttpServlet {
         UserDBContext dbUsers = new UserDBContext();
         RoleDBContext dbRoles = new RoleDBContext();
         ArrayList<Role> roles = dbRoles.getRoles();
-        ArrayList<User> users = new  ArrayList<>();
+        ArrayList<User> users;
         String role = request.getParameter("role");
         String statusParam = request.getParameter("status");
         String genderParam = request.getParameter("gender");
@@ -58,13 +58,6 @@ public class UserListController extends HttpServlet {
         int roleID = -1;
         Boolean status, gender;
         String queryString = "";
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add(role);
-        strings.add(statusParam);
-        strings.add(genderParam);
-        strings.add(combination);
-        strings.add(sortBy);
-        strings.add(order);
 
         if (role == null && statusParam == null && genderParam == null && combination == null && sortBy == null&& order == null) {
 //            users = dbUsers.get
@@ -106,6 +99,12 @@ public class UserListController extends HttpServlet {
             }else{
                 queryString += "&order="+order;
             }
+            
+            if(combination != null || combination.trim().length() != 0){
+                combination = combination.trim();
+                queryString += "&combination="+ URLEncoder.encode(combination.trim(), StandardCharsets.UTF_8.toString());
+            }
+            
             users = dbUsers.getUsers(roleID, status, gender, combination, sortBy, order, pagesize, pageindex);
             count = dbUsers.count(roleID, status, gender, combination, sortBy, order);
             totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
