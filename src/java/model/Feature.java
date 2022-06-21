@@ -12,7 +12,6 @@ public class Feature {
     private int featureID;
     private String url;
     private String featureName;
-    private boolean isDisplayed;
 
     public int getFeatureID() {
         return featureID;
@@ -37,15 +36,5 @@ public class Feature {
     public void setFeatureName(String featureName) {
         this.featureName = featureName;
     }
-
-    public boolean getIsDisplayed() {
-        return isDisplayed;
-    }
-
-    public void setIsDisplayed(boolean isDisplayed) {
-        this.isDisplayed = isDisplayed;
-    }
-    
-    
     
 }

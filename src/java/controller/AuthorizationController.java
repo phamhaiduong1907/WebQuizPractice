@@ -28,15 +28,10 @@ public abstract class AuthorizationController extends HttpServlet {
             AccountDBContext dbAccount = new AccountDBContext();
             UserDBContext dbUser = new UserDBContext();
             String username = account.getUsername();
-            int roleID = account.getRole().getRoleID();
             User user = dbUser.getUser(username);
+            int roleID = user.getStatus()?user.getAccount().getRole().getRoleID():-1;
             String[] uri = request.getRequestURI().split("[?]");
-            boolean permission;
-            if(user.getStatus())
-                permission = dbAccount.getPermission(username, roleID ,uri[0]);
-            else
-                permission = dbAccount.getPermission(username, -1, username);
-            return permission;
+            return dbAccount.getPermission(username, roleID ,uri[0]);
         }
     }
 
@@ -55,38 +50,7 @@ public abstract class AuthorizationController extends HttpServlet {
         if (isAuthorized(request)) {
             processGet(request, response);
         } else {
-            Account account = (Account) request.getSession().getAttribute("account");
-//            if (account == null) {
-//                //require login
-//                response.setContentType("text/html;charset=utf-8");
-//                PrintWriter writer = response.getWriter();
-//                writer.println("<!DOCTYPE html>");
-//                writer.println("<html>");
-//                writer.println("<head>");
-//                writer.println("</head>");
-//                writer.println("<body>");
-//                writer.println("<script>\n"
-//                        + "		sessionStorage.setItem(\"requiredlogin\",\"true\");\n"
-//                        + "		history.back();\n"
-//                        + "	</script>");
-//                writer.println("</body>");
-//                writer.println("</html>");
-//            } else {
-//                response.setContentType("text/html;charset=utf-8");
-//                PrintWriter writer = response.getWriter();
-//                writer.println("<!DOCTYPE html>");
-//                writer.println("<html>");
-//                writer.println("<head>");
-//                writer.println("</head>");
-//                writer.println("<body>");
-//                writer.println("<script>\n"
-//                        + "		sessionStorage.setItem(\"unauthorizedAcess\",\"true\");\n"
-//                        + "		var u = history.go(-1);\n"
-//                        + "	</script>");
-//                writer.println("</body>");
-//                writer.println("</html>");
-//            }
-            response.sendRedirect("deny");
+            response.sendRedirect("/SWP391-SE1617-NET_Group06-QuizWebsite/deny");
         }
     }
 
@@ -104,16 +68,7 @@ public abstract class AuthorizationController extends HttpServlet {
         if (isAuthorized(request)) {
             processPost(request, response);
         } else {
-            Account account = (Account) request.getSession().getAttribute("account");
-            if (account == null) {
-                //require login
-                boolean requiredLogin = true;
-                request.setAttribute("requiredLogin", requiredLogin);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else {
-                //Handling access deniance
-                response.sendRedirect("/summer2022-se1617-g6/deny");
-            }
+            response.sendRedirect("/SWP391-SE1617-NET_Group06-QuizWebsite/deny");
         }
     }
     
