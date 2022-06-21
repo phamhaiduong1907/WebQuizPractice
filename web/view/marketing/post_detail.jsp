@@ -42,7 +42,7 @@
             <ul class="breadcrumb">
                 <li><a href="../home">Home</a></li>
                 <li><a href="bloglist?search=">Post list</a></li>
-                <li><a href="#">Add a post</a></li>
+                <li><a href="#">Post detail</a></li>
 
             </ul>
         </div>

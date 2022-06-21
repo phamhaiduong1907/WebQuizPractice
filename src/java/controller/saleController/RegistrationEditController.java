@@ -45,7 +45,7 @@ public class RegistrationEditController extends HttpServlet {
 
     final static String MISSINGINPUT = "Please fill in required fill";
     final static String ERRORSQL = "An accoutn with that username is already exists! Please consider using a different username.";
-    final static String SUCESSFULLY = "Your account is ready! Please check your email for further information.";
+    final static String SUCESSFULLY = "Account has been sent successfully";
     final static String SENDEMAILERROR = "There were some problem contacting your email! Please try again.";
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
@@ -89,7 +89,7 @@ public class RegistrationEditController extends HttpServlet {
         if (request.getParameter("id") != null) {
             Id = Integer.parseInt(request.getParameter("id"));
             Registration r = rdbc.getARegistration(Id);
-            if (!r.getUser().getAccount().getUsername().equalsIgnoreCase(loginUser.getAccount().getUsername())) {
+            if (!r.getUpdatedBy().getAccount().getUsername().equalsIgnoreCase(loginUser.getAccount().getUsername())) {
                 request.setAttribute("mess", "You do not have permission to edit this registration!");
                 request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
             }
@@ -224,6 +224,7 @@ public class RegistrationEditController extends HttpServlet {
 
                 }
             } else {
+                
                 MiscUtil miscUtil = new MiscUtil();
                 String password = miscUtil.getRandom();
                 String password_clone = password;
@@ -242,7 +243,8 @@ public class RegistrationEditController extends HttpServlet {
                 user.setGender(gender);
                 user.setPhoneNumber(raw_phone);
                 udbc.insertUser(user);
-                rdbc.insertReg(user, courseID, pricePackage, status, "longdthe161129@fpt.edu.vn");
+                User loginUser = (User) request.getSession().getAttribute("user");
+                rdbc.insertReg(user, courseID, pricePackage, status, loginUser.getAccount().getUsername());
                 if (accountDBContext.insertAccount(account)) {
                     Email email = new Email();
                     email.setFrom(COMPANYGMAIL);

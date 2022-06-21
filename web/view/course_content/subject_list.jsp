@@ -28,7 +28,7 @@
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-        <a href="newsubject">Create a new subject</a>
+
 
         <section class="main">
             <section class="left__block">

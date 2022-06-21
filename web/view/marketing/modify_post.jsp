@@ -42,7 +42,7 @@
             <ul class="breadcrumb">
                 <li><a href="../home">Home</a></li>
                 <li><a href="bloglist?search=">Post list</a></li>
-                <li><a href="#">Add a post</a></li>
+                <li><a href="#">Edit post</a></li>
 
             </ul>
         </div>
@@ -141,9 +141,10 @@
 
 
                                 <div class="form-group"> 
-                                    <label for="thumbnail">Thumbnail</label>
-                                    <img width="100%" src="${pageContext.request.contextPath}/images/blog/${post.thumbnailUrl}">
-                                    <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file" >
+                                    <label for="thumbnail">Current thumbnail</label>
+                                    <img width="100%" src="${pageContext.request.contextPath}/images/blog/${post.thumbnailUrl}"  id="output">
+                                    <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file" onchange="loadFile(event)">
+                                    
                                 </div>
 
 
@@ -204,6 +205,13 @@
                         });
 
             });
+            var loadFile = function (event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function () {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
+            };
         </script>
     </body>
 </html>

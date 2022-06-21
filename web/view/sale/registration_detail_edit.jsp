@@ -39,7 +39,7 @@
                         <tr>
                             <th>Username</th>
                             <td>
-                                <input disabled  required type="email" name="username" value="${requestScope.user.account.username}" placeholder="Enter username...">
+                                <input <c:if test="${requestScope.registration != null}">disabled</c:if>  required type="email" name="username" value="${requestScope.user.account.username}" placeholder="Enter username...">
                             </td>
                         </tr>
                         <tr>

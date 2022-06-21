@@ -110,7 +110,9 @@
 
                                 <div class="form-group"> 
                                     <label for="thumbnail">Thumbnail</label>
-                                    <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file">
+                                    <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file" onchange="loadFile(event)">
+
+                                    <img  id="output" src="${pageContext.request.contextPath}/images/default_user_avatar.png">
                                 </div>
 
 
@@ -175,6 +177,13 @@
                         });
 
             });
+            var loadFile = function (event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function () {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
+            };
         </script>
     </body>
 </html>
