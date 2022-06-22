@@ -16,14 +16,15 @@ h1 {
     margin-bottom: 20px;
 }
 form {
+    color: white;
     margin: 0 auto;
     text-align: left;
-    padding: 0px 15px 25px 15px;
+    padding: 25px;
     display: block;
-    width: 70%;
+    width: 50%;
     border: none;
-    background-color: #818181;
-    border-radius: 10px;
+    background-color: #0033cc;
+    border-radius: 8px;
 }
 
 h2, h3 {
@@ -35,14 +36,14 @@ table {
 th, td {
     font-size: 22px;
     text-align: left;
-    padding: 5px;
+    padding: 10px;
 }
 
 input {
     padding: 5px;
     width: 100%;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     font-size: 20px;
 }
 
@@ -51,6 +52,20 @@ select {
     font-size: 22px;
     padding: 5px;
     border-radius: 10px;
+}
+
+.abtn {
+    background-color: lightgray;
+    color: #070767;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+
+input[type=submit] {
+    background-color: lightgray;
 }
 
 input[type=date],[type=submit],[type=radio] {

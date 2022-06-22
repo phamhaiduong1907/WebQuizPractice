@@ -194,3 +194,20 @@
 .nxt-btn:hover img {
     opacity: 1;
 }
+
+#slider, .carousel-item{
+    height: 520px;
+}
+
+.carousel-item a{
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.carousel-item a .block__item,
+.carousel-item a .block__item img{
+    height: 100%;
+}

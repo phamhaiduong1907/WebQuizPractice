@@ -42,7 +42,7 @@
             <ul class="breadcrumb">
                 <li><a href="../home">Home</a></li>
                 <li><a href="bloglist?search=">Post list</a></li>
-                <li><a href="#">Add a post</a></li>
+                <li><a href="#">Post detail</a></li>
 
             </ul>
         </div>
@@ -60,102 +60,61 @@
 
                             <h1>Post detail</h1>
 
-                            <form action="view" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="postID" value="${requestScope.post.postID}">
-                                <div class="form-group">
-                                    <label for="title">Title <span class="require">*</span> </label>
-                                    <input type="text" class="form-control" name="title" value="${requestScope.post.title}"/>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="title">Brief info <span class="require">*</span></label>
-                                    <input width="auto" type="text" class="form-control" name="briefInfo" value="${requestScope.post.briefInfo}"/>
-                                </div>
+                            <input type="hidden" name="postID" value="${requestScope.post.postID}">
+                            <div class="form-group">
+                                <label for="title">Title <span class="require">*</span> </label>
+                                <input readonly type="text" class="form-control" name="title" value="${requestScope.post.title}"/>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="title">Category<span class="require">*</span></label>
-                                    <select class="form-control" id="select_category">
-                                        <c:forEach items="${requestScope.categories}" var="c">
-                                            <c:choose >
-                                                <c:when test="${requestScope.post.subcategory.categoryID == c.categoryID}">
-                                                    <option selected value="${c.categoryID}">${c.categoryName}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option  value="${c.categoryID}">${c.categoryName}</option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="title">Brief info <span class="require">*</span></label>
+                                <input readonly width="auto" type="text" class="form-control" name="briefInfo" value="${requestScope.post.briefInfo}"/>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="title">Sub Category<span class="require">*</span></label>
-                                    <div id="subCategory_by_category">
-                                        <select class="form-control"  id='' name = 'subcategoryID'>
-                                            <option selected="selected" value="${requestScope.post.subcategory.subcategoryID}">${requestScope.post.subcategory.subcategoryName} </option>
-                                        </select>
-                                    </div>
+                            <div class="form-group">
+                                <label for="title">Category<span class="require">*</span></label>
+                                <input readonly width="auto" type="text" class="form-control" name="title" value="${requestScope.category.categoryName}"/>
+                            </div>
 
-                                </div>
+                            <div class="form-group">
+                                <label for="title">Sub Category<span class="require">*</span></label>
+                                <input readonly width="auto" type="text" class="form-control" name="subCategory" value="${requestScope.post.subcategory.subcategoryName}"/>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="isStatus">Display status</label>
-                                    <select class="form-control" name="isStatus" id="isStatus">
-                                        <c:choose>
-                                            <c:when test="${requestScope.post.status}">
-                                                <option value="true" selected>Yes</option>
-                                                <option value="false">No</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="true" >Yes</option>
-                                                <option value="false" selected>No</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="isStatus">Display status</label>
+                                <input readonly width="auto" type="text" class="form-control" name="status" value="${requestScope.post.status}"/>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="isFeatured">Display status</label>
-                                    <select class="form-control" name="isFeatured" id="isFeatured">
-                                        <c:choose>
-                                            <c:when test="${requestScope.post.isFeatured}">
-                                                <option value="true" selected>Yes</option>
-                                                <option value="false">No</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="true" >Yes</option>
-                                                <option value="false" selected>No</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="isFeatured">Featured</label>
+                                <input readonly width="auto" type="text" class="form-control" name="isFeatured" value="${requestScope.post.isFeatured}"/>
+                            </div>
 
 
 
 
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea value="${requestScope.post.description}" rows="5" class="form-control" name="description"  >${requestScope.post.description}</textarea>
-                                </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea readonly value="${requestScope.post.description}" rows="5" class="form-control" name="description"  >${requestScope.post.description}</textarea>
+                            </div>
 
 
 
-                                <div class="form-group"> 
-                                    <label for="thumbnail">Thumbnail</label>
-                                    <img width="100%" src="${pageContext.request.contextPath}/images/blog/${post.thumbnailUrl}">
-                                    <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file" >
-                                </div>
+                            <div class="form-group"> 
+                                <label for="thumbnail">Thumbnail</label>
+                                <img width="100%" src="${pageContext.request.contextPath}/images/blog/${post.thumbnailUrl}">
+                            </div>
 
 
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">
-                                        Create
-                                    </button>
-                                    <button class="btn btn-default">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="form-group">
+
+                                <a class="addlink" href="${pageContext.request.contextPath}/marketing/modifypost?postID=${requestScope.post.postID}">Edit</a>
+
+
+                            </div>
+
                         </div>
 
                     </div>

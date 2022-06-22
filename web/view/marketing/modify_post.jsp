@@ -12,20 +12,21 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add post</title>
+        <title>Post detail</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
+
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
+
 
 
 
@@ -37,41 +38,52 @@
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-        <ul class="breadcrumb">
-            <li><a href="../home">Home</a></li>
-            <li><a href="bloglist?search=">Post list</a></li>
-            <li><a href="#">Create a post</a></li>
+        <div class="right_content">
+            <ul class="breadcrumb">
+                <li><a href="../home">Home</a></li>
+                <li><a href="bloglist?search=">Post list</a></li>
+                <li><a href="#">Edit post</a></li>
 
-        </ul>
-
+            </ul>
+        </div>
         <section class="main">
+            <!-- LEFT NAVIGATION BAR -->
+
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
+
                 <div class="container">
                     <div class="row">
 
                         <div class="col-md-8 col-md-offset-2">
 
-                            <h1>Create post</h1>
+                            <h1>Post detail</h1>
 
-                            <form action="addblog" method="POST" enctype="multipart/form-data">
-
+                            <form action="modifypost" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="postID" value="${requestScope.post.postID}">
                                 <div class="form-group">
                                     <label for="title">Title <span class="require">*</span> </label>
-                                    <input type="text" class="form-control" name="title" required/>
+                                    <input type="text" class="form-control" name="title" value="${requestScope.post.title}"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Brief info <span class="require">*</span></label>
-                                    <input type="text" class="form-control" name="briefInfo" required/>
+                                    <input width="auto" type="text" class="form-control" name="briefInfo" value="${requestScope.post.briefInfo}"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Category<span class="require">*</span></label>
                                     <select class="form-control" id="select_category">
                                         <c:forEach items="${requestScope.categories}" var="c">
-                                            <option value="${c.categoryID}">${c.categoryName}</option>
+                                            <c:choose >
+                                                <c:when test="${requestScope.post.subcategory.categoryID == c.categoryID}">
+                                                    <option selected value="${c.categoryID}">${c.categoryName}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option  value="${c.categoryID}">${c.categoryName}</option>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -79,7 +91,9 @@
                                 <div class="form-group">
                                     <label for="title">Sub Category<span class="require">*</span></label>
                                     <div id="subCategory_by_category">
-                                        <select class="form-control"  id='' name = 'subcategoryID'> </select>
+                                        <select class="form-control"  id='' name = 'subcategoryID'>
+                                            <option selected="selected" value="${requestScope.post.subcategory.subcategoryID}">${requestScope.post.subcategory.subcategoryName} </option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -87,47 +101,63 @@
                                 <div class="form-group">
                                     <label for="isStatus">Display status</label>
                                     <select class="form-control" name="isStatus" id="isStatus">
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                        <c:choose>
+                                            <c:when test="${requestScope.post.status}">
+                                                <option value="true" selected>Yes</option>
+                                                <option value="false">No</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="true" >Yes</option>
+                                                <option value="false" selected>No</option>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="isFeatured">Featured</label>
-                                    <select class="form-control" name="isFeatured" id="isStatus">
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                    <label for="isFeatured">Display status</label>
+                                    <select class="form-control" name="isFeatured" id="isFeatured">
+                                        <c:choose>
+                                            <c:when test="${requestScope.post.isFeatured}">
+                                                <option value="true" selected>Yes</option>
+                                                <option value="false">No</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="true" >Yes</option>
+                                                <option value="false" selected>No</option>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </select>
                                 </div>
+
+
 
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea rows="5" class="form-control" name="description" required></textarea>
+                                    <textarea value="${requestScope.post.description}" rows="5" class="form-control" name="description"  >${requestScope.post.description}</textarea>
                                 </div>
 
 
 
                                 <div class="form-group"> 
-                                    <label for="thumbnail">Thumbnail</label>
+                                    <label for="thumbnail">Current thumbnail</label>
+                                    <img width="100%" src="${pageContext.request.contextPath}/images/blog/${post.thumbnailUrl}"  id="output">
                                     <input class="form-control" type="file" name="thumbnail" placeholder="link to a .png file" onchange="loadFile(event)">
-
-                                    <img  id="output" src="${pageContext.request.contextPath}/images/default_user_avatar.png">
+                                    
                                 </div>
 
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
-                                        Create
+                                        Save
                                     </button>
                                     <button class="btn btn-default">
-                                        Cancel
+                                        <a href="${pageContext.request.contextPath}/marketing/view?postID=${requestScope.post.postID}">Cancel</a>
                                     </button>
+
                                 </div>
                             </form>
-                        </div>
-                        <div class="error__message">
-                            <p>${requestScope.errorMessage}</p>
                         </div>
 
                     </div>
@@ -137,14 +167,12 @@
 
 
             </aside>
-
         </section>
-
         <footer>
             FOOTER
         </footer>
-
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+
 
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>

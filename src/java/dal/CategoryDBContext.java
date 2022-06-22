@@ -60,7 +60,7 @@ public class CategoryDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, categoryID);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 Category category = new Category();
                 category.setCategoryID(rs.getInt("categoryID"));
                 category.setCategoryName(rs.getString("categoryName"));
@@ -71,6 +71,32 @@ public class CategoryDBContext extends DBContext {
         }
         return null;
     }
-    
-    
+
+    public Category getCategoryBySubCategoryID(int subCategoryID) {
+        String sql = "select * from Category c join SubCategory s\n"
+                + "on c.categoryID = s.categoryID\n"
+                + "where subCategoryID = ? ";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, subCategoryID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+
+                Category c = new Category();
+                c.setCategoryID(rs.getInt("categoryID"));
+                c.setCategoryName(rs.getString("categoryName"));
+                c.setSubcategories(dbSubCate.getSubcategories(rs.getInt("categoryID")));
+                return c;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
 }

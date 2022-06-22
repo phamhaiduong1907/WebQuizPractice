@@ -103,8 +103,8 @@ footer {
 
 #uploadBtnb{
     position: absolute;
-    top: 50%;
-    left: 69.5%;
+    top: 49%;
+    left: 68%;
     height: 42px;
     width: 400px;
     transform: translateX(-50%);

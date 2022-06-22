@@ -49,7 +49,7 @@ public class HomePageController extends HttpServlet {
         if(account == null){
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }else if(account.getRole().getRoleID()==5){
-            request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             
         }else if(account.getRole().getRoleID()==4){
             request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);

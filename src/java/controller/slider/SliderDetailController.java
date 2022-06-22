@@ -52,7 +52,8 @@ public class SliderDetailController extends HttpServlet {
             realPathWeb += "web\\images\\slider";
             String filename = "slider_thumbnail_id" + sliderID + ".png";
             UploadFile.copyPartToFile(imageURLUpdate, realPath + "/" + filename);
-            UploadFile.copyPartToFile(imageURLUpdate, realPathWeb+"/"+filename);
+            UploadFile.copyPartToFile(imageURLUpdate, realPathWeb + "/" + filename);
+
             imageURL = "images/slider/" + filename;
             dbSLider.updateSlider(sliderID, title, backlink, status, imageURL, note);
             response.sendRedirect("view?sliderID=" + sliderID);
