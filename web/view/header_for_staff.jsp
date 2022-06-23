@@ -9,41 +9,37 @@
 <!--<link rel="shortcut icon" href="https://drive.google.com/file/d/1QaLMGkP3YCk6oATgxEZbaZrhkf7w87gv/view?usp=sharing">-->
 <!DOCTYPE html>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
 
 <!--Header for guest -->
 <c:if test="${sessionScope.account == null}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/subjectList">Subject</a></li>
-                <li><a href="${pageContext.request.contextPath}/bloglist">Blog</a></li>
-
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton" style="pointer-events: auto; line-height: 90px !important;">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <p class="login " id="loginButton"><i class="fa fa-user-alt"></i>
-                            <c:out value="${sessionScope.account.username}"/>
-                        </p>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="${pageContext.request.contextPath}/home"class="nav__item">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/subjectList"class="nav__item">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bloglist"class="nav__item">Blog</a></li>
+                        <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>
@@ -52,37 +48,33 @@
 <!--Cusomter header when logged in-->
 <c:if test="${sessionScope.account.role.roleID == 5}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/subjectList">Subject</a></li>
-                <li><a href="${pageContext.request.contextPath}/bloglist">Blog</a></li>
-                <li><a href="${pageContext.request.contextPath}/registrationsearch?search=">Registration</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="${pageContext.request.contextPath}/home" class="nav__item">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/subjectList" class="nav__item">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bloglist" class="nav__item">Blog</a></li>
+                    <li><a href="${pageContext.request.contextPath}/registrationsearch?search=" class="nav__item">Registration</a></li>
 
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <div class="welcome__user">
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                        </div>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>
@@ -90,150 +82,144 @@
 
 <c:if test="${sessionScope.account.role.roleID == 4}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/slider/list">Slider</a></li>
-                <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=">Blog</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#" class="nav__item">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/slider/list" class="nav__item">Slider</a></li>
+                    <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
 
-
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <div class="welcome__user">
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                        </div>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>
+
+
 
 <c:if test="${sessionScope.account.role.roleID == 1}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/slider/list">Slider</a></li>
-                <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=">Blog</a></li>
-                <li><a href="${pageContext.request.contextPath}/admin/userlist">Userlist</a></li>
-                <li><a href="${pageContext.request.contextPath}/managesubject">Subject</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/slider/list" class="nav__item">Slider</a></li>
+                    <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/userlist" class="nav__item">Userlist</a></li>
+                    <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
 
-
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <div class="welcome__user">
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                        </div>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>
 
+
+
+
+
 <c:if test="${sessionScope.account.role.roleID == 3}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/sale/registrationlist">Sale</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/sale/registrationlist" class="nav__item">Sale</a></li>
 
-
-
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <div class="welcome__user">
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                        </div>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>
 <!--header for expert-->
+
 <c:if test="${sessionScope.account.role.roleID == 2}">
     <header>
-        <div class="heading_logo">
-            <img src="${pageContext.request.contextPath}/images/logo.png" alt="alt"/>
-        </div>
-        <nav>
-            <ul class="nav_links">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/managesubject">Subject</a></li>
+        <div class="header__container">
+            <a href="${pageContext.request.contextPath}/home">
+                <img src="${pageContext.request.contextPath}/images/logov2.png" alt="logo">
+            </a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
 
-
-
-                <c:if  test="${sessionScope.account == null}">
-                    <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                    </c:if>
-                    <c:if  test="${sessionScope.account != null}">
-                    <li>
-                        <div class="welcome__user">
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                        </div>
-                        <div class="submenu">
-                            <ul>
-                                <li><a href="#" id="openProfile">User Profile</a></li>
-                                <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                    <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account == null}">
+                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        </c:if>
+                        <c:if  test="${sessionScope.account != null}">
+                        <li>
+                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <ul class="submenu">
+                                <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
+                                <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
+                                <li class="submenu__item"><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
 
     </header>
 </c:if>

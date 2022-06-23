@@ -34,6 +34,27 @@ html, body{
 }
 
 .addlink:hover, .addlink:active{
-    background-color: #4CAF50;
-    
+    background-color: #4CAF50; 
+}
+
+img{
+    object-fit: cover;
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 200px;
+    background-color: #000;
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+footer p{
+    margin: 0;
+}
+
+.footer__group{
+    font-weight: bold;
 }

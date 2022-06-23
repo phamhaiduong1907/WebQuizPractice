@@ -13,6 +13,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import model.Category;
 import model.Post;
@@ -44,10 +46,9 @@ public class MarketingBlogListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         BlogDBContext dbBlogforSearch = new BlogDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
-        SubCategoryDBContext db = new SubCategoryDBContext();
         int pagesize = 3;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
@@ -80,19 +81,67 @@ public class MarketingBlogListController extends HttpServlet {
         search = search.trim();
         String queryString = request.getQueryString();
         subcateID = subcateID.trim();
-        ArrayList<Post> searchPost = dbBlogforSearch.searchPost(search, subcateID, sort, pageindex, pagesize);
+        ArrayList<Integer> subcategories = new ArrayList<>();
+
+        String[] subcategory = request.getParameterValues("subcategory");
+        if (subcategory != null) {
+            for (int i = 0; i < subcategory.length; i++) {
+                subcategories.add(Integer.parseInt(subcategory[i]));
+            }
+        }
+        String author = request.getParameter("author");
+        String raw_status = request.getParameter("status");
+        String raw_isFeatured = request.getParameter("isFeatured");
+        String raw_from = request.getParameter("from");
+        String raw_to = request.getParameter("to");
+
+        Boolean status = null;
+        Boolean isFeatured = null;
+        Date from = null;
+        Date to = null;
+
+        if (author == null) {
+            author = "";
+        }
+
+        if (raw_from != null && raw_from.trim().length() > 0) {
+            from = Date.valueOf(request.getParameter("from"));
+        }
+        if (raw_to != null && raw_to.trim().length() > 0) {
+            to = Date.valueOf(request.getParameter("to"));
+        }
+
+        if (raw_status != null) {
+            status = raw_status.equals("true");
+        }
+        if (raw_isFeatured != null) {
+            isFeatured = raw_isFeatured.equals("true");
+        }
+
+        ArrayList<Post> posts = dbBlogforSearch.getPostByFilter(subcategories, author, search, status, isFeatured,
+                from, to, "", "", pageindex, pagesize);
+
         int count = dbBlogforSearch.countSearchBlog(search, subcateID);
         log("" + count);
         int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+
+        request.getSession().setAttribute("author", author);
+        request.getSession().setAttribute("status", raw_status);
+        request.getSession().setAttribute("isFeatured", raw_isFeatured);
+        request.getSession().setAttribute("from", from);
+        request.getSession().setAttribute("to", to);
+        request.getSession().setAttribute("title", search);
+        request.getSession().setAttribute("subcategory", subcategory);
+
         request.setAttribute("categories", categories);
-        request.setAttribute("posts", searchPost);
+        request.setAttribute("posts", posts);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("pageindex", pageindex);
         request.setAttribute("count", count);
         request.setAttribute("search", search);
         request.setAttribute("url", "bloglist");
         request.setAttribute("querystring", queryString);
-        
+
         request.getRequestDispatcher("../view/marketing/post_list.jsp").forward(request, response);
     }
 
