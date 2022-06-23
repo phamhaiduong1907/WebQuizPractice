@@ -109,27 +109,12 @@ li{
     padding: 10px;
 }
 
-nav ul li:hover{
-    background-color: #3e3b3b;
-    cursor: pointer;
-}
-
 .right{
     flex: 1;
 }
 
 .right_content{
     padding: 3% 5%;
-}
-
-footer{
-    background-color: #303c4c;
-    color: #fff;
-    width: 100%;
-    display: block;
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 320px;
 }
 
 .user_log:hover{

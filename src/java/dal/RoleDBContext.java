@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Feature;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +47,6 @@ public class RoleDBContext extends DBContext {
                     f.setFeatureID(rs_feature.getInt("featureID"));
                     f.setUrl(rs_feature.getString("URL"));
                     f.setFeatureName(rs_feature.getString("featureName"));
-                    f.setIsDisplayed(rs_feature.getBoolean("isDisplayed"));
                     features.add(f);
                 }
                 role.setFeatures(features);
@@ -118,7 +115,6 @@ public class RoleDBContext extends DBContext {
                     f.setFeatureID(rs_feature.getInt("featureID"));
                     f.setUrl(rs_feature.getString("URL"));
                     f.setFeatureName(rs_feature.getString("featureName"));
-                    f.setIsDisplayed(rs_feature.getBoolean("isDisplayed"));
                     features.add(f);
                 }
                 role.setFeatures(features);

@@ -6,7 +6,7 @@ function readURL(input) {
         reader.onload = function (e) {
             blah.src = e.target.result;
             blah.style.display = 'block';
-            blah.style.width = '90%';
+            blah.style.width = '70%';
             blah.style.height = '250px';
         };
 

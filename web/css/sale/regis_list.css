@@ -10,10 +10,13 @@ h1 {
     margin-bottom: 30px;
 }
 
+table, tr, td{
+    font-size: 0.8rem;
+}
+
 td, th {
     border: 1px solid black;
     padding: 5px;
-    font-size: 20px;
 }
 th {
     text-align: center;
@@ -51,7 +54,10 @@ input[type=submit] {
 
 .filter_form {
     float: right;
+}
 
+.main_table{
+    overflow-x: scroll;
 }
 
 .pagination {
@@ -84,4 +90,26 @@ input[type=submit] {
 }
 .submenu{
     bottom: -270px;
+}
+
+td a{
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 5px;
+    color: #fff;
+    background-color: #65badc;
+    border-radius: 5px;
+}
+
+td a:hover{
+    background-color: #3cadda;
+    color: #fff;    
+}
+
+.action__edit{
+    background-color: orange;
+}
+
+.action__edit:hover{
+    background-color: #e4b050;
 }

@@ -348,7 +348,7 @@ public class BlogDBContext extends DBContext {
 
     public ArrayList<Post> getPostForHomePage() {
         ArrayList<Post> posts = new ArrayList<>();
-        String sql = "select top 4 * from Post\n"
+        String sql = "select top 3 * from Post\n"
                 + "where isFeatured = 1 and [status] = 1\n"
                 + "order by updatedDate desc, postid desc";
 

@@ -24,6 +24,7 @@ public class AccountDBContext extends DBContext {
      *
      * @param username
      * @param uri
+     * @param roleID (if account is blocked, roleID will be set to -1 and can access any feature)
      * @return a boolean (yes means that the user can access the uri and the
      * otherwise)
      */
@@ -188,7 +189,6 @@ public class AccountDBContext extends DBContext {
                     f.setFeatureID(rs_feature.getInt("featureID"));
                     f.setUrl(rs_feature.getString("URL"));
                     f.setFeatureName(rs_feature.getString("featureName"));
-                    f.setIsDisplayed(rs_feature.getBoolean("isDisplayed"));
                     features.add(f);
                 }
                 r.setFeatures(features);
@@ -332,39 +332,4 @@ public class AccountDBContext extends DBContext {
         }
         return accounts;
     }
-
-//    public boolean insertAccount(Account account) {
-//        String sql = "INSERT INTO [Account]\n"
-//                + "           ([username]\n"
-//                + "           ,[password]\n"
-//                + "           ,[roleID])\n"
-//                + "     VALUES\n"
-//                + "           (?\n"
-//                + "           ,?\n"
-//                + "           ,?)";
-//        PreparedStatement stm = null;
-//        try {
-//            stm = connection.prepareStatement(sql);
-//            stm.setString(1, account.getUsername());
-//            stm.setString(2, account.getPassword());
-//            stm.setInt(3, account.getRole().getRoleID());
-//            return stm.executeUpdate() >= 1;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            if (stm != null)
-//                try {
-//                stm.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            if (connection != null)
-//                try {
-//                connection.close();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        return false;
-//    }
 }

@@ -4,34 +4,47 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     top: 0;
-    z-index: 10001;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10000;
     display: flex;
     justify-content: center;
     align-items: center;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-opacity: 0;
+    -webkit-transform: scale(.2,.2);
+    transition: all .3s cubic-bezier(.4,0,1,1);
+}
+
+#popupSection.active{
+    -webkit-transform: scale(1,1);
+    -webkit-opacity: 1;
+    opacity: 1;
+    visibility: visible;
 }
 
 .popup__content{
     background-color: #fff;
-    padding: 30px 20px;
     position: relative;
+    border-radius: 10px;
+    width: 450px;
+    max-height: 700px;
 }
 
 .popup__content h2{
     font-weight: bold;
-    text-align: center ;
+    padding: 0 10px;
+    margin-top: 10px;
 }
 
-.popup__content input{
+.popup__content input[type="text"],
+.popup__content input[type="password"]{
     display: block;
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-}
-
-.signup__gender{
-    display: flex;
-    align-items: center;
 }
 
 .signup__gender input{
@@ -43,7 +56,7 @@
     margin: 0;
 }
 
-.form__login{
+.form__login, .form__signup, .form__reset{
     padding: 0 10px 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid #d1d1d1;
@@ -75,8 +88,8 @@
 
 .close{
     position: absolute;
-    right: 0;
-    top: 25px;
+    right: 10px;
+    top: 0px;
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -93,17 +106,167 @@
 
 .popup__reset-form{
     padding: 20px 0;
-    width: 30vw;
 }
 
 .popup__reset-form h2{
     text-align: center;
 }
 
+.popup .form__login input[type="text"], 
+.popup .form__signup input[type="text"], 
+.popup .form__reset input[type="text"],
+.popup .form__login input[type="password"], 
+.popup .form__signup input[type="password"], 
+.popup .form__reset input[type="password"],
+.popup .form__user-profile input[type="text"], 
+.popup .form__change-password input[type="text"],
+.popup .form__user-profile input[type="password"], 
+.popup .form__change-password input[type="password"]{
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 0.8rem;
+    color: #6b6b6b;
+    border-radius: 5px;
+    transition: 0.25s ease-in-out;
+}
+
+.popup .form__login input[type="text"]:focus, 
+.popup .form__signup input[type="text"]:focus, 
+.popup .form__reset input[type="text"]:focus,
+.popup .form__login input[type="password"]:focus, 
+.popup .form__signup input[type="password"]:focus, 
+.popup .form__reset input[type="password"]:focus,
+.popup .form__user-profile input[type="text"]:focus, 
+.popup .form__change-password input[type="text"]:focus,
+.popup .form__user-profile input[type="password"]:focus, 
+.popup .form__change-password input[type="password"]:focus{
+    border-color: #0056d2;
+    box-shadow: 0 0 3px 3px rgba(142, 181, 235, .5);
+}
+
+.popup label, .popup .signup__gender, .popup .signup__gender h5{
+    font-size: 0.8rem!important;
+    color: #6b6b6b;
+}
+
+.popup .form__signup .signup__gender h5{
+    font-size: 0.8rem!important;
+    margin-bottom: 5px;
+}
+
+.signup__gender .gender__select{
+    display: flex;
+    align-items: center;
+}
+
+.signup__gender .gender__select input[type="radio"]{
+    margin-right: 5px;
+}
+
+.gender__select .gender__item{
+    margin-right: 25px;
+}
+
+.popup button{
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #0056d2;
+    border: 1px solid #0056d2;
+    color: #fff;
+    transition: 0.25s ease-in-out;
+    cursor: pointer;
+}
+
+.popup button:hover{
+    background-color: #fff;
+    border: 1px solid #0056d2;
+    color: #0056d2;
+}
+
+.welcome__status{
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    padding: 5px;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.welcome__status.status__login{
+    background-color: #0056d2;
+}
+
+.welcome__status.status__signup{
+    background-color: #ffb72f;
+}
+
+.popup__reset-form h2{
+    margin-top: 0;
+}
+
+.form__change-password h2{
+    margin-bottom: 10px;
+    margin-top: 0;
+    padding-left: 0;
+}
+
+.popup__signup-form,
+.popup__login-form,
+.popup__reset-form,
+.form__user-profile,
+.form__change-password{
+    max-height: 700px;
+    padding: 30px 20px;
+}
+
+.popup__signup-form,
+.form__user-profile{
+    overflow-y: scroll;
+}
+
 .user__avatar{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     background-color: #a1a1a1;
     margin: 0 auto;
     margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #000;
+}
+
+#photo{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+#profilePicture{
+    display: none;
+}
+
+#uploadBtn{
+    height: 30%;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    transform: translateY(-100%)!important;
+    position: absolute;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: wheat;
+    line-height: 50px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+.form__user-profile h2{
+    text-align: center;
 }
