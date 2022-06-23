@@ -178,7 +178,7 @@
     <servlet>
         <servlet-name>ModifyPostController</servlet-name>
         <servlet-class>controller.marketingController.ModifyPostController</servlet-class>
-          </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ViewSliderController</servlet-name>
         <servlet-class>controller.slider.ViewSliderController</servlet-class>
@@ -190,6 +190,10 @@
     <servlet>
         <servlet-name>RegistrationEditController</servlet-name>
         <servlet-class>controller.saleController.RegistrationEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetPostByFilter</servlet-name>
+        <servlet-class>controller.marketingController.GetPostByFilter</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -378,7 +382,7 @@
     <servlet-mapping>
         <servlet-name>ModifyPostController</servlet-name>
         <url-pattern>/marketing/modifypost</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewSliderController</servlet-name>
         <url-pattern>/slider/view</url-pattern>
@@ -390,6 +394,10 @@
     <servlet-mapping>
         <servlet-name>RegistrationEditController</servlet-name>
         <url-pattern>/sale/registrationedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPostByFilter</servlet-name>
+        <url-pattern>/marketing/GetPostByFilter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

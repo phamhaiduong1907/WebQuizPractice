@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -368,6 +369,154 @@ public class BlogDBContext extends DBContext {
                 post.setIsFeatured(rs.getBoolean("isFeatured"));
                 post.setStatus(rs.getBoolean("status"));
 
+                post.setUpdatedDate(rs.getDate("updatedDate"));
+                post.setThumbnailUrl(rs.getString("thumbnailURL"));
+                posts.add(post);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return posts;
+    }
+
+    public ArrayList<Post> getPostByFilter(ArrayList<Integer> subcategoryIDs, String author, String title,
+            Boolean status, Boolean isFeatured, Date from, Date to, String orderBy, String order, int pageindex, int pagesize) {
+        String sub = ""; // subcategory sql string 
+        String sql = "";
+
+        if (orderBy.trim().length() == 0 || orderBy == null) {
+            orderBy = "updatedDate";
+        }
+        if (order.trim().length() == 0 || order == null) {
+            order = "ASC";
+        }
+
+        for (int i = 0; i < subcategoryIDs.size(); i++) { // put them into in sql
+            if (i == subcategoryIDs.size() - 1) {
+                sub += "?";
+            } else {
+                sub += "?,";
+            }
+        }
+
+        ArrayList<Post> posts = new ArrayList<>();
+        String intersect = "\n intersect \n";
+
+        String sql_base = " select * from Post";
+        sql += sql_base;
+        String sql_subCategory = " select * from Post\n"
+                + "where subCategoryID in (" + sub + ")";
+        if (subcategoryIDs.size() > 0) {
+            sql += intersect;
+            sql += sql_subCategory;
+        }
+        String sql_author = " select * from Post\n"
+                + "where author like ?";
+        if (author.trim().length() > 0 && author != null) {
+            sql += intersect;
+            sql += sql_author;
+        }
+
+        String sql_title = " select * from Post\n"
+                + "where title like ?";
+        if (title.length() > 0 && title != null) {
+            sql += intersect;
+            sql += sql_title;
+        }
+
+        String sql_status = " select * from Post\n"
+                + "where [status] = ?";
+        if (status != null) {
+            sql += intersect;
+            sql += sql_status;
+        }
+
+        String sql_isFeatured = " select * from Post\n"
+                + "where isFeatured = ?";
+        if (isFeatured != null) {
+            sql += intersect;
+            sql += sql_isFeatured;
+        }
+
+        String sql_fromDate = " select * from Post\n"
+                + "where updatedDate >= ?";
+        if (from != null) {
+            sql += intersect;
+            sql += sql_fromDate;
+        }
+
+        String sql_toDate = " select * from Post\n"
+                + "where updatedDate <= ?";
+        if (to != null) {
+            sql += intersect;
+            sql += sql_toDate;
+        }
+
+        String sql_orederAndPaging = " order by " + orderBy + " " + order + " \n"
+                + " OFFSET (?-1)*? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY";
+
+        sql += sql_orederAndPaging;
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            int i = 1;
+            stm = connection.prepareStatement(sql);
+            if (subcategoryIDs.size() > 0) {
+                for (Integer in : subcategoryIDs) {
+                    stm.setInt(i, in);
+                    i++;
+                }
+            }
+            if (author.trim().length() > 0 && author != null) {
+                stm.setString(i,"%"+ author + "%");
+                i++;
+            }
+            if (title.length() > 0 && title != null) {
+                stm.setString(i, "%"+ title + "%");
+                i++;
+            }
+            if (status != null) {
+                stm.setBoolean(i, status);
+                i++;
+            }
+
+            if (isFeatured != null) {
+                stm.setBoolean(i, isFeatured);
+                i++;
+            }
+
+            if (from != null) {
+                stm.setDate(i, from);
+                i++;
+            }
+
+            if (to != null) {
+                stm.setDate(i, to);
+                i++;
+            }
+
+            stm.setInt(i, pageindex);
+            stm.setInt(i+1, pagesize);
+            stm.setInt(i+2, pagesize);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                SubCategoryDBContext dbSubCate = new SubCategoryDBContext();
+                AccountDBContext accountDBContext = new AccountDBContext();
+                Post post = new Post();
+                post.setPostID(rs.getInt("postID"));
+                post.setSubcategory(dbSubCate.getSubcategory(rs.getInt("subcategoryID")));
+                post.setTitle(rs.getString("title"));
+                post.setBriefInfo(rs.getString("briefInfo"));
+                post.setDescription(rs.getString("description"));
+                post.setIsFeatured(rs.getBoolean("isFeatured"));
+                post.setStatus(rs.getBoolean("status"));
+                Account a = new Account();
+                a.setUsername(rs.getString("author"));
+                post.setAuthor(a);
                 post.setUpdatedDate(rs.getDate("updatedDate"));
                 post.setThumbnailUrl(rs.getString("thumbnailURL"));
                 posts.add(post);
