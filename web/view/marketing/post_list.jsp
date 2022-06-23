@@ -375,7 +375,7 @@
         </section>
 
 
-
+        <script src="${pageContext.request.contextPath}/js/customer/customerRegistration.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>

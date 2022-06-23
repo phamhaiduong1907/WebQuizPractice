@@ -12,8 +12,8 @@
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slider/slider_list.css">
 
         <%
@@ -34,28 +34,31 @@
             <!-- RIGHT CONTENT -->
             <aside class="right">
                 <div class="right_content">
-                    <form action="list" method="GET">
-                        <div class="tool__stripe">
-                            <div id="statusFilter">
-                                <label for="status">Choose status to filter: </label>
-                                <select name="status" id="status">
-                                    <option value="all" ${requestScope.status == "all" ?"selected":""}>All</option>
-                                    <option value="active" ${requestScope.status == "active" ?"selected":""}>Active</option>
-                                    <option value="inactive" ${requestScope.status == "inactive" ?"selected":""}>Inactive</option>
-                                </select>
-                            </div>
-                            <div id="formSearch">
-                                <div class="search__input">
-                                    <input type="text" id="searchByTitle" name="title"
-                                           placeholder="Enter title or backlink to search"
-                                           value="${requestScope.title}">
+                    <h1>Slider List</h1>
+                    <div class="tool__heading">
+                        <form action="list" method="GET" style="width: 60%">
+                            <div class="tool__stripe">
+                                <div id="formSearch">
+                                    <div class="search__input">
+                                        <input type="text" id="searchByTitle" name="title"
+                                               placeholder="Enter title or backlink to search"
+                                               value="${requestScope.title}">
+                                    </div>
+                                </div>
+                                <div id="statusFilter">
+                                    <label for="status">Choose status to filter: </label>
+                                    <select name="status" id="status">
+                                        <option value="all" ${requestScope.status == "all" ?"selected":""}>All</option>
+                                        <option value="active" ${requestScope.status == "active" ?"selected":""}>Active</option>
+                                        <option value="inactive" ${requestScope.status == "inactive" ?"selected":""}>Inactive</option>
+                                    </select>
                                 </div>
                                 <button type="submit">Search</button>
                             </div>
+                        </form>
+                        <div class="add__hyperlink">
+                            <a href="add">Add a slider</a>
                         </div>
-                    </form>
-                    <div class="add__hyperlink">
-                        <a href="add">Add a slider</a>
                     </div>
                     <c:if test="${requestScope.sliders.size() != 0}">
                         <div class="slider__list">
@@ -102,9 +105,7 @@
                         <p style="font-size: 2rem; text-align: center; font-weight: bold;">There are no records found</p>
                     </c:if>
                 </div>
-                <footer>
-                    FOOTER
-                </footer>
+                <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
             </aside>
         </section>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
@@ -132,7 +133,7 @@
                                                                 statusParam: statusParam
                                                             },
                                                             success: function (data) {
-//                                                                
+                                                                //                                                                
                                                             }
                                                         });
 

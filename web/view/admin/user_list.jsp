@@ -135,9 +135,7 @@
                     <!--<p class="not__found">There are no results found!</p>-->
                 </div>
 
-                <footer>
-                    FOOTER
-                </footer>
+                <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp" />
             </aside>
         </section>
 

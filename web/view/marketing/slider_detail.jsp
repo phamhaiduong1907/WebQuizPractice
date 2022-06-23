@@ -18,70 +18,45 @@
     </head>
 
     <body>
-         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
         <section class="main">
             <!-- LEFT NAVIGATION BAR -->
-         
+
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
                 <div class="right_content">
+                    <h1>Slider Detail</h1>
                     <form action="detail" method="POST" enctype="multipart/form-data">
-                        <table>
-                            <tr>
-                                <td><label for="sliderID">ID:</label></td>
-                                <td>
-                                    <input type="text" id="sliderID" name="sliderID" value="${requestScope.sliderByID.sliderID}" readonly>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="title">Title:</label></td>
-                                <td>
-                                    <input type="text" id="title" name="title" value="${requestScope.sliderByID.title}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="backlink">Backlink:</label></td>
-                                <td>
-                                    <input type="text" id="backlink" name="backlink" value="${requestScope.sliderByID.backlink}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="status">Status:</label></td>
-                                <td>
-                                    <select name="status" id="status">
-                                        <option value="inactive" ${requestScope.sliderByID.status?"":"selected"}>Hide</option>
-                                        <option value="active" ${requestScope.sliderByID.status?"selected":""}>Show</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="note">Note:</label></td>
-                                <td>
-                                    <textarea name="note" id="note">${requestScope.sliderByID.note}</textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="imageURL">Slider Image:</label></td>
-                                <td>
-                                    <input type="hidden" name="imageURLDefault" value="${requestScope.sliderByID.imageUrl}">
-                                    <input type='file' id="imageURL" name="imageURLUpdate" onchange="readURL(this); checkValueUpdate('imageURL', 'previewImage','${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}');"/>
-                                    <div class="slider__image">
-                                        <img id="previewImage" src="${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}"
-                                             style="width: 90%; height: 250px;">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                        <label for="sliderID">ID:</label></td>
+
+                        <input type="text" id="sliderID" name="sliderID" value="${requestScope.sliderByID.sliderID}" readonly>
+                        <label for="title">Title:</label>
+
+                        <input type="text" id="title" name="title" value="${requestScope.sliderByID.title}">
+                        <label for="backlink">Backlink:</label>
+                        <input type="text" id="backlink" name="backlink" value="${requestScope.sliderByID.backlink}">
+                        <label for="status">Status:</label>
+                        <select name="status" id="status">
+                            <option value="inactive" ${requestScope.sliderByID.status?"":"selected"}>Hide</option>
+                            <option value="active" ${requestScope.sliderByID.status?"selected":""}>Show</option>
+                        </select>
+                        <label for="note">Note:</label>
+                        <textarea name="note" id="note">${requestScope.sliderByID.note}</textarea>
+                        <label for="imageURL">Slider Image:</label>
+                        <input type="hidden" name="imageURLDefault" value="${requestScope.sliderByID.imageUrl}">
+                        <input type='file' class="form-control" id="imageURL" name="imageURLUpdate" onchange="readURL(this); checkValueUpdate('imageURL', 'previewImage', '${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}');"/>
+                        <div class="slider__image">
+                            <img id="previewImage" src="${pageContext.request.contextPath}/${requestScope.sliderByID.imageUrl}"
+                                 style="width: 70%; height: 250px;">
+                        </div>
                         <div class="slider__submit">
                             <input type="submit" value="Save">
                         </div>
                     </form>
                 </div>
-                <footer>
-                    FOOTER
-                </footer>
+                <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
             </aside>
         </section>
 
@@ -95,7 +70,7 @@
                                             var image = document.getElementById(targetId);
                                             if (input === "" || input === undefined) {
                                                 image.src = src;
-                                                image.style.width = '90%';
+                                                image.style.width = '70%';
                                                 image.style.height = '250px';
                                             }
                                         }

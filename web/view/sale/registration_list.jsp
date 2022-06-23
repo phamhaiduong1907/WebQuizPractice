@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="${path}/css/admin/index.css">
     <link rel="stylesheet" href="${path}/css/popup.css">
     <link href="${path}/css/sale/regis_list.css" rel="stylesheet"/>
+    <link href="${path}/css/table.css" rel="stylesheet"/>
     <%
         int pageIndex = (Integer) request.getAttribute("pageIndex");
         int totalPage = (Integer) request.getAttribute("totalPage");
@@ -104,7 +105,7 @@
                     <c:otherwise>
                         <table class="main_table">
                             <thead>
-                                <tr style="background-color: #68bce6">
+                                <tr>
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Registration Time</th>
@@ -114,14 +115,14 @@
                                     <th>Status</th>
                                     <th>Valid From</th>
                                     <th>Valid To</th>
-                                    <th>Upadted By</th>
+                                    <th>Updated By</th>
                                     <th colspan="2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach items="${requestScope.list}" var="r">
                                     <tr>
-                                        <td style="background-color: #ffbd6cdf">${r.registrationID}</td>
+                                        <td>${r.registrationID}</td>
                                         <td>${r.user.account.username}</td>
                                         <td>${r.registrationTime}</td>
                                         <td>${r.course.courseName}</td>
@@ -141,7 +142,7 @@
                                         <td>${r.validTo}</td>
                                         <td>${r.updatedBy.account.username}</td>
                                         <td><a href="../sale/registrationview?id=${r.registrationID}">View</a></td>
-                                        <td><a href="../sale/registrationedit?id=${r.registrationID}">Edit</a></td>
+                                        <td><a href="../sale/registrationedit?id=${r.registrationID}"class="action__edit">Edit</a></td>
                                     </tr>
                                 </c:forEach>
                             </tbody>

@@ -60,10 +60,7 @@
                     <li><a href="${pageContext.request.contextPath}/registrationsearch?search=" class="nav__item">Registration</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
-                        </c:if>
-                        <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
@@ -128,17 +125,14 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="${pageContext.request.contextPath}/slider/list">Slider</a></li>
-                    <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=">Blog</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/userlist">Userlist</a></li>
-                    <li><a href="${pageContext.request.contextPath}/managesubject">Subject</a></li>
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/slider/list" class="nav__item">Slider</a></li>
+                    <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/userlist" class="nav__item">Userlist</a></li>
+                    <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
-                        </c:if>
-                        <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="nav__item" id="loginButton">Login</a></li>
+                        <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
@@ -169,8 +163,8 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="${pageContext.request.contextPath}/sale/registrationlist">Sale</a></li>
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/sale/registrationlist" class="nav__item">Sale</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
@@ -204,8 +198,8 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="${pageContext.request.contextPath}/managesubject">Subject</a></li>
+                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>

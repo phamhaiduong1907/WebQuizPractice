@@ -1,42 +1,11 @@
 .right_content {
     width: 95%;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 
 
 /* Slider List Styling */
-
-table{
-    border-collapse: collapse;
-    box-shadow: 0  0 10px 5px #e1e5ee;
-    background-color: #fff;
-    text-align: center;
-    overflow: hidden;
-    font-family: Mukta, sans-serif;
-    display: table;
-    width: 100%;
-}
-
-thead{
-    box-shadow: 0 5px 10px #e1e5ee;
-}
-
-th{
-    padding: 1rem 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    font-size: 0.7rem;
-    font-weight: 900;
-}
-
-td{
-    padding: 1rem;
-}
-
-tr{
-    width: 100%;
-}
 
 tr td:nth-child(2){
     width: 10%;
@@ -52,7 +21,7 @@ tr td:nth-child(4){
 
 td img{
     width: 100%;
-    height: 100px;
+    height: 150px;
 }
 
 .slider__backlink p{
@@ -84,10 +53,6 @@ td img{
     color: #c62828;
 }
 
-tr:nth-child(even){
-    background-color: #f4f6fb;
-}
-
 .tool__stripe{
     display: flex;
     justify-content: space-between;
@@ -106,13 +71,17 @@ tr:nth-child(even){
 }
 
 #formSearch{
-    width: 50%;
     display: flex;
     align-items: center;
+    width: 40%;
+}
+
+.search__input{
+    width: 100%;
 }
 
 .tool__stripe input{
-    width: 95%;
+    width: 100%;
 }
 
 form button{
@@ -134,16 +103,11 @@ form button:hover{
 }
 
 .tool__stripe .search__input{
-    width: 80%;
     position: relative;
 }
 
 .search__input input[type="text"]:focus{
     border-bottom: 2px solid #333030;
-}
-
-.tool__stripe{
-    margin-bottom: 10px;
 }
 
 .add__hyperlink{
@@ -153,7 +117,7 @@ form button:hover{
 .add__hyperlink a{
     text-decoration: none;
     letter-spacing: 1px;
-    font-size: 600;
+    font-weight: 600;
     padding: 10px;
     color: #fff;
     background-color: #3db743;
@@ -229,3 +193,33 @@ form button:hover{
 .slider_edit:hover{
     background-color: #e4b050!important;
 }
+
+.right_content{
+    margin-bottom: 55px;
+}
+
+.tool__heading, .add__hyperlink{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.tool__heading{
+    margin-bottom: 20px;
+    justify-content: space-between;
+    box-shadow: 0px 0px 10px 5px #e1e5ee;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+#statusFilter{
+    display: flex;
+    align-items: center;
+}
+
+.right_content h1{
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+
