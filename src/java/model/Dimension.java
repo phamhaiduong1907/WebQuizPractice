@@ -13,7 +13,18 @@ public class Dimension {
     private DimensionType dimensionType;
     private String dimensionName;
     private String dimensionDescription;
+    private int courseID;
 
+    public int getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
+    }
+    
+    
+    
     public Dimension() {
     }
 
