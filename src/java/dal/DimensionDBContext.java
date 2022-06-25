@@ -59,7 +59,6 @@ public class DimensionDBContext extends DBContext {
                 d.setDimensionType(getDimensionType(rs.getInt("typeID")));
                 d.setDimensionDescription(rs.getString("dimensionDescription"));
                 d.setDimensionName(rs.getString("dimensionName"));
-                d.setCourseID(rs.getInt("courseID"));
                 dimensions.add(d);
             }
 
@@ -113,7 +112,6 @@ public class DimensionDBContext extends DBContext {
             stm.setInt(1, dimension.getDimensionType().getTypeID());
             stm.setString(2, dimension.getDimensionName());
             stm.setString(3, dimension.getDimensionDescription());
-            stm.setInt(4, dimension.getCourseID());
         } catch (SQLException ex) {
             Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
