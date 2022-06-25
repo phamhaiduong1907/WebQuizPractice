@@ -195,6 +195,18 @@
         <servlet-name>GetPostByFilter</servlet-name>
         <servlet-class>controller.marketingController.GetPostByFilter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageSubjectDetailController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageSubjectDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagePricepackageController</servlet-name>
+        <servlet-class>controller.courseContentController.ManagePricepackageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusPricePackage</servlet-name>
+        <servlet-class>controller.courseContentController.ChangeStatusPricePackage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -398,6 +410,18 @@
     <servlet-mapping>
         <servlet-name>GetPostByFilter</servlet-name>
         <url-pattern>/marketing/GetPostByFilter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSubjectDetailController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagePricepackageController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackagedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusPricePackage</servlet-name>
+        <url-pattern>/pricepackage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

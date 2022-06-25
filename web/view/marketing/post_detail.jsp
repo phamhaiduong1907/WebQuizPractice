@@ -23,7 +23,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
-
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
 
@@ -84,12 +83,12 @@
 
                             <div class="form-group">
                                 <label for="isStatus">Display status</label>
-                                <input readonly width="auto" type="text" class="form-control" name="status" value="${requestScope.post.status}"/>
-                            </div>
+                                <input readonly width="auto" type="text" class="form-control" name="status" value="<c:if test="${requestScope.status}">On</c:if><c:if test="${!requestScope.status}">Off</c:if>"/>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="isFeatured">Featured</label>
-                                <input readonly width="auto" type="text" class="form-control" name="isFeatured" value="${requestScope.post.isFeatured}"/>
+                                <div class="form-group">
+                                    <label for="isFeatured">Featured</label>
+                                    <input readonly width="auto" type="text" class="form-control" name="isFeatured" value="<c:if test="${requestScope.post.isFeatured}">Supported</c:if><c:if test="${!requestScope.post.isFeatured}">Not supported</c:if>"/>
                             </div>
 
 
@@ -125,9 +124,8 @@
 
             </aside>
         </section>
-        <footer>
-            FOOTER
-        </footer>
+               <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
 

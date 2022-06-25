@@ -87,6 +87,91 @@ public class PricePackageDBContext extends DBContext {
         }
 
         return null;
+
     }
-    
+
+    public ArrayList<PricePackage> basestm(PreparedStatement stm) {
+        ArrayList<PricePackage> pricePackages = new ArrayList<>();
+        try {
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PricePackage p = new PricePackage();
+                p.setPricePackageID(rs.getInt("pricePackageID"));
+                p.setPriceName(rs.getString("priceName"));
+                p.setDuration(rs.getInt("duration"));
+                p.setStatus(rs.getBoolean("status"));
+                p.setListPrice(rs.getFloat("listPrice"));
+                p.setSalePrice(rs.getFloat("salePrice"));
+                p.setDescription(rs.getString("description"));
+                p.setIsOnSale(rs.getBoolean("isOnSale"));
+                pricePackages.add(p);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return pricePackages;
+    }
+
+    public ArrayList<PricePackage> getPricePackagesPagination(int courseID, int pagesize, int pageindex) {
+        String sql = "select * from PricePackage where courseID = ?\n"
+                + "ORDER BY pricePackageID \n"
+                + "OFFSET (?-1)*? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY";
+        PreparedStatement stm = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            return basestm(stm);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+
+    }
+
+    public int getQuantityPagination(int courseID) {
+        String sql = "select count(pricePackageID) as total from PricePackage where courseID = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return 0;
+    }
+
+    public void changeStatusPricePackage(int pricePackageID, boolean status) {
+        String sql = "update PricePackage\n"
+                + "set [status] = ?\n"
+                + "where pricePackageID = ?";
+
+        PreparedStatement stm = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(2, pricePackageID);
+            stm.setBoolean(1, status);
+            stm.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }

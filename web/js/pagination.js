@@ -56,4 +56,27 @@ function submitForm(id) {
     document.getElementById(id).submit();
 }
 
+function pagger(id, pageindex, totalpage, gap, url, queryString)
+{
+    queryString = "&" +queryString;
+    var container = document.getElementById(id);
+    var result = '';
+    if (pageindex - gap > 1)
+        result += '<a href="' + url + '?page=1' + queryString + '">' + '&laquo;' + '</a>';
+
+    for (var i = pageindex - gap; i < pageindex; i++)
+        if (i > 0)
+            result += '<a href="' + url + '?page=' + i + queryString + '">' + i + '</a>';
+
+    result += '<span>' + pageindex + '</span>';
+
+    for (var i = pageindex + 1; i <= pageindex + gap; i++)
+        if (i <= totalpage)
+            result += '<a href="' + url + '?page=' + i + queryString + '">' + i + '</a>';
+
+    if (pageindex + gap < totalpage)
+        result += '<a href="' + url + '?page=' + totalpage + queryString + '">' + '&raquo;' + '</a>';
+
+    container.innerHTML = result;
+}
 

@@ -22,6 +22,17 @@ public class Course {
     private String thumbnailUrl;
     private boolean isRegistered;
     private String owner;
+    private ArrayList<Dimension> dimensions;
+
+    public ArrayList<Dimension> getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(ArrayList<Dimension> dimensions) {
+        this.dimensions = dimensions;
+    }
+    
+    
 
     public boolean isIsRegistered() {
         return isRegistered;

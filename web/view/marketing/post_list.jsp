@@ -20,7 +20,6 @@
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
@@ -46,85 +45,89 @@
                 <!--Starting of the filter-->
 
                 <c:choose>
-                    <c:when test="${requestScope.posts.size() eq 0}">
+                    <c:when test="${requestScope.posts.size() eq 0 or requestScope.posts == null}">
                         <div class="no__result">
-                            There are no records matching the search query
+                            There are no records matching the search query <br>
+                            ${requestScope.errorMessage}
                         </div>
+                        
                     </c:when>
                     <c:otherwise>
+                        <div class="table__data">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Post ID </th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Feature</th>
+                                        <th>Status</th>
+                                        <th>Author</th>
+                                        <th>Updated date</th>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.posts}" var="p">
+                                        <tr>
+                                            <td>${p.postID}</td>
+                                            <td>${p.title}</td>
+                                            <td>${p.subcategory.subcategoryName}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${p.isFeatured}">
+                                                        Supported
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        No Supported
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${p.status}">
+                                                        On
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Off
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>${p.author.username}</td>
+                                            <td>${p.updatedDate}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${p.status == true}">
+                                                        <a href="changeblogstatus?postID=${p.postID}&status=false" class="action">Hide</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="changeblogstatus?postID=${p.postID}&status=true" class="action">Show</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td><a href="view?postID=${p.postID}" class="view">View</a></td>
+
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <div id="pagination" class="pagination"></div>
+                        </div>
                     </c:otherwise>
                 </c:choose>
-                <div class="table__data">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Post ID </th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Feature</th>
-                                <th>Status</th>
-                                <th>Author</th>
-                                <th>Updated date</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.posts}" var="p">
-                                <tr>
-                                    <td>${p.postID}</td>
-                                    <td>${p.title}</td>
-                                    <td>${p.subcategory.subcategoryName}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${p.isFeatured}">
-                                                Yes
-                                            </c:when>
-                                            <c:otherwise>
-                                                No
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${p.status}">
-                                                On
-                                            </c:when>
-                                            <c:otherwise>
-                                                Off
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>${p.author.username}</td>
-                                    <td>${p.updatedDate}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${p.status == true}">
-                                                <a href="changeblogstatus?postID=${p.postID}&status=false" class="action">Hide</a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="changeblogstatus?postID=${p.postID}&status=true" class="action">Show</a>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td><a href="view?postID=${p.postID}" class="view">View</a></td>
-
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                    <div id="pagination" class="pagination"></div>
-                </div>
 
 
                 <form action="bloglist" method="GET">
 
-                    <section class="option__box">
+                    <section class="option__box" <c:if test="${requestScope.posts.size() eq 0 or requestScope.posts == null}">
+                             style="width: 260.4px;"
+                    </c:if>>
                         <div class="option__filter">
                             <label for="from">From</label>
-                            <input type="date" name="from" id="from">
+                            <input type="date" name="from" id="from" value="${sessionScope.from}">
                             <label for="to">To</label>
-                            <input type="date" name="to" id="to">
+                            <input type="date" name="to" id="to" value="${sessionScope.to}">
                             <div class="option__searchbar">
                                 <input type="text" name="author"  placeholder="Author" value="${sessionScope.author}">
                                 <input type="text" name="search"  placeholder="Title" value="${sessionScope.title}">
@@ -137,10 +140,10 @@
                                     <label for="status">Feature</label>
                                     <select name="isFeatured">
                                         <option value="true" <c:if test="${sessionScope.isFeatured == 'true'}">selected</c:if>>Supported</option>
-                                        <option value="false" <c:if test="${sessionScope.isFeatured == 'false'}">selected</c:if>>No supported</option>
+                                    <option value="false" <c:if test="${sessionScope.isFeatured == 'false'}">selected</c:if>>No supported</option>
                                     </select>
 
-                                </div>
+                                
                                 <div class="option__checkbox">
                                     <h3>Category</h3>
                                     <div class="option__options-value">
@@ -175,6 +178,7 @@
                                     </div>
                                 </div>
                             </div>
+                    
                             <div class="option__sort">
                                 <select name="sort">
                                     <option selected disabled>Sort by:</option>
@@ -195,10 +199,9 @@
             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
 
-            <footer>
-                <p>Copyright</p>
-            </footer>
+
         </section>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
 
 
         <script src="${pageContext.request.contextPath}/js/customer/customerRegistration.js"></script>
@@ -211,11 +214,7 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");
-
-
-
-        </script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
 
 
     </body>

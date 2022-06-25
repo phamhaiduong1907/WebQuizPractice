@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
 
 <!--Header for guest -->
 <c:if test="${sessionScope.account == null}">

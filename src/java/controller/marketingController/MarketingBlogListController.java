@@ -25,6 +25,10 @@ import model.Post;
  */
 public class MarketingBlogListController extends HttpServlet {
 
+    static private final String POSTLISTURL = "../view/marketing/post_list.jsp";
+    static private final String FROMGREATERTHANTOERROR = "From date must be smaller than To date";
+    static private final int PAGESIZE = 5;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,7 +53,6 @@ public class MarketingBlogListController extends HttpServlet {
 
         BlogDBContext dbBlogforSearch = new BlogDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
-        int pagesize = 3;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
             page = "1";
@@ -111,6 +114,29 @@ public class MarketingBlogListController extends HttpServlet {
             to = Date.valueOf(request.getParameter("to"));
         }
 
+        if (from != null && to != null) { // send error if from date is greater than to date
+            if (from.compareTo(to) > 0) {
+                request.setAttribute("errorMessage", FROMGREATERTHANTOERROR);
+
+                request.getSession().setAttribute("author", author);
+                request.getSession().setAttribute("status", raw_status);
+                request.getSession().setAttribute("isFeatured", raw_isFeatured);
+                request.getSession().setAttribute("from", from);
+                request.getSession().setAttribute("to", to);
+                request.getSession().setAttribute("title", search);
+                request.getSession().setAttribute("subcategory", subcategory);
+
+                request.setAttribute("categories", categories);
+                request.setAttribute("pageindex", pageindex);
+                request.setAttribute("search", search);
+                request.setAttribute("url", "bloglist");
+                request.setAttribute("querystring", queryString);
+
+                request.getRequestDispatcher(POSTLISTURL).forward(request, response);
+                return;
+            }
+        }
+
         if (raw_status != null) {
             status = raw_status.equals("true");
         }
@@ -119,11 +145,10 @@ public class MarketingBlogListController extends HttpServlet {
         }
 
         ArrayList<Post> posts = dbBlogforSearch.getPostByFilter(subcategories, author, search, status, isFeatured,
-                from, to, "", "", pageindex, pagesize);
+                from, to, "", sort, pageindex, PAGESIZE);
 
         int count = dbBlogforSearch.countSearchBlog(search, subcateID);
-        log("" + count);
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+        int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
 
         request.getSession().setAttribute("author", author);
         request.getSession().setAttribute("status", raw_status);
@@ -142,7 +167,7 @@ public class MarketingBlogListController extends HttpServlet {
         request.setAttribute("url", "bloglist");
         request.setAttribute("querystring", queryString);
 
-        request.getRequestDispatcher("../view/marketing/post_list.jsp").forward(request, response);
+        request.getRequestDispatcher(POSTLISTURL).forward(request, response);
     }
 
     /**
