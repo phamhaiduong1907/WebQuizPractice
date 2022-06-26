@@ -117,4 +117,79 @@ public class DimensionDBContext extends DBContext {
         }
 
     }
+
+    public ArrayList<Dimension> getDimensionPagination(int courseID, int pagesize, int pageindex) {
+        String sql = "select d.* from Dimension d join CourseDimension c\n"
+                + "on d.dimensionID = c.dimensionID\n"
+                + "where courseID = ?\n"
+                + "ORDER BY d.dimensionID \n"
+                + "OFFSET (?-1)*? ROWS\n"
+                + "FETCH NEXT ? ROWS ONLY";
+
+        ArrayList<Dimension> dimensions = new ArrayList<>();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pagesize);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Dimension d = new Dimension();
+                d.setDimensionID(rs.getInt("dimensionID"));
+                d.setDimensionType(getDimensionType(rs.getInt("typeID")));
+                d.setDimensionDescription(rs.getString("dimensionDescription"));
+                d.setDimensionName(rs.getString("dimensionName"));
+                dimensions.add(d);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return dimensions;
+
+    }
+
+    public int getQuantityDimensionPagination(int courseID) {
+        String sql = "select count(*) as total from Dimension d join CourseDimension c\n"
+                + "on d.dimensionID = c.dimensionID\n"
+                + "where courseID = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return 0;
+    }
+
+    public void deleteDimension(int courseID, int dimensionID) {
+        String sql = "delete from CourseDimension \n"
+                + "where courseID = ? and dimensionID = ?";
+        
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            stm.setInt(2, dimensionID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

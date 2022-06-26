@@ -207,6 +207,18 @@
         <servlet-name>ChangeStatusPricePackage</servlet-name>
         <servlet-class>controller.courseContentController.ChangeStatusPricePackage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageDimensionListController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageDimensionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.DeleteDimensionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSubjectController</servlet-name>
+        <servlet-class>controller.courseContentController.EditSubjectController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -422,6 +434,18 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusPricePackage</servlet-name>
         <url-pattern>/pricepackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageDimensionListController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimension</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/deletedimension</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSubjectController</servlet-name>
+        <url-pattern>/managesubject/subjectedit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

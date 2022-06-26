@@ -6,26 +6,26 @@ package controller.courseContentController;
 
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
-import dal.PricePackageDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import java.util.ArrayList;
 import model.Category;
 import model.Course;
-import model.PricePackage;
 
 /**
  *
  * @author ADMIN
  */
-public class ManagePricepackageController extends HttpServlet {
+@MultipartConfig
+public class EditSubjectController extends HttpServlet {
 
-    final static private String PRICEPACKAGEDETAILURL = "../../view/course_content/pricepackage_detail.jsp";
-    final static private int PAGESIZE = 5;
+    private static final String EDITCOURSEDETAILURL = "../view/course_content/course_edit.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,33 +48,19 @@ public class ManagePricepackageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String queryString = request.getQueryString();
-
-        PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
         int courseID = Integer.parseInt(request.getParameter("id"));
-
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int count = pricePackageDBContext.getQuantityPagination(courseID);
-        int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
-        }
-
         CourseDBContext courseDBContext = new CourseDBContext();
-        Course course = courseDBContext.getCourse(courseID);
-        ArrayList<PricePackage> pricePackages = pricePackageDBContext.getPricePackagesPagination(courseID, PAGESIZE, pageindex);
+        CategoryDBContext categoryDBContext = new CategoryDBContext();
 
-        request.setAttribute("pricePackages", pricePackages);
+        Course course = courseDBContext.getCourse(courseID);
+        ArrayList<Category> categorys = categoryDBContext.getCategories(2); // get category from course
+        Category category = categoryDBContext.getCategoryBySubCategoryID(course.getSubcategory().getSubcategoryID());
+
         request.setAttribute("course", course);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("queryString", queryString);
-        
-        request.getRequestDispatcher(PRICEPACKAGEDETAILURL).forward(request, response);
+        request.setAttribute("category", category);
+        request.setAttribute("categorys", categorys);
+
+        request.getRequestDispatcher(EDITCOURSEDETAILURL).forward(request, response);
     }
 
     /**
@@ -88,6 +74,14 @@ public class ManagePricepackageController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String raw_courseName = request.getParameter("courseName");
+        String raw_subcategoryID = request.getParameter("subcategoryID");
+        String raw_isFeatured = request.getParameter("isFeatured");
+        String raw_status = request.getParameter("status");
+        String raw_description = request.getParameter("description");
+        String raw_tagline = request.getParameter("tagline");
+        String raw_briefInfo = request.getParameter("briefInfo");
+        Part thumbnail = request.getPart("thumbnail");
     }
 
     /**

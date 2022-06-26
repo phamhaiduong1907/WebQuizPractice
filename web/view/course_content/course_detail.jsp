@@ -35,7 +35,7 @@
         <ul class="breadcrumb nav">
             <li><a href="#" class="addlink headnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
-            <li><a href="#" class="addlink headnav">Dimension</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
         </ul>  
 
 
@@ -66,17 +66,31 @@
                                 <input d-inline readonly type="text" class="form-control" name="" value="<c:if test="${requestScope.course.isFeatured}">Published</c:if>
                                    <c:if test="${!requestScope.course.isFeatured}">Unpublished</c:if>"/>
                             </div>
+                            <div class="form-group ">
+                                <label for="">Tag line:</label>
+                                <input readonly type="text" class="form-control" name="briefInfo" value="${requestScope.course.tagline}"/>
+
                         </div>
                         <div class="form-group ">
-                            <label for="">Description:</label>
-                            <textarea readonly value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
+                            <label for="">Brief info:</label>
+                            <textarea readonly value="${requestScope.course.briefInfo}" rows="3"  class="form-control" name="briefInfo"  >${requestScope.course.briefInfo}</textarea>
+
+                        </div>
                     </div>
+
+                    <div class="form-group ">
+                        <label for="">Description:</label>
+                        <textarea readonly value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
+                    </div>
+
 
                 </div>
                 <div class="col-md-6">
                     <img src="${pageContext.request.contextPath}/images/thumbnails/${requestScope.course.thumbnailUrl}">
                 </div>
             </div > 
+
+            <a class="addlink" href="${pageContext.request.contextPath}/managesubject/subjectedit?id=${requestScope.course.courseID}">Edit</a>
 
 
         </div>   

@@ -4,28 +4,19 @@
  */
 package controller.courseContentController;
 
-import dal.CategoryDBContext;
-import dal.CourseDBContext;
-import dal.PricePackageDBContext;
+import dal.DimensionDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Category;
-import model.Course;
-import model.PricePackage;
 
 /**
  *
  * @author ADMIN
  */
-public class ManagePricepackageController extends HttpServlet {
-
-    final static private String PRICEPACKAGEDETAILURL = "../../view/course_content/pricepackage_detail.jsp";
-    final static private int PAGESIZE = 5;
+public class DeleteDimensionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,33 +39,15 @@ public class ManagePricepackageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String queryString = request.getQueryString();
+        String url = request.getHeader("referer");
 
-        PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
-        int courseID = Integer.parseInt(request.getParameter("id"));
-
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int count = pricePackageDBContext.getQuantityPagination(courseID);
-        int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
-        }
-
-        CourseDBContext courseDBContext = new CourseDBContext();
-        Course course = courseDBContext.getCourse(courseID);
-        ArrayList<PricePackage> pricePackages = pricePackageDBContext.getPricePackagesPagination(courseID, PAGESIZE, pageindex);
-
-        request.setAttribute("pricePackages", pricePackages);
-        request.setAttribute("course", course);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("queryString", queryString);
+        int courseID = Integer.parseInt(request.getParameter("courseID"));
+        int dimensionID = Integer.parseInt(request.getParameter("dimensionID"));
         
-        request.getRequestDispatcher(PRICEPACKAGEDETAILURL).forward(request, response);
+        DimensionDBContext dimensionDBContext = new DimensionDBContext();
+        dimensionDBContext.deleteDimension(courseID, dimensionID);
+        response.sendRedirect(url);
+
     }
 
     /**
