@@ -239,6 +239,22 @@
         <servlet-name>EditDimensionController</servlet-name>
         <servlet-class>controller.courseContentController.EditDimensionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TopicListController</servlet-name>
+        <servlet-class>controller.courseContentController.TopicListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.AddTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.EditTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.DeleteTopicController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -486,6 +502,22 @@
     <servlet-mapping>
         <servlet-name>EditDimensionController</servlet-name>
         <url-pattern>/managesubject/subjectdetail/dimensionedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicListController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topiclist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/addpost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topicedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topicdel</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -17,4 +17,5 @@ public class ErrorMessage {
     public static final String COURSE_TURNONSTATUS = "You can't turn on publish status since this course does not at least a active pricepackage";
     public static final String UPDATESUCESSFULLY = "Update successfully";
     public static final String DELETE_DIMENSION_EXISTQUESTION = "You can't delete a dimension that has a question in it";
+    public static final String DELETE_TOPIC_EXISTQUESTION = "You can't delete a topic that has a question related to it";
 }

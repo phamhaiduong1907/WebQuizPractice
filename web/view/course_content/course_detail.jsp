@@ -33,9 +33,11 @@
         </ul> 
 
         <ul class="breadcrumb nav">
-            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav">Overview</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav currentnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/topiclist?id=${requestScope.course.courseID}" class="addlink headnav ">Topic</a></li>
+
         </ul>  
 
 
@@ -89,8 +91,8 @@
                     <img src="${pageContext.request.contextPath}/images/thumbnails/${requestScope.course.thumbnailUrl}">
                 </div>
             </div > 
-            
-            
+
+
             <a class="addlink" href="${pageContext.request.contextPath}/managesubject/subjectedit?id=${requestScope.course.courseID}">Edit</a>
 
 
