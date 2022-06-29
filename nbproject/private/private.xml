@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP/I3/summer2022-se1617-g6/web/view/course_content/lesson_list.jsp</file>
+            <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/model/Lesson.java</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/dal/LessonDBContext.java</file>
+            <file>file:/D:/SWP/I3/summer2022-se1617-g6/web/view/course_content/lesson_list.jsp</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/dal/CourseDBContext.java</file>
-            <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/controller/publicController/SubjectListController.java</file>
-            <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/model/Topic.java</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/controller/courseContentController/LessonListController.java</file>
-            <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/controller/courseContentController/ChangeStatusLessonController.java</file>
         </group>
     </open-files>
 </project-private>

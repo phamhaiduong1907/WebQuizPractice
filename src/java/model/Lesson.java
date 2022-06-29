@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Zuys
@@ -13,11 +15,19 @@ public class Lesson {
     private LessonType lessonType;
     private String lessonName;
     private int lessonOrder;
-    private Topic topic;
-    private PricePackage pricePackage;
+    private int topicID;
+    private ArrayList<PricePackage> pricePackages;
     private boolean status;
     private String videoLink;
     private String htmlContent;
+
+    public int getTopicID() {
+        return topicID;
+    }
+
+    public void setTopicID(int topicID) {
+        this.topicID = topicID;
+    }
 
     public int getLessonOrder() {
         return lessonOrder;
@@ -25,14 +35,6 @@ public class Lesson {
 
     public void setLessonOrder(int lessonOrder) {
         this.lessonOrder = lessonOrder;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
     }
 
     public String getVideoLink() {
@@ -85,12 +87,12 @@ public class Lesson {
         this.lessonName = lessonName;
     }
 
-    public PricePackage getPricePackage() {
-        return pricePackage;
+    public ArrayList<PricePackage> getPricePackages() {
+        return pricePackages;
     }
 
-    public void setPricePackage(PricePackage pricePakage) {
-        this.pricePackage = pricePakage;
+    public void setPricePackages(ArrayList<PricePackage> pricePackages) {
+        this.pricePackages = pricePackages;
     }
     
 }

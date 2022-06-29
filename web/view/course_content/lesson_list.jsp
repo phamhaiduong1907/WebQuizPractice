@@ -20,7 +20,7 @@
         
         <h4>Subject name: ${requestScope.course.courseName}</h4>
         
-        <form action="lessonlist" method="POST">
+        <form action="searchlesson" method="GET">
             <input type="text" name="courseID" hidden value="${requestScope.course.courseID}">
             <select name="price_package" id="price_package">
                 <option value="0">All price packages</option>

@@ -203,6 +203,14 @@
         <servlet-name>ChangeStatusLessonController</servlet-name>
         <servlet-class>controller.courseContentController.ChangeStatusLessonController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.ViewLessonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonSearchController</servlet-name>
+        <servlet-class>controller.courseContentController.LessonSearchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -414,6 +422,14 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusLessonController</servlet-name>
         <url-pattern>/lessonstatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewLessonController</servlet-name>
+        <url-pattern>/viewlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonSearchController</servlet-name>
+        <url-pattern>/searchlesson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

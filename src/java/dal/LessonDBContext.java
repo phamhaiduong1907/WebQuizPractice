@@ -42,7 +42,7 @@ public class LessonDBContext extends DBContext {
                 l.setLessonType(dbLessonType.getLessonType(rs.getInt("lessonTypeID")));
                 l.setLessonName(rs.getString("lessonName"));
                 l.setLessonOrder(rs.getInt("lessonOrder"));
-                l.setTopic(dbTopic.getTopic(rs.getInt("topicID")));
+                l.setTopicID(rs.getInt("topicID"));
                 l.setVideoLink(rs.getString("videoLink"));
                 l.setHtmlContent(rs.getString("htmlContent"));
                 l.setStatus(rs.getBoolean("status"));
@@ -59,36 +59,88 @@ public class LessonDBContext extends DBContext {
         LessonTypeDBContext dbLessonType = new LessonTypeDBContext();
         TopicDBContext dbTopic = new TopicDBContext();
         StringBuilder sb = new StringBuilder();
+        int count = 0;
         try {
-            String sql = "SELECT lessonID, lessonTypeId, lessonName, [lessonOrder], topicID, videoLink, htmlContent, status\n"
+            String sql = "SELECT l.lessonID, lessonTypeId, lessonName, [lessonOrder], topicID, videoLink, htmlContent, status\n"
                     + "FROM Lesson l inner join LessonPricePackage lp on l.lessonID = lp.lessonID\n"
-                    + "WHERE topicID in (" + topicID + ") and l.lessonName like ?";
+                    + "WHERE topicID in (" + topicID + ")";
             sb.append(sql);
             if (pricePackages != 0 || lessonType != 0 || (status != null && status.trim().length() != 0)) {
                 if(pricePackages != 0){
-                    String and = " and lp.pricePackageID = "+ pricePackages;
+                    String and = " and lp.pricePackageID = ?";
                     sb.append(and);
+                    count++;
                 }
                 if(lessonType != 0){
-                    String and =" and l.lessonTypeId = " + lessonType;
+                    String and =" and l.lessonTypeId = ?";
                     sb.append(and);
+                    count++;
                 }
                 if(!status.matches("All")){
-                    String and =" and l.status = "+ status.matches("1");
+                    String and =" and l.status = ?";
                     sb.append(and);
+                    count++;
                 }
-                
+                if(lessonName != null && lessonName.trim().length() != 0){
+                    String and =" and l.lessonName like ?";
+                    sb.append(and);
+                    count++;
+                }
             }
-            sb.append(" ORDER BY lessonID ASC\n"
+            sb.append(" GROUP BY l.lessonID, l.lessonTypeId, l.lessonName, l.[lessonOrder], l.topicID, l.videoLink, l.htmlContent, l.[status]\n"
+                    + "ORDER BY l.lessonID ASC\n"
                     + "OFFSET (? - 1) * ? ROWS\n"
                     + "FETCH NEXT ? ROWS ONLY");
             String sql_final = sb.toString();
             PreparedStatement stm = connection.prepareStatement(sql_final);
             
-            stm.setString(1, "%"+lessonName+"%");
-            stm.setInt(2, pageindex);
-            stm.setInt(3, pagesize);
-            stm.setInt(4, pagesize);
+            if(pricePackages != 0){
+                stm.setInt(1, pricePackages);
+                if(lessonType != 0){
+                    stm.setInt(2, lessonType);
+                    if(!status.matches("All")){
+                        stm.setBoolean(3, status.matches("1"));
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(4, "%"+lessonName+"%");
+                        }
+                    }else{
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(3, "%"+lessonName+"%");
+                        }
+                    }
+                }else{
+                    if(!status.matches("All")){
+                        stm.setBoolean(2, status.matches("1"));
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(3, "%"+lessonName+"%");
+                        }
+                    }
+                }
+            }else{
+                if(lessonType != 0){
+                    stm.setInt(1, lessonType);
+                    if(!status.matches("All")){
+                        stm.setBoolean(2, status.matches("1"));
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(3, "%"+lessonName+"%");
+                        }
+                    }
+                }else{
+                    if(!status.matches("All")){
+                        stm.setBoolean(1, status.matches("1"));
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(2, "%"+lessonName+"%");
+                        }
+                    }else{
+                        if(lessonName != null && lessonName.trim().length() != 0){
+                            stm.setString(1, "%"+lessonName+"%");
+                        }
+                    }
+                }
+            }
+            stm.setInt(1+count, pageindex);
+            stm.setInt(2+count, pagesize);
+            stm.setInt(3+count, pagesize);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Lesson l = new Lesson();
@@ -96,7 +148,7 @@ public class LessonDBContext extends DBContext {
                 l.setLessonType(dbLessonType.getLessonType(rs.getInt("lessonTypeID")));
                 l.setLessonName(rs.getString("lessonName"));
                 l.setLessonOrder(rs.getInt("lessonOrder"));
-                l.setTopic(dbTopic.getTopic(rs.getInt("topicID")));
+                l.setTopicID(rs.getInt("topicID"));
                 l.setVideoLink(rs.getString("videoLink"));
                 l.setHtmlContent(rs.getString("htmlContent"));
                 l.setStatus(rs.getBoolean("status"));
@@ -107,8 +159,6 @@ public class LessonDBContext extends DBContext {
         }
         return lessons;
     }
-    
-    
 
     public int countLesson(int courseID) {
         int total = 0;
@@ -128,6 +178,36 @@ public class LessonDBContext extends DBContext {
         }
         return total;
     }
+    
+    public ArrayList<Lesson> countSearchLesson(String topicID) {
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        LessonTypeDBContext dbLessonType = new LessonTypeDBContext();
+        PricePackageDBContext dbPrice = new PricePackageDBContext();
+        try {
+            String sql = "SELECT lessonID, lessonTypeId, lessonName, [lessonOrder], topicID, videoLink, htmlContent, [status]\n"
+                    + "FROM Lesson \n"
+                    + "WHERE topicID in (" + topicID + ")"
+                    + "ORDER BY lessonID ASC\n";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Lesson l = new Lesson();
+                l.setLessonID(rs.getInt("lessonID"));
+                l.setLessonType(dbLessonType.getLessonType(rs.getInt("lessonTypeID")));
+                l.setLessonName(rs.getString("lessonName"));
+                l.setLessonOrder(rs.getInt("lessonOrder"));
+                l.setPricePackages(dbPrice.getPricePackagesByLessonID(rs.getInt("lessonID")));
+                l.setTopicID(rs.getInt("topicID"));
+                l.setVideoLink(rs.getString("videoLink"));
+                l.setHtmlContent(rs.getString("htmlContent"));
+                l.setStatus(rs.getBoolean("status"));
+                lessons.add(l);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lessons;
+    }
 
     public Lesson getLesson(int lessonID) {
         LessonTypeDBContext dbLType = new LessonTypeDBContext();
@@ -145,7 +225,7 @@ public class LessonDBContext extends DBContext {
                 l.setLessonName(rs.getString("lessonName"));
                 l.setLessonType(dbLType.getLessonType(rs.getInt("lessonTypeId")));
                 l.setLessonOrder(rs.getInt("lessonOrder"));
-                l.setTopic(dbTopic.getTopic(rs.getInt("topicID")));
+                l.setTopicID(rs.getInt("topicID"));
                 l.setVideoLink(rs.getString("videoLink"));
                 l.setHtmlContent(rs.getString("htmlContent"));
                 l.setStatus(rs.getBoolean("status"));
