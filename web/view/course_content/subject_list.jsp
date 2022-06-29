@@ -55,7 +55,11 @@
                                 <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>
-                                <td><a href="#">Edit</a></td>
+                                <td>
+                                    <a href="#">Edit</a>
+                                    <a href="#">View</a>
+                                    <a href="#">Lesson</a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

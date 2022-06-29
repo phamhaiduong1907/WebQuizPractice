@@ -5,12 +5,21 @@
 
 package controller.courseContentController;
 
+import dal.CourseDBContext;
+import dal.LessonDBContext;
+import dal.PricePackageDBContext;
+import dal.TopicDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Course;
+import model.Lesson;
+import model.PricePackage;
+import model.Topic;
 
 /**
  *
@@ -28,6 +37,45 @@ public class LessonListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        TopicDBContext dbTopic = new TopicDBContext();
+        LessonDBContext dbLesson = new LessonDBContext();
+        CourseDBContext dbCourse = new CourseDBContext();
+        PricePackageDBContext dbPrice = new PricePackageDBContext();
+        
+        int pagesize = 5;
+        
+        String raw_courseID = request.getParameter("courseID");
+        int courseID = 0;
+        if(raw_courseID != null  && raw_courseID.trim().length() != 0){
+            courseID = Integer.parseInt(raw_courseID);
+        }
+        Course course = dbCourse.getCourse(courseID);
+        ArrayList<PricePackage> pricePackages = dbPrice.getPricePackagesByCourseID(courseID);
+        
+        String page = request.getParameter("page");
+        if (page == null || page.trim().length() == 0) {
+            page = "1";
+        }
+        int pageindex = Integer.parseInt(page);
+        int count = dbLesson.countLesson(courseID);
+        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+        if (pageindex <= 0 || pageindex > totalpage) {
+            pageindex = 1;
+        }
+        
+        String topicID = "";
+        ArrayList<Topic> topics = dbTopic.getTopics(Integer.parseInt(raw_courseID));
+        for (Topic t : topics) {
+            topicID += t.getTopicID() + ", ";
+        }
+        topicID = topicID.substring(0, topicID.trim().length() - 1).trim();
+        
+        ArrayList<Lesson> lessons = dbLesson.getLessons(pageindex, pagesize, topicID);
+        
+        request.setAttribute("prices", pricePackages);
+        request.setAttribute("page", pageindex);
+        request.setAttribute("course", course);
+        request.setAttribute("lessons", lessons);
         request.getRequestDispatcher("view/course_content/lesson_list.jsp").forward(request, response);
     } 
 
@@ -41,7 +89,69 @@ public class LessonListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        TopicDBContext dbTopic = new TopicDBContext();
+        LessonDBContext dbLesson = new LessonDBContext();
+        CourseDBContext dbCourse = new CourseDBContext();
+        PricePackageDBContext dbPrice = new PricePackageDBContext();
         
+        String raw_pricePackage = request.getParameter("price_package");
+        String raw_lessonType = request.getParameter("lesson_type");
+        String raw_lessonStatus = request.getParameter("lesson_status");
+        String raw_lessonName = request.getParameter("lesson_name");
+        
+        int pricePackage = 0;
+        int lessonType = 0;
+        String lessonStatus = "All";
+        String lessonName = "";
+        
+        if(raw_pricePackage != null && raw_pricePackage.trim().length() != 0){
+            pricePackage = Integer.parseInt(raw_pricePackage);
+        }
+        if(raw_lessonType != null && raw_lessonType.trim().length() != 0){
+            lessonType = Integer.parseInt(raw_lessonType);
+        }
+        if(raw_lessonStatus != null && raw_lessonStatus.trim().length() != 0){
+            lessonStatus = raw_lessonStatus;
+        }
+        if(raw_lessonName != null && raw_lessonName.trim().length() != 0){
+            lessonName = raw_lessonName;
+        }
+        
+        int pagesize = 5;
+        
+        String raw_courseID = request.getParameter("courseID");
+        int courseID = 0;
+        if(raw_courseID != null  && raw_courseID.trim().length() != 0){
+            courseID = Integer.parseInt(raw_courseID);
+        }
+        Course course = dbCourse.getCourse(courseID);
+        ArrayList<PricePackage> pricePackages = dbPrice.getPricePackagesByCourseID(courseID);
+        
+        String page = request.getParameter("page");
+        if (page == null || page.trim().length() == 0) {
+            page = "1";
+        }
+        int pageindex = Integer.parseInt(page);
+        int count = dbLesson.countLesson(courseID);
+        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
+        if (pageindex <= 0 || pageindex > totalpage) {
+            pageindex = 1;
+        }
+        
+        String topicID = "";
+        ArrayList<Topic> topics = dbTopic.getTopics(courseID);
+        for (Topic t : topics) {
+            topicID += t.getTopicID() + ", ";
+        }
+        topicID = topicID.substring(0, topicID.trim().length() - 1).trim();
+        
+        ArrayList<Lesson> lessons = dbLesson.getSearchLessons(pageindex, pagesize, topicID, pricePackage, lessonType, lessonStatus, lessonName);
+        
+        request.setAttribute("prices", pricePackages);
+        request.setAttribute("page", pageindex);
+        request.setAttribute("course", course);
+        request.setAttribute("lessons", lessons);
+        request.getRequestDispatcher("view/course_content/lesson_list.jsp").forward(request, response);
     }
 
     /** 

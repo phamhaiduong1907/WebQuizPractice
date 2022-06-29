@@ -103,13 +103,13 @@ footer {
 
 #uploadBtnb{
     position: absolute;
-    top: 49%;
+    top: 37%;
     left: 68%;
     height: 42px;
     width: 400px;
     transform: translateX(-50%);
     text-align: center;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.6);
     color: wheat;
     line-height: 30px;
     font-family: sans-serif;
