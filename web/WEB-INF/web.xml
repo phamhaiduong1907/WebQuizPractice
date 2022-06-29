@@ -207,6 +207,30 @@
         <servlet-name>ChangeStatusPricePackage</servlet-name>
         <servlet-class>controller.courseContentController.ChangeStatusPricePackage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizzesListController</servlet-name>
+        <servlet-class>controller.testContentController.QuizzesListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizViewController</servlet-name>
+        <servlet-class>controller.testContentController.QuizViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizEditController</servlet-name>
+        <servlet-class>controller.testContentController.QuizEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderSubCategory</servlet-name>
+        <servlet-class>controller.testContentController.renderSubCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderCourse</servlet-name>
+        <servlet-class>controller.testContentController.renderCourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderThumbnailURL</servlet-name>
+        <servlet-class>controller.testContentController.renderThumbnailURL</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -422,6 +446,30 @@
     <servlet-mapping>
         <servlet-name>ChangeStatusPricePackage</servlet-name>
         <url-pattern>/pricepackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizzesListController</servlet-name>
+        <url-pattern>/quizzes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizViewController</servlet-name>
+        <url-pattern>/quizzes/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizEditController</servlet-name>
+        <url-pattern>/quizzes/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderSubCategory</servlet-name>
+        <url-pattern>/rendersubcate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderCourse</servlet-name>
+        <url-pattern>/rendercourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderThumbnailURL</servlet-name>
+        <url-pattern>/renderthumbnail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
