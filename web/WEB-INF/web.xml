@@ -219,6 +219,26 @@
         <servlet-name>EditSubjectController</servlet-name>
         <servlet-class>controller.courseContentController.EditSubjectController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PricePackageViewController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PricePackageEditController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PricePackageAddController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageAddController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.AddDimensionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.EditDimensionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -446,6 +466,26 @@
     <servlet-mapping>
         <servlet-name>EditSubjectController</servlet-name>
         <url-pattern>/managesubject/subjectedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageViewController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageEditController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageAddController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageadd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimensionadd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimensionedit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -37,40 +37,41 @@
 
         </ul>  
 
-        <a class="addlink" href="dimensionadd?id=${requestScope.course.courseID}">Add dimension</a>
-
-        <div class=" d-flex justify-content-center">
-            <div class="" >
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Dimension ID</th>
-                            <th>Type</th>
-                            <th>Dimension</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${requestScope.dimensions}" var="d">
-                            <tr>
-                                <td>${d.dimensionID}</td>
-                                <td>${d.dimensionType.typeName}</td>
-                                <td>${d.dimensionName}</td>
-                                <td>${d.dimensionDescription}</td>
-
-                                <td><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/deletedimension?courseID=${requestScope.course.courseID}&dimensionID=${d.dimensionID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
-                                    <a href="dimensionedit?did=${d.dimensionID}&cid=${requestScope.course.courseID}">Edit</a>
-                                </td>
-                            </tr>    
-                        </c:forEach>
-                    </tbody>
-                </table>
-                <div class="pagination" id="pagination">
+        <form method="POST" >
+            <input type="hidden" name="courseID" value="${requestScope.course.courseID}">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Dimension name:</label>
+                        <input required  type="text" class="form-control" name="dimensionName" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Dimension description:</label>
+                        <input required  type="text" class="form-control" name="dimensionDescription" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Type name:</label>
+                        <select class="form-control" name="typeID">
+                            <c:forEach items="${requestScope.dimensionTypes}" var="d">
+                                <option value="${d.typeID}">${d.typeName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                      <div class="form-group" id="nav">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                        <button class="btn btn-default">
+                            <a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}">Cancel</a>
+                        </button>
+                    </div>
 
                 </div>
             </div>
-        </div>
+
+
+
+        </form>
 
 
 
@@ -78,16 +79,6 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-        <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
-        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "dimension", "${requestScope.queryString}");
-
-            <c:if test="${sessionScope.errormessage != null}">
-
-                                    alert("${sessionScope.errormessage}");
-                <c:remove var="errormessage" scope="session"/>
-            </c:if>
-
-        </script>
 
     </body>
 </html>

@@ -7,9 +7,11 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.DimensionType;
 import model.PricePackage;
 
 /**
@@ -171,6 +173,118 @@ public class PricePackageDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    public boolean updatePricePackage(String priceName, String raw_duration, boolean status,
+            float listPrice, float salePrice, String description, boolean isOnSale, int pricePackageID) {
+        String sql = "UPDATE [dbo].[PricePackage]\n"
+                + "   SET [priceName] = ?\n"
+                + "      ,[duration] = ?\n"
+                + "      ,[status] = ?\n"
+                + "      ,[listPrice] = ?\n"
+                + "      ,[salePrice] = ?\n"
+                + "      ,[description] = ?\n"
+                + "      ,[isOnSale] = ?\n"
+                + " WHERE [pricePackageID] = ?";
+
+        PreparedStatement stm = null;
+        int duration = -1;
+        if (raw_duration != null && raw_duration.trim().length() > 0) {
+            duration = Integer.parseInt(raw_duration);
+        }
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, priceName);
+            if (duration > -1) {
+                stm.setInt(2, duration);
+            } else {
+                stm.setNull(2, Types.INTEGER);
+            }
+            stm.setBoolean(3, status);
+            stm.setFloat(4, listPrice);
+            stm.setFloat(5, salePrice);
+            stm.setString(6, description);
+            stm.setBoolean(7, isOnSale);
+            stm.setInt(8, pricePackageID);
+            return stm.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public boolean insertPricePackage(String priceName, String raw_duration, boolean status, float listPrice, float salePrice,
+            String description, int courseID, boolean isOnSale) {
+        String sql = "INSERT INTO [dbo].[PricePackage]\n"
+                + "           ([priceName]\n"
+                + "           ,[duration]\n"
+                + "           ,[status]\n"
+                + "           ,[listPrice]\n"
+                + "           ,[salePrice]\n"
+                + "           ,[description]\n"
+                + "           ,[courseID]\n"
+                + "           ,[isOnSale])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        PreparedStatement stm = null;
+
+        int duration = -1;
+        if (raw_duration != null && raw_duration.trim().length() > 0) {
+            duration = Integer.parseInt(raw_duration);
+        }
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, priceName);
+
+            if (duration > -1) {
+                stm.setInt(2, duration);
+            } else {
+                stm.setNull(2, Types.INTEGER);
+            }
+            stm.setBoolean(3, status);
+            stm.setFloat(4, listPrice);
+            stm.setFloat(5, salePrice);
+            stm.setString(6, description);
+            stm.setInt(7, courseID);
+            stm.setBoolean(8, isOnSale);
+            return stm.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public boolean isTurnOnable(int pricePackageID) {
+        String sql = "select COUNT(*) as total from PricePackage p join LessonPricePackage l\n"
+                + "on p.pricePackageID = l.pricePackageID\n"
+                + "where p.pricePackageID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, pricePackageID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PricePackageDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
 
     }
 

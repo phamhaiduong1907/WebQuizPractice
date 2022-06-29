@@ -34,12 +34,13 @@
         </ul> 
 
         <ul class="breadcrumb nav">
-            <li><a href="#" class="addlink headnav">Overview</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
         </ul>  
 
         <form method="post" enctype="multipart/form-data" action="subjectedit">
+            <input type="hidden" name="courseID" value="${requestScope.course.courseID}">
             <div class="content">
                 <div class="upperpart row">
                     <div class="upperpart__left col-md-6" >
@@ -66,18 +67,26 @@
                         <div class="row">
 
                             <div class="col-md-5">
-                                <input <c:if test="${requestScope.course.isFeatured}">checked</c:if> d-inline  type="checkbox" name="isFeatured" value="true"/>
+                                <input <c:if test="${requestScope.course.isFeatured}">checked</c:if> d-inline class="form-check-input"  type="checkbox" name="isFeatured" value="true"/>
                                     <label for="">Featured subject</label>
                                 </div>
+
+                            <c:if test="${sessionScope.account.role.roleID == 1}">
                                 <div class="col-md-4">
                                     <label for="status">Status:</label>
                                     <select name="status"  class="form-control">
-                                        <option value="true" ${requestScope.course.status?"selected":""}>Published</option>
-                                    <option value="false"${!requestScope.course.status?"selected":""}>UnPublished</option>
-                                </select>
+                                        <option ${!requestScope.isPublishable?"disabled":""} value="true" ${requestScope.course.status?"selected":""}>Published</option>
+                                        <option ${!requestScope.isPublishable?"selected":""} value="false"${!requestScope.course.status?"selected":""}>UnPublished</option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <p class="notification">Note: ${requestScope.notifymessage} 
+                                    </p>
+                                </div>
+                            </c:if>
 
 
-                            </div>
+
                             <div class="form-group ">
                                 <label for="">Tag line:</label>
                                 <input  type="text" class="form-control" name="tagline" value="${requestScope.course.tagline}"/>
@@ -116,6 +125,7 @@
 
 
         <script>
+
             $(document).on('change', '#select_category', function (event) {
                 var categoryID = this.value;
                 $.ajax({
@@ -142,7 +152,12 @@
                     URL.revokeObjectURL(output.src) // free memory
                 }
             };
+            <c:if test="${param.errormessage != null}">
+            alert("${param.errormessage}");
+            </c:if>
         </script>
+
+
 
     </body>
 </html>
