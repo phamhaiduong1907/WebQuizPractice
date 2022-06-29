@@ -211,7 +211,7 @@ public class LessonDBContext extends DBContext {
 
     public Lesson getLesson(int lessonID) {
         LessonTypeDBContext dbLType = new LessonTypeDBContext();
-        TopicDBContext dbTopic = new TopicDBContext();
+        PricePackageDBContext dbPrice = new PricePackageDBContext();
         Lesson l = new Lesson();
         try {
             String sql = "SELECT lessonID, lessonTypeId, lessonName, [lessonOrder], topicID, videoLink, htmlContent, status\n"
@@ -225,6 +225,7 @@ public class LessonDBContext extends DBContext {
                 l.setLessonName(rs.getString("lessonName"));
                 l.setLessonType(dbLType.getLessonType(rs.getInt("lessonTypeId")));
                 l.setLessonOrder(rs.getInt("lessonOrder"));
+                l.setPricePackages(dbPrice.getPricePackagesByLessonID(rs.getInt("lessonID")));
                 l.setTopicID(rs.getInt("topicID"));
                 l.setVideoLink(rs.getString("videoLink"));
                 l.setHtmlContent(rs.getString("htmlContent"));

@@ -5,22 +5,18 @@
 
 package controller.courseContentController;
 
-import dal.CourseDBContext;
-import dal.LessonDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Course;
-import model.Lesson;
 
 /**
  *
  * @author Zuys
  */
-public class ViewLessonController extends HttpServlet {
+public class EditLessonController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,25 +27,19 @@ public class ViewLessonController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        LessonDBContext dbLesson = new LessonDBContext();
-        CourseDBContext dbCourse = new CourseDBContext();
-        
-        String raw_lessonID = request.getParameter("lessonID");
-        int lessonID = 0;
-        if(raw_lessonID != null && raw_lessonID.trim().length() != 0){
-            lessonID = Integer.parseInt(raw_lessonID);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EditLessonController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EditLessonController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        String raw_courseID = request.getParameter("course");
-        int courseID = 0;
-        if(raw_courseID != null && raw_courseID.trim().length() != 0){
-            courseID = Integer.parseInt(raw_courseID);
-        }
-        
-        Lesson lesson = dbLesson.getLesson(lessonID);
-        Course course = dbCourse.getCourse(courseID);
-        
-        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -61,7 +61,7 @@
                     <td>${l.lessonOrder}</td>
                     <td>${l.lessonType.lessonTypeName}</td>
                     <td><a href=lessonstatus?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}&page=${requestScope.page}>${l.status?"Active":"Inactive"}</a></td>
-                    <td><a href="#">Edit</a><a href="#">View</a></td>
+                    <td><a href="editlesson?lessonID=${l.lessonID}">Edit</a><a href="viewlesson?lessonID=${l.lessonID}">View</a></td>
                 </tr>
             </c:forEach>
         </table>
