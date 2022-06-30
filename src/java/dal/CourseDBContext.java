@@ -663,5 +663,23 @@ public class CourseDBContext extends DBContext {
         }
         return false;
     }
+    public ArrayList<Course> getCourseNameAndID(){
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "Select courseID, courseName from Course";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {                
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
+
 
 }

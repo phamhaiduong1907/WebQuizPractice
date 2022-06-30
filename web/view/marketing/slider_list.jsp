@@ -131,9 +131,6 @@
                                                             data: {
                                                                 sliderID: sliderID,
                                                                 statusParam: statusParam
-                                                            },
-                                                            success: function (data) {
-                                                                //                                                                
                                                             }
                                                         });
 

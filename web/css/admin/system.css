@@ -6,6 +6,11 @@
     margin-right: 10px;
 }
 
+.right_content{
+    padding: 30px;  
+    margin-bottom: 54px;
+}
+
 .setting_list{
     display: table;
     width: 100%;
@@ -13,13 +18,16 @@
 }
 
 .setting_tool{
+    display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f6fb;
 }
 
 .search_form{
-    width: 60%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,29 +39,23 @@
     margin-top: 15px;
 }
 
-.search_form select,
-.search_form input[type="text"]{
+.search_form select{
     display: inline-block;
     padding: 5px;
     border-radius: 5px;
     font-size: 16px;
 }
 
-.search_form input[type="text"]{
-    outline: none;
-    border: 1px solid #ccc;
-    width: 300px;
-}
-
 .search_form button{
-    padding: 5px;
+    /*height: 44px;*/
+    padding: 15px;
+    font-size: 0.9rem;
     margin-left: 10px;
     border-radius: 5px;
-    border-color: #eee;
-}
-
-.search_form form input[type="text"]:focus{
-    border-bottom: 1px solid #333030;
+    background-color: #0056d2;
+    border: none;
+    color: #fff;
+    cursor: pointer;
 }
 
 #search{
@@ -69,7 +71,6 @@
 .add_setting{
     display: flex;
     align-items: center;
-    margin-top: 20px;
 }
 
 .add_setting a{
@@ -79,6 +80,30 @@
     background-color: #1fe21e;
     border-radius: 10px;
     transition: all 0.25s ease;
+}
+
+form .search__item{
+    margin-right: 10px;
+}
+
+.search__item{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search__item label{
+    font-size: 0.8rem;
+}
+
+.search__item input{
+    display: block;
+    height: 55px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .add_setting a:hover{

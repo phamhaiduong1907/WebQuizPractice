@@ -33,7 +33,7 @@ public class Course {
     }
     
     
-
+    
     public boolean isIsRegistered() {
         return isRegistered;
     }
@@ -140,5 +140,7 @@ public class Course {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+
+    
 
 }

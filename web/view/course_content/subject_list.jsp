@@ -53,7 +53,9 @@
                                 <td>${c.courseID}</td>
                                 <td> <a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${c.courseID}" class="view__alink">${c.courseName}</a> </td>
                                 <td>${c.subcategory.subcategoryName}</td>
-                                <td>${c.description}</td>
+                                <td>
+                                    <p> ${c.description} </p>
+                                </td>
                                 <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>

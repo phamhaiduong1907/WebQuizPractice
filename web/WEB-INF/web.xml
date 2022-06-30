@@ -258,7 +258,7 @@
     <servlet>
         <servlet-name>DeleteTopicController</servlet-name>
         <servlet-class>controller.courseContentController.DeleteTopicController</servlet-class>
-         </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ChangeStatusLessonController</servlet-name>
         <servlet-class>controller.courseContentController.ChangeStatusLessonController</servlet-class>
@@ -274,6 +274,22 @@
     <servlet>
         <servlet-name>EditLessonController</servlet-name>
         <servlet-class>controller.courseContentController.EditLessonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionListController</servlet-name>
+        <servlet-class>controller.test.QuestionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionImportController</servlet-name>
+        <servlet-class>controller.test.QuestionImportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadAttributesController</servlet-name>
+        <servlet-class>controller.test.LoadAttributesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeQuestionStatusController</servlet-name>
+        <servlet-class>controller.test.ChangeQuestionStatusController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -542,7 +558,7 @@
     <servlet-mapping>
         <servlet-name>DeleteTopicController</servlet-name>
         <url-pattern>/managesubject/subjectdetail/topicdel</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangeStatusLessonController</servlet-name>
         <url-pattern>/lessonstatus</url-pattern>
@@ -558,6 +574,22 @@
     <servlet-mapping>
         <servlet-name>EditLessonController</servlet-name>
         <url-pattern>/editlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionListController</servlet-name>
+        <url-pattern>/test/questionlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionImportController</servlet-name>
+        <url-pattern>/test/import</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAttributesController</servlet-name>
+        <url-pattern>/test/load</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeQuestionStatusController</servlet-name>
+        <url-pattern>/test/changeStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -26,7 +26,7 @@ table, tr, th, td{
 }
 
 thead{
-    background-color: #fff; 
+    background-color: #fff;
     box-shadow: 0 5px 10px #e1e5ee;
     position: sticky;
     top: 0;
@@ -50,4 +50,12 @@ tr{
 
 tr:nth-child(even){
     background-color: #f4f6fb;
+}
+
+td p{
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
