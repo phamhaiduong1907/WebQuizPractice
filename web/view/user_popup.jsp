@@ -221,7 +221,6 @@
 
 <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
-<script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
 <script src="${pageContext.request.contextPath}/js/profile.js"></script>
 <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/home.js"></script>

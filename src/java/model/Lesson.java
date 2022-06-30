@@ -20,6 +20,15 @@ public class Lesson {
     private boolean status;
     private String videoLink;
     private String htmlContent;
+    private int quizID;
+
+    public int getQuizID() {
+        return quizID;
+    }
+
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
+    }
 
     public int getTopicID() {
         return topicID;

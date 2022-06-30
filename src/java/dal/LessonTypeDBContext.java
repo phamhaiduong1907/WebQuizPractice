@@ -7,6 +7,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.LessonType;
@@ -15,7 +16,8 @@ import model.LessonType;
  *
  * @author Zuys
  */
-public class LessonTypeDBContext extends DBContext{
+public class LessonTypeDBContext extends DBContext {
+
     public LessonType getLessonType(int lessonTypeID) {
         LessonType lt = new LessonType();
         try {
@@ -33,5 +35,24 @@ public class LessonTypeDBContext extends DBContext{
             Logger.getLogger(LessonTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lt;
+    }
+
+    public ArrayList<LessonType> getLessonTypes() {
+        ArrayList<LessonType> lessonTypes = new ArrayList<>();
+        try {
+            String sql = "SELECT lessonTypeId, lessonTypeName\n"
+                    + "FROM LessonType\n";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                LessonType lt = new LessonType();
+                lt.setLessonTypeID(rs.getInt("lessonTypeID"));
+                lt.setLessonTypeName(rs.getString("lessonTypeName"));
+                lessonTypes.add(lt);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonTypeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lessonTypes;
     }
 }

@@ -43,7 +43,7 @@
             <input type="submit" value="Search">
         </form>
         
-        <a href="#">Add lesson</a>
+        <a href="addlesson?">Add lesson</a>
         
         <table>
             <tr>
@@ -61,7 +61,7 @@
                     <td>${l.lessonOrder}</td>
                     <td>${l.lessonType.lessonTypeName}</td>
                     <td><a href=lessonstatus?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}&page=${requestScope.page}>${l.status?"Active":"Inactive"}</a></td>
-                    <td><a href="editlesson?lessonID=${l.lessonID}">Edit</a><a href="viewlesson?lessonID=${l.lessonID}">View</a></td>
+                    <td><a href="editlesson?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}">Edit</a><a href="viewlesson?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}">View</a></td>
                 </tr>
             </c:forEach>
         </table>

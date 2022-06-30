@@ -215,6 +215,10 @@
         <servlet-name>EditLessonController</servlet-name>
         <servlet-class>controller.courseContentController.EditLessonController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.AddLessonController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -438,6 +442,10 @@
     <servlet-mapping>
         <servlet-name>EditLessonController</servlet-name>
         <url-pattern>/editlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddLessonController</servlet-name>
+        <url-pattern>/addlesson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
