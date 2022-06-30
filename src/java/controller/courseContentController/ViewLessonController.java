@@ -7,14 +7,22 @@ package controller.courseContentController;
 
 import dal.CourseDBContext;
 import dal.LessonDBContext;
+import dal.LessonTypeDBContext;
+import dal.PricePackageDBContext;
+import dal.QuizDBContext;
+import dal.TopicDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.Course;
 import model.Lesson;
+import model.LessonType;
+import model.Quiz;
+import model.Topic;
 
 /**
  *
@@ -31,8 +39,11 @@ public class ViewLessonController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        QuizDBContext dbQuiz = new QuizDBContext();
         LessonDBContext dbLesson = new LessonDBContext();
         CourseDBContext dbCourse = new CourseDBContext();
+        LessonTypeDBContext dbLType = new LessonTypeDBContext();
+        TopicDBContext dbTopic = new TopicDBContext();
         
         String raw_lessonID = request.getParameter("lessonID");
         int lessonID = 0;
@@ -40,7 +51,7 @@ public class ViewLessonController extends HttpServlet {
             lessonID = Integer.parseInt(raw_lessonID);
         }
         
-        String raw_courseID = request.getParameter("course");
+        String raw_courseID = request.getParameter("courseID");
         int courseID = 0;
         if(raw_courseID != null && raw_courseID.trim().length() != 0){
             courseID = Integer.parseInt(raw_courseID);
@@ -48,8 +59,16 @@ public class ViewLessonController extends HttpServlet {
         
         Lesson lesson = dbLesson.getLesson(lessonID);
         Course course = dbCourse.getCourse(courseID);
+        ArrayList<Topic> topics = dbTopic.getTopics(courseID);
+        ArrayList<LessonType> lessonTypes = dbLType.getLessonTypes();
+        ArrayList<Quiz> quizzes = dbQuiz.getQuizzesByCourseID(courseID);
         
-        
+        request.setAttribute("lessonTypes", lessonTypes);
+        request.setAttribute("lesson", lesson);
+        request.setAttribute("topics", topics);
+        request.setAttribute("course", course);
+        request.setAttribute("quizzes", quizzes);
+        request.getRequestDispatcher("view/course_content/view_lesson.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

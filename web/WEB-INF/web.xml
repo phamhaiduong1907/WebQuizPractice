@@ -290,6 +290,10 @@
     <servlet>
         <servlet-name>ChangeQuestionStatusController</servlet-name>
         <servlet-class>controller.test.ChangeQuestionStatusController</servlet-class>
+        </servlet>
+    <servlet>
+        <servlet-name>AddLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.AddLessonController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -590,6 +594,10 @@
     <servlet-mapping>
         <servlet-name>ChangeQuestionStatusController</servlet-name>
         <url-pattern>/test/changeStatus</url-pattern>
+          </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddLessonController</servlet-name>
+        <url-pattern>/addlesson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -43,42 +43,29 @@
             <input name="lesson_name" type="text" placeholder="Type lesson name to search">
             <input type="submit" value="Search">
         </form>
-
-            <a class="addlink" href="#">Add lesson</a>
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <table class="non-scroll ">
-                    <thead>
-                    
-                    <th>ID</th>
-                    <th>Lesson</th>
-                    <th>Order</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                   
-                    </thead>
-
-                    <tbody>
-                        <c:forEach items="${requestScope.lessons}" var="l">
-                            <tr>
-                                <td>${l.lessonID}</td>
-                                <td>${l.lessonName}</td>
-                                <td>${l.lessonOrder}</td>
-                                <td>${l.lessonType.lessonTypeName}</td>
-                                <td><a class="${l.status?"status__active":"status__inactive"}" href=lessonstatus?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}&page=${requestScope.page}>${l.status?"Active":"Inactive"}</a></td>
-                                <td><a class="edit_alink" href="editlesson?lessonID=${l.lessonID}">Edit</a>
-                                    <a class="view__alink" href="viewlesson?lessonID=${l.lessonID}">View</a></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-
-                </table>
-            </div>
-
-        </div>
-
-        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp" />
+        
+        <a href="addlesson?">Add lesson</a>
+        
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>Lesson</td>
+                <td>Order</td>
+                <td>Type</td>
+                <td>Status</td>
+                <td>Action</td>
+            </tr>
+            <c:forEach items="${requestScope.lessons}" var="l">
+                <tr>
+                    <td>${l.lessonID}</td>
+                    <td>${l.lessonName}</td>
+                    <td>${l.lessonOrder}</td>
+                    <td>${l.lessonType.lessonTypeName}</td>
+                    <td><a href=lessonstatus?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}&page=${requestScope.page}>${l.status?"Active":"Inactive"}</a></td>
+                    <td><a href="editlesson?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}">Edit</a><a href="viewlesson?lessonID=${l.lessonID}&courseID=${requestScope.course.courseID}">View</a></td>
+                </tr>
+            </c:forEach>
+        </table>
 
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />
     </body>
