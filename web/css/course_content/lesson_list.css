@@ -1,0 +1,74 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2022, 3:32:28 AM
+    Author     : Zuys
+*/
+/*.lesson_table{
+    display: flex;
+    justify-content: center;
+}*/
+
+table{
+    display: table !important ;
+    overflow-y: hidden !important;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.main{
+    padding: 60px;
+}
+
+thead, tbody{
+    width: 100%;
+}
+
+.search__bar{
+    display: flex;
+    background-color: #f4f6fb;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.search__bar input, .search__bar select{
+    padding: 5px;
+    font-size: 0.9rem;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.addlink{
+    margin: 0!important;
+}
+
+form{
+    display: flex;
+    align-items: center;
+}
+
+.search__bar__item{
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+}
+
+.search__bar__item label{
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+.search__bar__item input{
+    height: 62px;
+    width: 300px;
+}
+
+form input[type="submit"]{
+    padding: 13px 15px;
+    background-color: #0056d2;
+    color: #fff;
+}

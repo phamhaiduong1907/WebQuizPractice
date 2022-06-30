@@ -90,7 +90,6 @@ public class LessonSearchController extends HttpServlet {
         int count = 0;
         ArrayList<Lesson> countLessons = dbLesson.countSearchLesson(topicID);
         for (Lesson l : countLessons) {
-            //(l.getPricePackage().getPricePackageID() == pricePackage || pricePackage == 0) 
             if ((l.getLessonType().getLessonTypeID() == lessonType || lessonType == 0)
                     && (l.isStatus() == lessonStatus.matches("1") || lessonStatus.matches("All"))
                     && (l.getLessonName().matches(lessonName) || lessonName.trim().length() == 0)) {
@@ -116,6 +115,9 @@ public class LessonSearchController extends HttpServlet {
         request.setAttribute("page", pageindex);
         request.setAttribute("course", course);
         request.setAttribute("lessons", lessons);
+        request.setAttribute("url", "searchlesson");
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("totalpage", totalpage);
         request.getRequestDispatcher("view/course_content/lesson_list.jsp").forward(request, response);
     }
 
