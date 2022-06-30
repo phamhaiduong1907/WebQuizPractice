@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/js/test_content/addquestion.js</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/marketing/modify_post.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/model/Question.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/test_content/question_edit.jsp</file>
+            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/marketing/add_post.jsp</file>
+            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/marketingController/GetSubCategory.java</file>
+            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/dal/QuestionDBContext.java</file>
+            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/testContentController/GetLessonByTopic.java</file>
             <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/test_content/question_detail.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/testContentController/EditQuestionController.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/testContentController/AddQuestionController.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/marketingController/ModifyPostController.java</file>
         </group>
     </open-files>
 </project-private>
