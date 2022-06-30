@@ -290,11 +290,11 @@
     <servlet>
         <servlet-name>ChangeQuestionStatusController</servlet-name>
         <servlet-class>controller.test.ChangeQuestionStatusController</servlet-class>
-        </servlet>
+    </servlet>
     <servlet>
         <servlet-name>AddLessonController</servlet-name>
         <servlet-class>controller.courseContentController.AddLessonController</servlet-class>
-            </servlet>
+    </servlet>
     <servlet>
         <servlet-name>QuizzesListController</servlet-name>
         <servlet-class>controller.testContentController.QuizzesListController</servlet-class>
@@ -618,10 +618,12 @@
     <servlet-mapping>
         <servlet-name>ChangeQuestionStatusController</servlet-name>
         <url-pattern>/test/changeStatus</url-pattern>
-          </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddLessonController</servlet-name>
         <url-pattern>/addlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>QuizzesListController</servlet-name>
         <url-pattern>/quizzes</url-pattern>
     </servlet-mapping>
