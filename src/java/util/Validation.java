@@ -11,8 +11,8 @@ import java.util.ArrayList;
  *
  */
 public class Validation {
-    
-     public  boolean checkNullOrBlank(ArrayList<String> strings) {
+
+    public boolean checkNullOrBlank(ArrayList<String> strings) {
         for (String str : strings) {
             if (str == null || str.trim().length() == 0) {
                 return false;
@@ -20,8 +20,6 @@ public class Validation {
         }
         return true;
     }
-
-   
 
     public boolean checkNullOrBlank(String[] string) {
         for (String str : string) {
@@ -48,5 +46,16 @@ public class Validation {
             }
         }
         return false;
+    }
+
+    public boolean checkQuestionMedia(String contentType, int mediaID) {
+        switch (mediaID) {
+            case 1:
+                return contentType.contains("image/");
+            case 2:
+                return contentType.contains("video/");
+            default:
+                return contentType.contains("audio/");
+        }
     }
 }

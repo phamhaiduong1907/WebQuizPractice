@@ -43,16 +43,17 @@ public class DimensionDBContext extends DBContext {
 
     public ArrayList<Dimension> getDimensionsByCourseID(int courseID) {
         ArrayList<Dimension> dimensions = new ArrayList<>();
-        String sql = "select * from Dimension d join CourseDimension c\n"
-                + "on d.dimensionID = c.dimensionID\n"
-                + "where c.courseID = ?";
+        String sql = "SELECT d.dimensionID, d.dimensionName, d.typeID, d.dimensionDescription \n"
+                + "FROM Dimension d INNER JOIN Course c\n"
+                + "ON d.courseID = c.courseID\n"
+                + "WHERE d.courseID = ?";
 
         PreparedStatement stm = null;
         ResultSet rs = null;
-
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
+            rs = stm.executeQuery();
             while (rs.next()) {
                 Dimension d = new Dimension();
                 d.setDimensionID(rs.getInt("dimensionID"));
@@ -61,7 +62,6 @@ public class DimensionDBContext extends DBContext {
                 d.setDimensionName(rs.getString("dimensionName"));
                 dimensions.add(d);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,10 +179,10 @@ public class DimensionDBContext extends DBContext {
     public void deleteDimension(int courseID, int dimensionID) {
         String sql = "delete from CourseDimension \n"
                 + "where courseID = ? and dimensionID = ?";
-        
+
         PreparedStatement stm = null;
         ResultSet rs = null;
-        
+
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
@@ -191,5 +191,30 @@ public class DimensionDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Dimension getDimensionByDimensionID(int dimensionID) {
+        String sql = "select * from Dimension where dimensionID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, dimensionID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Dimension d = new Dimension();
+                d.setDimensionID(rs.getInt("dimensionID"));
+                d.setDimensionName(rs.getString("dimensionName"));
+                d.setDimensionDescription(rs.getString("dimensionDescription"));
+                d.setDimensionType(getDimensionType(rs.getInt("typeID")));
+                return d;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
     }
 }
