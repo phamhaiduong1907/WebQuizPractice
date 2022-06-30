@@ -69,6 +69,9 @@ public class LessonListController extends HttpServlet {
         for (Topic t : topics) {
             topicID += t.getTopicID() + ", ";
         }
+        if(topics.isEmpty()){
+            response.sendRedirect("managesubject");
+        }
         topicID = topicID.substring(0, topicID.trim().length() - 1).trim();
         
         ArrayList<Lesson> lessons = dbLesson.getLessons(pageindex, pagesize, topicID);
@@ -77,6 +80,9 @@ public class LessonListController extends HttpServlet {
         request.setAttribute("page", pageindex);
         request.setAttribute("course", course);
         request.setAttribute("lessons", lessons);
+        request.setAttribute("url", "lessonlist");
+        request.setAttribute("pageindex", pageindex);
+        request.setAttribute("totalpage", totalpage);
         request.getRequestDispatcher("view/course_content/lesson_list.jsp").forward(request, response);
     } 
 

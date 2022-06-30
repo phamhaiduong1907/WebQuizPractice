@@ -622,6 +622,8 @@
     <servlet-mapping>
         <servlet-name>AddLessonController</servlet-name>
         <url-pattern>/addlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>QuizzesListController</servlet-name>
         <url-pattern>/quizzes</url-pattern>
     </servlet-mapping>
