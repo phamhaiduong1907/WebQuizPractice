@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Zuys
+ * @author long
  */
 public class QuizLevel {
     private int levelID;
@@ -27,6 +27,5 @@ public class QuizLevel {
     public void setLevelName(String levelName) {
         this.levelName = levelName;
     }
-
     
 }

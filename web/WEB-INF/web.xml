@@ -294,6 +294,30 @@
     <servlet>
         <servlet-name>AddLessonController</servlet-name>
         <servlet-class>controller.courseContentController.AddLessonController</servlet-class>
+            </servlet>
+    <servlet>
+        <servlet-name>QuizzesListController</servlet-name>
+        <servlet-class>controller.testContentController.QuizzesListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizViewController</servlet-name>
+        <servlet-class>controller.testContentController.QuizViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizEditController</servlet-name>
+        <servlet-class>controller.testContentController.QuizEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderSubCategory</servlet-name>
+        <servlet-class>controller.testContentController.renderSubCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderCourse</servlet-name>
+        <servlet-class>controller.testContentController.renderCourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <servlet-class>controller.testContentController.renderQuestionGroup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -598,6 +622,28 @@
     <servlet-mapping>
         <servlet-name>AddLessonController</servlet-name>
         <url-pattern>/addlesson</url-pattern>
+        <servlet-name>QuizzesListController</servlet-name>
+        <url-pattern>/quizzes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizViewController</servlet-name>
+        <url-pattern>/quizzes/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizEditController</servlet-name>
+        <url-pattern>/quizzes/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderSubCategory</servlet-name>
+        <url-pattern>/rendersubcate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderCourse</servlet-name>
+        <url-pattern>/rendercourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <url-pattern>/renderquestiongroup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

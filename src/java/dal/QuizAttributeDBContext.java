@@ -94,5 +94,4 @@ public class QuizAttributeDBContext extends DBContext{
         }
         return null;
     }
-
 }

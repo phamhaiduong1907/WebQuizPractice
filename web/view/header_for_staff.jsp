@@ -132,6 +132,7 @@
                     <li><a href="${pageContext.request.contextPath}/admin/userlist" class="nav__item">Userlist</a></li>
                     <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
                     <li><a href="${pageContext.request.contextPath}/test/questionlist" class="nav__item">Question</a></li>
+                    <li><a href="${pageContext.request.contextPath}/quizzes" class="nav__item">Quizzes</a></li>
 
 
                     <c:if  test="${sessionScope.account == null}">

@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Zuys
+ * @author long
  */
 public class QuizType {
     private int quizTypeID;
@@ -27,6 +27,5 @@ public class QuizType {
     public void setQuizTypeName(String quizTypeName) {
         this.quizTypeName = quizTypeName;
     }
-
     
 }

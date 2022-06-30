@@ -121,9 +121,9 @@
                             </td>
                         </tr>
                     </table>
-                    <div style="width: 100%; text-align: center; margin-top: 20px;">
-                        <a class="abtn"  href="../sale/registrationlist">Back</a>
-                        <a class="abtn" href="../sale/registrationedit?id=${requestScope.registration.registrationID}">Edit</a>  
+                    <div class="abtn" style="width: 100%; text-align: center; margin-top: 20px;">
+                        <a class="back"  href="../sale/registrationlist">Back</a>
+                        <a class="save" href="../sale/registrationedit?id=${requestScope.registration.registrationID}">Edit</a>  
                     </div>
                 </form>
             </div>

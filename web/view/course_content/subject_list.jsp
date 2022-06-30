@@ -61,6 +61,7 @@
                                 <td>${c.status?"Published":"Unpublished"}</td>
                                 <td>
                                     <a class="view__alink" href="lessonlist?courseID=${c.courseID}">View lesson</a>
+                                    
                                 </td>
                             </tr>
                         </c:forEach>

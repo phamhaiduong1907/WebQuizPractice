@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Zuys
+ * @author long
  */
 public class Quiz {
     private int quizID;
@@ -18,9 +18,30 @@ public class Quiz {
     private int duration;
     private float passRate;
     private String description;
+    private String note;
     private QuizType quizType;
     private Boolean isTaken;
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    
+    
+    public Boolean getIsTaken() {
+        return isTaken;
+    }
+
+    public void setIsTaken(Boolean isTaken) {
+        this.isTaken = isTaken;
+    }
+
+
+    
     public int getQuizID() {
         return quizID;
     }
@@ -100,14 +121,5 @@ public class Quiz {
     public void setQuizType(QuizType quizType) {
         this.quizType = quizType;
     }
-
-    public Boolean getIsTaken() {
-        return isTaken;
-    }
-
-    public void setIsTaken(Boolean isTaken) {
-        this.isTaken = isTaken;
-    }
-
     
 }

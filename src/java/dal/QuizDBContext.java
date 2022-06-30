@@ -4,6 +4,7 @@
  */
 package dal;
 
+import model.Quiz;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,15 +12,15 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Course;
-import model.Quiz;
 import model.QuizLevel;
 import model.QuizType;
 
 /**
  *
- * @author Zuys
+ * @author long
  */
-public class QuizDBContext extends DBContext{
+public class QuizDBContext extends DBContext {
+
     QuizAttributeDBContext qabdc = new QuizAttributeDBContext();
     CourseDBContext cdbc = new CourseDBContext();
 
@@ -44,42 +45,13 @@ public class QuizDBContext extends DBContext{
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 return q;
             }
         } catch (SQLException ex) {
             Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-    
-    public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
-        ArrayList<Quiz> quizzes = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, courseID);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Quiz q = new Quiz();
-                Course c = cdbc.getCourseByCourseID(rs.getInt("courseID"), null);
-                QuizLevel ql = qabdc.getQuizLevel(rs.getInt("levelID"));
-                QuizType qt = qabdc.getQuizType(rs.getInt("quizTypeID"));
-                q.setQuizID(rs.getInt("quizID"));
-                q.setNumOfQuestion(rs.getInt("numOfQuestion"));
-                q.setPassRate(rs.getFloat("passRate"));
-                q.setLevel(ql);
-                q.setDuration(rs.getInt("duration"));
-                q.setQuizType(qt);
-                q.setCourse(c);
-                q.setQuizName(rs.getString("quizName"));
-                q.setDescription(rs.getString("description"));
-                q.setIsTaken(rs.getBoolean("isTaken"));
-                quizzes.add(q);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return quizzes;
     }
 
     public ArrayList<Quiz> getQuizzes() {
@@ -103,6 +75,7 @@ public class QuizDBContext extends DBContext{
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 arr.add(q);
             }
             return arr;
@@ -142,6 +115,7 @@ public class QuizDBContext extends DBContext{
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 arr.add(q);
             }
             return arr;
@@ -151,7 +125,7 @@ public class QuizDBContext extends DBContext{
         return null;
     }
 
-    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description) {
+    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
 
         String sql = "UPDATE [Quiz]\n"
                 + "   SET [numOfQuestion] = ?\n"
@@ -162,6 +136,7 @@ public class QuizDBContext extends DBContext{
                 + "      ,[courseID] = ?\n"
                 + "      ,[quizName] = ?\n"
                 + "      ,[description] = ?\n"
+                + "      ,[note] = ?"
                 + " WHERE [quizID] = ?";
         PreparedStatement stm = null;
         try {
@@ -174,7 +149,8 @@ public class QuizDBContext extends DBContext{
             stm.setInt(6, course);
             stm.setString(7, name);
             stm.setString(8, description);
-            stm.setInt(9, ID);
+            stm.setString(9, note);
+            stm.setInt(10, ID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -183,7 +159,7 @@ public class QuizDBContext extends DBContext{
         return false;
     }
 
-    public Boolean addQuiz(int numQ, float pass, int level, int duration, int type, int course, String name, String description) {
+    public Boolean addQuiz(int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
 
         String sql = "INSERT INTO [dbo].[Quiz]\n"
                 + "           ([numOfQuestion]\n"
@@ -194,7 +170,8 @@ public class QuizDBContext extends DBContext{
                 + "           ,[courseID]\n"
                 + "           ,[quizName]\n"
                 + "           ,[description]"
-                + "           ,[isTaken])\n"
+                + "           ,[isTaken]\n"
+                + "           ,[note])"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
@@ -203,7 +180,8 @@ public class QuizDBContext extends DBContext{
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
-                + "           ,?"
+                + "           ,?\n"
+                + "           ,?\n"
                 + "           ,?)";
         PreparedStatement stm = null;
         try {
@@ -217,6 +195,7 @@ public class QuizDBContext extends DBContext{
             stm.setString(7, name);
             stm.setString(8, description);
             stm.setBoolean(9, false);
+            stm.setString(10, note);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -240,6 +219,35 @@ public class QuizDBContext extends DBContext{
             Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+    public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Quiz q = new Quiz();
+                Course c = cdbc.getCourseByCourseID(rs.getInt("courseID"), null);
+                QuizLevel ql = qabdc.getQuizLevel(rs.getInt("levelID"));
+                QuizType qt = qabdc.getQuizType(rs.getInt("quizTypeID"));
+                q.setQuizID(rs.getInt("quizID"));
+                q.setNumOfQuestion(rs.getInt("numOfQuestion"));
+                q.setPassRate(rs.getFloat("passRate"));
+                q.setLevel(ql);
+                q.setDuration(rs.getInt("duration"));
+                q.setQuizType(qt);
+                q.setCourse(c);
+                q.setQuizName(rs.getString("quizName"));
+                q.setDescription(rs.getString("description"));
+                q.setIsTaken(rs.getBoolean("isTaken"));
+                quizzes.add(q);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return quizzes;
     }
 
 }
