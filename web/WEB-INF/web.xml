@@ -178,7 +178,7 @@
     <servlet>
         <servlet-name>ModifyPostController</servlet-name>
         <servlet-class>controller.marketingController.ModifyPostController</servlet-class>
-          </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ViewSliderController</servlet-name>
         <servlet-class>controller.slider.ViewSliderController</servlet-class>
@@ -190,6 +190,26 @@
     <servlet>
         <servlet-name>RegistrationEditController</servlet-name>
         <servlet-class>controller.saleController.RegistrationEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionListController</servlet-name>
+        <servlet-class>controller.test.QuestionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuestionImportController</servlet-name>
+        <servlet-class>controller.test.QuestionImportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadAttributesController</servlet-name>
+        <servlet-class>controller.test.LoadAttributesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeQuestionStatusController</servlet-name>
+        <servlet-class>controller.test.ChangeQuestionStatusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TestController</servlet-name>
+        <servlet-class>controller.test.TestController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -378,7 +398,7 @@
     <servlet-mapping>
         <servlet-name>ModifyPostController</servlet-name>
         <url-pattern>/marketing/modifypost</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewSliderController</servlet-name>
         <url-pattern>/slider/view</url-pattern>
@@ -390,6 +410,26 @@
     <servlet-mapping>
         <servlet-name>RegistrationEditController</servlet-name>
         <url-pattern>/sale/registrationedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionListController</servlet-name>
+        <url-pattern>/test/questionlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuestionImportController</servlet-name>
+        <url-pattern>/test/import</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAttributesController</servlet-name>
+        <url-pattern>/test/load</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeQuestionStatusController</servlet-name>
+        <url-pattern>/test/changeStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestController</servlet-name>
+        <url-pattern>/test/testInsert</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

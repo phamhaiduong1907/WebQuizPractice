@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 
 
 
@@ -51,7 +51,9 @@
                                 <td>${c.courseID}</td>
                                 <td>${c.courseName}</td>
                                 <td>${c.subcategory.subcategoryName}</td>
-                                <td>${c.description}</td>
+                                <td>
+                                    <p> ${c.description} </p>
+                                </td>
                                 <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>

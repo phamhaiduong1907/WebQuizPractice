@@ -15,8 +15,6 @@
                  </c:when>
              </c:choose>" id="popupSection">
         <div class="popup__content">
-            <img src="${pageContext.request.contextPath}/images/OOjs_UI_icon_close.svg.png" alt="" class="close">
-
             <div class="form__user-profile" style="display: <c:choose>
                      <c:when test="${sessionScope.profile_status != null}">
                          <%="block; "%>
@@ -98,16 +96,22 @@
 <c:if  test="${sessionScope.account == null}">
     <!-- POPUP -->
     <section class="popup <c:choose>
-                 <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null || sessionScope.login_status != null}">
+                 <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null 
+                                 || sessionScope.login_status != null}">
                      <%="active"%>
                  </c:when>
              </c:choose>" id="popupSection">
 
 
         <div class="popup__content">
-            <img src="${pageContext.request.contextPath}/images/OOjs_UI_icon_close.svg.png" alt="" class="close" id="closeButton">
-
-            <div class="popup__login-form" id="popupLoginForm" style="">
+            <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
+                     <c:when test="${sessionScope.register_status == null}">
+                         <%="block; "%>
+                     </c:when>
+                     <c:otherwise>
+                         <%="none;"%>
+                     </c:otherwise>
+                 </c:choose>">
 
                 <span class="welcome__status status__login">already a member</span>
                 <h2>Login</h2>
