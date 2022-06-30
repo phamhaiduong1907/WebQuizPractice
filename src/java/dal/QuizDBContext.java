@@ -45,6 +45,7 @@ public class QuizDBContext extends DBContext {
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 return q;
             }
         } catch (SQLException ex) {
@@ -74,6 +75,7 @@ public class QuizDBContext extends DBContext {
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 arr.add(q);
             }
             return arr;
@@ -113,6 +115,7 @@ public class QuizDBContext extends DBContext {
                 q.setQuizName(rs.getString("quizName"));
                 q.setDescription(rs.getString("description"));
                 q.setIsTaken(rs.getBoolean("isTaken"));
+                q.setNote(rs.getString("note"));
                 arr.add(q);
             }
             return arr;
@@ -122,7 +125,7 @@ public class QuizDBContext extends DBContext {
         return null;
     }
 
-    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description) {
+    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
 
         String sql = "UPDATE [Quiz]\n"
                 + "   SET [numOfQuestion] = ?\n"
@@ -133,6 +136,7 @@ public class QuizDBContext extends DBContext {
                 + "      ,[courseID] = ?\n"
                 + "      ,[quizName] = ?\n"
                 + "      ,[description] = ?\n"
+                + "      ,[note] = ?"
                 + " WHERE [quizID] = ?";
         PreparedStatement stm = null;
         try {
@@ -145,7 +149,8 @@ public class QuizDBContext extends DBContext {
             stm.setInt(6, course);
             stm.setString(7, name);
             stm.setString(8, description);
-            stm.setInt(9, ID);
+            stm.setString(9, note);
+            stm.setInt(10, ID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -154,7 +159,7 @@ public class QuizDBContext extends DBContext {
         return false;
     }
 
-    public Boolean addQuiz(int numQ, float pass, int level, int duration, int type, int course, String name, String description) {
+    public Boolean addQuiz(int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
 
         String sql = "INSERT INTO [dbo].[Quiz]\n"
                 + "           ([numOfQuestion]\n"
@@ -165,7 +170,8 @@ public class QuizDBContext extends DBContext {
                 + "           ,[courseID]\n"
                 + "           ,[quizName]\n"
                 + "           ,[description]"
-                + "           ,[isTaken])\n"
+                + "           ,[isTaken]\n"
+                + "           ,[note])"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
@@ -174,7 +180,8 @@ public class QuizDBContext extends DBContext {
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
-                + "           ,?"
+                + "           ,?\n"
+                + "           ,?\n"
                 + "           ,?)";
         PreparedStatement stm = null;
         try {
@@ -188,6 +195,7 @@ public class QuizDBContext extends DBContext {
             stm.setString(7, name);
             stm.setString(8, description);
             stm.setBoolean(9, false);
+            stm.setString(10, note);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {

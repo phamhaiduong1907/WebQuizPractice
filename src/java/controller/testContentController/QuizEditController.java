@@ -114,7 +114,7 @@ public class QuizEditController extends HttpServlet {
             throws ServletException, IOException {
 
         int ID;
-        String name, des;
+        String name, des, note;
         int courseID, level, numQ, duration, type;
         float pass;
 
@@ -126,6 +126,7 @@ public class QuizEditController extends HttpServlet {
         String raw_pass = request.getParameter("passRate");
         String raw_type = request.getParameter("type");
         String raw_des = request.getParameter("des");
+        String raw_note = request.getParameter("note");
 
         ArrayList<String> arr = new ArrayList<>();
         arr.add(raw_name);
@@ -136,6 +137,7 @@ public class QuizEditController extends HttpServlet {
         arr.add(raw_pass);
         arr.add(raw_type);
         arr.add(raw_des);
+        arr.add(raw_note);
 
         if (v.checkNullOrBlank(arr)) {
             name = raw_name;
@@ -146,10 +148,11 @@ public class QuizEditController extends HttpServlet {
             pass = Float.parseFloat(raw_pass);
             type = Integer.parseInt(raw_type);
             des = raw_des;
+            note = raw_note;
 
             if (request.getParameter("ID") != null) {
                 ID = Integer.parseInt(request.getParameter("ID"));
-                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des) == true) {
+                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des, note) == true) {
                     log("true");
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + updateOk);
 
@@ -158,7 +161,7 @@ public class QuizEditController extends HttpServlet {
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + updateErr);
                 }
             } else {
-                if (qdbc.addQuiz(numQ, pass, level, duration, type, courseID, name, des)) {
+                if (qdbc.addQuiz(numQ, pass, level, duration, type, courseID, name, des, note)) {
                     ID = qdbc.getLatestID();
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + insertOk);
                 } else {

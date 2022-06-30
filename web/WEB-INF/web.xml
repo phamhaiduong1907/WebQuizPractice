@@ -228,8 +228,8 @@
         <servlet-class>controller.testContentController.renderCourse</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>renderThumbnailURL</servlet-name>
-        <servlet-class>controller.testContentController.renderThumbnailURL</servlet-class>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <servlet-class>controller.testContentController.renderQuestionGroup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -468,8 +468,8 @@
         <url-pattern>/rendercourse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>renderThumbnailURL</servlet-name>
-        <url-pattern>/renderthumbnail</url-pattern>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <url-pattern>/renderquestiongroup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

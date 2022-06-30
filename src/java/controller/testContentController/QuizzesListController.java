@@ -116,6 +116,12 @@ public class QuizzesListController extends HttpServlet {
         ArrayList<Quiz> list = qdbc.searchQuizzes(quizName, courseName, quizType);
         log(list.size() + " is size of list");
         ArrayList<QuizType> quizTypes = qabdc.getQuizTypes();
+        ArrayList<Quiz> listQ = qdbc.getQuizzes();
+        ArrayList<String> listName = new ArrayList<>();
+        for (Quiz quiz : listQ) {
+            listName.add(quiz.getQuizName());
+        }
+        request.setAttribute("namelist", listName);
         request.setAttribute("list", list);
         request.setAttribute("courses", courseList);
         request.setAttribute("quizTypes", quizTypes);

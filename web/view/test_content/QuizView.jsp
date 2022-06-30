@@ -29,21 +29,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
     <script>
         <c:if test="${mess != null}">
-        $(document).ready(function () {
+        function alertMess() {
             alert('${mess}');
-        });
+        }
         </c:if>
     </script>
 </head>
 
-<body>
+<body onload="alertMess();">
     <c:set value="${requestScope.quiz}" var="q"/>
     <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
     <div class="content">
         <h1>Quiz Detail</h1>
-        <div class="upperpart row">
-            <div class="upperpart__left col-md-6" >
-                <div class="form-group">
+        <div style="margin: 0 auto;" class="upperpart row col-md-10">
+            <div class="upperpart__left" >
+                <div class="form-group col-md-1">
                     <label for="">Quiz ID</label>
                     <input readonly  type="text" class="form-control" name="" value="${q.quizID}"/>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Quiz Type</label>
-                        <input readonly type="text" class="form-control" name="" value="${q.quizType.quizTypeName}%"/>
+                        <input readonly type="text" class="form-control" name="" value="${q.quizType.quizTypeName}"/>
                     </div>
                     <div class="col-md-6">
                         <label for="">Level</label>
@@ -95,24 +95,21 @@
                         </c:choose>                   
                     </div> 
                 </div>
-            </div>
-            <div class="col-md-6">
-                <img src="${pageContext.request.contextPath}/images/thumbnails/${q.course.thumbnailUrl}">
                 <div class="form-group">
                     <label for="">Description:</label>
-                    <textarea readonly style="height: 65px;"  class="form-control" name="des"  >${q.description}</textarea>
+                    <textarea readonly rows="3" class="form-control" name="des">${q.description}</textarea>
                 </div>
             </div>
         </div>
         <div class="btngrps">
-            <a href="../quizzes">Back</a>
+            <a style="background-color: red;" href="../quizzes">Back</a>
             <a href="../quizzes/edit?id=${q.quizID}">Edit</a>
         </div>
     </div>   
-        
+
     <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
-    
+
     <script src="js/userPopup.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
     <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>

@@ -35,14 +35,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
     <script>
         <c:if test="${mess != null}">
-        $(document).ready(function () {
+        function alertMess() {
             alert('${mess}');
-        });
+        }
         </c:if>
     </script>
 </head>
 
-<body>
+<body onload="alertMess();">
     <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
     <section class="main-container">
         <!-- RIGHT CONTENT -->
@@ -59,8 +59,8 @@
                     </datalist>
                     <input list="quizList" type="text" name="quiz" placeholder="Enter quiz name...">
                     <datalist id="quizList">
-                        <c:forEach items="${requestScope.list}" var="q">
-                            <option value="${q.quizName}"></option>
+                        <c:forEach items="${requestScope.namelist}" var="n">
+                            <option value="${n}"></option>
                         </c:forEach>
                     </datalist>
                     <select id="demo" multiple="multiple" name="QuizType">
