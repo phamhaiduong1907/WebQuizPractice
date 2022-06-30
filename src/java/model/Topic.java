@@ -1,21 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 /**
  *
- * @author ADMIN
+ * @author Zuys
  */
 public class Topic {
-
     private int topicID;
     private Course course;
     private String topicName;
-
-    public Topic() {
-    }
 
     public int getTopicID() {
         return topicID;
@@ -42,5 +34,5 @@ public class Topic {
     }
     
     
-    
 }
+

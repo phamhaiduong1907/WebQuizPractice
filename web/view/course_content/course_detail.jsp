@@ -84,6 +84,11 @@
                         <label for="">Description:</label>
                         <textarea readonly value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
                     </div>
+                    <div class="form-group ">
+                        <label for="">Owner:</label>
+                        <input readonly type="text" class="form-control" name="owner" value="${requestScope.course.owner}"/>
+
+                    </div>
 
 
                 </div>

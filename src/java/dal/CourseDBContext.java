@@ -143,7 +143,7 @@ public class CourseDBContext extends DBContext {
                 + "      ,[briefInfo]\n"
                 + "      ,[thumbnailURL],\n"
                 + "	  s.subcategoryName,\n"
-                + "	  s.categoryID\n"
+                + "	  s.categoryID, owner\n"
                 + "  FROM [dbo].[Course] c JOIN Subcategory s\n"
                 + "  on c.[subCategoryID] = s.[subcategoryID] where [status] = 1 ";
         PreparedStatement stm = null;
@@ -171,6 +171,8 @@ public class CourseDBContext extends DBContext {
                 c.setBriefInfo(rs.getString("briefInfo"));
                 c.setThumbnailUrl(rs.getString("thumbnailURL"));
                 c.setPricePackages(pricePackages);
+                c.setOwner(rs.getString("owner"));
+
                 if (account != null) {
                     c.setIsRegistered(registrationDBContext.isRegistered(account.getUsername(), c.getCourseID()));
                 }
@@ -191,7 +193,7 @@ public class CourseDBContext extends DBContext {
     public Course getCourse(int courseID) {
         Course c = new Course();
         try {
-            String sql = "SELECT courseID, courseName, subcategoryID, [status], isFeatured, [description], tagline, updatedDate, briefInfo, thumbnailURL\n"
+            String sql = "SELECT courseID, courseName, subcategoryID, [status], isFeatured, [description], tagline, updatedDate, briefInfo, thumbnailURL, owner\n"
                     + "FROM Course\n"
                     + "WHERE courseID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -213,6 +215,7 @@ public class CourseDBContext extends DBContext {
                 c.setBriefInfo(rs.getString("briefInfo"));
                 c.setThumbnailUrl(rs.getString("thumbnailURL"));
                 c.setPricePackages(pricePackages);
+                c.setOwner(rs.getString("owner"));
 
             }
         } catch (SQLException ex) {
@@ -596,7 +599,8 @@ public class CourseDBContext extends DBContext {
                 + "      ,[description] = ?\n"
                 + "      ,[tagline] = ?\n"
                 + "      ,[updatedDate] = GETDATE()\n"
-                + "      ,[briefInfo] = ?\n"
+                + "      ,[briefInfo] = ?"
+                + ", [owner] = ?\n"
                 + " WHERE courseID = ?";
 
         PreparedStatement stm = null;
@@ -609,7 +613,8 @@ public class CourseDBContext extends DBContext {
             stm.setString(5, course.getDescription());
             stm.setString(6, course.getTagline());
             stm.setString(7, course.getBriefInfo());
-            stm.setInt(8, course.getCourseID());
+            stm.setString(8, course.getOwner());
+            stm.setInt(9, course.getCourseID());
             return stm.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -637,4 +642,26 @@ public class CourseDBContext extends DBContext {
 
         return false;
     }
+
+    public boolean authEdit(int courseID, String owner) {
+        String sql = "select count(*) as total from Course\n"
+                + "where courseID = ? and [owner] = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            stm.setString(2, owner);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

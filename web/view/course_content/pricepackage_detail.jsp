@@ -21,6 +21,7 @@
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
@@ -54,10 +55,10 @@
                             <th>List Price</th>
                             <th>Sale Price</th>
                             <th>Status</th>
-                                <c:if test="${sessionScope.account.role.roleID == 1}">
+                                
                                 <th>Action</th>
 
-                            </c:if>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -68,10 +69,16 @@
                                 <td>${p.duration == 0?"Indefinite": p.duration}</td>
                                 <td>${p.listPrice}</td>
                                 <td>${p.salePrice}</td>
-                                <td>${p.status?"On":"Off"}</td>
-                                <td>   <c:if test="${sessionScope.account.role.roleID == 1}">
-                                        <a href="${pageContext.request.contextPath}/pricepackage?id=${p.pricePackageID}&status=${p.status?"off":"on"}">${p.status?"Deactive":"Activate"}</a>
-                                    </c:if><a href="pricepackageview?pid=${p.pricePackageID}&cid=${requestScope.course.courseID}">View</a>
+                                <td> <c:if test="${sessionScope.account.role.roleID == 1}">
+                                        <a   class="status ${p.status?"status__active":"status__inactive"}" href="${pageContext.request.contextPath}/pricepackage?id=${p.pricePackageID}&status=${p.status?"off":"on"}">${p.status?"Deactive":"Activate"}</a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.account.role.roleID == 2}">
+                                        <a   class="status ${p.status?"status__active":"status__inactive"}" >${p.status?"Deactive":"Activate"}</a>
+                                    </c:if>
+
+                                </td>
+                                
+                                <td>  <a class="view__alink" href="pricepackageview?pid=${p.pricePackageID}&cid=${requestScope.course.courseID}">View</a>
                                 </td>
 
 
@@ -102,6 +109,7 @@
                 <c:remove var="errormessage" scope="session" />
 
             </c:if>
+
 
 
         </script>

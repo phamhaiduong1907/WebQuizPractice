@@ -18,4 +18,7 @@ public class ErrorMessage {
     public static final String UPDATESUCESSFULLY = "Update successfully";
     public static final String DELETE_DIMENSION_EXISTQUESTION = "You can't delete a dimension that has a question in it";
     public static final String DELETE_TOPIC_EXISTQUESTION = "You can't delete a topic that has a question related to it";
+    public static final String DUPLICATE_DIMENSION = "Your dimension name is not unique";
+    public static final String DUPLICATE_TOPIC = "Your topic name is not unique";
+    public static final String AUTH_EDIT_COURSE = "You can not edit the course you don't own";
 }

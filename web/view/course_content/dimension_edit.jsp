@@ -85,9 +85,9 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
         <script>
-            <c:if test="${param.message != null}">
-            alert("${param.message}");
-
+            <c:if test="${sessionScope.message != null }">
+            alert("${sessionScope.message}");
+                <c:remove var="message" scope="session" />
             </c:if>
         </script>
     </body>

@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.util.ArrayList;
+import model.Account;
 import model.Category;
 import model.Course;
 import model.ErrorMessage;
@@ -64,10 +66,15 @@ public class EditSubjectController extends HttpServlet {
         ArrayList<Category> categorys = categoryDBContext.getCategories(2); // get category from course
         Category category = categoryDBContext.getCategoryBySubCategoryID(course.getSubcategory().getSubcategoryID());
         boolean isPublishable = courseDBContext.isPublishable(courseID);
+        AccountDBContext accountDBContext = new AccountDBContext();
+
+        ArrayList<Account> accounts = accountDBContext.getAccountByRoleID(2);
+
         if (!isPublishable) {
             request.setAttribute("notifymessage", errorMessage.COURSE_TURNONSTATUS);
 
         }
+        request.setAttribute("accounts", accounts);
 
         request.setAttribute("isPublishable", isPublishable);
         request.setAttribute("course", course);
@@ -96,6 +103,7 @@ public class EditSubjectController extends HttpServlet {
         String raw_tagline = request.getParameter("tagline");
         String raw_briefInfo = request.getParameter("briefInfo");
         String raw_courseID = request.getParameter("courseID");
+        String raw_owner = request.getParameter("owner");
         Part thumbnail = request.getPart("thumbnail");
 
         ArrayList<String> input = new ArrayList<>();
@@ -106,6 +114,7 @@ public class EditSubjectController extends HttpServlet {
         input.add(raw_description);
         input.add(raw_tagline);
         input.add(raw_briefInfo);
+        input.add(raw_owner);
         Validation validation = new Validation();
 
         int subcategoryID;
@@ -130,6 +139,7 @@ public class EditSubjectController extends HttpServlet {
             c.setStatus(status);
             c.setSubcategory(s);
             c.setTagline(raw_tagline);
+            c.setOwner(raw_owner);
 
             CourseDBContext courseDBContext = new CourseDBContext();
             boolean updateSuccessfully = false;

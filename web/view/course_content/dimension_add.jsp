@@ -14,6 +14,7 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/course_detail.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/dimension_list.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/course_content/dimension_add.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -63,7 +64,7 @@
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
-                        <button class="btn btn-default">
+                        <button class="btn btn-default submit">
                             <a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}">Cancel</a>
                         </button>
                     </div>
@@ -80,7 +81,13 @@
 
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+        <script>
+            <c:if test="${sessionScope.message != null }">
+            alert("${sessionScope.message}");
+                <c:remove var="message" scope="session" />
+            </c:if>
 
+        </script>
 
     </body>
 </html>

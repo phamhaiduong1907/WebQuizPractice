@@ -61,8 +61,8 @@
                                 <td>${d.dimensionName}</td>
                                 <td>${d.dimensionDescription}</td>
 
-                                <td><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/deletedimension?courseID=${requestScope.course.courseID}&dimensionID=${d.dimensionID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
-                                    <a href="dimensionedit?did=${d.dimensionID}&cid=${requestScope.course.courseID}">Edit</a>
+                                <td><a href="dimensionedit?did=${d.dimensionID}&cid=${requestScope.course.courseID}" class="edit_alink">Edit</a>    <a class="delete_alink" href="${pageContext.request.contextPath}/managesubject/subjectdetail/deletedimension?courseID=${requestScope.course.courseID}&dimensionID=${d.dimensionID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                    
                                 </td>
                             </tr>    
                         </c:forEach>

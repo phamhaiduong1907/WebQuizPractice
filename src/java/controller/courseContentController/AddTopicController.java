@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import dal.CourseDBContext;
 import dal.TopicDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.ErrorMessage;
 
 /**
@@ -57,18 +59,33 @@ public class AddTopicController extends HttpServlet {
         String url = request.getHeader("referer");
         int courseID = Integer.parseInt(request.getParameter("courseID"));
         TopicDBContext topicDBContext = new TopicDBContext();
-        if (raw_postName != null && raw_postName.trim().length() > 0) {
-            if (topicDBContext.insertTopic(courseID, raw_postName)) {
-                request.getSession().setAttribute("message", ErrorMessage.UPDATESUCESSFULLY);
-                response.sendRedirect(url);
+        Account account = (Account) request.getSession().getAttribute("account");
+        CourseDBContext courseDBContext = new CourseDBContext();
+
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            if (raw_postName != null && raw_postName.trim().length() > 0) {
+                if (!topicDBContext.checkDuplicateAdd(raw_postName, courseID)) {
+                    if (topicDBContext.insertTopic(courseID, raw_postName)) {
+                        request.getSession().setAttribute("message", ErrorMessage.UPDATESUCESSFULLY);
+                        response.sendRedirect(url);
+                    } else {
+                        request.getSession().setAttribute("message", ErrorMessage.ERRORSQL);
+                        response.sendRedirect(url);
+                    }
+                } else {
+                    request.getSession().setAttribute("message", ErrorMessage.DUPLICATE_TOPIC);
+                    response.sendRedirect(url);
+                }
+
             } else {
-                request.getSession().setAttribute("message", ErrorMessage.ERRORSQL);
+                request.getSession().setAttribute("message", ErrorMessage.MISSINGINPUT);
                 response.sendRedirect(url);
             }
         } else {
-            request.getSession().setAttribute("message", ErrorMessage.MISSINGINPUT);
+            request.getSession().setAttribute("errormessage", ErrorMessage.AUTH_EDIT_COURSE);
             response.sendRedirect(url);
         }
+
     }
 
     /**

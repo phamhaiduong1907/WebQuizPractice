@@ -51,13 +51,15 @@
                         <c:forEach var="c" items="${requestScope.courses}">
                             <tr class="table__row">
                                 <td>${c.courseID}</td>
-                                <td> <a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${c.courseID}" class="detailink">${c.courseName}</a> </td>
+                                <td> <a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${c.courseID}" class="view__alink">${c.courseName}</a> </td>
                                 <td>${c.subcategory.subcategoryName}</td>
                                 <td>${c.description}</td>
                                 <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>
-                                <td><a href="#">Edit</a></td>
+                                <td>
+                                    <a class="view__alink" href="lessonlist?courseID=${c.courseID}">View lesson</a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

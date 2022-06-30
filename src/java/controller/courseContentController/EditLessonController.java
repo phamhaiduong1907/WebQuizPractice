@@ -5,23 +5,44 @@
 
 package controller.courseContentController;
 
-import dal.CategoryDBContext;
-import dal.CourseDBContext;
-import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Category;
-import model.Course;
 
 /**
  *
  * @author Zuys
  */
-public class ManageSubjectListController extends HttpServlet { 
+public class EditLessonController extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EditLessonController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EditLessonController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    } 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -32,30 +53,7 @@ public class ManageSubjectListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CourseDBContext courseDBContext = new CourseDBContext();
-        CategoryDBContext dbCate = new CategoryDBContext();
-        
-        int pagesize = 8;
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int count = courseDBContext.countCourse();
-        int totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
-        }
-        ArrayList<Category> categories = dbCate.getCategories(2);
-        ArrayList<Course> courses = courseDBContext.getManageCourses(pageindex, pagesize,null);
-
-        request.setAttribute("categories", categories);
-        request.setAttribute("courses", courses);
-        request.setAttribute("url", "managesubject");
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-
-        request.getRequestDispatcher("view/course_content/subject_list.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -68,6 +66,7 @@ public class ManageSubjectListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /** 

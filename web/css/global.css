@@ -152,3 +152,58 @@ ul.breadcrumb li a:hover {
     background-color: #ff690c !important;
     color: black !important;
 }
+
+.non-scroll{
+    display: block    !important ;
+    overflow-y: hidden !important;
+}
+
+
+.view__alink {
+    background-color: #65badc;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.edit_alink{
+    background-color: orange!important;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+}
+
+.delete_alink{
+    background-color: darkgrey;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.status__active{
+    background-color: #c8e6c9;
+    color: #388e3c;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.status__inactive{
+    background-color: #ffcdd2;
+    color: #c62828;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+

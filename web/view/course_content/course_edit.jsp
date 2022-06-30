@@ -19,7 +19,13 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/course_detail.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/course_content/course_edit.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
     </head>
     <body>
@@ -102,6 +108,15 @@
                             <label for="">Description:</label>
                             <textarea  value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
                         </div>
+                        <div class="form-group ">
+                            <label for="">Owner:</label>
+                         
+                            <select data-size="2"  class="selectpicker" data-live-search="true" name="owner">
+                                <c:forEach items="${requestScope.accounts}" var="a">
+                                    <option ${requestScope.course.owner eq a.username?"selected":""} value="${a.username}">${a.username}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
 
                     </div>
                     <div class="col-md-6">
@@ -127,6 +142,7 @@
 
 
         <script>
+            $('.btn dropdown-toggle btn-light').css("width","300px");
 
             $(document).on('change', '#select_category', function (event) {
                 var categoryID = this.value;

@@ -33,13 +33,14 @@
 
                 </div>
 
-                <footer>
-                    FOOTER
-                </footer>
+                
             </aside>
         </section>
+        
+        
 
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
 
 
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>

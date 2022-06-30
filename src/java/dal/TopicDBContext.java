@@ -136,4 +136,93 @@ public class TopicDBContext extends DBContext {
         return false;
     }
 
+    public ArrayList<Topic> getTopics(int courseID) {
+        CourseDBContext dbCourse = new CourseDBContext();
+        ArrayList<Topic> topics = new ArrayList<>();
+        try {
+            String sql = "SELECT topicID, topicName, courseID\n"
+                    + "FROM Topic\n"
+                    + "WHERE courseID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Topic t = new Topic();
+                t.setTopicID(rs.getInt("topicID"));
+                t.setTopicName(rs.getString("topicName"));
+                t.setCourse(dbCourse.getCourse(courseID));
+                topics.add(t);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TopicDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return topics;
+    }
+
+    public Topic getTopic(int topicID) {
+        CourseDBContext dbCourse = new CourseDBContext();
+        Topic t = new Topic();
+        try {
+            String sql = "SELECT topicID, topicName, courseID\n"
+                    + "FROM Topic\n"
+                    + "WHERE topicID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, topicID);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                t.setTopicID(rs.getInt("topicID"));
+                t.setTopicName(rs.getString("topicName"));
+                t.setCourse(dbCourse.getCourse(rs.getInt("courseID")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TopicDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return t;
+    }
+
+    public boolean checkDuplicateAdd(String topicName, int courseID) {
+        String sql = "select count(*) as total from Topic\n"
+                + "where topicName = ? and courseID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, topicName);
+            stm.setInt(2, courseID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TopicDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public boolean checkDuplicateEdit(int topicID, String topicName, int courseID) {
+        String sql = "select count(*) as total from Topic\n"
+                + "where topicID != ? and topicName = ? and courseID = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, topicID);
+            stm.setString(2, topicName);
+            stm.setInt(3, courseID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TopicDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+
+    }
+
 }

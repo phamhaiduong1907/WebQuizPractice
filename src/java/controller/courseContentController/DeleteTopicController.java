@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import dal.CourseDBContext;
 import dal.TopicDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.ErrorMessage;
 
 /**
@@ -41,16 +43,26 @@ public class DeleteTopicController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int topicID = Integer.parseInt(request.getParameter("id"));
+        int courseID = Integer.parseInt(request.getParameter("cid"));
         String url = request.getHeader("referer");
 
-        TopicDBContext topicDBContext = new TopicDBContext();
-        if (topicDBContext.deleteTopic(topicID)) {
-            request.getSession().setAttribute("message", ErrorMessage.UPDATESUCESSFULLY);
-            response.sendRedirect(url);
+        Account account = (Account) request.getSession().getAttribute("account");
+        CourseDBContext courseDBContext = new CourseDBContext();
+
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            TopicDBContext topicDBContext = new TopicDBContext();
+            if (topicDBContext.deleteTopic(topicID)) {
+                request.getSession().setAttribute("message", ErrorMessage.UPDATESUCESSFULLY);
+                response.sendRedirect(url);
+            } else {
+                request.getSession().setAttribute("message", ErrorMessage.DELETE_TOPIC_EXISTQUESTION);
+                response.sendRedirect(url);
+            }
         } else {
-            request.getSession().setAttribute("message", ErrorMessage.DELETE_TOPIC_EXISTQUESTION);
+            request.getSession().setAttribute("errormessage", ErrorMessage.AUTH_EDIT_COURSE);
             response.sendRedirect(url);
         }
+
     }
 
     /**

@@ -7,13 +7,13 @@ package controller.courseContentController;
 import dal.CourseDBContext;
 import dal.DimensionDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
+import model.Account;
 import model.Course;
 import model.Dimension;
 import model.DimensionType;
@@ -49,20 +49,28 @@ public class EditDimensionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = request.getHeader("referer");
+
         int courseID = Integer.parseInt(request.getParameter("cid"));
         int dimensionID = Integer.parseInt(request.getParameter("did"));
 
         CourseDBContext courseDBContext = new CourseDBContext();
         Course course = courseDBContext.getCourse(courseID);
         DimensionDBContext dimensionDBContext = new DimensionDBContext();
-        Dimension dimension = dimensionDBContext.getDimensionByDimensionID(dimensionID);
-        ArrayList<DimensionType> dimensionTypes = dimensionDBContext.getDimensionTypes();
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            Dimension dimension = dimensionDBContext.getDimensionByDimensionID(dimensionID);
+            ArrayList<DimensionType> dimensionTypes = dimensionDBContext.getDimensionTypes();
 
-        request.setAttribute("course", course);
-        request.setAttribute("dimension", dimension);
-        request.setAttribute("dimensionTypes", dimensionTypes);
+            request.setAttribute("course", course);
+            request.setAttribute("dimension", dimension);
+            request.setAttribute("dimensionTypes", dimensionTypes);
 
-        request.getRequestDispatcher(EDITDIMENSIONURL).forward(request, response);
+            request.getRequestDispatcher(EDITDIMENSIONURL).forward(request, response);
+        } else {
+            request.getSession().setAttribute("errormessage", ErrorMessage.AUTH_EDIT_COURSE);
+            response.sendRedirect(url);
+        }
 
     }
 
@@ -81,6 +89,7 @@ public class EditDimensionController extends HttpServlet {
         String dimensionName = request.getParameter("dimensionName");
         String dimensionDescription = request.getParameter("dimensionDescription");
         String raw_typeID = request.getParameter("typeID");
+        int courseID = Integer.parseInt(request.getParameter("courseID"));
         int typeID = -1;
         int dimensionID = Integer.parseInt(request.getParameter("dimensionID"));
         ArrayList<String> inputs = new ArrayList<>(Arrays.asList(raw_typeID, dimensionDescription, dimensionName));
@@ -89,14 +98,24 @@ public class EditDimensionController extends HttpServlet {
         if (validation.checkNullOrBlank(inputs)) {
             typeID = Integer.parseInt(raw_typeID);
             DimensionDBContext dimensionDBContext = new DimensionDBContext();
-            if (dimensionDBContext.updateDimension(typeID, dimensionName, dimensionDescription, dimensionID)) {
-                response.sendRedirect(url + "&message=" + ErrorMessage.UPDATESUCESSFULLY);
-            } else {
-                response.sendRedirect(url + "&message=" + ErrorMessage.ERRORSQL);
+            if (!dimensionDBContext.checkEdit(dimensionID, dimensionName, courseID)) {
+                if (dimensionDBContext.updateDimension(typeID, dimensionName, dimensionDescription, dimensionID)) {
+                    request.getSession().setAttribute("message", ErrorMessage.UPDATESUCESSFULLY);
+                    response.sendRedirect(url);
+                } else {
+                    request.getSession().setAttribute("message", ErrorMessage.ERRORSQL);
+                    response.sendRedirect(url);
 
+                }
+            } else {
+                request.getSession().setAttribute("message", ErrorMessage.DUPLICATE_DIMENSION);
+                response.sendRedirect(url);
             }
+
         } else {
-            response.sendRedirect(url + "&message=" + ErrorMessage.MISSINGINPUT);
+            request.getSession().setAttribute("message", ErrorMessage.MISSINGINPUT);
+            response.sendRedirect(url);
+
         }
 
     }

@@ -59,8 +59,8 @@
                             <tr>
                                 <td>${t.topicID}</td>
                                 <td>${t.topicName}</td>
-                                <td>  <a href="#" data-bs-toggle="modal" data-bs-target="#id${t.topicID}">Edit</a> 
-                                    <a href="topicdel?id=${t.topicID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                <td>  <a class="edit_alink" href="#" data-bs-toggle="modal" data-bs-target="#id${t.topicID}">Edit</a> 
+                                    <a class="delete_alink" href="topicdel?id=${t.topicID}&cid=${requestScope.course.courseID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                                 </td>
                                 
                             </tr>    
@@ -111,6 +111,7 @@
                         </div>
                         <div class="modal-body">
                             <form  action="topicedit" method="post">
+                                <input name="courseID" value="${requestScope.course.courseID}" type="hidden">
                                 <input name="topicID" type="hidden" value="${t.topicID}">
                                 <div class="form-group">
                                     <label for="">Topic name:</label>
@@ -142,6 +143,7 @@
             alert("${sessionScope.message}");
                 <c:remove var="message" scope="session" />
             </c:if>
+                
 
         </script>
 

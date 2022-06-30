@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import dal.CourseDBContext;
 import dal.DimensionDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.ErrorMessage;
 
 /**
@@ -44,15 +46,21 @@ public class DeleteDimensionController extends HttpServlet {
 
         int courseID = Integer.parseInt(request.getParameter("courseID"));
         int dimensionID = Integer.parseInt(request.getParameter("dimensionID"));
+        Account account = (Account) request.getSession().getAttribute("account");
+        CourseDBContext courseDBContext = new CourseDBContext();
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            DimensionDBContext dimensionDBContext = new DimensionDBContext();
+            if (dimensionDBContext.deleteDimension(courseID, dimensionID)) {
+                response.sendRedirect(url);
 
-        DimensionDBContext dimensionDBContext = new DimensionDBContext();
-        if (dimensionDBContext.deleteDimension(courseID, dimensionID)) {
-            response.sendRedirect(url);
+            } else {
+                request.getSession().setAttribute("errormessage", ErrorMessage.DELETE_DIMENSION_EXISTQUESTION);
+                response.sendRedirect(url);
 
+            }
         } else {
-            request.getSession().setAttribute("errormessage", ErrorMessage.DELETE_DIMENSION_EXISTQUESTION);
+            request.getSession().setAttribute("errormessage", ErrorMessage.AUTH_EDIT_COURSE);
             response.sendRedirect(url);
-
         }
 
     }

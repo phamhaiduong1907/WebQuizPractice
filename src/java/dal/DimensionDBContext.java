@@ -269,4 +269,50 @@ public class DimensionDBContext extends DBContext {
         return false;
     }
 
+    public boolean checkDuplicate(int courseID, String dimensionName) {
+        String sql = "select count(*) as total from Dimension\n"
+                + "where  dimensionName = ?  and courseID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, dimensionName);
+            stm.setInt(2, courseID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean checkEdit(int dimensionID, String dimensionName, int courseID) {
+        String sql = "select count(*) as total from Dimension \n"
+                + "where dimensionID not in (?) and dimensionName = ? and courseID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, dimensionID);
+            stm.setString(2, dimensionName);
+            stm.setInt(3, courseID);
+
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
 }
