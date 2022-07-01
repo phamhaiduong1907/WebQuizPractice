@@ -103,5 +103,6 @@ public class Lesson {
     public void setPricePackages(ArrayList<PricePackage> pricePackages) {
         this.pricePackages = pricePackages;
     }
-    
+   
+
 }

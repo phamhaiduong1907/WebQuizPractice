@@ -318,6 +318,18 @@
     <servlet>
         <servlet-name>renderQuestionGroup</servlet-name>
         <servlet-class>controller.testContentController.renderQuestionGroup</servlet-class>
+         </servlet>
+    <servlet>
+        <servlet-name>AddQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.AddQuestionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.EditQuestionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetLessonByTopic</servlet-name>
+        <servlet-class>controller.testContentController.GetLessonByTopic</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -646,6 +658,18 @@
     <servlet-mapping>
         <servlet-name>renderQuestionGroup</servlet-name>
         <url-pattern>/renderquestiongroup</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestionController</servlet-name>
+        <url-pattern>/addquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuestionController</servlet-name>
+        <url-pattern>/editquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetLessonByTopic</servlet-name>
+        <url-pattern>/getlessonbytopic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

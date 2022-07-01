@@ -73,6 +73,7 @@
                         </c:forEach>
                     </select>
                 </div>
+                    <input type="submit" value="Save">
             </form>
         </section>
 

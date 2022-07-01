@@ -22,6 +22,7 @@ public class Course {
     private String thumbnailUrl;
     private boolean isRegistered;
     private String owner;
+    private ArrayList<Topic> topics;
     private ArrayList<Dimension> dimensions;
 
     public ArrayList<Dimension> getDimensions() {
@@ -41,9 +42,6 @@ public class Course {
     public void setIsRegistered(boolean isRegistered) {
         this.isRegistered = isRegistered;
     }
-    
-    
-    
 
     public String getOwner() {
         return owner;
@@ -141,6 +139,12 @@ public class Course {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    
+    public ArrayList<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(ArrayList<Topic> topics) {
+        this.topics = topics;
+    }
 
 }

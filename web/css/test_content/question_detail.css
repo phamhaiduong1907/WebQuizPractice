@@ -1,36 +1,62 @@
-.right_content h1 {
-    font-size: 30px;
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 24, 2022, 10:45:21 PM
+    Author     : ADMIN
+*/
+
+.headnav:link{
+    color: white !important;
 }
 
-form {
-    margin-top: 20px;
-    font-size: 18px;
+.headnav:visited{
+    color: white !important;
+
 }
 
-.question_info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nav{
+    background-color: white !important;
 }
 
-.info {
-    width: 40%;
+.content{
+    margin: 20px;
 }
 
-label,
-textarea,
-input[type=file] {
-    display: block;
+.content > *{
+    padding: 8px;
+}
+
+.nav.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "";
+}
+
+img{
     width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+}
+.answer__detail{
+    margin-left: 0px;
+    margin-top: 20px;
+}
+.upperpart__right > *{
+    margin-left: 30px;
 }
 
-select {
-    width: 10%;
-    margin-top: 5px;
+.media__preview{
+    border: 1px dashed gray;
+    width: 620px;
+    height: 350px;
 }
 
-footer {
-    margin-top: 200px;
+.media__preview > :not(:first-child){
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.image__preview__data, .video__preview__data, .audio__preview__data{
+    width: 100%;
+    height: 100%;
 }

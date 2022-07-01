@@ -41,17 +41,19 @@ public class DimensionDBContext extends DBContext {
         return null;
     }
 
-    public ArrayList<Dimension> getDimensionsByCourseID(int courseID) {
+     public ArrayList<Dimension> getDimensionsByCourseID(int courseID) {
         ArrayList<Dimension> dimensions = new ArrayList<>();
-        String sql = "select * from Dimension \n"
-                + "where c.courseID = ?";
+        String sql = "SELECT d.dimensionID, d.dimensionName, d.typeID, d.dimensionDescription \n"
+                + "FROM Dimension d INNER JOIN Course c\n"
+                + "ON d.courseID = c.courseID\n"
+                + "WHERE d.courseID = ?";
 
         PreparedStatement stm = null;
         ResultSet rs = null;
-
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
+            rs = stm.executeQuery();
             while (rs.next()) {
                 Dimension d = new Dimension();
                 d.setDimensionID(rs.getInt("dimensionID"));
@@ -60,13 +62,13 @@ public class DimensionDBContext extends DBContext {
                 d.setDimensionName(rs.getString("dimensionName"));
                 dimensions.add(d);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DimensionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dimensions;
 
     }
+
 
     public boolean checkExist(int typeID, String dimensionName, String dimensionDescription, int courseID) {
         String sql = "select count(*) as total from Dimension \n"
