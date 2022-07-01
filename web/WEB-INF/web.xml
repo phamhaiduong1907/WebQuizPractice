@@ -231,6 +231,10 @@
         <servlet-name>GetLessonByTopic</servlet-name>
         <servlet-class>controller.testContentController.GetLessonByTopic</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.ViewQuestionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -470,6 +474,10 @@
     <servlet-mapping>
         <servlet-name>GetLessonByTopic</servlet-name>
         <url-pattern>/getlessonbytopic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewQuestionController</servlet-name>
+        <url-pattern>/viewquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
