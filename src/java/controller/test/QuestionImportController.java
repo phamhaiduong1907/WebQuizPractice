@@ -59,7 +59,7 @@ public class QuestionImportController extends HttpServlet {
 
             // if sheet is not empty
             if (!isBlankSheet) {
-                for (int i = 0; i < sheet.getLastRowNum(); i++) {
+                for (int i = 0; i <= sheet.getLastRowNum(); i++) {
 
 //                    String message = "Errors happen when importing file at line " + i + ": ";
                     boolean isValidQuestion = true;
@@ -282,7 +282,7 @@ public class QuestionImportController extends HttpServlet {
 
                         // pile up errors
                         countWrong++;
-                        errorMessage += (i + 1);
+                        errorMessage += (i + 1)+", ";
 //                        errorMessage += message;
                     }
                 }
@@ -293,10 +293,10 @@ public class QuestionImportController extends HttpServlet {
                 session.setAttribute("countRight", countRight);
 
             } else {
-                errorMessage = "Your uploaded file is empty. Please check the file again";
+                errorMessage = "Your uploaded file is empty. Please check the file again   ";
             }
         } else {
-            errorMessage = "Your uploaded file is invalid. Please check the file type again, the system accept *.xlsx/*xls only";
+            errorMessage = "Your uploaded file is invalid. Please check the file type again, the system accept *.xlsx/*xls only  ";
         }
         session.setAttribute("errorMessage", errorMessage.substring(0, errorMessage.length() - 2));
         response.sendRedirect("questionlist");

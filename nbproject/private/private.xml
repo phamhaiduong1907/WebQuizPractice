@@ -11,6 +11,7 @@
             <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/src/java/model/Question.java</file>
             <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/web/view/test_content/question_list.jsp</file>
             <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/src/java/controller/test/TestController.java</file>
+            <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/src/java/dal/CourseDBContext.java</file>
             <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/web/view/user_popup.jsp</file>
             <file>file:/D:/SWP391/SWP391-SE1617-NET_Group06-QuizWebsite/src/java/model/Answer.java</file>
         </group>
