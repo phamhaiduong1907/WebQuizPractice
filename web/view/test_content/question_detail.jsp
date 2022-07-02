@@ -27,10 +27,9 @@
                 <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
                 <li><a href="#">Subject detail</a></li>
-
             </ul> 
             <div class="content">
-                <form method="POST" action="addquestion" enctype="multipart/form-data">
+                <form id="question__form" method="POST" action="addquestion" enctype="multipart/form-data">
                     <div class="upperpart row">
                         <div class="upperpart__left col-md-6" >
                             <div class="form-group">
@@ -39,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Topic: </label>
-                                <select class="form-control" name="topicID" id="topicID">
+                                <select required class="form-control" name="topicID" id="topicID">
                                     <c:forEach items="${requestScope.topics}" var="t">
                                         <option value="${t.topicID}">${t.topicName}</option>
                                     </c:forEach>
@@ -48,7 +47,7 @@
                             <div class="form-group">
                                 <label for="">Lesson: </label>
                                 <div id="lesson"> 
-                                    <select class="form-control" name="lessonID">
+                                    <select required class="form-control" name="lessonID">
                                     </select>
                                 </div>
 
@@ -145,44 +144,44 @@
                             </div>
                             <input id="file__input" type="file" name="mediafile">
                         </div>
-                    </div > 
-                    <input type="submit" value="Save" class="addlink">
+                    </div >
+                    <a class="addlink" href="javascript:{}" onclick="document.getElementById('question__form').submit();">Save</a>
                 </form>
             </div>   
             <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
-            
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script src="../../js/userPopup.js"></script>
             <script src="${pageContext.request.contextPath}/js/test_content/addquestion.js" type="text/javascript"></script>
             <script>
-                                    $(document).on('change', '#topicID', function (event) {
-                                        var topicID = this.value;
-                                        $.ajax({
-                                            url: "getlessonbytopic",
-                                            type: 'POST',
-                                            dataType: 'html',
-                                            data: {ID: topicID},
-                                        })
-                                                .done(function (data) {
-                                                    $('#lesson').html(data);
-                                                })
-                                                .fail(function (error) {
-                                                    $('#lesson').html("<h1>error</h1>");
-                                                })
-                                                .always(function () {
-
-                                                });
+                        $(document).on('change', '#topicID', function (event) {
+                            var topicID = this.value;
+                            $.ajax({
+                                url: "getlessonbytopic",
+                                type: 'POST',
+                                dataType: 'html',
+                                data: {ID: topicID},
+                            })
+                                    .done(function (data) {
+                                        $('#lesson').html(data);
+                                    })
+                                    .fail(function (error) {
+                                        $('#lesson').html("<h1>error</h1>");
+                                    })
+                                    .always(function () {
 
                                     });
-                                    var loadFile = function (event) {
-                                        var output = document.getElementById('output');
-                                        output.src = URL.createObjectURL(event.target.files[0]);
-                                        output.onload = function () {
-                                            URL.revokeObjectURL(output.src) // free memory
-                                        }
-                                    };
+
+                        });
+                        var loadFile = function (event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.onload = function () {
+                                URL.revokeObjectURL(output.src) // free memory
+                            }
+                        };
             </script>
         </body>
 

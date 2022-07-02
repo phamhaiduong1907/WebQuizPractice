@@ -30,6 +30,10 @@ import util.Validation;
 @MultipartConfig
 public class AddQuestionController extends HttpServlet {
 
+    private static final String WRONGFILETYPE = "Wrong file input format";
+    private static final String MISSINGINPUT = "You must entered required fields";
+    private static final String ERRORSQL = "Please try again";
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -133,7 +137,6 @@ public class AddQuestionController extends HttpServlet {
 
             }
         } else {
-
         }
 
     }

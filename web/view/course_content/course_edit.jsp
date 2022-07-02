@@ -88,7 +88,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group ">
-                                    <p class="notification">Note: ${requestScope.notifymessage} 
+                                    <p class="notification">${requestScope.notifymessage != null ? "Note":""}  ${requestScope.notifymessage} 
                                     </p>
                                 </div>
                             </c:if>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="form-group ">
                             <label for="">Owner:</label>
-                         
+
                             <select data-size="2"  class="selectpicker" data-live-search="true" name="owner">
                                 <c:forEach items="${requestScope.accounts}" var="a">
                                     <option ${requestScope.course.owner eq a.username?"selected":""} value="${a.username}">${a.username}</option>
@@ -142,7 +142,7 @@
 
 
         <script>
-            $('.btn dropdown-toggle btn-light').css("width","300px");
+            $('.btn dropdown-toggle btn-light').css("width", "300px");
 
             $(document).on('change', '#select_category', function (event) {
                 var categoryID = this.value;
@@ -161,7 +161,7 @@
                         .always(function () {
 
                         });
-                
+
             });
             var loadFile = function (event) {
                 var output = document.getElementById('output');

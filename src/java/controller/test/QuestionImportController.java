@@ -287,8 +287,12 @@ public class QuestionImportController extends HttpServlet {
                     }
                 }
 
-                errorMessage = "Errors happen when importing file at lines: " + errorMessage;
-
+                if (errorMessage.equals("")) {
+                    errorMessage = null;
+                } else {
+                    errorMessage = "Errors happen when importing file at lines: " + errorMessage;
+                    errorMessage = errorMessage.substring(0, errorMessage.length() - 2);
+                }
                 session.setAttribute("countWrong", countWrong);
                 session.setAttribute("countRight", countRight);
 
@@ -298,10 +302,16 @@ public class QuestionImportController extends HttpServlet {
         } else {
             errorMessage = "Your uploaded file is invalid. Please check the file type again, the system accept *.xlsx/*xls only";
         }
-        session.setAttribute("errorMessage", errorMessage.substring(0, errorMessage.length() - 2));
+
+        if (errorMessage == null) {
+            session.setAttribute("errorMessage", null);
+        } else {
+            session.setAttribute("errorMessage", errorMessage);
+        }
+
         response.sendRedirect("questionlist");
     }
-    
+
     private static boolean checkEmptyRow(Row row) {
         if (row == null) {
             return true;

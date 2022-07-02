@@ -1,6 +1,6 @@
 <%-- 
-    Document   : question_edit
-    Created on : Jun 30, 2022, 11:42:20 PM
+    Document   : question_view
+    Created on : Jul 1, 2022, 6:00:00 AM
     Author     : Hai Tran
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Question</title>
+        <title>View Question</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -24,7 +24,6 @@
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
-
         <ul class="breadcrumb">
             <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
@@ -32,18 +31,17 @@
 
         </ul> 
         <div class="content">
-            <form id="question__form" method="POST" action="editquestion" enctype="multipart/form-data">
                 <input type="hidden" value="${requestScope.question.questionID}" name="questionID">
                 <input type="hidden" value="${requestScope.question.mediaURL}" name="mediaURl">
                 <div class="upperpart row">
                     <div class="upperpart__left col-md-6" >
                         <div class="form-group">
                             <label>Question content: </label>
-                            <textarea required rows="3"  class="form-control" name="questioncontent">${requestScope.question.questionContent}</textarea>
+                            <textarea readonly required rows="3"  class="form-control" name="questioncontent">${requestScope.question.questionContent}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Topic: </label>
-                            <select class="form-control" name="topicID">
+                            <select disabled class="form-control" name="topicID">
                                 <c:forEach items="${requestScope.topics}" var="t">
                                     <c:choose >
                                         <c:when test="${requestScope.question.lesson.topicID == t.topicID}">
@@ -58,15 +56,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Lesson: </label>
-                            <select class="form-control" name="lessonID">
-                                <option value="1">Topic 1</option>
-                                <option value="2">Topic 2</option>
-                                <option value="3">Topic 3</option>
-                            </select>
+                            <input readonly class="form-control" value="${requestScope.question.lesson.lessonName}"/>
                         </div>
                         <div class="form-group">
                             <label for="">Dimension: </label>
-                            <select class="form-control" id="select_dimension" name="dimensionID">
+                            <select disabled class="form-control" id="select_dimension" name="dimensionID">
                                 <c:forEach items="${requestScope.dimensions}" var="d">
                                     <c:choose >
                                         <c:when test="${requestScope.question.dimension.dimensionID == d.dimensionID}">
@@ -81,7 +75,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Level: </label>
-                            <select class="form-control" id="select_level" name="levelID">
+                            <select disabled class="form-control" id="select_level" name="levelID">
                                 <c:forEach items="${requestScope.levels}" var="l">
                                     <c:choose >
                                         <c:when test="${requestScope.question.level.levelID == l.levelID}">
@@ -104,7 +98,7 @@
                                                     <span class="question__answer">Answer: </span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="answer" value="${a.answerContent}">
+                                                    <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
                                                     <span class="istrue">Is True:</span>
@@ -112,10 +106,10 @@
                                                 <td class="col">
                                                     <c:choose>
                                                         <c:when test="${a.isTrue}">
-                                                            <input checked type="checkbox" name="istrue" value="1_istrue">
+                                                            <input disabled checked type="checkbox" name="istrue" value="1_istrue">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <input type="checkbox" name="istrue" value="1_istrue">
+                                                            <input disabled type="checkbox" name="istrue" value="1_istrue">
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
@@ -136,7 +130,7 @@
                                                     <span class="question__answer">Answer: </span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="answer" value="${a.answerContent}">
+                                                    <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
                                                     <span class="istrue">Is True:</span>
@@ -144,10 +138,10 @@
                                                 <td class="col">
                                                     <c:choose>
                                                         <c:when test="${a.isTrue}">
-                                                            <input checked type="checkbox" name="istrue" value="2_istrue">
+                                                            <input disabled checked type="checkbox" name="istrue" value="2_istrue">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <input type="checkbox" name="istrue" value="2_istrue">
+                                                            <input disabled type="checkbox" name="istrue" value="2_istrue">
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
@@ -170,7 +164,7 @@
                                                     <span class="question__answer">Answer: </span>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="answer" value="${a.answerContent}">
+                                                    <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
                                                     <span class="istrue">Is True:</span>
@@ -178,15 +172,15 @@
                                                 <td class="col">
                                                     <c:choose>
                                                         <c:when test="${a.isTrue}">
-                                                            <input checked type="checkbox" name="istrue" value="<%=i%>_istrue">
+                                                            <input disabled  checked type="checkbox" name="istrue" value="<%=i%>_istrue">
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <input type="checkbox" name="istrue" value="<%=i%>_istrue">
+                                                            <input disabled type="checkbox" name="istrue" value="<%=i%>_istrue">
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove' id="remove_item" data-id="<%=i%>">
+                                                    <button disabled onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove' id="remove_item" data-id="<%=i%>">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </td>
@@ -198,16 +192,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Answer explanation: </label>
-                                    <textarea required rows="3"  class="form-control" name="explanation">${requestScope.question.explanation}</textarea>
+                                    <textarea readonly required rows="3"  class="form-control" name="explanation">${requestScope.question.explanation}</textarea>
                                 </div>
-                                <button type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                <button disabled type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
                             </div>
                         </div>
                     </div>
                     <div class="upperpart__right col-md-6">
                         <div class="media__file">
                             <label>Choose media type: </label>
-                            <select id="file__select" onchange="InputFile()" name="mediaID">
+                            <select disabled id="file__select" onchange="InputFile()" name="mediaID">
                                 <c:choose>
                                     <c:when test="${requestScope.question.mediaType.mediaID == 1}">
                                         <option selected="selected" value="1">Picture</option>
@@ -251,8 +245,7 @@
                         <input disabled id="file__input" type="file" name="mediafile" value="${requestScope.question.mediaURL}">
                     </div>
                 </div > 
-                <a class="addlink" href="javascript:{}" onclick="document.getElementById('question__form').submit();">Save</a>
-            </form>
+                <a href="editquestion?questionID=${requestScope.question.questionID}" class="addlink">Edit</a>
         </div>   
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>

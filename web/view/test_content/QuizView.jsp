@@ -102,8 +102,8 @@
             </div>
         </div>
         <div class="btngrps">
-            <a style="background-color: red;" href="../quizzes">Back</a>
-            <a href="../quizzes/edit?id=${q.quizID}">Edit</a>
+            <a href="../quizzes" style="border-radius: 5px; padding: 7px;">Back</a>
+            <a style="background-color: white;color: #000;" href="../quizzes/edit?id=${q.quizID}">Edit</a>
         </div>
     </div>   
 

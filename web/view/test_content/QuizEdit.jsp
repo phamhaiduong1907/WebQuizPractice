@@ -69,15 +69,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="">Duration (mins)</label>
-                                <input required type="number" class="form-control" name="duration" value="${q.duration}"/>
+                                <input min="1" required type="number" class="form-control" name="duration" value="${q.duration}"/>
                             </div>
                             <div class="col-md-4">
                                 <label for="">Pass Rate (%)</label>
-                                <input required type="number" class="form-control" name="passRate" value="${q.passRate}"/>
+                                <input min="1" required type="number" class="form-control" name="passRate" value="${q.passRate}"/>
                             </div>
                             <div class="col-md-4">
                                 <label for="">Number Of Question</label>
-                                <input required type="number" class="form-control" name="numOfQ" value="${q.numOfQuestion}"/>
+                                <input min="1" required type="number" class="form-control" name="numOfQ" value="${q.numOfQuestion}"/>
                             </div>
                         </div>
                         <div class="row">
@@ -166,8 +166,8 @@
                     </div>
                 </form>
                 <div class="form-group btngrps">
-                    <a style="background-color: red;" href="../quizzes" onclick="alert('You are about to cancel!?');">Cancel</a>
-                    <input form="myForm" onclick="alert('You are about to save this!?');" type="submit" value="Save">
+                    <a style="background-color: #fff; color: #000;" href="../quizzes" onclick="alert('You are about to cancel!?');">Cancel</a>
+                    <input style="border-radius: 5px; padding: 7px;" form="myForm" onclick="alert('You are about to save this!?');" type="submit" value="Save">
                 </div>
             </div>
         </div>

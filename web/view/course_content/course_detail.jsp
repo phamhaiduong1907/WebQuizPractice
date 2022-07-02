@@ -65,8 +65,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">Status:</label>
-                                <input d-inline readonly type="text" class="form-control" name="" value="<c:if test="${requestScope.course.isFeatured}">Published</c:if>
-                                   <c:if test="${!requestScope.course.isFeatured}">Unpublished</c:if>"/>
+                                <input d-inline readonly type="text" class="form-control" name="" value="<c:if test="${requestScope.course.status}">Published</c:if><c:if test="${!requestScope.course.status}">Unpublished</c:if>"/>
                             </div>
                             <div class="form-group ">
                                 <label for="">Tag line:</label>
