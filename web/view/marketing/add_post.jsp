@@ -87,16 +87,16 @@
                                 <div class="form-group">
                                     <label for="isStatus">Display status</label>
                                     <select class="form-control" name="isStatus" id="isStatus">
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                        <option value="true">On</option>
+                                        <option value="false">Off</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="isFeatured">Featured</label>
                                     <select class="form-control" name="isFeatured" id="isStatus">
-                                        <option value="true">Yes</option>
-                                        <option value="false">No</option>
+                                        <option value="true">Supported</option>
+                                        <option value="false">No supported</option>
                                     </select>
                                 </div>
 

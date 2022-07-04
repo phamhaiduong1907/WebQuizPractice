@@ -17,7 +17,7 @@ html, body{
     text-align: center;
     margin: 300px  200px ;
 }
-
+/*add an object*/
 .addlink:link, .addlink:visited {
     background-color: #0056d2;
     color: white;
@@ -25,7 +25,7 @@ html, body{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    
+
 }
 
 .addlink{
@@ -34,7 +34,7 @@ html, body{
 }
 
 .addlink:hover, .addlink:active{
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
 }
 
 img{
@@ -58,3 +58,152 @@ footer p{
 .footer__group{
     font-weight: bold;
 }
+
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    color: #686d71 !important;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    color: green !important;
+    text-decoration: underline;
+}
+
+
+/*Add css link to detail */
+.detailink{
+    color: black;
+    background-color: grey;
+
+}
+
+.detailink:hover{
+    color: green;
+    background: rgba(76, 175, 80, 0.3)
+
+}
+
+.pagination{
+    margin-left: 33%;
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.pagination span
+{
+    color: white;
+    font-size: 27px;
+    border: 1px;
+    padding: 10px 25px;
+    background-color: #4CAF50;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.pagination a
+{
+    transition: background-color .2s;
+    color: black;
+    text-decoration: none;
+    font-size: 27px;
+    border:1px;
+    padding: 10px 25px;
+    border-radius: 10px;
+
+}
+
+.pagination a:hover{
+    color: white;
+    background: grey;
+}
+
+.pagination{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.currentnav:link, .currentnav:visited{
+    background-color: #ff690c !important;
+    color: black !important;
+}
+
+.non-scroll{
+    display: block    !important ;
+    overflow-y: hidden !important;
+}
+
+
+.view__alink {
+    background-color: #65badc;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.edit_alink{
+    background-color: orange!important;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+}
+
+.delete_alink{
+    background-color: darkgrey;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.status__active{
+    background-color: #c8e6c9;
+    color: #388e3c;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.status__inactive{
+    background-color: #ffcdd2;
+    color: #c62828;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+

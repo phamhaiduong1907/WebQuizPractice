@@ -29,7 +29,7 @@
                         <div class="search_form">
                             <form action="#" id="search">
                                 <div class="search__item">
-                                    <input type="text" name="content" id="contentSearch" placeholder="Type name to search">
+                                    <input type="text" name="content" id="contentSearch" placeholder="Type content to search">
                                 </div>
                                 <div class="search__item">
                                     <label for="subjectSearch">Subject</label>
@@ -126,8 +126,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="action__edit">Edit</a>
-                                        <a href="#" class="action__view">View</a>
+                                        <a href="${pageContext.request.contextPath}/editquestion?questionID=${q.questionID}" class="action__edit">Edit</a>
+                                        <a href="${pageContext.request.contextPath}/viewquestion?questionID=${q.questionID}" class="action__view">View</a>
                                     </td>
                                 </tr>
                             </c:forEach>

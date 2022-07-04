@@ -248,7 +248,7 @@
                                                 });
 
                                     });
-
+                                    
                                     $(document).on('change', '#subCategory_by_category', function (event) {
                                         var categoryID = this.value;
                                         $.ajax({

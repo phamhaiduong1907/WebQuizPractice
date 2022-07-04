@@ -6,10 +6,9 @@ package model;
 
 /**
  *
- * @author Hai Duong
+ * @author ADMIN
  */
 public class DimensionType {
-
     private int typeID;
     private String typeName;
 
@@ -31,5 +30,7 @@ public class DimensionType {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
-
+    
+    
+    
 }

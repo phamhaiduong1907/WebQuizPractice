@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
 
 <!--Header for guest -->
 <c:if test="${sessionScope.account == null}">
@@ -29,7 +30,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName  }<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -130,6 +131,9 @@
                     <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/userlist" class="nav__item">Userlist</a></li>
                     <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/test/questionlist" class="nav__item">Question</a></li>
+                    <li><a href="${pageContext.request.contextPath}/quizzes" class="nav__item">Quizzes</a></li>
+
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
@@ -200,6 +204,7 @@
                 <ul class="nav__links">
                     <li><a href="#" class="nav__item">Dashboard</a></li>
                     <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
+                    <li><a href="${pageContext.request.contextPath}/test/questionlist" class="nav__item">Question</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login" id="loginButton"class="nav__item">Log in</a></li>
@@ -223,3 +228,4 @@
 
     </header>
 </c:if>
+

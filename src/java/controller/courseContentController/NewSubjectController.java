@@ -129,7 +129,7 @@ public class NewSubjectController extends HttpServlet {
                     File file = new File(SUBJECTPICTUREURI + "\\" + subjectPicName);
                     if (file.exists()) {
                         Path source = Paths.get(SUBJECTPICTUREURI + "\\" + subjectPicName);
-                        Files.move(source, source.resolveSibling(SUBJECTPICTUREURI + "\\" + courseID + ".png"), StandardCopyOption.REPLACE_EXISTING);
+                        Files.move(source, source.resolveSibling(SUBJECTPICTUREURI + "\\" + courseID + ".jpeg"), StandardCopyOption.REPLACE_EXISTING);
                         Course course = new Course();
                         course.setCourseID(courseID);
                         course.setCourseName(raw_subjectName);

@@ -103,12 +103,12 @@
                                     <select class="form-control" name="isStatus" id="isStatus">
                                         <c:choose>
                                             <c:when test="${requestScope.post.status}">
-                                                <option value="true" selected>Yes</option>
-                                                <option value="false">No</option>
+                                                <option value="true" selected>On</option>
+                                                <option value="false">Off</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="true" >Yes</option>
-                                                <option value="false" selected>No</option>
+                                                <option value="true" >On</option>
+                                                <option value="false" selected>Off</option>
                                             </c:otherwise>
                                         </c:choose>
                                     </select>
@@ -119,12 +119,12 @@
                                     <select class="form-control" name="isFeatured" id="isFeatured">
                                         <c:choose>
                                             <c:when test="${requestScope.post.isFeatured}">
-                                                <option value="true" selected>Yes</option>
-                                                <option value="false">No</option>
+                                                <option value="true" selected>Supported</option>
+                                                <option value="false">No supported</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="true" >Yes</option>
-                                                <option value="false" selected>No</option>
+                                                <option value="true" >Supported</option>
+                                                <option value="false" selected>No supported</option>
                                             </c:otherwise>
                                         </c:choose>
                                     </select>
@@ -168,9 +168,8 @@
 
             </aside>
         </section>
-        <footer>
-            FOOTER
-        </footer>
+               <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
 

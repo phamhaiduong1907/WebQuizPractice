@@ -6,15 +6,18 @@ package model;
 
 /**
  *
- * @author Hai Duong
+ * @author ADMIN
  */
 public class Dimension {
-
     private int dimensionID;
     private DimensionType dimensionType;
     private String dimensionName;
     private String dimensionDescription;
 
+    
+    
+    
+    
     public Dimension() {
     }
 
@@ -49,5 +52,7 @@ public class Dimension {
     public void setDimensionDescription(String dimensionDescription) {
         this.dimensionDescription = dimensionDescription;
     }
-
+    
+    
+    
 }

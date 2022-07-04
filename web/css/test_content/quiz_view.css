@@ -1,0 +1,133 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 24, 2022, 10:45:21 PM
+    Author     : ADMIN
+*/
+
+.headnav:link{
+    color: white !important;
+}
+
+.headnav:visited{
+    color: white !important;
+
+}
+
+.nav{
+    background-color: white !important;
+}
+
+.content{
+    margin: 20px;
+}
+
+.nav.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "";
+}
+
+img{
+    width: 100%;
+}
+
+select {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btngrps {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.btngrps input[type=submit] {
+    color: white;
+    margin: 10px 20px;
+    padding: 6px 12px;
+    font-size: 22px;
+    background-color: #0056d2;
+    border-radius: 25px;
+    border: none;
+    transition: all 0.3s;
+}
+
+input[type=submit]:hover {
+    opacity: 0.7;
+}
+
+.btngrps a {
+    text-decoration: none;
+    color: white;
+    margin: 10px 20px;
+    padding: 6px 12px;
+    font-size: 24px;
+    background-color: #0056d2;
+    border-radius: 25px;
+    border: none;
+    transition: all 0.3s;
+}
+
+.btngrps a:hover {
+    color: white;
+    opacity: 0.7;
+}
+
+.tab {
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.tablinks {
+    letter-spacing: 2px;
+    width: fit-content;
+    background-color: #0056d2;
+    font-size: 22px;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 7px 20px;
+    margin-right: 25px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.tablinks:hover {
+    color: white;
+    background-color: #070767;
+}
+
+.active {
+    background-color: #ffcc00;
+    color: #070767;
+}
+
+.active:hover {
+    background-color: #ffcc00;
+    color: #070767;
+}
+
+.form-group {
+    padding: 10px 0 20px 0;
+}
+.row {
+    padding: 10px 0 20px 0;
+}

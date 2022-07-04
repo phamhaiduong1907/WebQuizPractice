@@ -12,10 +12,11 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Hai Duong
+ * @author ADMIN
  */
-public class CommonDBContext extends DBContext{
-    protected int getIdentity(String tableName) {
+public class CommonDBContext extends DBContext {
+
+    public int getIdentity(String tableName) {
         String sql = "SELECT IDENT_CURRENT('" + tableName + "') AS id";
         PreparedStatement stm = null;
         ResultSet rs = null;

@@ -192,6 +192,90 @@
         <servlet-class>controller.saleController.RegistrationEditController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LessonListController</servlet-name>
+        <servlet-class>controller.courseContentController.LessonListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetPostByFilter</servlet-name>
+        <servlet-class>controller.marketingController.GetPostByFilter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageSubjectDetailController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageSubjectDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagePricepackageController</servlet-name>
+        <servlet-class>controller.courseContentController.ManagePricepackageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusPricePackage</servlet-name>
+        <servlet-class>controller.courseContentController.ChangeStatusPricePackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageDimensionListController</servlet-name>
+        <servlet-class>controller.courseContentController.ManageDimensionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.DeleteDimensionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSubjectController</servlet-name>
+        <servlet-class>controller.courseContentController.EditSubjectController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PricePackageViewController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PricePackageEditController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PricePackageAddController</servlet-name>
+        <servlet-class>controller.courseContentController.PricePackageAddController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.AddDimensionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDimensionController</servlet-name>
+        <servlet-class>controller.courseContentController.EditDimensionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicListController</servlet-name>
+        <servlet-class>controller.courseContentController.TopicListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.AddTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.EditTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTopicController</servlet-name>
+        <servlet-class>controller.courseContentController.DeleteTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.ChangeStatusLessonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.ViewLessonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LessonSearchController</servlet-name>
+        <servlet-class>controller.courseContentController.LessonSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.EditLessonController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>QuestionListController</servlet-name>
         <servlet-class>controller.test.QuestionListController</servlet-class>
     </servlet>
@@ -208,8 +292,48 @@
         <servlet-class>controller.test.ChangeQuestionStatusController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TestController</servlet-name>
-        <servlet-class>controller.test.TestController</servlet-class>
+        <servlet-name>AddLessonController</servlet-name>
+        <servlet-class>controller.courseContentController.AddLessonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizzesListController</servlet-name>
+        <servlet-class>controller.testContentController.QuizzesListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizViewController</servlet-name>
+        <servlet-class>controller.testContentController.QuizViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>QuizEditController</servlet-name>
+        <servlet-class>controller.testContentController.QuizEditController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderSubCategory</servlet-name>
+        <servlet-class>controller.testContentController.renderSubCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderCourse</servlet-name>
+        <servlet-class>controller.testContentController.renderCourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <servlet-class>controller.testContentController.renderQuestionGroup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.AddQuestionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.EditQuestionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetLessonByTopic</servlet-name>
+        <servlet-class>controller.testContentController.GetLessonByTopic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewQuestionController</servlet-name>
+        <servlet-class>controller.testContentController.ViewQuestionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -412,6 +536,90 @@
         <url-pattern>/sale/registrationedit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LessonListController</servlet-name>
+        <url-pattern>/lessonlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetPostByFilter</servlet-name>
+        <url-pattern>/marketing/GetPostByFilter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageSubjectDetailController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagePricepackageController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackagedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusPricePackage</servlet-name>
+        <url-pattern>/pricepackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageDimensionListController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimension</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/deletedimension</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSubjectController</servlet-name>
+        <url-pattern>/managesubject/subjectedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageViewController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageEditController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PricePackageAddController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/pricepackageadd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimensionadd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDimensionController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/dimensionedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicListController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topiclist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/addpost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topicedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTopicController</servlet-name>
+        <url-pattern>/managesubject/subjectdetail/topicdel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusLessonController</servlet-name>
+        <url-pattern>/lessonstatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewLessonController</servlet-name>
+        <url-pattern>/viewlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LessonSearchController</servlet-name>
+        <url-pattern>/searchlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditLessonController</servlet-name>
+        <url-pattern>/editlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>QuestionListController</servlet-name>
         <url-pattern>/test/questionlist</url-pattern>
     </servlet-mapping>
@@ -428,8 +636,48 @@
         <url-pattern>/test/changeStatus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TestController</servlet-name>
-        <url-pattern>/test/testInsert</url-pattern>
+        <servlet-name>AddLessonController</servlet-name>
+        <url-pattern>/addlesson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizzesListController</servlet-name>
+        <url-pattern>/quizzes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizViewController</servlet-name>
+        <url-pattern>/quizzes/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizEditController</servlet-name>
+        <url-pattern>/quizzes/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderSubCategory</servlet-name>
+        <url-pattern>/rendersubcate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderCourse</servlet-name>
+        <url-pattern>/rendercourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderQuestionGroup</servlet-name>
+        <url-pattern>/renderquestiongroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddQuestionController</servlet-name>
+        <url-pattern>/addquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditQuestionController</servlet-name>
+        <url-pattern>/editquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetLessonByTopic</servlet-name>
+        <url-pattern>/getlessonbytopic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewQuestionController</servlet-name>
+        <url-pattern>/viewquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
