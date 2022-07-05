@@ -53,13 +53,13 @@
                  style="display: none"
                 </c:if>>
                 <label for="videoLink">Video Link:</label>
-                <input type="text" name="videoLink" required value="${requestScope.lesson.videoLink}" placeholder="Youtube link..">
+                <input type="text" name="videoLink" value="${requestScope.lesson.videoLink}" placeholder="Youtube link..">
             </div>
             <div id="htmlDiv" class="htmlDiv" <c:if test="${requestScope.lesson.lessonType.lessonTypeID==1}">
                  style="display: none"
                 </c:if>>
                 <label for="htmlContent">HTML Content:</label>
-                <textarea name="htmlContent" required>
+                <textarea name="htmlContent">
                     ${requestScope.lesson.htmlContent}
                 </textarea>
             </div>

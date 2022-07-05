@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/model/Lesson.java</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/dal/QuizDBContext.java</file>
+            <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/controller/courseContentController/AddLessonController.java</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/web/WEB-INF/web.xml</file>
             <file>file:/D:/SWP/I3/summer2022-se1617-g6/src/java/dal/DBContext.java</file>
         </group>

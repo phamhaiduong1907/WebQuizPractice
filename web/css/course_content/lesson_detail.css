@@ -7,12 +7,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Author     : Zuys
 */
 .lesson_table{
-    display: flex;
-    justify-content: center;
+    width: 100%;
 }
 
 table{
     display: block    !important ;
     overflow-y: hidden !important;
-    align-self: center;
+    width: 100%;
 }
