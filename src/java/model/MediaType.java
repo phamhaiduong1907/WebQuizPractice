@@ -11,7 +11,18 @@ package model;
 public class MediaType {
     private int mediaID;
     private String mediaType;
+    private String mediaName;
 
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
+    
+    
+    
     public int getMediaID() {
         return mediaID;
     }

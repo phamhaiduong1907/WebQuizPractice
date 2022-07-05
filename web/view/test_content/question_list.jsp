@@ -126,8 +126,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="action__edit">Edit</a>
-                                        <a href="#" class="action__view">View</a>
+                                        <a href="${pageContext.request.contextPath}/editquestion?questionID=${q.questionID}" class="action__edit">Edit</a>
+                                        <a href="${pageContext.request.contextPath}/viewquestion?questionID=${q.questionID}" class="action__view">View</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -172,24 +172,27 @@
             </div>
         </section>
 
-        <div id="toast" style="display:${sessionScope.countWrong == null && session.countRight == null?"none":"block"}">
-            <div class="toast__wrapper" style="display: ${sessionScope.countRight > 0?"block":"none"}">
-                <div class="toast success">
-                    <i class="fa fa-check-circle"></i>
-                    <div class="notify">
-                        <span class="message">Success</span>
-                        <span>${sessionScope.countRight} questions successfully imported</span>
+        <div id="toast" style="display:${sessionScope.countWrong == null && sessionScope.countRight == null && sessionScope.errorMessage == null ?"none":"block"}">
+            <div class="toast__wrapper">
+                <div class="toast">
+                    <div class="success" style="display: ${sessionScope.countRight > 0?"flex":"none"}">
+                        <i class="fa fa-check-circle"></i>
+                        <div class="notify">
+                            <span class="message">Success</span>
+                            <span>${sessionScope.countRight} questions successfully imported</span>
+                        </div>  
                     </div>
-                </div>
-            </div>
-            <div class="toast__wrapper" style="display: ${sessionScope.countWrong > 0?"block":"none"}">
-                <div class="toast fail">
-                    <!--<i class="fa fa-exclamation-circle"></i>-->
-                    <i class="fa fa-exclamation-circle"></i>
-                    <div class="notify">
-                        <span class="message">Success</span>
-                        <span class="errorMessage">${sessionScope.errorMessage}</span>
-                        <span>${sessionScope.countWrong} questions imported fail</span>
+
+                    <div class="fail" style="display: ${(sessionScope.countWrong > 0 || sessionScope.errorMessage != null)?"flex":"none"}">
+                        <!--<i class="fa fa-exclamation-circle"></i>-->
+                        <i class="fa fa-exclamation-circle"></i>
+                        <div class="notify">
+                            <span class="message">Fail</span>
+                            <span class="errorMessage">${sessionScope.errorMessage}</span>
+                            <c:if test="${sessionScope.countWrong > 0}">
+                                <span>${sessionScope.countWrong} questions imported fail</span>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
             </div>

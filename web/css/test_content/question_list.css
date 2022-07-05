@@ -122,12 +122,7 @@ tfoot tr td a.active{
 }
 
 .toast{
-    padding: 15px;
-    box-shadow: 2px 2px 4px 0px grey;
     animation: slide_show 2s ease forwards;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .toast i{
@@ -168,20 +163,20 @@ tfoot tr td a.active{
     flex-direction: column;
 }
 
-.toast.fail{
+.toast .fail{
     background-color: #f6d5d5;
     margin-top: 10px;
 }
 
-.toast.success{
+.toast .success{
     background-color: #dcf3dc;
 }
 
-.toast.success i{
+.toast .success i{
     color: green;
 }
 
-.toast.fail i{
+.toast .fail i{
     color: red;  
 }
 
@@ -192,6 +187,13 @@ tfoot tr td a.active{
 
 .notify{
     flex: 1;
+}
+
+.success, .fail{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 2px 2px 4px 0px grey;
 }
 
 @keyframes slide_show {
@@ -217,4 +219,3 @@ tfoot tr td a.active{
         transform: translateX(200%);
     }
 }
-

@@ -140,7 +140,6 @@ public class AddBlogController extends HttpServlet {
 
             } else {
                 response.sendRedirect("addblog?errorMessage=" + MISSINGINPUT);
-
             }
         } catch (Exception e) {
             e.printStackTrace();

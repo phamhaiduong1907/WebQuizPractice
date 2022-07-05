@@ -136,7 +136,6 @@
                 <div id="pagination" class="pagination"></div>
             </section>
 
-
             <!-- RIGHT -->
             <section class="option__box">
                 <div class="option__filter">

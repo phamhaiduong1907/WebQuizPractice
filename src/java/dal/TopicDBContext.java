@@ -147,10 +147,12 @@ public class TopicDBContext extends DBContext {
             stm.setInt(1, courseID);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
+                LessonDBContext dbLesson = new LessonDBContext();
                 Topic t = new Topic();
                 t.setTopicID(rs.getInt("topicID"));
                 t.setTopicName(rs.getString("topicName"));
                 t.setCourse(dbCourse.getCourse(courseID));
+                t.setLessons(dbLesson.getLessonByTopic(rs.getInt("topicID")));
                 topics.add(t);
             }
         } catch (SQLException ex) {
@@ -158,7 +160,6 @@ public class TopicDBContext extends DBContext {
         }
         return topics;
     }
-
     public Topic getTopic(int topicID) {
         CourseDBContext dbCourse = new CourseDBContext();
         Topic t = new Topic();

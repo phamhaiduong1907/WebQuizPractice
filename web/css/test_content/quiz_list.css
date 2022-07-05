@@ -133,7 +133,6 @@ tr:nth-child(even){
     font-size: 25px;
     border: 1px;
     padding: 10px 15px;
-    background-color: #90ee90;
     border-radius: 10px;
     margin-left: 15px;
     margin-right: 15px;
@@ -141,7 +140,8 @@ tr:nth-child(even){
 }
 
 .pag .active {
-    background-color: #4CAF50;
+    background-color: #1fe21e;
+    color: #fff;
 }
 
 .pag a:hover {

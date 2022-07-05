@@ -393,4 +393,33 @@ public class LessonDBContext extends DBContext {
         }
         return false;
     }
+    
+     public ArrayList<Lesson> getLessonByTopic(int topicID) {
+        ArrayList<Lesson> lessons = new ArrayList<>();
+        LessonTypeDBContext dbLessonType = new LessonTypeDBContext();
+        try {
+            String sql = "SELECT lessonID, lessonTypeId, lessonName, [lessonOrder], topicID, videoLink, htmlContent, [status]\n"
+                    + "FROM Lesson\n"
+                    + "WHERE topicID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, topicID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Lesson l = new Lesson();
+                l.setLessonID(rs.getInt("lessonID"));
+                l.setLessonType(dbLessonType.getLessonType(rs.getInt("lessonTypeID")));
+                l.setLessonName(rs.getString("lessonName"));
+                l.setLessonOrder(rs.getInt("lessonOrder"));
+                l.setTopicID(rs.getInt("topicID"));
+                l.setVideoLink(rs.getString("videoLink"));
+                l.setHtmlContent(rs.getString("htmlContent"));
+                l.setStatus(rs.getBoolean("status"));
+                lessons.add(l);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lessons;
+    }
+
 }

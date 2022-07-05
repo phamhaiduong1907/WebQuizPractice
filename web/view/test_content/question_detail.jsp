@@ -3,170 +3,186 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Question Detail</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="../../css/admin/index.css">
-    <link rel="stylesheet" href="../../css/popup.css">
-    <link rel="stylesheet" href="../../css/admin/system.css">
-    <link rel="stylesheet" href="../../css/test_content/question_detail.css">
-</head>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>Add Question</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+                  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+                  crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+                  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+            <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
+            <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
+            <link href="${pageContext.request.contextPath}/css/test_content/question_detail.css" rel="stylesheet" type="text/css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<body>
-    <header>
-        <div class="logo">
-            <p>LOGO</p>
-        </div>
+        </head>
 
-        <div class="user_bar">
-            <div class="user_log">
-                <i class="fa fa-user-circle"></i>
-                <span class="user_name">Administrator</span>
-                <div class="submenu">
-                    <ul>
-                        <li><a href="#" id="openProfile">User Profile</a></li>
-                        <li><a href="#" id="openChangePassword">Change Password</a></li>
-                        <li><a href="#">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
-    <section class="main">
+        <body>
+            <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-        <aside class="left">
-            <nav>
-                <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Posts</a></li>
-                    <li><a href="#">Sliders</a></li>
-                    <li><a href="../admin/system.html">System Settings</a></li>
-                    <li><a href="../admin/user_list.html">Users</a></li>
-                    <li><a href="#">Course</a></li>
-                    <li><a href="#">Test</a></li>
-                    <li><a href="#">Quiz</a></li>
-                </ul>
-            </nav>
-        </aside>
+            <ul class="breadcrumb">
+                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
+                <li><a href="#">Subject detail</a></li>
+            </ul> 
+            <div class="content">
+                <form id="question__form" method="POST" action="addquestion" enctype="multipart/form-data">
+                    <div class="upperpart row">
+                        <div class="upperpart__left col-md-6" >
+                            <div class="form-group">
+                                <label>Question content: </label>
+                                <textarea required rows="3"  class="form-control" name="questioncontent"  ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Topic: </label>
+                                <select required class="form-control" name="topicID" id="topicID">
+                                    <c:forEach items="${requestScope.topics}" var="t">
+                                        <option value="${t.topicID}">${t.topicName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Lesson: </label>
+                                <div id="lesson"> 
+                                    <select required class="form-control" name="lessonID">
+                                    </select>
+                                </div>
 
-        <aside class="right">
-            <div class="right_content">
-                <h1>Question Detail</h1>
-                <form action="#">
-                    <div>
-                        <div class="select_right">
-                            <select name="" id="#">
-                                <option value="">All lesson</option>
-                                <option value="">Lesson 1</option>
-                                <option value="">Lesson 2</option>
-                                <option value="">...</option>
-                            </select>
-                            <select name="" id="#">
-                                <option value="">All dimension</option>
-                                <option value="">Dimension 1</option>
-                                <option value="">Dimension 2</option>
-                                <option value="">...</option>
-                            </select>
-                            <select name="" id="#">
-                                <option value="">All level</option>
-                                <option value="">Easy</option>
-                                <option value="">Medium</option>
-                                <option value="">Hard</option>
-                            </select>
-                            <select name="" id="#">
-                                <option value="">All status</option>
-                                <option value="">Active</option>
-                                <option value="">Inactive</option>
-                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Dimension: </label>
+                                <select class="form-control" name="dimensionID">
+                                    <c:forEach items="${requestScope.dimensions}" var="d">
+                                        <option value="${d.dimensionID}">${d.dimensionName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Level: </label>
+                                <select class="form-control" name="levelID">
+                                    <option value="1">Easy</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Hard</option>
+                                </select>
+                            </div>
+                            <div class="row col-md-10 answer__detail">
+                                <div class="col-lg-12 form-control">
+                                    <div id="answer__details__1" class="row">
+                                        <table>
+                                            <tr>
+                                                <td class="col-2">
+                                                    <span class="question__answer">Answer: </span>
+                                                </td>
+                                                <td class="col-6">
+                                                    <input type="text" class="form-control" name="answer">
+                                                </td>
+                                                <td class="col-2">
+                                                    <span class="istrue">Is True:</span>
+                                                </td>
+                                                <td class="col">
+                                                    <input type="checkbox" name="istrue" value="1_istrue">
+                                                </td>
+                                                <td class="col-2">
+                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="answer__details__2" class="row">
+                                        <table>
+                                            <tr>
+                                                <td class="col-2">
+                                                    <span class="question__answer">Answer: </span>
+                                                </td>
+                                                <td class="col-6">
+                                                    <input type="text" class="form-control" name="answer">
+                                                </td>
+                                                <td class="col-2">
+                                                    <span class="istrue">Is True:</span>
+                                                </td>
+                                                <td class="col">
+                                                    <input type="checkbox" name="istrue" value="2_istrue">
+                                                </td>
+                                                <td class="col-2">
+                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="new_item_details" class="new_item_details">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Answer explanation: </label>
+                                        <textarea required rows="3"  class="form-control" name="explanation"></textarea>
+                                    </div>
+                                    <button type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div class="question_info">
-                        <div class="info">
-                            <div class="info_item">
-                                <label for="content">Content</label>
-                                <textarea cols="60" rows="5" placeholder="Type the question content" name="content" id="content"></textarea>
+                        <div class="upperpart__right col-md-6">
+                            <div class="media__file">
+                                <label>Choose media type: </label>
+                                <select id="file__select" onchange="InputFile()" name="mediaID">
+                                    <option disabled selected="selected">Media type</option>
+                                    <option value="1">Picture</option>
+                                    <option value="3">Audio</option>
+                                    <option value="2">Video</option>
+                                </select>
                             </div>
-                            <div class="info_item">
-                                <label for="media_file">Media</label>
-                                <input type="file" id="media_file" name="">
+                            <div class="media__preview">
+                                <i id="upload__icon" class="fa-solid fa-upload"></i>
+                                <img id="image__preview" class="image__preview">
+                                <audio id="audio__preview" class="audio__preview" controls></audio>
+                                <video id="video__preview" class="video__preview" controls></video>
                             </div>
-                            <div class="info_item">
-                                <label for="answer">Answer options:</label>
-                                <input type="radio" name="answer" id=""> A.
-                                <textarea cols="60" rows="1" placeholder="Type the update answer option..." name="answer_detail" id=""></textarea>
-                                <input type="radio" name="answer" id=""> B.
-                                <textarea cols="60" rows="1" placeholder="Type the update answer option..." name="answer_detail" id=""></textarea>
-                                <input type="radio" name="answer" id=""> C.
-                                <textarea cols="60" rows="1" placeholder="Type the update answer option..." name="answer_detail" id=""></textarea>
-                                <input type="radio" name="answer" id=""> D.
-                                <textarea cols="60" rows="1" placeholder="Type the update answer option..." name="answer_detail" id=""></textarea>
-                            </div>
-                            <div class="info_item">
-                                <label for="explaination">Explaination:</label>
-                                <textarea name="explaination_detail" id="" cols="30" rows="10" placeholder="Type detailed explaination for the question..."></textarea>
-                            </div>
+                            <input id="file__input" type="file" name="mediafile">
                         </div>
-                    </div>
-                    <button type="submit">Save</button>
+                    </div >
+                    <a class="addlink" href="javascript:{}" onclick="document.getElementById('question__form').submit();">Save</a>
                 </form>
-            </div>
-            <footer>
-                FOOTER
-            </footer>
-        </aside>
-    </section>
+            </div>   
+            <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+            <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-    <section class="popup">
-        <div class="popup__content">
-            <img src="../../images/close.png" alt="" class="close">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="../../js/userPopup.js"></script>
+            <script src="${pageContext.request.contextPath}/js/test_content/addquestion.js" type="text/javascript"></script>
+            <script>
+                        $(document).on('change', '#topicID', function (event) {
+                            var topicID = this.value;
+                            $.ajax({
+                                url: "getlessonbytopic",
+                                type: 'POST',
+                                dataType: 'html',
+                                data: {ID: topicID},
+                            })
+                                    .done(function (data) {
+                                        $('#lesson').html(data);
+                                    })
+                                    .fail(function (error) {
+                                        $('#lesson').html("<h1>error</h1>");
+                                    })
+                                    .always(function () {
 
-            <div class="form_user-profile">
-                <h2>User Profile</h2>
-                <form action="#">
-                    <div class="user__avatar">
-                        <!-- <input type="file" name="" id=""> -->
-                    </div>
-                    <input type="text" name="email" id="email" disabled placeholder="Your email">
-                    <input type="text" name="firstName" id="firstName" placeholder="Enter your first name">
-                    <input type="text" name="lastName" id="lastName" placeholder="Enter your last name">
-                    <input type="text" name="phone" id="phone" placeholder="Enter your phone">
-                    <div class="profile__gender signup__gender">
-                        <h5>Gender</h5>
-                        <input type="radio" name="" id="">
-                        <p>Male</p>
-                        <input type="radio" name="" id="">
-                        <p>Female</p>
-                    </div>
-                    <input type="text" name="address" id="address" placeholder="Enter your address">
-                    <div class="form__button">
-                        <button type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
+                                    });
 
-            <div class="form__change-password" style="display: none;">
-                <h2>Change Password</h2>
-                <form action="#">
-                    <input type="password" placeholder="Enter your current password">
-                    <input type="password" placeholder="Enter new password">
-                    <input type="password" placeholder="Reenter your new password">
-                    <div class="form__button">
-                        <button type="submit">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                        });
+                        var loadFile = function (event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.onload = function () {
+                                URL.revokeObjectURL(output.src) // free memory
+                            }
+                        };
+            </script>
+        </body>
 
-    </section>
-
-    <script src="../../js/userPopup.js"></script>
-
-</body>
-
-</html>
+    </html>
