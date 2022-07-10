@@ -4,13 +4,16 @@
  */
 package controller.publicController;
 
+import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.Account;
+import model.Category;
 import model.Course;
 
 /**
@@ -33,9 +36,11 @@ public class SubjectDetailController extends HttpServlet {
             throws ServletException, IOException {
         int subjectID = Integer.parseInt(request.getParameter("subjectID"));
         CourseDBContext db = new CourseDBContext();
+        CategoryDBContext dbCate = new CategoryDBContext();
         Account account = (Account) request.getSession().getAttribute("account");
         Course course = db.getCourseByCourseID(subjectID, account);
-
+        ArrayList<Category> categories = dbCate.getCategories(2);
+        request.setAttribute("categories", categories);
         request.setAttribute("course", course);
         request.getRequestDispatcher("view/subject/subjectdetail.jsp").forward(request, response);
     }

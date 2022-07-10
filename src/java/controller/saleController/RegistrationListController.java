@@ -45,44 +45,15 @@ public class RegistrationListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RegistrationDBContext rdbc = new RegistrationDBContext();
-
-        int pageIndex;
-        if (request.getParameter("page") == null) {
-            pageIndex = 1;
-        } else {
-            pageIndex = Integer.parseInt(request.getParameter("page"));
-        }
-        String sortBy;
-        if (request.getParameter("sortBy") == null) {
-            sortBy = "registrationID";
-        } else {
-            sortBy = request.getParameter("sortBy");
-        }
-        String orderBy;
-        if (request.getParameter("orderBy") == null) {
-            orderBy = "asc";
-        } else {
-            orderBy = request.getParameter("orderBy");
-        }
-        ArrayList<Registration> list = rdbc.getRegistrations(pageIndex, 10, sortBy, orderBy);
-        int totalPage = rdbc.countAll() / 10;
-        if (rdbc.countAll() % 10 != 0) {
-            totalPage += 1;
-        }
+        ArrayList<Registration> list = rdbc.getRegistrations();
         CourseDBContext cdbc = new CourseDBContext();
         ArrayList<Course> courses = cdbc.getCoursesForHomePage(null);
         UserDBContext udbc = new UserDBContext();
         ArrayList<User> users = udbc.getUsers();
-        log(sortBy + ", " + orderBy);
         log("" + list.size());
-        request.setAttribute("sortBy", sortBy);
-        request.setAttribute("orderBy", orderBy);
         request.setAttribute("courses", courses);
         request.setAttribute("users", users);
         request.setAttribute("list", list);
-        request.setAttribute("pageIndex", pageIndex);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("target", "list");
         request.getRequestDispatcher("../view/sale/registration_list.jsp").forward(request, response);
     }
 

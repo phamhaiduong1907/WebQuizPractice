@@ -270,7 +270,7 @@ public class CourseDBContext extends DBContext {
             String sql = "SELECT courseID, courseName, subCategoryID, [status], isFeatured, \n"
                     + "[description], tagline, updatedDate, briefInfo, thumbnailURL, [owner] \n"
                     + "FROM Course where [status] = 1 \n"
-                    + "WHERE courseName LIKE ?";
+                    + "AND courseName LIKE ?";
             sb.append(sql);
             if (!subcateID.isEmpty()) {
                 String and = " AND subcategoryID IN(" + subcateID + ")";
