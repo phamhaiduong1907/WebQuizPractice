@@ -39,9 +39,9 @@
 
         </ul>  
 
-        <a class="addlink" href="dimensionadd?id=${requestScope.course.courseID}">Add dimension</a>
+        <a class="addlink_ver2" href="dimensionadd?id=${requestScope.course.courseID}">Add dimension</a>
 
-        <div class=" d-flex justify-content-center">
+        <div class=" d-flex justify-content-center table__content">
             <div class="" >
                 <table>
                     <thead>

@@ -15,6 +15,7 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/course_detail.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/pricepackage_detail.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/course_content/topiclist.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -40,7 +41,7 @@
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
         </ul>  
 
-        <a class="addlink " data-bs-toggle="modal" data-bs-target="#exampleModal" href="pricepackageadd?cid=${requestScope.course.courseID}">Add topic</a>
+        <a class="addlink_ver2 " data-bs-toggle="modal" data-bs-target="#exampleModal" href="pricepackageadd?cid=${requestScope.course.courseID}">Add topic</a>
 
 
 

@@ -40,7 +40,7 @@
 
         </ul>  
         <c:if test="${sessionScope.account.role.roleID == 1}">
-            <a class="addlink" href="pricepackageadd?cid=${requestScope.course.courseID}">Add pricepackage</a>
+            <a class="addlink_ver2" href="pricepackageadd?cid=${requestScope.course.courseID}">Add pricepackage</a>
 
         </c:if>
 
