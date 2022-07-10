@@ -335,6 +335,22 @@
         <servlet-name>ViewQuestionController</servlet-name>
         <servlet-class>controller.testContentController.ViewQuestionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizHandleController</servlet-name>
+        <servlet-class>controller.customerControllers.QuizHandleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TakingQuizController</servlet-name>
+        <servlet-class>controller.customerControllers.TakingQuizController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetAnswerFilter</servlet-name>
+        <servlet-class>controller.customerControllers.GetAnswerFilter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ScoreQuizController</servlet-name>
+        <servlet-class>controller.customerControllers.ScoreQuizController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -678,6 +694,22 @@
     <servlet-mapping>
         <servlet-name>ViewQuestionController</servlet-name>
         <url-pattern>/viewquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizHandleController</servlet-name>
+        <url-pattern>/quizhandle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TakingQuizController</servlet-name>
+        <url-pattern>/qhandle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAnswerFilter</servlet-name>
+        <url-pattern>/filteranswer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScoreQuizController</servlet-name>
+        <url-pattern>/score</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

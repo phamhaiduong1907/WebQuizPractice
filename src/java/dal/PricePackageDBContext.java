@@ -54,8 +54,8 @@ public class PricePackageDBContext extends DBContext {
     }
     public ArrayList<PricePackage> getPricePackagesByLessonID(int lessonID) {
         ArrayList<PricePackage> pricePackages = new ArrayList<>();
-        String sql = "SELECT [pricePackageID],[priceName],[duration],[status],[listPrice],[salePrice],[description],[courseID],isOnSale\n"
-                + "                FROM [dbo].[PricePackage] p inner join LessonPricePackage lp on p.pricePackageID = lp.pricePackageID where lessonID = ? and [status] = 1 order by listPrice ASC";
+        String sql = "SELECT p.[pricePackageID],[priceName],[duration],[status],[listPrice],[salePrice],[description],[courseID],isOnSale\n"
+                + "   FROM [dbo].[PricePackage] p inner join LessonPricePackage lp on p.pricePackageID = lp.pricePackageID where lessonID = ? and [status] = 1 order by listPrice ASC";
 
         PreparedStatement stm = null;
         ResultSet rs = null;

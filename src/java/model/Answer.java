@@ -13,6 +13,17 @@ public class Answer {
     private String answerContent;
     private boolean isTrue;
     private int questionID;
+    private boolean isChecked;
+
+    public boolean isIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+    
+    
     
     public Answer(){
         
