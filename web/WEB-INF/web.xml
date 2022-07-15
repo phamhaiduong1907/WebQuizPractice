@@ -355,6 +355,18 @@
         <servlet-name>ChartController</servlet-name>
         <servlet-class>controller.marketingController.ChartController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizReviewController</servlet-name>
+        <servlet-class>controller.customerControllers.QuizReviewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckingQuizController</servlet-name>
+        <servlet-class>controller.customerControllers.CheckingQuizController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetReviewFilter</servlet-name>
+        <servlet-class>controller.customerControllers.GetReviewFilter</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -718,6 +730,18 @@
     <servlet-mapping>
         <servlet-name>ChartController</servlet-name>
         <url-pattern>/marketing/chart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizReviewController</servlet-name>
+        <url-pattern>/quizreview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckingQuizController</servlet-name>
+        <url-pattern>/qreview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetReviewFilter</servlet-name>
+        <url-pattern>/reviewfilter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

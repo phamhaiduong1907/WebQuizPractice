@@ -93,7 +93,28 @@ public class AnswerDBContext extends DBContext {
         }
 
         return answers;
-
     }
 
+    public ArrayList<Answer> getCorrectAnswer() {
+        ArrayList<Answer> answers = new ArrayList<>();
+        String sql = "select * from Answer where isTrue = 1";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Answer ans = new Answer();
+                ans.setQuestionID(rs.getInt("questionID"));
+                ans.setAnswerID(rs.getInt("answerID"));
+                ans.setAnswerContent(rs.getString("answerContent"));
+                ans.setIsTrue(rs.getBoolean("isTrue"));
+                answers.add(ans);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return answers;
+    }
 }

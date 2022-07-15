@@ -24,8 +24,6 @@ public class ResultQuestion extends Question{
         this.order = order;
     }
     
-    
-    
     public boolean isIsAnswered() {
         return isAnswered;
     }
@@ -41,7 +39,5 @@ public class ResultQuestion extends Question{
     public void setIsMarked(boolean isMarked) {
         this.isMarked = isMarked;
     }
-    
-    
     
 }

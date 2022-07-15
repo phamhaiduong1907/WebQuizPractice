@@ -2,33 +2,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller.customerControllers;
 
 import dal.CommonDBContext;
 import dal.QuestionDBContext;
 import dal.QuizDBContext;
 import dal.QuizHandleDBContext;
+import dal.QuizHistoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import model.Account;
 import model.Question;
 import model.Quiz;
+import model.QuizHistory;
 import model.ResultQuestion;
 
 /**
  *
- * @author ADMIN
+ * @author Zuys
  */
-public class QuizHandleController extends HttpServlet {
-    /**
+public class QuizReviewController extends HttpServlet {
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,37 +37,23 @@ public class QuizHandleController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int quizID = Integer.parseInt(request.getParameter("quizID"));
-        ArrayList<Question> questions = new QuestionDBContext().getQuestionsFromQuizQuestion(quizID);
-        Quiz quiz = new QuizDBContext().getAQuiz(quizID);
+    throws ServletException, IOException {
+        QuizHistoryDBContext dbQHistory = new QuizHistoryDBContext();
+        int quizHistoryID = Integer.parseInt(request.getParameter("quizHistoryID"));
+        QuizHistory quizHistory = dbQHistory.getQuizHistory(quizHistoryID);
+        Quiz quiz = new QuizDBContext().getAQuiz(quizHistory.getQuizID().getQuizID());
 
-        Account account = (Account) request.getSession().getAttribute("account");
-        Timestamp startTime = new Timestamp(System.currentTimeMillis());
-        Timestamp endTime = new Timestamp(System.currentTimeMillis());
-
-        endTime.setTime(startTime.getTime() + (quiz.getDuration() * 60) * 1000);
-
+        
         QuizHandleDBContext quizHandleDBContext = new QuizHandleDBContext();
-        if (quiz.getQuizType().getQuizTypeID() == 1) {
-            quizHandleDBContext.insertQuizHistory(quizID, account.getUsername(), startTime, endTime, null, questions);
-
-        } else {
-            quizHandleDBContext.insertQuizHistory(quizID, account.getUsername(), startTime, null, null, questions);
-
-        }
-
-        ArrayList<ResultQuestion> rquestions = quizHandleDBContext.getQuestionsFromQuizQuestion(quizID, new CommonDBContext().getIdentity("QuizHistory"));
-
+        ArrayList<ResultQuestion> rquestions = quizHandleDBContext.getQuestionsFromQuizQuestion(quizHistory.getQuizID().getQuizID(), quizHistoryID);
+        
         request.getSession().setAttribute("rquestions", rquestions);
         request.getSession().setAttribute("quiz", quiz);
-        response.sendRedirect("qhandle?order=1&qhid=" + new CommonDBContext().getIdentity("QuizHistory"));
+        response.sendRedirect("qreview?order=1&qhid=" + quizHistoryID);
+    } 
 
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,12 +61,11 @@ public class QuizHandleController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

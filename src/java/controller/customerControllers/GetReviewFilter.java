@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller.customerControllers;
 
 import dal.QuizHandleDBContext;
@@ -12,17 +13,28 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Question;
 import model.ResultQuestion;
 
 /**
  *
- * @author ADMIN
+ * @author Zuys
  */
-public class GetAnswerFilter extends HttpServlet {
-    /**
+public class GetReviewFilter extends HttpServlet {
+
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    } 
+
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -30,7 +42,7 @@ public class GetAnswerFilter extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charater=UTF-8");
         response.setCharacterEncoding("utf-8");
         int ID = Integer.parseInt(request.getParameter("ID"));
@@ -45,17 +57,15 @@ public class GetAnswerFilter extends HttpServlet {
             String isMarked = r.isIsMarked() ? "<i class=\"fa-solid fa-lightbulb\"></i>" : "";
 
             result += " <div class=\"question__box\" id=\"" + isAnswered + "\""
-                    + "                                <p> " + isMarked + "<a href=\"qhandle?order=" + r.getOrder() + "&qhid=" + qhid + "\">" + r.getOrder() + "</a></p>\n"
+                    + "                                <p> " + isMarked + "<a href=\"qreview?order=" + r.getOrder() + "&qhid=" + qhid + "\">" + r.getOrder() + "</a></p>\n"
                     + "                            </div>";
         }
 
         response.getWriter().println(result);
-
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
