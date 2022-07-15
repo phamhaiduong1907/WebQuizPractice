@@ -207,3 +207,13 @@ ul.breadcrumb li a:hover {
     font-size: 0.8rem;
 }
 
+.addlink_ver2 {
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+    background-color: #3db743;
+    border-radius: 10px;
+}
+
