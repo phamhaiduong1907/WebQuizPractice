@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import java.io.IOException;
@@ -12,8 +13,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Account;
 import model.Category;
 import model.Course;
+import model.ErrorMessage;
 
 /**
  *
@@ -44,17 +48,28 @@ public class ManageSubjectDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String url = request.getHeader("referer");
         int courseID = Integer.parseInt(request.getParameter("id"));
         CourseDBContext courseDBContext = new CourseDBContext();
         CategoryDBContext categoryDBContext = new CategoryDBContext();
-        
+        AccountDBContext accountDBContext = new AccountDBContext();
+
         Course course = courseDBContext.getCourse(courseID);
-        Category category = categoryDBContext.getCategoryBySubCategoryID(course.getSubcategory().getSubcategoryID());
-        
-        request.setAttribute("course", course);
-        request.setAttribute("category", category);
-        request.getRequestDispatcher(COURSEDETAILURL).forward(request, response);
+        Account account = (Account) request.getSession().getAttribute("account");
+
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            Category category = categoryDBContext.getCategoryBySubCategoryID(course.getSubcategory().getSubcategoryID());
+            ArrayList<Account> accounts = accountDBContext.getAccountByRoleID(2);
+
+            request.setAttribute("course", course);
+            request.setAttribute("category", category);
+            request.setAttribute("accounts", accounts);
+            request.getRequestDispatcher(COURSEDETAILURL).forward(request, response);
+        } else {
+            request.getSession().setAttribute("errormessage", ErrorMessage.AUTH_EDIT_COURSE);
+            response.sendRedirect(url);
+        }
+
     }
 
     /**

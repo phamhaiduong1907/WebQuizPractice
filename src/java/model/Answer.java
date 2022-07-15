@@ -6,20 +6,32 @@ package model;
 
 /**
  *
- * @author Hai Tran
+ * @author Hai Duong
  */
 public class Answer {
-    private int questionID;
     private int answerID;
     private String answerContent;
     private boolean isTrue;
+    private int questionID;
+    private boolean isChecked;
 
-    public int getQuestionID() {
-        return questionID;
+    public boolean isIsChecked() {
+        return isChecked;
     }
 
-    public void setQuestionID(int questionID) {
-        this.questionID = questionID;
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+    
+    
+    
+    public Answer(){
+        
+    }
+    
+    public Answer(String answerContent, boolean isTrue){
+        this.answerContent = answerContent;
+        this.isTrue = isTrue;
     }
 
     public int getAnswerID() {
@@ -44,6 +56,14 @@ public class Answer {
 
     public void setIsTrue(boolean isTrue) {
         this.isTrue = isTrue;
+    }
+
+    public int getQuestionID() {
+        return questionID;
+    }
+
+    public void setQuestionID(int questionID) {
+        this.questionID = questionID;
     }
     
     

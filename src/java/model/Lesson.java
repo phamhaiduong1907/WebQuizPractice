@@ -4,21 +4,73 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author Hai Tran
+ * @author Zuys
  */
 public class Lesson {
-
     private int lessonID;
     private LessonType lessonType;
     private String lessonName;
     private int lessonOrder;
     private int topicID;
-    private PricePackage pricePackage;
+    private ArrayList<PricePackage> pricePackages;
     private boolean status;
     private String videoLink;
     private String htmlContent;
+    private int quizID;
+
+    public int getQuizID() {
+        return quizID;
+    }
+
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
+    }
+
+    public int getTopicID() {
+        return topicID;
+    }
+
+    public void setTopicID(int topicID) {
+        this.topicID = topicID;
+    }
+
+    public int getLessonOrder() {
+        return lessonOrder;
+    }
+
+    public void setLessonOrder(int lessonOrder) {
+        this.lessonOrder = lessonOrder;
+    }
+
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public void setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
+    }
+
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
+    
+    
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public int getLessonID() {
         return lessonID;
@@ -44,52 +96,13 @@ public class Lesson {
         this.lessonName = lessonName;
     }
 
-    public int getLessonOrder() {
-        return lessonOrder;
+    public ArrayList<PricePackage> getPricePackages() {
+        return pricePackages;
     }
 
-    public void setLessonOrder(int lessonOrder) {
-        this.lessonOrder = lessonOrder;
+    public void setPricePackages(ArrayList<PricePackage> pricePackages) {
+        this.pricePackages = pricePackages;
     }
-
-    public int getTopicID() {
-        return topicID;
-    }
-
-    public void setTopicID(int topicID) {
-        this.topicID = topicID;
-    }
-
-    public PricePackage getPricePackage() {
-        return pricePackage;
-    }
-
-    public void setPricePackage(PricePackage pricePackage) {
-        this.pricePackage = pricePackage;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getVideoLink() {
-        return videoLink;
-    }
-
-    public void setVideoLink(String videoLink) {
-        this.videoLink = videoLink;
-    }
-
-    public String getHtmlContent() {
-        return htmlContent;
-    }
-
-    public void setHtmlContent(String htmlContent) {
-        this.htmlContent = htmlContent;
-    }
+   
 
 }

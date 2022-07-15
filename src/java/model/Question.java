@@ -8,10 +8,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Hai Tran
+ * @author Hai Duong
  */
 public class Question {
-
     private int questionID;
     private String questionContent;
     private boolean status;
@@ -23,6 +22,10 @@ public class Question {
     private String explanation;
     private MediaType mediaType;
     private ArrayList<Answer> answers;
+    
+    public Question(){
+        answers = new ArrayList<>();
+    }
 
     public int getQuestionID() {
         return questionID;
@@ -72,14 +75,6 @@ public class Question {
         this.lesson = lesson;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
     public Dimension getDimension() {
         return dimension;
     }
@@ -111,6 +106,15 @@ public class Question {
     public void setAnswers(ArrayList<Answer> answers) {
         this.answers = answers;
     }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+    
     
     
 }

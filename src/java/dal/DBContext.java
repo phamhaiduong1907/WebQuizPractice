@@ -14,12 +14,12 @@ public class DBContext {
 
     protected Connection connection;
 
-     public DBContext() {
+    public DBContext() {
         try {
 
             String user = "sa";
             String pass = "123456";
-            String url = "jdbc:sqlserver://LAPTOP-0NEMNKJ3\\HAITRAN:1433;databaseName=Quiz website";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuizWebsite";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException ex) {
@@ -28,9 +28,4 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
-
-
-
 }

@@ -24,7 +24,8 @@ public class AccountDBContext extends DBContext {
      *
      * @param username
      * @param uri
-     * @param roleID (if account is blocked, roleID will be set to -1 and can access any feature)
+     * @param roleID (if account is blocked, roleID will be set to -1 and can
+     * access any feature)
      * @return a boolean (yes means that the user can access the uri and the
      * otherwise)
      */
@@ -248,9 +249,9 @@ public class AccountDBContext extends DBContext {
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
-                + "           ,?)"; 
+                + "           ,?)";
         try {
-            PreparedStatement stm  = connection.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
             stm.setString(2, account.getPassword());
             stm.setInt(3, account.getRole().getRoleID());
@@ -302,8 +303,8 @@ public class AccountDBContext extends DBContext {
         }
         return false;
     }
-    
-    public ArrayList<Account> getAccountByRole(int roleid){
+
+    public ArrayList<Account> getAccountByRole(int roleid) {
         ArrayList<Account> accounts = new ArrayList<>();
         try {
             String sql = "select username from Account where roleID = ?";
@@ -332,4 +333,32 @@ public class AccountDBContext extends DBContext {
         }
         return accounts;
     }
+
+    public ArrayList<Account> getAccountByRoleID(int roleID) {
+        String sql = "select * from Account where roleID = ?";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        ArrayList<Account> accounts = new ArrayList<>();
+        RoleDBContext roleDBContext = new RoleDBContext();
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, roleID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Account a = new Account();
+                a.setRole(roleDBContext.getRoleById(roleID));
+                a.setPassword(rs.getString("password"));
+                a.setUsername(rs.getString("username"));
+                accounts.add(a);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return accounts;
+
+    }
+
 }

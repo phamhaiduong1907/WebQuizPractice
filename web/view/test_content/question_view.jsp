@@ -246,8 +246,12 @@
                         <input disabled id="file__input" type="file" name="mediafile" value="${requestScope.question.mediaURL}">
                     </div>
                 </div > 
+<<<<<<< HEAD
                 <input type="submit" value="Save" class="addlink">
             </form>
+=======
+                <a href="editquestion?questionID=${requestScope.question.questionID}" class="addlink">Edit</a>
+>>>>>>> abc53fb18aa50b76a547d7d4d8f29adc21cb799c
         </div>   
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>

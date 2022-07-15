@@ -1,0 +1,221 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2022, 5:37:02 PM
+    Author     : Hai Duong
+*/
+
+td{
+    font-size: 0.8rem;
+}
+
+th td:nth-child(4), tr td:nth-child(4),
+th td:nth-child(3), tr td:nth-child(3){
+    width: 10%;
+}
+
+th td:nth-child(2), tr td:nth-child(2){
+    width: 20%;
+}
+
+th td:last-child, tr td:last-child{
+    width: 10%;
+}
+
+tr td:nth-child(7){
+    position: relative;
+}
+
+tbody td span{
+    position: absolute;
+    font-size: 0.7rem;
+    padding: 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 0.25s ease;
+}
+
+td span:hover{
+    font-size: 0.8rem;
+}
+
+.search__item__ajax{
+    display: flex;
+}
+
+.status__active{
+    background-color: #c8e6c9;
+    color: #388e3c;
+}
+
+.status__inactive{
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+
+.action__view{
+    background-color: orange;
+}
+
+.action__view:hover{
+    background-color: #e4b050;
+}
+
+.action__edit{
+    background-color: #65badc;
+}
+
+.action__edit:hover{
+    background-color: #3cadda;
+}
+
+td p{
+    -webkit-line-clamp:2;
+}
+
+select#lessonSearch{
+    width: 116px;
+}
+
+select#lessonSearch option{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+tfoot tr td a{
+    color: #000;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+tfoot tr td a:not(.active):hover{
+    background-color: #bcb6b6;
+}
+
+tfoot tr td a.active{
+    background-color: #1fe21e;
+    color: #fff;  
+}
+
+.import__heading h2{
+    font-size: 25px;
+}
+
+.uploaded__label p:last-child{
+    font-size: 0.7rem;
+} 
+
+#toast{
+    position: fixed;
+    top: 100px;
+    right: 10px;
+    z-index: 1001;
+    font-size: 16px;
+}
+
+.toast{
+    animation: slide_show 2s ease forwards;
+}
+
+.toast i{
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.success .notify span{
+    color: green;
+}
+
+.fail .notify span{
+    color: red;
+}
+
+.success .notify .message{
+    font-weight: bold;
+    color: green;
+}
+
+/*.success .notify span:last-child{
+    color: green;
+    font-size: 14px;
+}*/
+
+.fail .notify .message{
+    font-weight: bold;
+    color: red;
+}
+
+/*.fail .notify span:last-child{
+    color: red;
+    font-size: 14px;
+}*/
+
+.toast .notify{
+    display: flex;
+    flex-direction: column;
+}
+
+.toast .fail{
+    background-color: #f6d5d5;
+    margin-top: 10px;
+}
+
+.toast .success{
+    background-color: #dcf3dc;
+}
+
+.toast .success i{
+    color: green;
+}
+
+.toast .fail i{
+    color: red;  
+}
+
+.success span:not(.message),
+.fail span:not(.message){
+    font-size: 12px;
+}
+
+.notify{
+    flex: 1;
+}
+
+.success, .fail{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 2px 2px 4px 0px grey;
+}
+
+@keyframes slide_show {
+    0%{
+        transform: translateX(100%);
+    }
+    25%{
+        transform: translateX(-10%);
+    }
+    50%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+
+@keyframes slide_hide {
+    0%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(200%);
+    }
+}

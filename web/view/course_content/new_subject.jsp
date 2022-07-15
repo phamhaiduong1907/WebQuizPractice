@@ -36,11 +36,11 @@
                             <div class="info">
                                 <div class="info_item">
                                     <label for="name">Subject name</label>
-                                    <input type="text" id="name" name="name" placeholder="Enter subject name" required>
+                                    <input type="text" id="name" name="name" placeholder="Enter..." required>
                                 </div>
                                 <div class="info_item">
                                     <label for="owner">Owner email</label>
-                                    <input type="text" list="owners" id="owner" name="owner" placeholder="Enter owner's email" required>
+                                    <input type="text" list="owners" id="owner" name="owner" placeholder="Enter..." required>
                                     <datalist id="owners">
                                         <c:forEach items="${requestScope.expertList}" var="e">
                                             <option value="${e.username}">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="thumbnail">
-                                <img src="images/subject/default.png" id="photo">
+                                <img src="images/thumbnails/default.png" id="photo">
                                 <input type="file" name="profilePicture" id="profilePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
                                 <label for="profilePicture" title="Please update your picture!" id="uploadBtnb">Choose Photo</label>
                             </div>

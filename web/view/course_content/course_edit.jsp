@@ -19,7 +19,13 @@
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/course_detail.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/course_content/course_edit.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 
     </head>
     <body>
@@ -34,12 +40,15 @@
         </ul> 
 
         <ul class="breadcrumb nav">
-            <li><a href="#" class="addlink headnav">Overview</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav currentnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/topiclist?id=${requestScope.course.courseID}" class="addlink headnav ">Topic</a></li>
+
         </ul>  
 
         <form method="post" enctype="multipart/form-data" action="subjectedit">
+            <input type="hidden" name="courseID" value="${requestScope.course.courseID}">
             <div class="content">
                 <div class="upperpart row">
                     <div class="upperpart__left col-md-6" >
@@ -66,18 +75,26 @@
                         <div class="row">
 
                             <div class="col-md-5">
-                                <input <c:if test="${requestScope.course.isFeatured}">checked</c:if> d-inline  type="checkbox" name="isFeatured" value="true"/>
+                                <input <c:if test="${requestScope.course.isFeatured}">checked</c:if> d-inline class="form-check-input"  type="checkbox" name="isFeatured" value="true"/>
                                     <label for="">Featured subject</label>
                                 </div>
+
+                            <c:if test="${sessionScope.account.role.roleID == 1}">
                                 <div class="col-md-4">
                                     <label for="status">Status:</label>
                                     <select name="status"  class="form-control">
-                                        <option value="true" ${requestScope.course.status?"selected":""}>Published</option>
-                                    <option value="false"${!requestScope.course.status?"selected":""}>UnPublished</option>
-                                </select>
+                                        <option ${!requestScope.isPublishable?"disabled":""} value="true" ${requestScope.course.status?"selected":""}>Published</option>
+                                        <option ${!requestScope.isPublishable?"selected":""} value="false"${!requestScope.course.status?"selected":""}>UnPublished</option>
+                                    </select>
+                                </div>
+                                <div class="form-group ">
+                                    <p class="notification">${requestScope.notifymessage != null ? "Note":""}  ${requestScope.notifymessage} 
+                                    </p>
+                                </div>
+                            </c:if>
 
 
-                            </div>
+
                             <div class="form-group ">
                                 <label for="">Tag line:</label>
                                 <input  type="text" class="form-control" name="tagline" value="${requestScope.course.tagline}"/>
@@ -90,6 +107,15 @@
                         <div class="form-group ">
                             <label for="">Description:</label>
                             <textarea  value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
+                        </div>
+                        <div class="form-group ">
+                            <label for="">Owner:</label>
+
+                            <select data-size="2"  class="selectpicker" data-live-search="true" name="owner">
+                                <c:forEach items="${requestScope.accounts}" var="a">
+                                    <option ${requestScope.course.owner eq a.username?"selected":""} value="${a.username}">${a.username}</option>
+                                </c:forEach>
+                            </select>
                         </div>
 
                     </div>
@@ -116,6 +142,8 @@
 
 
         <script>
+            $('.btn dropdown-toggle btn-light').css("width", "300px");
+
             $(document).on('change', '#select_category', function (event) {
                 var categoryID = this.value;
                 $.ajax({
@@ -133,7 +161,7 @@
                         .always(function () {
 
                         });
-                
+
             });
             var loadFile = function (event) {
                 var output = document.getElementById('output');
@@ -142,7 +170,12 @@
                     URL.revokeObjectURL(output.src) // free memory
                 }
             };
+            <c:if test="${param.errormessage != null}">
+            alert("${param.errormessage}");
+            </c:if>
         </script>
+
+
 
     </body>
 </html>

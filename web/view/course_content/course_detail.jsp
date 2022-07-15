@@ -33,9 +33,11 @@
         </ul> 
 
         <ul class="breadcrumb nav">
-            <li><a href="#" class="addlink headnav">Overview</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav currentnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/topiclist?id=${requestScope.course.courseID}" class="addlink headnav ">Topic</a></li>
+
         </ul>  
 
 
@@ -63,8 +65,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">Status:</label>
-                                <input d-inline readonly type="text" class="form-control" name="" value="<c:if test="${requestScope.course.isFeatured}">Published</c:if>
-                                   <c:if test="${!requestScope.course.isFeatured}">Unpublished</c:if>"/>
+                                <input d-inline readonly type="text" class="form-control" name="" value="<c:if test="${requestScope.course.status}">Published</c:if><c:if test="${!requestScope.course.status}">Unpublished</c:if>"/>
                             </div>
                             <div class="form-group ">
                                 <label for="">Tag line:</label>
@@ -82,6 +83,11 @@
                         <label for="">Description:</label>
                         <textarea readonly value="${requestScope.course.description}" rows="5"  class="form-control" name="description"  >${requestScope.course.description}</textarea>
                     </div>
+                    <div class="form-group ">
+                        <label for="">Owner:</label>
+                        <input readonly type="text" class="form-control" name="owner" value="${requestScope.course.owner}"/>
+
+                    </div>
 
 
                 </div>
@@ -89,6 +95,7 @@
                     <img src="${pageContext.request.contextPath}/images/thumbnails/${requestScope.course.thumbnailUrl}">
                 </div>
             </div > 
+
 
             <a class="addlink" href="${pageContext.request.contextPath}/managesubject/subjectedit?id=${requestScope.course.courseID}">Edit</a>
 

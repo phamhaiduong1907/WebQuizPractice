@@ -33,3 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 img{
     width: 100%;
 }
+
+.notification{
+    color: red;
+}

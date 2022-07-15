@@ -32,7 +32,7 @@
 
         </ul> 
         <div class="content">
-            <form method="POST" action="editquestion" enctype="multipart/form-data">
+            <form id="question__form" method="POST" action="editquestion" enctype="multipart/form-data">
                 <input type="hidden" value="${requestScope.question.questionID}" name="questionID">
                 <input type="hidden" value="${requestScope.question.mediaURL}" name="mediaURl">
                 <div class="upperpart row">
@@ -251,7 +251,7 @@
                         <input disabled id="file__input" type="file" name="mediafile" value="${requestScope.question.mediaURL}">
                     </div>
                 </div > 
-                <input type="submit" value="Save" class="addlink">
+                <a class="addlink" href="javascript:{}" onclick="document.getElementById('question__form').submit();">Save</a>
             </form>
         </div>   
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>

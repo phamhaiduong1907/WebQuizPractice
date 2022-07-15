@@ -12,8 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pricepackage detail</title>
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/course_content/course_detail.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/course_content/dimension_list.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/table.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -31,20 +31,25 @@
         </ul> 
 
         <ul class="breadcrumb nav ">
-            <li><a href="#" class="addlink headnav">Dimension</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav currentnav" >Dimension</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
+            <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/topiclist?id=${requestScope.course.courseID}" class="addlink headnav ">Topic</a></li>
+
 
         </ul>  
 
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-5 " >
+        <a class="addlink_ver2" href="dimensionadd?id=${requestScope.course.courseID}">Add dimension</a>
+
+        <div class=" d-flex justify-content-center table__content">
+            <div class="" >
                 <table>
                     <thead>
                         <tr>
                             <th>Dimension ID</th>
                             <th>Type</th>
                             <th>Dimension</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,7 +59,11 @@
                                 <td>${d.dimensionID}</td>
                                 <td>${d.dimensionType.typeName}</td>
                                 <td>${d.dimensionName}</td>
-                                <td><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/deletedimension?courseID=${requestScope.course.courseID}&dimensionID=${d.dimensionID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
+                                <td>${d.dimensionDescription}</td>
+
+                                <td><a href="dimensionedit?did=${d.dimensionID}&cid=${requestScope.course.courseID}" class="edit_alink">Edit</a>    <a class="delete_alink" href="${pageContext.request.contextPath}/managesubject/subjectdetail/deletedimension?courseID=${requestScope.course.courseID}&dimensionID=${d.dimensionID}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                    
+                                </td>
                             </tr>    
                         </c:forEach>
                     </tbody>
@@ -72,7 +81,15 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
         <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
-        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "dimension", "${requestScope.queryString}");</script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "dimension", "${requestScope.queryString}");
+
+            <c:if test="${sessionScope.errormessage != null}">
+
+                                    alert("${sessionScope.errormessage}");
+                <c:remove var="errormessage" scope="session"/>
+            </c:if>
+
+        </script>
 
     </body>
 </html>

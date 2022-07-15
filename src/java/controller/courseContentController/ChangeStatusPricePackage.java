@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ErrorMessage;
 
 /**
  *
@@ -39,12 +40,24 @@ public class ChangeStatusPricePackage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
         String url = request.getHeader("referer");
+        ErrorMessage errorMessage = new ErrorMessage();
+
         int pricePackageID = Integer.parseInt(request.getParameter("id"));
         boolean status = request.getParameter("status").equals("on");
         PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
-        pricePackageDBContext.changeStatusPricePackage(pricePackageID, status);
-        response.sendRedirect(url);
+        if (pricePackageDBContext.isTurnOnable(pricePackageID)) {
+            pricePackageDBContext.changeStatusPricePackage(pricePackageID, status);
+            response.sendRedirect(url);
+
+        } else {
+            request.getSession().setAttribute("errormessage", ErrorMessage.PRICEPACKAGE_TURNON_NONLESSONPRICEPACKAGE);
+            response.sendRedirect(url);
+        }
+
     }
 
     /**

@@ -12,8 +12,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Course;
 import model.Dimension;
+import model.ErrorMessage;
 
 /**
  *
@@ -45,33 +47,41 @@ public class ManageDimensionListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = request.getHeader("referer");
+        CourseDBContext courseDBContext = new CourseDBContext();
+
+        Account account = (Account) request.getSession().getAttribute("account");
         String queryString = request.getQueryString();
-        
+
         DimensionDBContext dimensionDBContext = new DimensionDBContext();
         int courseID = Integer.parseInt(request.getParameter("id"));
 
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            String page = request.getParameter("page");
+            if (page == null || page.trim().length() == 0) {
+                page = "1";
+            }
+            int pageindex = Integer.parseInt(page);
+            int count = dimensionDBContext.getQuantityDimensionPagination(courseID);
+            int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
+            if (pageindex <= 0 || pageindex > totalpage) {
+                pageindex = 1;
+            }
+
+            Course course = courseDBContext.getCourse(courseID);
+            ArrayList<Dimension> dimensions = dimensionDBContext.getDimensionPagination(courseID, PAGESIZE, pageindex);
+
+            request.setAttribute("dimensions", dimensions);
+            request.setAttribute("course", course);
+            request.setAttribute("pageindex", pageindex);
+            request.setAttribute("totalpage", totalpage);
+            request.setAttribute("queryString", queryString);
+
+            request.getRequestDispatcher(DIMENSIONLISTURL).forward(request, response);
+        } else {
+            request.getSession().setAttribute("message", ErrorMessage.AUTH_EDIT_COURSE);
+            response.sendRedirect(url);
         }
-        int pageindex = Integer.parseInt(page);
-        int count = dimensionDBContext.getQuantityDimensionPagination(courseID);
-        int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
-        }
-
-        CourseDBContext courseDBContext = new CourseDBContext();
-        Course course = courseDBContext.getCourse(courseID);
-        ArrayList<Dimension> dimensions = dimensionDBContext.getDimensionPagination(courseID, PAGESIZE, pageindex);
-
-        request.setAttribute("dimensions", dimensions);
-        request.setAttribute("course", course);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("queryString", queryString);
-
-        request.getRequestDispatcher(DIMENSIONLISTURL).forward(request, response);
 
     }
 

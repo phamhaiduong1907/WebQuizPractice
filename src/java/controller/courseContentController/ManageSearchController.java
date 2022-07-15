@@ -36,7 +36,7 @@ public class ManageSearchController extends HttpServlet {
             throws ServletException, IOException {
         CourseDBContext dbCourse = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
-        int pagesize = 3;
+        int pagesize = 8;
         String page = request.getParameter("page");
         if (page == null || page.trim().length() == 0) {
             page = "1";

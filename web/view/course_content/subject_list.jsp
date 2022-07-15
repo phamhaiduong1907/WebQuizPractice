@@ -51,13 +51,18 @@
                         <c:forEach var="c" items="${requestScope.courses}">
                             <tr class="table__row">
                                 <td>${c.courseID}</td>
-                                <td> <a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${c.courseID}" class="detailink">${c.courseName}</a> </td>
+                                <td> <a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${c.courseID}" class="view__alink">${c.courseName}</a> </td>
                                 <td>${c.subcategory.subcategoryName}</td>
-                                <td>${c.description}</td>
+                                <td>
+                                    <p> ${c.description} </p>
+                                </td>
                                 <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>
-                                <td><a href="#">Edit</a></td>
+                                <td>
+                                    <a class="view__alink" href="lessonlist?courseID=${c.courseID}">View lesson</a>
+                                    
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -134,7 +139,15 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
-        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
+        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");
+        
+           <c:if test="${sessionScope.errormessage != null }">
+            alert("${sessionScope.errormessage}");
+                <c:remove var="errormessage" scope="session" />
+            </c:if>
+        
+        
+        </script>
     </body>
 
 </html>

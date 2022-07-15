@@ -6,12 +6,23 @@ package model;
 
 /**
  *
- * @author Hai Tran
+ * @author Hai Duong
  */
 public class MediaType {
     private int mediaID;
+    private String mediaType;
     private String mediaName;
 
+    public String getMediaName() {
+        return mediaName;
+    }
+
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
+    }
+    
+    
+    
     public int getMediaID() {
         return mediaID;
     }
@@ -20,12 +31,12 @@ public class MediaType {
         this.mediaID = mediaID;
     }
 
-    public String getMediaName() {
-        return mediaName;
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setMediaName(String mediaName) {
-        this.mediaName = mediaName;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
     
     

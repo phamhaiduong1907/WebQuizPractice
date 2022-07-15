@@ -14,8 +14,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Category;
 import model.Course;
+import model.ErrorMessage;
 import model.PricePackage;
 
 /**
@@ -48,33 +50,42 @@ public class ManagePricepackageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String url = request.getHeader("referer");
+        CourseDBContext courseDBContext = new CourseDBContext();
+        Account account = (Account) request.getSession().getAttribute("account");
+
         String queryString = request.getQueryString();
 
         PricePackageDBContext pricePackageDBContext = new PricePackageDBContext();
         int courseID = Integer.parseInt(request.getParameter("id"));
 
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int count = pricePackageDBContext.getQuantityPagination(courseID);
-        int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
-        if (pageindex <= 0 || pageindex > totalpage) {
-            pageindex = 1;
+        if (courseDBContext.authEdit(courseID, account.getUsername()) || account.getRole().getRoleID() == 1) {
+            String page = request.getParameter("page");
+            if (page == null || page.trim().length() == 0) {
+                page = "1";
+            }
+            int pageindex = Integer.parseInt(page);
+            int count = pricePackageDBContext.getQuantityPagination(courseID);
+            int totalpage = (count % PAGESIZE == 0) ? (count / PAGESIZE) : (count / PAGESIZE) + 1;
+            if (pageindex <= 0 || pageindex > totalpage) {
+                pageindex = 1;
+            }
+
+            Course course = courseDBContext.getCourse(courseID);
+            ArrayList<PricePackage> pricePackages = pricePackageDBContext.getPricePackagesPagination(courseID, PAGESIZE, pageindex);
+
+            request.setAttribute("pricePackages", pricePackages);
+            request.setAttribute("course", course);
+            request.setAttribute("pageindex", pageindex);
+            request.setAttribute("totalpage", totalpage);
+            request.setAttribute("queryString", queryString);
+
+            request.getRequestDispatcher(PRICEPACKAGEDETAILURL).forward(request, response);
+        } else {
+            request.getSession().setAttribute("message", ErrorMessage.AUTH_EDIT_COURSE);
+            response.sendRedirect(url);
         }
 
-        CourseDBContext courseDBContext = new CourseDBContext();
-        Course course = courseDBContext.getCourse(courseID);
-        ArrayList<PricePackage> pricePackages = pricePackageDBContext.getPricePackagesPagination(courseID, PAGESIZE, pageindex);
-
-        request.setAttribute("pricePackages", pricePackages);
-        request.setAttribute("course", course);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("queryString", queryString);
-        
-        request.getRequestDispatcher(PRICEPACKAGEDETAILURL).forward(request, response);
     }
 
     /**

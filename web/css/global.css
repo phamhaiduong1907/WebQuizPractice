@@ -17,7 +17,7 @@ html, body{
     text-align: center;
     margin: 300px  200px ;
 }
-
+/*add an object*/
 .addlink:link, .addlink:visited {
     background-color: #0056d2;
     color: white;
@@ -146,3 +146,74 @@ ul.breadcrumb li a:hover {
     justify-content: space-between;
     margin-top: 20px;
 }
+
+
+.currentnav:link, .currentnav:visited{
+    background-color: #ff690c !important;
+    color: black !important;
+}
+
+.non-scroll{
+    display: block    !important ;
+    overflow-y: hidden !important;
+}
+
+
+.view__alink {
+    background-color: #65badc;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.edit_alink{
+    background-color: orange!important;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+    color: #fff;
+}
+
+.delete_alink{
+    background-color: darkgrey;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    font-size: 0.8rem;
+    border: none;
+}
+
+.status__active{
+    background-color: #c8e6c9;
+    color: #388e3c;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.status__inactive{
+    background-color: #ffcdd2;
+    color: #c62828;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.addlink_ver2 {
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+    background-color: #3db743;
+    border-radius: 10px;
+}
+

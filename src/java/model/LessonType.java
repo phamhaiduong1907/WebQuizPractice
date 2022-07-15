@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Hai Tran
+ * @author Zuys
  */
 public class LessonType {
     private int lessonTypeID;

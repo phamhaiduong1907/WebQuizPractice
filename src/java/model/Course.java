@@ -32,7 +32,9 @@ public class Course {
     public void setDimensions(ArrayList<Dimension> dimensions) {
         this.dimensions = dimensions;
     }
-
+    
+    
+    
     public boolean isIsRegistered() {
         return isRegistered;
     }

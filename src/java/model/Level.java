@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Hai Tran
+ * @author Hai Duong
  */
 public class Level {
     private int levelID;

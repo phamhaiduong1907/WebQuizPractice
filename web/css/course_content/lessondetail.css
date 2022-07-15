@@ -1,0 +1,39 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jun 30, 2022, 4:22:02 PM
+    Author     : Zuys
+*/
+
+.main{
+    padding: 40px 60px;
+}
+
+form input:not(input[type="submit"]), form select, form textarea{
+    display: block;
+    width: 60%;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+form input:not(input[type="submit"]):focus, form select:focus, form textarea:focus{
+    box-shadow: 0px 0px 2px 2px #3cadda;
+}
+
+form textarea{
+    resize: none;
+    height: 150px;
+}
+
+form input[type="submit"]{
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #0056d2;
+    color: #fff;
+    border-radius: 7px;
+}

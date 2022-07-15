@@ -99,7 +99,7 @@ public class EditQuestionController extends HttpServlet {
         rawParameter.add(rawExplanation);
 
         Validation validation = new Validation();
-
+        
         if (validation.checkNullOrBlank(rawParameter)) {
             int questionID = Integer.parseInt(rawQuestionID);
             int lessonID = Integer.parseInt(rawLessonID);
