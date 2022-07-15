@@ -62,11 +62,7 @@ public class LoginController extends HttpServlet {
                 User user = dbUser.getUser(account);
                 request.getSession().setAttribute("account", account);
                 request.getSession().setAttribute("user", user);
-                if (user.getAccount().getRole().getRoleID() == 5) {
-                    response.sendRedirect("home");
-                } else {
-                    response.sendRedirect("dashboard");
-                }
+                response.sendRedirect("home");
             }
         } catch (Exception e) {
             request.getSession().setAttribute("login_status", login_status);
