@@ -3,33 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.customerControllers;
 
+import dal.CommonDBContext;
+import dal.QuestionDBContext;
+import dal.QuizDBContext;
+import dal.QuizHandleDBContext;
+import dal.QuizHistoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.Account;
+import model.Question;
+import model.Quiz;
+import model.QuizHistory;
+import model.ResultQuestion;
 
 /**
  *
  * @author Zuys
  */
-@WebServlet(name="CloneJSP", urlPatterns={"/CloneJSP"})
-public class CloneJSP extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-spx`ecific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-   
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+public class QuizReviewController extends HttpServlet {
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -40,7 +38,18 @@ public class CloneJSP extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("view/clone.jsp").forward(request, response);
+        QuizHistoryDBContext dbQHistory = new QuizHistoryDBContext();
+        int quizHistoryID = Integer.parseInt(request.getParameter("quizHistoryID"));
+        QuizHistory quizHistory = dbQHistory.getQuizHistory(quizHistoryID);
+        Quiz quiz = new QuizDBContext().getAQuiz(quizHistory.getQuizID().getQuizID());
+
+        
+        QuizHandleDBContext quizHandleDBContext = new QuizHandleDBContext();
+        ArrayList<ResultQuestion> rquestions = quizHandleDBContext.getQuestionsFromQuizQuestion(quizHistory.getQuizID().getQuizID(), quizHistoryID);
+        
+        request.getSession().setAttribute("rquestions", rquestions);
+        request.getSession().setAttribute("quiz", quiz);
+        response.sendRedirect("qreview?order=1&qhid=" + quizHistoryID);
     } 
 
     /** 

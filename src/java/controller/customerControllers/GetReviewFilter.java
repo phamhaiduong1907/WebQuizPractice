@@ -3,39 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.slider;
+package controller.customerControllers;
 
-import dal.SliderDBContext;
+import dal.QuizHandleDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.ResultQuestion;
 
 /**
  *
- * @author Hai Duong
+ * @author Zuys
  */
-public class ChangeStatusController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException { 
-        SliderDBContext dbSliders = new SliderDBContext();
-        int sliderID = Integer.parseInt(request.getParameter("sliderID"));
-        boolean status = dbSliders.getSliderStatusById(sliderID);
-        boolean statusChange = !status;
-        dbSliders.changeStatus(statusChange, sliderID);
-    } 
+public class GetReviewFilter extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -46,7 +31,6 @@ public class ChangeStatusController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
     } 
 
     /** 
@@ -59,7 +43,25 @@ public class ChangeStatusController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charater=UTF-8");
+        response.setCharacterEncoding("utf-8");
+        int ID = Integer.parseInt(request.getParameter("ID"));
+        int qhid = Integer.parseInt(request.getParameter("qhid"));
+        int quizID = Integer.parseInt(request.getParameter("quizID"));
+
+        ArrayList<ResultQuestion> resultQuestions = new QuizHandleDBContext().getQuestionByFilter(ID, qhid,quizID);
+        String result = "";
+
+        for (ResultQuestion r : resultQuestions) {
+            String isAnswered = r.isIsAnswered() ? "answered" : "";
+            String isMarked = r.isIsMarked() ? "<i class=\"fa-solid fa-lightbulb\"></i>" : "";
+
+            result += " <div class=\"question__box\" id=\"" + isAnswered + "\""
+                    + "                                <p> " + isMarked + "<a href=\"qreview?order=" + r.getOrder() + "&qhid=" + qhid + "\">" + r.getOrder() + "</a></p>\n"
+                    + "                            </div>";
+        }
+
+        response.getWriter().println(result);
     }
 
     /** 

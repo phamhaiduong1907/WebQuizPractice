@@ -3,21 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.slider;
+package controller.marketingController;
 
-import dal.SliderDBContext;
+import com.google.gson.Gson;
+import dal.RegistrationDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.OrderData;
 
 /**
  *
  * @author Hai Duong
  */
-public class ChangeStatusController extends HttpServlet {
+public class ChartController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,12 +30,15 @@ public class ChangeStatusController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException { 
-        SliderDBContext dbSliders = new SliderDBContext();
-        int sliderID = Integer.parseInt(request.getParameter("sliderID"));
-        boolean status = dbSliders.getSliderStatusById(sliderID);
-        boolean statusChange = !status;
-        dbSliders.changeStatus(statusChange, sliderID);
+    throws ServletException, IOException {
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        RegistrationDBContext db = new RegistrationDBContext();
+        ArrayList<OrderData> orderData = db.getOrderDataInPeriod(startdate, enddate);
+        Gson gson = new Gson();
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(orderData));
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

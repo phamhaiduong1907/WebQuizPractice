@@ -682,7 +682,65 @@ public class CourseDBContext extends DBContext {
         return courses;
     }
 
-    public ArrayList<Course> getCourseNameAndIDForUser(Account account) {
+    public ArrayList<Course> getCoursesLearners() {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "select c.courseID, c.courseName, s.subCategoryName\n"
+                    + ",count(case when r.[status] is null or r.[status] \n"
+                    + "= 0 then null else 1 end) as learners\n"
+                    + "from Course c inner join SubCategory s\n"
+                    + "on s.subCategoryID = c.subCategoryID\n"
+                    + "left join Registration r on r.courseID = c.courseID\n"
+                    + "group by c.courseID, c.courseName, s.subCategoryName\n"
+                    + "order by c.courseID";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                Subcategory subcategory = new Subcategory();
+                subcategory.setSubcategoryName(rs.getString("subCategoryName"));
+                course.setSubcategory(subcategory);
+                course.setLearners(rs.getInt("learners"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courses;
+    }
+
+    public ArrayList<Course> getPopularSubjects() {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "select top 5 c.courseID, c.courseName, c.thumbnailURL, s.subCategoryName, \n"
+                    + "count(r.username) as learners\n"
+                    + "from Course c inner join Registration r on c.courseID = r.courseID\n"
+                    + "inner join SubCategory s on s.subCategoryID = c.subCategoryID\n"
+                    + "where r.[status] = 1 group by c.courseID, c.courseName, s.subCategoryName, c.thumbnailURL\n"
+                    + "order by learners desc";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                course.setThumbnailUrl(rs.getString("thumbnailURL"));
+                Subcategory subcategory = new Subcategory();
+                subcategory.setSubcategoryName(rs.getString("subCategoryName"));
+                course.setSubcategory(subcategory);
+                course.setLearners(rs.getInt("learners"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courses;
+    }
+       public ArrayList<Course> getCourseNameAndIDForUser(Account account) {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             String sql = "SELECT courseID, courseName FROM Course\n"

@@ -85,12 +85,12 @@
                                                 <p>${s.backlink}</p> 
                                             </td>
                                             <td class="slider__status" id="status${s.sliderID}">
-                                                <span class="status ${s.status?"status__active":"status__inactive"}">
+                                                <span class="status ${s.status?"status__active":"status__inactive"}" 
+                                                      onclick="changeStatus(this, '${s.sliderID}')">
                                                     ${s.status?"Active":"Inactive"}
                                                 </span>
                                             </td>
                                             <td class="slider__action">
-                                                <button href="#" class="slider__hide" onclick="changeStatus(this, 'status${s.sliderID}', '${s.sliderID}', '${s.status?"inactive":"active"}')">${s.status?"Hide":"Show"}</button>
                                                 <a href="view?sliderID=${s.sliderID}" class="slider__detail">Detail</a>
                                                 <a href="detail?sliderID=${s.sliderID}" class="slider_edit slider__detail">Edit</a>
                                             </td>
@@ -115,22 +115,22 @@
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
         <script>
-                                                    function changeStatus(link, id, sliderID, statusParam) {
+                                                    function changeStatus(link, sliderID) {
                                                         var text = link.textContent;
-                                                        var status = document.getElementById(id);
-                                                        if (text === "Hide") {
-                                                            link.innerHTML = "Show";
-                                                            status.innerHTML = '<span class="status status__inactive">Inactive</span>';
-                                                        } else if (text === "Show") {
-                                                            link.innerHTML = "Hide";
-                                                            status.innerHTML = '<span class="status status__active">Active</span>';
+                                                        if (text.trim() === "Active") {
+                                                            link.innerHTML = "Inactive";
+                                                            link.classList.remove('status__active');
+                                                            link.classList.add('status__inactive');
+                                                        } else {
+                                                            link.innerHTML = "Active";
+                                                            link.classList.remove('status__inactive');
+                                                            link.classList.add('status__active');
                                                         }
                                                         $.ajax({
                                                             url: "/SWP391-SE1617-NET_Group06-QuizWebsite/slider/changestatus",
                                                             type: "GET",
                                                             data: {
-                                                                sliderID: sliderID,
-                                                                statusParam: statusParam
+                                                                sliderID: sliderID
                                                             }
                                                         });
 

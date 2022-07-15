@@ -19,9 +19,8 @@
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/index.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
         <%
             ArrayList<Slider> sliders = (ArrayList<Slider>) request.getAttribute("sliders");
         %>
@@ -121,113 +120,20 @@
                                     </div>
                                 </div>
                                 <div class="course__detail">
-                                </div>  
-
+                                </div>
                             </div>
-
-
                         </c:forEach>
 
                     </div>
                 </div>
             </section>
             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />
-
-            <!--            <section class="popup" style="display: <c:choose>
-                <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null}">
-                    <%="flex; "%>
-                </c:when>
-                <c:otherwise>
-                    <%="none;"%>
-                </c:otherwise>
-            </c:choose>">
-       <div class="popup__content">
-           <img src="${pageContext.request.contextPath}/images/close.png" alt="" class="close">
-
-           <div class="form_user-profile" style="display: <c:choose>
-                <c:when test="${sessionScope.profile_status != null}">
-                    <%="block; "%>
-                </c:when>
-                <c:otherwise>
-                    <%="none;"%>
-                </c:otherwise>
-            </c:choose>">
-           <h2>User Profile</h2>
-           <form action="profile" method="POST" enctype="multipart/form-data">
-
-               <div class="user__avatar">
-            <c:choose>
-                <c:when test="${sessionScope.user.profilePictureUrl != 'none'}">
-                    <img src="<c:out value="${sessionScope.user.profilePictureUrl}"/>" id="photo">
-                </c:when>
-                <c:otherwise>
-                    <img src="${pageContext.request.contextPath}/images/profile/default.jpg" id="photo">
-                </c:otherwise>
-            </c:choose>
-            <input type="file" name="profilePicture" id="profilePicture" onchange="return fileValidation()" oninvalid="this.setCustomValidity('Please select a picture!')" oninput="this.setCustomValidity('')">
-            <label for="profilePicture" title="Please update your picture!" id="uploadBtn" style="top: 35%">Choose Photo</label>
-        </div>
-        <input type="text" name="email" id="email" value="<c:out value="${sessionScope.user.account.username}"/>" disabled placeholder="Your email">
-        <input type="text" name="firstName" id="firstName" value="<c:out value="${sessionScope.user.firstName}"/>" title="Your name can't be empty" placeholder="Enter your first name" required>
-        <input type="text" name="lastName" id="lastName" value="<c:out value="${sessionScope.user.lastName}"/>" title="Your name can't be empty" placeholder="Enter your last name" required>
-        <input type="text" name="phone" id="phone" value="<c:out value="${sessionScope.user.phoneNumber}"/>" pattern="[0-9]{9,10}" title="Please enter a valid phone number (9-10 number with no separator)" placeholder="Enter your phone" required>
-        <div class="profile__gender signup__gender">
-            <h5>Gender</h5>
-
-            <input type="radio" name="gender" value="male" <c:if test="${sessionScope.user.gender}">
-                   checked="checked"
-            </c:if> id="" required> <p>Male</p>
-
-        <input type="radio" name="gender" value="female" <c:if test="${!sessionScope.user.gender}">
-               checked="checked"
-            </c:if> id="" required> <p>Female</p>
-
-    </div>
-    <input type="text" name="address" id="address" title="Your address can't be empty" value="<c:out value="${sessionScope.user.address}"/>" placeholder="Enter your address" required>
-    <div class="form__button">
-        <button type="submit">Save</button>
-    </div>
-</form>
-<div class="message__box">
-    <p>${sessionScope.profile_status}</p>
-            <c:remove var="profile_status" scope="session"/>
-        </div>
-    </div>
-
-    <div class="form__change-password" style="display: <c:choose>
-                <c:when test="${sessionScope.changepass_status != null}">
-                    <%="block; "%>
-                </c:when>
-                <c:otherwise>
-                    <%="none;"%>
-                </c:otherwise>
-            </c:choose>">
-           <h2>Change Password</h2>
-           <form action="changepass" method="POST" onsubmit="return checkOldNewPass()">
-               Enter current password: <input type="password" name="currentPassword" id="currentPassword" required placeholder="Enter your current password">
-               Enter new password: <input type="password" name="newPassword" id="newPassword" onchange="checkPassword()" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="Enter new password">
-               Confirm new password: <input type="password" name="confirmNewPassword" id="confirmNewPassword" required placeholder="Reenter your new password">
-               <div class="form__button">
-                   <button type="submit">Save</button>
-               </div>
-           </form>
-           <div class="message__box">
-               <p>${sessionScope.changepass_status}</p>
-            <c:remove var="changepass_status" scope="session"/>
-        </div>
-    </div>
-</div>
-
-</section>-->
-
-
-
             <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
-            <script src="${pageContext.request.contextPath}/js/script.js"></script>
+            <!--<script src="${pageContext.request.contextPath}/js/script.js"></script>-->
             <script src="${pageContext.request.contextPath}/js/swiper.js"></script>
             <script src="${pageContext.request.contextPath}/js/common/home.js"></script>
             <script src="${pageContext.request.contextPath}/js/register.js"></script>

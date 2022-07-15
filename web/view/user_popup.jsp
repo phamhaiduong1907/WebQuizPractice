@@ -77,7 +77,7 @@
             <div class="form__change-password">
                 <h2>Change Password</h2>
                 <form action="changepass" method="POST" onsubmit="return checkOldNewPass()">
-                    Enter current password: <input type="password" name="currentPassword" id="currentPassword" required pattern="${sessionScope.account.password}" title="Must matches current password" placeholder="Enter your current password">
+                    Enter current password: <input type="password" name="currentPassword" id="currentPassword" required title="Must matches current password" placeholder="Enter your current password">
                     Enter new password: <input type="password" name="newPassword" id="newPassword" onchange="checkPassword()" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="Enter new password">
                     Confirm new password: <input type="password" name="confirmNewPassword" id="confirmNewPassword" required placeholder="Reenter your new password">
                     <div class="form__button">
@@ -158,9 +158,9 @@
                 <div class="form__signup">
                     <form action="register" method="POST">
                         <label for="firstName">First Name</label>
-                        <input type="text" name="firstName" id="firstName" required>
+                        <input type="text" name="firstName" id="firstName" required autocomplete="off">
                         <label for="lastName">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" required>
+                        <input type="text" name="lastName" id="lastName" required autocomplete="off">
                         <div class="signup__gender">
                             <h5>Gender</h5>
                             <div class="gender__select">
@@ -173,15 +173,15 @@
                             </div>
                         </div>
                         <label for="emailSignup">Email</label>
-                        <input type="text" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" required>
+                        <input type="text" autocomplete="off" name="email" id="emailSignup" pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" title="Must be in email format (eg: abc@xyz.com)" required>
                         <label for="phone">Phone Number</label>
-                        <input type="text" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" required>
+                        <input type="text" autocomplete="off" name="phone" id="phone" pattern="[0-9]{9,10}" title="Must be between 9 and 10 digit" required>
                         <label for="address">Address</label>
-                        <input type="text" name="address" id="address" title="Must not be empty" required>
+                        <input type="text" autocomplete="off" name="address" id="address" title="Must not be empty" required>
                         <label for="passwordReg">Password</label>
-                        <input type="password" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" required>
+                        <input type="password" autocomplete="off" name="passwordReg" id="passwordReg" onchange="matchPassword()" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" required>
                         <label for="ConfirmPasswordReg">Confirm Password</label>
-                        <input type="password" name="confirmPasswordReg" id="confirmPassword" required>
+                        <input type="password" autocomplete="off" name="confirmPasswordReg" id="confirmPassword" required>
                         <div class="form__button">
                             <button type="submit" >Register</button>
                         </div>
@@ -223,8 +223,13 @@
     </section>
 </c:if>
 
-<script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
+
+<c:if test="${sessionScope.account == null}">
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
+</c:if>
+<c:if test="${sessionScope.account != null}">
+    <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
+</c:if>
 <script src="${pageContext.request.contextPath}/js/profile.js"></script>
 <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/home.js"></script>

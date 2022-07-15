@@ -4,28 +4,28 @@
  */
 package controller.customerControllers;
 
+import dal.AnswerDBContext;
 import dal.CommonDBContext;
-import dal.QuestionDBContext;
-import dal.QuizDBContext;
 import dal.QuizHandleDBContext;
+import dal.QuizHistoryDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import model.Account;
-import model.Question;
+import model.Answer;
 import model.Quiz;
+import model.QuizHistory;
 import model.ResultQuestion;
 
 /**
  *
- * @author ADMIN
+ * @author Zuys
  */
-public class QuizHandleController extends HttpServlet {
+public class CheckingQuizController extends HttpServlet {
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -37,31 +37,19 @@ public class QuizHandleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int quizID = Integer.parseInt(request.getParameter("quizID"));
-        ArrayList<Question> questions = new QuestionDBContext().getQuestionsFromQuizQuestion(quizID);
-        Quiz quiz = new QuizDBContext().getAQuiz(quizID);
-
-        Account account = (Account) request.getSession().getAttribute("account");
-        Timestamp startTime = new Timestamp(System.currentTimeMillis());
-        Timestamp endTime = new Timestamp(System.currentTimeMillis());
-
-        endTime.setTime(startTime.getTime() + (quiz.getDuration() * 60) * 1000);
-
+        int qhid = Integer.parseInt(request.getParameter("qhid"));
+        QuizHistory quizHistory = new QuizHistoryDBContext().getQuizHistory(qhid);
+        Quiz quiz = quizHistory.getQuizID();
         QuizHandleDBContext quizHandleDBContext = new QuizHandleDBContext();
-        if (quiz.getQuizType().getQuizTypeID() == 1) {
-            quizHandleDBContext.insertQuizHistory(quizID, account.getUsername(), startTime, endTime, null, questions);
+        AnswerDBContext dbAnswer = new AnswerDBContext();
+        ArrayList<Answer> correctAnswer = dbAnswer.getCorrectAnswer();
 
-        } else {
-            quizHandleDBContext.insertQuizHistory(quizID, account.getUsername(), startTime, null, null, questions);
-
-        }
-
-        ArrayList<ResultQuestion> rquestions = quizHandleDBContext.getQuestionsFromQuizQuestion(quizID, new CommonDBContext().getIdentity("QuizHistory"));
-
+        ArrayList<ResultQuestion> rquestions = quizHandleDBContext.getQuestionsFromQuizQuestion(quiz.getQuizID(), qhid);
+        request.setAttribute("quiz", quiz);
         request.getSession().setAttribute("rquestions", rquestions);
-        request.getSession().setAttribute("quiz", quiz);
-        response.sendRedirect("qhandle?order=1&qhid=" + new CommonDBContext().getIdentity("QuizHistory"));
+        request.getSession().setAttribute("correctAnswer", correctAnswer);
 
+        request.getRequestDispatcher("view/customer/quizreview.jsp").forward(request, response);
     }
 
     /**

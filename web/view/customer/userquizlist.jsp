@@ -142,8 +142,8 @@
                     <td>${q.numOfQuestion}</td>
                     <td>${q.duration} mins</td>
                     <td>${q.passRate}%</td>
-                    <td><a class="btn_view" href="#">Details</a></td>
-                    <td><a class="btn_edit" href="#"class="action__edit">Practice</a></td>
+                    <td><a class="btn_view" href="quizzes/view?id=${q.quizID}">Details</a></td>
+                    <td><a class="btn_edit" href="quizhandle?quizID=${q.quizID}"class="action__edit">Practice</a></td>
                     </tr>`;
             </c:forEach>
         table.innerHTML = result;
