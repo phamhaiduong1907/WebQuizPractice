@@ -12,10 +12,6 @@
         <servlet-class>controller.AccessDenyController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DashboardController</servlet-name>
-        <servlet-class>controller.DashboardControler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UserListController</servlet-name>
         <servlet-class>controller.admin.UserListController</servlet-class>
     </servlet>
@@ -335,6 +331,14 @@
         <servlet-name>ViewQuestionController</servlet-name>
         <servlet-class>controller.testContentController.ViewQuestionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>controller.marketingController.DashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChartController</servlet-name>
+        <servlet-class>controller.marketingController.ChartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -342,10 +346,6 @@
     <servlet-mapping>
         <servlet-name>AccessDenyController</servlet-name>
         <url-pattern>/deny</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
@@ -678,6 +678,14 @@
     <servlet-mapping>
         <servlet-name>ViewQuestionController</servlet-name>
         <url-pattern>/viewquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChartController</servlet-name>
+        <url-pattern>/marketing/chart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -36,14 +36,15 @@ public class AccountDBContext extends DBContext {
                     + "inner join [Authorization] auth\n"
                     + "on auth.roleID = r.roleID inner join\n"
                     + "Feature f on f.featureID = auth.featureID\n"
-                    + "where f.featureID not in (select ue.featureID from UserException ue inner join\n"
-                    + "Feature fe on ue.featureID = fe.featureID)\n"
+                    + "where f.featureID not in (select featureID from UserException \n"
+                    + "where username = ?)\n"
                     + "and a.username = ? and a.roleID = ?\n"
                     + "and f.[URL] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
-            stm.setInt(2, roleID);
-            stm.setString(3, uri);
+            stm.setString(2, username);
+            stm.setInt(3, roleID);
+            stm.setString(4, uri);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 return rs.getInt("permission") > 0;

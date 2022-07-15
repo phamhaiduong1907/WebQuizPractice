@@ -1,38 +1,202 @@
-html{
-    font-family: sans-serif;
+body{
+    background-color:#f4f6fd;
+    color: #1e2f65;
 }
 
-.graph{
-    margin: auto;
-    background-color: rgb(200, 178, 178);
-    width: 600px;
+table{
+    border-collapse: collapse;
+    /* box-shadow: 0 5px 10px #e1e5ee; */
+    background-color: #fff;
+    text-align: left;
+    overflow: hidden;
+    font-family: Mukta, sans-serif;
+    display: table;
+    width: 100%;
+}
+
+thead{
+    /* box-shadow: 0 5px 10px #e1e5ee; */
+    background-color: #f4f6fd;
+}
+
+thead tr{
+    border: 1px solid #ecf3fa;
+}
+
+th{
+    padding: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.6rem;
+    font-weight: 900;
+}
+
+td{
+    padding: 20px;
+    font-size: 0.8rem;
+}
+
+/* tr:nth-child(even){
+    background-color: #f4f6fb;
+} */
+
+tfoot tr td a{
+    padding: 5px 10px;
+    transition: all 0.25s ease;
+}
+
+tfoot tr td a:not(.active):hover{
+    background-color: grey;
+    border-radius: 5px;
+    color: #fff;
+}
+
+tfoot tr td a.active{
+    color: #fff;
+    background-color: #5fe45f;
+    border-radius: 5px;
+}
+
+.page__main{
+    padding: 0 20px;
+    margin-bottom: 50px;
+}
+
+.page__title{
+    padding: 20px 5px;
+}
+
+.page__container{
+    padding-left: 5px; 
+    padding-right: 5px;
+}
+
+.page__subject{
+    display: flex;
+    justify-content: space-between;
+}
+
+.subject__item{
+    width: 49%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px #e1e5ee;
+}
+
+.subject__list__table{
+    margin-top: 20px;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+}
+
+.subject__new__list{
+    margin-top: 10px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subject__new__item{
+    display: flex;
+    padding: 10px;
+}
+
+.subject__new__thumbnail{
+    width: 15%;
+}
+
+.subject__new__detail{
+    width: 65%;
+    padding: 0 10px;
+}
+
+.subject__new__info{
+    flex: 1;
+}
+
+.subject__item span, .subject__item p{
+    font-size: 13px;
+}
+
+.subject__new__name{
+    margin-bottom: 10px;
+}
+
+.subject__new__info span{
+    padding: 5px;
+    background-color: #f4f6fd;
+}
+
+.page__half{
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.page__report, .page__registration{
+    width: 49%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px #e1e5ee;
+    height: 450px;
+}
+
+#piechart{
     height: 400px;
 }
 
-.graph p{
-    color: white;
-    text-align: center;
-    line-height: 400px;
+#curve_chart{
+    height: 350px;
 }
 
-.option{
-    margin: 50px 0;
-    font-size: 20px;
-    text-align: left;
+.report__heading{
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
+#registrationSearch{
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+}
 
-
-.option .sub__option{
-   margin-left: auto;
-   width: 60%;
-    margin-top: 20px;
-    
+#registrationSearch .search__item input{
+    padding: 5px;
+    font-size: 0.8rem;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 footer{
-    margin-top: 10px;
+    padding: 50px;
+    background-color: black;
+    color: white;
+    text-align: center;
 }
 
+img{
+    border-radius: 10px;
+}
 
+.form__button{
+    margin-top: 0!important;
+}
 
+.form__button button{
+    background-color: #5fe45f;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.form__button button:hover{
+    background-color: #43c843;
+}

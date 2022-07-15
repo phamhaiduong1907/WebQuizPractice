@@ -1,10 +1,7 @@
 .right_content {
     width: 95%;
-    margin: 30px auto;
+    margin: 10px auto;
 }
-
-
-
 /* Slider List Styling */
 
 tr td:nth-child(2){
@@ -41,6 +38,12 @@ td img{
     padding: 0.2rem;
     text-align: center;
     font-size: 0.8rem;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.status:hover{
+    font-size: 0.9rem;
 }
 
 .status__active{
@@ -162,6 +165,7 @@ form button:hover{
 
 .pagination ul li{
     display: inline-block;
+    padding: 5px 20px 0;
 }
 
 .pagination ul{
@@ -178,7 +182,7 @@ form button:hover{
 }
 
 .pagination a.active {
-    background-color: #4b5adf;
+    background-color: #1fe21e;
     color: white;
 }
 

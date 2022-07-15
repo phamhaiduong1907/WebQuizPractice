@@ -3,9 +3,6 @@ document.addEventListener("click", (e) => {
     var popupSection = document.querySelector('#popupSection');
 
     if (!isClosest && popupSection.classList.contains("active")) {
-        document.querySelector(".popup__login-form").style.display = "block";
-        document.querySelector(".popup__reset-form").style.display = "none";
-        document.querySelector(".popup__signup-form").style.display = "none";
         popupSection.classList.remove('active');
     }
 });

@@ -141,6 +141,10 @@ tr{
     width: 100%;
 }
 
+tr td:nth-child(1){
+    width: 20%;
+}
+
 tr td:nth-child(2){
     width: 10%;
 }
@@ -232,7 +236,4 @@ td a{
     margin-top: 20px;
     font-weight: bold;
     font-family: sans-serif;
-}
-.submenu{
-    bottom: -270px;
 }

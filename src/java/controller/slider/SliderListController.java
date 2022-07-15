@@ -4,10 +4,10 @@
  */
 package controller.slider;
 
+import controller.AuthorizationController;
 import dal.SliderDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
@@ -19,7 +19,7 @@ import model.Slider;
  *
  * @author Hai Duong
  */
-public class SliderListController extends HttpServlet {
+public class SliderListController extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -157,13 +157,13 @@ public class SliderListController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

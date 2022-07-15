@@ -20,6 +20,7 @@ header{
 header img{
     height: 65px;
     margin-left: 70px;
+    object-fit: contain;
 }
 
 header nav .nav__links{

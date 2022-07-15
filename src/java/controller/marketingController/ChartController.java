@@ -3,31 +3,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.marketingController;
 
+import com.google.gson.Gson;
+import dal.RegistrationDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import model.OrderData;
 
 /**
  *
- * @author Zuys
+ * @author Hai Duong
  */
-@WebServlet(name="CloneJSP", urlPatterns={"/CloneJSP"})
-public class CloneJSP extends HttpServlet {
+public class ChartController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-spx`ecific error occurs
+     * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        RegistrationDBContext db = new RegistrationDBContext();
+        ArrayList<OrderData> orderData = db.getOrderDataInPeriod(startdate, enddate);
+        Gson gson = new Gson();
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.println(gson.toJson(orderData));
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -40,7 +52,7 @@ public class CloneJSP extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("view/clone.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -53,6 +65,7 @@ public class CloneJSP extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /** 

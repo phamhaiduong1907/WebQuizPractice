@@ -14,6 +14,15 @@ public class Category {
     private int categoryID;
     private String categoryName;
     private ArrayList<Subcategory> subcategories;
+    private float revenue;
+
+    public float getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(float revenue) {
+        this.revenue = revenue;
+    }
 
     public int getCategoryID() {
         return categoryID;

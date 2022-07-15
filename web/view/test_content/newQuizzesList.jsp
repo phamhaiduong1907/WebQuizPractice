@@ -20,8 +20,9 @@
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="${path}/css/admin/index.css">
+    <link rel="stylesheet" href="${path}/css/global.css">
     <link rel="stylesheet" href="${path}/css/popup.css">
+    <link rel="stylesheet" href="${path}/css/table.css">
     <link href="${path}/css/test_content/quiz_list.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
