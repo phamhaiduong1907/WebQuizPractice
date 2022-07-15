@@ -740,4 +740,28 @@ public class CourseDBContext extends DBContext {
 
         return courses;
     }
+       public ArrayList<Course> getCourseNameAndIDForUser(Account account) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT courseID, courseName FROM Course\n"
+                    + "WHERE courseID IN \n"
+                    + "(SELECT courseID FROM Registration \n"
+                    + "WHERE username = ?\n"
+                    + "AND validFrom <= GETDATE()\n"
+                    + "AND GETDATE() <= validTo)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getUsername());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
+
 }

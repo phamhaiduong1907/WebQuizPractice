@@ -367,6 +367,10 @@
         <servlet-name>GetReviewFilter</servlet-name>
         <servlet-class>controller.customerControllers.GetReviewFilter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizListController</servlet-name>
+        <servlet-class>controller.customerControllers.QuizListForUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -742,6 +746,10 @@
     <servlet-mapping>
         <servlet-name>GetReviewFilter</servlet-name>
         <url-pattern>/reviewfilter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizListController</servlet-name>
+        <url-pattern>/quizlist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

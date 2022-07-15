@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Course;
 import model.QuizLevel;
 import model.QuizType;
@@ -220,12 +221,49 @@ public class QuizDBContext extends DBContext {
         }
         return 0;
     }
+
     public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
             String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Quiz q = new Quiz();
+                Course c = cdbc.getCourseByCourseID(rs.getInt("courseID"), null);
+                QuizLevel ql = qabdc.getQuizLevel(rs.getInt("levelID"));
+                QuizType qt = qabdc.getQuizType(rs.getInt("quizTypeID"));
+                q.setQuizID(rs.getInt("quizID"));
+                q.setNumOfQuestion(rs.getInt("numOfQuestion"));
+                q.setPassRate(rs.getFloat("passRate"));
+                q.setLevel(ql);
+                q.setDuration(rs.getInt("duration"));
+                q.setQuizType(qt);
+                q.setCourse(c);
+                q.setQuizName(rs.getString("quizName"));
+                q.setDescription(rs.getString("description"));
+                q.setIsTaken(rs.getBoolean("isTaken"));
+                quizzes.add(q);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return quizzes;
+    }
+
+    public ArrayList<Quiz> getQuizzesByUser(Account account) {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+        try {
+            String sql = "SELECT quizID, numOfQuestion, passRate, levelID, duration, quizTypeID, courseID, quizName, [description], isTaken, note \n"
+                    + "FROM Quiz WHERE courseID IN\n"
+                    + "(SELECT courseID FROM Registration \n"
+                    + "WHERE username = ?\n"
+                    + "AND validFrom <= GETDATE()\n"
+                    + "AND GETDATE() <= validTo)\n"
+                    + "AND quizTypeID = 1";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getUsername());
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Quiz q = new Quiz();
