@@ -20,10 +20,10 @@ import model.User;
  *
  * @author Hai Duong
  */
-public class UserDetailController extends HttpServlet {
+public class UserDetailController extends AuthorizationController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         UserDBContext dbUsers = new UserDBContext();
         User user = dbUsers.getUser(username);
@@ -37,7 +37,7 @@ public class UserDetailController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("email");
         int roleID = Integer.parseInt(request.getParameter("roleID"));
         boolean status = request.getParameter("status").equalsIgnoreCase("active");

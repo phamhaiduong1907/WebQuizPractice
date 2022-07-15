@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/list.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
@@ -28,38 +27,13 @@
     </head>
 
     <body>
-        <header>
-            <div class="heading_logo">
-                <img src="images/logo.png" alt="alt"/>
-            </div>
-            <nav>
-                <ul class="nav_links">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="subjectList">Subject</a></li>
-                    <li><a href="bloglist">Blog</a></li>
-                        <c:if  test="${sessionScope.account == null}">
-                        <li><a href="#" class="login" id="loginButton">Log in</a></li>
-                        </c:if>
-                        <c:if  test="${sessionScope.account != null}">
-                        <li>
-                            <p class="login" id="loginButton"><i class="fa fa-user-alt"></i>
-                                <c:out value="${sessionScope.account.username}"/>
-                            </p>
-                            <div class="submenu">
-                                <ul>
-                                    <li><a href="#" id="openProfile">User Profile</a></li>
-                                    <li><a href="#" id="openChangePassword">Change Password</a></li>
-                                    <li><a href="logout">Log out</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </c:if>
-                </ul>
-            </nav>
-        </header>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"></jsp:include>
         <div class="error">
             <p>You do not have the permission to access this URL</p>
+            <a href="#" onclick="back();">Come back to the previous page</a>
         </div>
+        
+        
 
         <c:if test="${sessionScope.account != null}">
             <section class="popup" style="display: <c:choose>
@@ -267,9 +241,7 @@
             </section>
         </c:if>
 
-        <footer>
-            <p>COPYRIGHT</p>
-        </footer>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"></jsp:include>
 
         <script src="${pageContext.request.contextPath}/js/registerPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
@@ -282,6 +254,11 @@
         <!-- Initialize Swiper -->
         <script src="js/common/home.js"></script>
         <script src="js/register.js"></script>
+        <script>
+            function back(){
+                window.history.go(-1);
+            }
+        </script>
     </body>
 
 </html>

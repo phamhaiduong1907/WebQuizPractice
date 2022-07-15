@@ -112,6 +112,7 @@ public class RegisterController extends HttpServlet {
                 user.setPhoneNumber(phone);
                 user.setAddress(address);
                 user.setProfilePictureUrl("none");
+                user.setStatus(true);
                 request.getSession().setAttribute("userReg", user);
 
                 //send verification email

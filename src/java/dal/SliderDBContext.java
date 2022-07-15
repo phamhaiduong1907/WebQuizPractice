@@ -365,5 +365,20 @@ public class SliderDBContext extends DBContext {
         }
         return -1;
     }
+    
+    public boolean getSliderStatusById(int sliderID){
+        try {
+            String sql = "SELECT [status] from Slider where sliderID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sliderID);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getBoolean("status");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
 }

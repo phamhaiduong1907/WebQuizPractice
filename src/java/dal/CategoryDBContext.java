@@ -99,4 +99,32 @@ public class CategoryDBContext extends DBContext {
 
         return null;
     }
+
+    public ArrayList<Category> getSubjectCategoriesWithRevenue() {
+        ArrayList<Category> categories = new ArrayList<>();
+        try {
+            String sql = "with t as(select ca.categoryID, ca.categoryName,\n"
+                    + "case when r.[status] = 0 or r.[status] \n"
+                    + "is null then 0 else r.totalCost\n"
+                    + "end as totalCost ,r.[status] \n"
+                    + "from Course c left outer join Registration r\n"
+                    + "on c.courseID = r.courseID inner join SubCategory s on\n"
+                    + "c.subCategoryID = s.subCategoryID inner join Category ca on\n"
+                    + "ca.categoryID = s.categoryID) select t.categoryID, t.categoryName, \n"
+                    + "cast(sum(t.totalCost) as float) as revenue from t group by t.categoryName, t.categoryID";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Category category = new Category();
+                category.setCategoryID(rs.getInt("categoryID"));
+                category.setCategoryName(rs.getString("categoryName"));
+                category.setRevenue(rs.getFloat("revenue"));
+                categories.add(category);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return categories;
+    }
 }

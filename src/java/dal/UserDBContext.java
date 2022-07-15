@@ -576,7 +576,7 @@ public class UserDBContext extends DBContext {
                 + "           ,[lastName]\n"
                 + "           ,[phoneNumber]\n"
                 + "           ,[address]\n"
-                + "           ,[profilePictureURL])\n"
+                + "           ,[profilePictureURL], [status])\n"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?\n"
@@ -584,7 +584,7 @@ public class UserDBContext extends DBContext {
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
-                + "           ,?)";
+                + "           ,?, ?)";
         PreparedStatement stm = null;
         try {
             stm = connection.prepareStatement(sql);
@@ -595,6 +595,7 @@ public class UserDBContext extends DBContext {
             stm.setString(5, user.getPhoneNumber());
             stm.setString(6, user.getAddress());
             stm.setString(7, user.getProfilePictureUrl());
+            stm.setBoolean(8, user.getStatus());
             return stm.executeUpdate() >= 1;
 
         } catch (SQLException ex) {
@@ -641,8 +642,7 @@ public class UserDBContext extends DBContext {
 
     }
 
-    public ArrayList<User> getUsers(int roleID, Boolean status, Boolean gender, String combination, String sortBy, String order,
-             int pagesize, int pageindex) {
+    public ArrayList<User> getUsers(int roleID, Boolean status, Boolean gender, String combination) {
         ArrayList<User> users = new ArrayList<>();
         String sql = " select  u.gender, u.firstName,\n"
                 + "u.lastName, u.phoneNumber, u.[address],u.profilePictureURL,u.[status],\n"
@@ -665,12 +665,7 @@ public class UserDBContext extends DBContext {
         String sql_combination = " where LOWER(u.username) = LOWER(?) \n"
                 + "or LOWER(phoneNumber) = LOWER(?) or LOWER((lastName + ' ' + firstName)) like LOWER(?) ";
 
-        String sql_order = " order by " + sortBy + " " + order;
-
         String intersect = " \n intersect \n";
-
-        String pagination = " OFFSET (?-1)*? ROWS\n"
-                + "FETCH NEXT ? ROWS ONLY ";
 
         if (roleID >= 1) {
             sql += sql_roleID;
@@ -688,10 +683,6 @@ public class UserDBContext extends DBContext {
             sql += intersect;
             sql += sql_base + sql_combination;
         }
-        if (order != null) {
-            sql += sql_order;
-        }
-        sql += pagination;
 
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -715,9 +706,7 @@ public class UserDBContext extends DBContext {
                 stm.setString(i++, combination);
                 stm.setString(i++, "%"+combination+"%");
             }
-            stm.setInt(i++, pageindex);
-            stm.setInt(i++, pagesize);
-            stm.setInt(i++, pagesize);
+            
             rs = stm.executeQuery();
             
             while(rs.next()){

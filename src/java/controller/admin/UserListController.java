@@ -9,7 +9,6 @@ import dal.RoleDBContext;
 import dal.UserDBContext;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
@@ -22,7 +21,7 @@ import model.User;
  *
  * @author Hai Duong
  */
-public class UserListController extends HttpServlet {
+public class UserListController extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,95 +43,52 @@ public class UserListController extends HttpServlet {
         String statusParam = request.getParameter("status");
         String genderParam = request.getParameter("gender");
         String combination = request.getParameter("combination");
-        String sortBy = request.getParameter("sortBy");
-        String order = request.getParameter("order");
-        String page = request.getParameter("page");
-        if (page == null || page.trim().length() == 0) {
-            page = "1";
-        }
-        int pageindex = Integer.parseInt(page);
-        int pagesize = Integer.parseInt(getServletContext().getInitParameter("pagesize"));
-        String url = request.getRequestURI();
-        int count;
-        int totalpage;
         int roleID = -1;
         Boolean status, gender;
-        String queryString = "";
 
-        if (role == null && statusParam == null && genderParam == null && combination == null && sortBy == null&& order == null) {
-//            users = dbUsers.get
-            users = dbUsers.getUsers(-1, null, null, "", "firstName", "asc", pagesize, pageindex);
-            count = dbUsers.count();
-            totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
+        if (role == null && statusParam == null && genderParam == null && combination == null) {
+            users = dbUsers.getUsers(-1, null, null, "");
         } else {
             if(role == null)
                 role = "-1";
             roleID = Integer.parseInt(role);
-            if(roleID != -1){
-                queryString += "&role="+role;
-            }
             
             if(statusParam == null || statusParam.equals("all")){
                 status = null;
             }else{
                 status = statusParam.equalsIgnoreCase("active");
-                queryString += "&status="+statusParam;
             }
             
             if(genderParam == null || genderParam.equals("all")){
                 gender = null;
             }else{
                 gender = genderParam.equalsIgnoreCase("male");
-                queryString += "&gender="+genderParam;
-            }
-            
-            if(sortBy == null){
-                sortBy = "firstName";
-                queryString += "&sortBy="+sortBy;
-            } else {
-                queryString += "&sortBy="+sortBy;
-            }
-
-            if (order == null) {
-                order = "asc";
-                queryString += "&order="+order;
-            }else{
-                queryString += "&order="+order;
             }
             
             if(combination != null || combination.trim().length() != 0){
                 combination = combination.trim();
-                queryString += "&combination="+ URLEncoder.encode(combination.trim(), StandardCharsets.UTF_8.toString());
             }
             
-            users = dbUsers.getUsers(roleID, status, gender, combination, sortBy, order, pagesize, pageindex);
-            count = dbUsers.count(roleID, status, gender, combination, sortBy, order);
-            totalpage = (count % pagesize == 0) ? (count / pagesize) : (count / pagesize + 1);
+            users = dbUsers.getUsers(roleID, status, gender, combination);
         }
         
         request.setAttribute("role", roleID);
         request.setAttribute("status", statusParam);
         request.setAttribute("gender", genderParam);
         request.setAttribute("combination", combination);
-        request.setAttribute("sortBy", sortBy);
-        request.setAttribute("order", order);
         
         request.setAttribute("roles", roles);
         request.setAttribute("users", users);
-        request.setAttribute("pageindex", pageindex);
-        request.setAttribute("totalpage", totalpage);
-        request.setAttribute("queryString", queryString);
-        request.setAttribute("url", url);
         request.getRequestDispatcher("../view/admin/user_list.jsp").forward(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
