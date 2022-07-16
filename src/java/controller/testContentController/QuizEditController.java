@@ -152,7 +152,7 @@ public class QuizEditController extends HttpServlet {
 
             if (request.getParameter("ID") != null) {
                 ID = Integer.parseInt(request.getParameter("ID"));
-                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des, note) == true) {
+                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des, false, note) == true) {
                     log("true");
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + updateOk);
 

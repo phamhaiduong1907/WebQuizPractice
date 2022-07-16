@@ -125,7 +125,7 @@ public class QuizDBContext extends DBContext {
         return null;
     }
 
-    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
+    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, Boolean isTaken, String note) {
 
         String sql = "UPDATE [Quiz]\n"
                 + "   SET [numOfQuestion] = ?\n"
@@ -136,6 +136,7 @@ public class QuizDBContext extends DBContext {
                 + "      ,[courseID] = ?\n"
                 + "      ,[quizName] = ?\n"
                 + "      ,[description] = ?\n"
+                + "      ,[isTaken] = ?\n"
                 + "      ,[note] = ?"
                 + " WHERE [quizID] = ?";
         PreparedStatement stm = null;
@@ -149,8 +150,9 @@ public class QuizDBContext extends DBContext {
             stm.setInt(6, course);
             stm.setString(7, name);
             stm.setString(8, description);
-            stm.setString(9, note);
-            stm.setInt(10, ID);
+            stm.setBoolean(9, isTaken);
+            stm.setString(10, note);
+            stm.setInt(11, ID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {

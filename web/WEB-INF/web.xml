@@ -316,10 +316,6 @@
         <servlet-class>controller.testContentController.renderCourse</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>renderQuestionGroup</servlet-name>
-        <servlet-class>controller.testContentController.renderQuestionGroup</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddQuestionController</servlet-name>
         <servlet-class>controller.testContentController.AddQuestionController</servlet-class>
     </servlet>
@@ -334,6 +330,30 @@
     <servlet>
         <servlet-name>ViewQuestionController</servlet-name>
         <servlet-class>controller.testContentController.ViewQuestionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderPricePackage</servlet-name>
+        <servlet-class>controller.saleController.renderPricePackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PracticeListController</servlet-name>
+        <servlet-class>controller.customerControllers.PracticeListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PracticeSearchController</servlet-name>
+        <servlet-class>controller.customerControllers.PracticeSearchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PracticeDetalController</servlet-name>
+        <servlet-class>controller.customerControllers.PracticeDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderTopic</servlet-name>
+        <servlet-class>controller.customerControllers.RenderTopic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenderQuizName</servlet-name>
+        <servlet-class>controller.customerControllers.RenderQuizName</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
@@ -660,10 +680,6 @@
         <url-pattern>/rendercourse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>renderQuestionGroup</servlet-name>
-        <url-pattern>/renderquestiongroup</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddQuestionController</servlet-name>
         <url-pattern>/addquestion</url-pattern>
     </servlet-mapping>
@@ -678,6 +694,30 @@
     <servlet-mapping>
         <servlet-name>ViewQuestionController</servlet-name>
         <url-pattern>/viewquestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderPricePackage</servlet-name>
+        <url-pattern>/renderprice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PracticeListController</servlet-name>
+        <url-pattern>/practicelist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PracticeSearchController</servlet-name>
+        <url-pattern>/searchpractice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PracticeDetalController</servlet-name>
+        <url-pattern>/practicedetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderTopic</servlet-name>
+        <url-pattern>/rendertopic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenderQuizName</servlet-name>
+        <url-pattern>/renderquizname</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

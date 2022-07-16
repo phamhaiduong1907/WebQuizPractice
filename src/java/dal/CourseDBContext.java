@@ -371,21 +371,6 @@ public class CourseDBContext extends DBContext {
         return 0;
     }
 
-//    public int countCourse() {
-//        int total = 0;
-//        try {
-//            String sql = "SELECT COUNT(*) AS Total\n"
-//                    + "FROM Course";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            ResultSet rs = stm.executeQuery();
-//            if (rs.next()) {
-//                total = rs.getInt("Total");
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return total;
-//    }
     public ArrayList<Course> searchCourse(String search, String subcateID, String sort, int pageindex, int pagesize) {
         ArrayList<Course> courses = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -681,5 +666,24 @@ public class CourseDBContext extends DBContext {
         return courses;
     }
 
-
+        public ArrayList<Course> getUserCourse(String username) {
+        try {
+            ArrayList<Course> list = new ArrayList<>();
+            String sql = "SELECT * FROM Registration\n"
+                    + "where username = ?\n";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {  
+                CourseDBContext cdbc = new CourseDBContext();
+                Course c = new Course();
+                c = cdbc.getCourseByCourseID(rs.getInt("courseID"), null);
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

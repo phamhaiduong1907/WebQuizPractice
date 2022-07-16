@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.testContentController;
+package controller.saleController;
 
+import dal.PricePackageDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Subcategory;
+import model.PricePackage;
+import model.Quiz;
 
 /**
  *
  * @author long
  */
-public class renderQuestionGroup extends HttpServlet {
+public class renderPricePackage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +38,10 @@ public class renderQuestionGroup extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet renderQuestionGroup</title>");
+            out.println("<title>Servlet renderPricePackage</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet renderQuestionGroup at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet renderPricePackage at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,28 +69,25 @@ public class renderQuestionGroup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    //url = /renderquestiongroup
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String type = request.getParameter("type");
         response.setContentType("text/html;charater=UTF-8");
         response.setCharacterEncoding("utf-8");
-        String result = "";
-        
-        switch (type) {
-            case "topic":
-                
-                break;
-            case "domain":
-
-                break;
-            case "group":
-
-                break;
-            default:
-                throw new AssertionError();
+        int courseID = Integer.parseInt(request.getParameter("ID"));
+        PricePackageDBContext pdbc = new PricePackageDBContext();
+        ArrayList<PricePackage> list = pdbc.getPricePackagesByCourseID(courseID);
+        log("size = " + list.size());
+        String result = "<select class = 'form-control' id='' name = 'pricePackage'>";
+        for (PricePackage t : list) {
+            result += "<option value = " + t.getPricePackageID() + ">" + t.getPriceName() + ", listprice: " + t.getListPrice();
+            if (t.isIsOnSale() == true) {
+                result += ", is on ";
+            }
+            result += "sale at " + t.getSalePrice();
+            result += "</option>";        
         }
+        result += "</select>";
         response.getWriter().println(result);
     }
 

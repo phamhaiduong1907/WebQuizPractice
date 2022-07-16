@@ -28,7 +28,6 @@
 
 
     <section class="main">
-        <!-- RIGHT CONTENT -->
         <aside class="right" style="padding: 3% 2%;">
             <div class="right_content" style="box-shadow: 0 0 10px 5px #e1e5ee;">
                 <h1>Registration Details</h1>
@@ -73,7 +72,6 @@
                         <div class="form-group">
                             <h3>Registration Information</h3>
                         </div>
-
                         <div class="form-group">
                             <label>Registration ID</label>
                             <input readonly  type="text" class="form-control" name="" value="${requestScope.registration.registrationID}"/>
@@ -131,7 +129,7 @@
                 url: "../getsubcategory",
                 type: 'POST',
                 dataType: 'html',
-                data: {ID: categoryID},
+                data: {ID: categoryID}
             })
                     .done(function (data) {
                         $('#subCategory_by_category').html(data);
@@ -151,7 +149,7 @@
                 url: "${pageContext.request.contextPath}/getcoursebysubcategoryid",
                 type: 'POST',
                 dataType: 'html',
-                data: {ID: categoryID},
+                data: {ID: categoryID}
             })
                     .done(function (data) {
                         $('#course_by_subcategory').html(data);
@@ -162,7 +160,6 @@
                     .always(function () {
 
                     });
-
         });
     </script>
 

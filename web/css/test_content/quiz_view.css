@@ -65,7 +65,7 @@ select {
     padding: 6px 12px;
     font-size: 22px;
     background-color: #0056d2;
-    border-radius: 25px;
+    border-radius: 10px;
     border: none;
     transition: all 0.3s;
 }
