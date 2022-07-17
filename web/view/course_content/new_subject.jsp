@@ -74,12 +74,6 @@
                         <div class="authorize_info">
                             <div class="authorize_item published">
                                 <br><br>
-                                <label for="published">Choose whether the subject is published or not:</label>
-                                <select name="published" id="published">
-                                    <option value="1">Published</option>
-                                    <option value="0">Unpublished</option>
-                                </select>
-                                <br>
                                 <label for="featured">Choose whether the subject is featured or not:</label>
                                 <select name="featured" id="featured">
                                     <option value="1">Featured</option>
