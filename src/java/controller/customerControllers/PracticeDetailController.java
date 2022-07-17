@@ -75,7 +75,6 @@ public class PracticeDetailController extends HttpServlet {
             log("ID = " + ID);
             UserQuizDBContext tdbc = new UserQuizDBContext();
             TakenUserQuiz q = tdbc.getATakenQuiz(ID);
-            log(q.getQuiz().getQuizName());
             request.setAttribute("quiz", q);
         }
         CourseDBContext cdbc = new CourseDBContext();
@@ -96,7 +95,6 @@ public class PracticeDetailController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int courseID = Integer.parseInt(request.getParameter("subject"));
-        int quizID = Integer.parseInt(request.getParameter("quizID"));
         int numQ = Integer.parseInt(request.getParameter("numQ"));
         Boolean qType = (request.getParameter("qType").equalsIgnoreCase("dimension"));
         int groupID;
@@ -108,18 +106,16 @@ public class PracticeDetailController extends HttpServlet {
         }
         UserQuizDBContext uqdbc = new UserQuizDBContext();
         QuizDBContext qdbc = new QuizDBContext();
-        Quiz q = qdbc.getAQuiz(quizID);
-        q.setIsTaken(true);
-        Boolean update = qdbc.updateQuiz(q.getQuizID(), q.getNumOfQuestion(), q.getPassRate(), q.getLevel().getLevelID(), q.getDuration(), q.getQuizType().getQuizTypeID(), q.getCourse().getCourseID(), q.getQuizName(), q.getDescription(), true, q.getNote());
-        log(update.toString() + "update");
         log("numQ: " + numQ);
         ArrayList<Integer> IDs = uqdbc.getRandomQuestion(numQ);
         log(IDs + ", ");
 
-        UserQuiz uq = new UserQuiz();
-        uq.setQuiz(q);
+        Quiz uq = new Quiz();
+        Course c = new Course();
+        c.setCourseID(courseID);
+        uq.setCourse(c);
         uq.setQuestionType(qType);
-        uq.setNumOfQ(numQ);
+        uq.setNumOfQuestion(numQ);
         TopicDBContext tdbc = new TopicDBContext();
         DimensionDBContext ddbc = new DimensionDBContext();
         if (qType == false) {
@@ -138,8 +134,8 @@ public class PracticeDetailController extends HttpServlet {
             }
         }
         Boolean insertQuiz = uqdbc.InsertUserQuiz(uq);
-        log("insert status:" + insertQuiz.toString());
         int lastID = uqdbc.getLatestID();
+        log(lastID + " = ID");
         Boolean insert = uqdbc.insertQuestion(lastID, IDs);
         log(insert.toString());
     }

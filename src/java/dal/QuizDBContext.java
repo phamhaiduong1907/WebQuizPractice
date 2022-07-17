@@ -57,7 +57,7 @@ public class QuizDBContext extends DBContext {
     public ArrayList<Quiz> getQuizzes() {
         try {
             ArrayList<Quiz> arr = new ArrayList<>();
-            String sql = "SELECT * FROM [Quiz]";
+            String sql = "SELECT * FROM [Quiz] WHERE [ownerType] = 0";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -91,6 +91,7 @@ public class QuizDBContext extends DBContext {
             String sql = "SELECT *, c.courseName from [Quiz] q join [Course] c\n"
                     + "ON q.courseID = c.courseID\n"
                     + "WHERE q.quizName LIKE ?\n"
+                    + "AND [ownerType] = 0\n"
                     + "AND c.courseName LIKE ?\n";
             if (quizType.length() != 0) {
                 sql += "AND q.quizTypeID IN (" + quizType + ");";
@@ -173,9 +174,11 @@ public class QuizDBContext extends DBContext {
                 + "           ,[quizName]\n"
                 + "           ,[description]"
                 + "           ,[isTaken]\n"
-                + "           ,[note])"
+                + "           ,[note]"
+                + "           ,[ownerType])"
                 + "     VALUES\n"
                 + "           (?\n"
+                + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
@@ -198,6 +201,7 @@ public class QuizDBContext extends DBContext {
             stm.setString(8, description);
             stm.setBoolean(9, false);
             stm.setString(10, note);
+            stm.setBoolean(11, false);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -209,7 +213,7 @@ public class QuizDBContext extends DBContext {
     public Integer getLatestID() {
         int ID;
         try {
-            String sql = "Select TOP 1 quizID from [Quiz]\n"
+            String sql = "Select TOP 1 quizID from [Quiz] WHERE [ownerType] = 0\n"
                     + "ORDER BY quizID desc";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
@@ -225,7 +229,7 @@ public class QuizDBContext extends DBContext {
     public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ?";
+            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ? AND [ownerType] = 0";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
             ResultSet rs = stm.executeQuery();

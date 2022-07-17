@@ -72,7 +72,7 @@
                                     Correct
                                 </td>
                                 <td style="width: 24%">
-                                    <a href="../SWP391-SE1617-NET_Group06-QuizWebsite/practicedetail?id=${c.takenID}">Detail</a>
+                                    <a href="../SWP391-SE1617-NET_Group06-QuizWebsite/practicedetail?id=${c.userQuizID}">Detail</a>
                                 </td>
                             </tr>
                             <tr>

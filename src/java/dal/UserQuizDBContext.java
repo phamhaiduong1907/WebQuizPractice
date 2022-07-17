@@ -24,17 +24,17 @@ public class UserQuizDBContext extends DBContext {
 
     public TakenUserQuiz getATakenQuiz(int ID) {
         try {
-            String sql = "SELECT q.[quizHistoryID]\n"
-                    + "         ,[quizID]\n"
-                    + "         ,[username]\n"
-                    + "         ,CONVERT(date, startTime) as TakenDate\n"
-                    + "         ,DATEDIFF(ss,startTime, endTime) as Duration\n"
-                    + "         ,[mark]\n"
-                    + "         ,[questionGroup]\n"
-                    + "         ,[TopicID]\n"
-                    + "         ,[DimensionID]\n"
-                    + "         FROM [QuizHistory] q JOIN [UserQuiz] t ON q.[quizHistoryID] = t.[quizHistoryID]\n"
-                    + "         WHERE q.[QuizHistoryID] = ?\n";
+            String sql = "SELECT qh.[quizHistoryID]\n"
+                    + "                             ,qh.[quizID]\n"
+                    + "                             ,[username]\n"
+                    + "                             ,CONVERT(date, startTime) as TakenDate\n"
+                    + "                             ,DATEDIFF(ss,startTime, endTime) as Duration\n"
+                    + "                             ,[mark]\n"
+                    + "                             ,[questionGroup]\n"
+                    + "                             ,[TopicID]\n"
+                    + "                             ,[DimensionID]\n"
+                    + "                             FROM [QuizHistory] qh join [Quiz] q on qh.quizID = q.quizID\n"
+                    + "                            WHERE qh.[QuizHistoryID] = ?\n";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, ID);
             ResultSet rs = stm.executeQuery();
@@ -189,11 +189,11 @@ public class UserQuizDBContext extends DBContext {
         return null;
     }
 
-    public Boolean insertQuestion(int UserQuizID, ArrayList<Integer> questionIDs) {
+    public Boolean insertQuestion(int QuizID, ArrayList<Integer> questionIDs) {
         try {
             int order = 1;
             String sql = "INSERT INTO [QuizQuestion]\n"
-                    + "            ([userQuizID]\n"
+                    + "            ([QuizID]\n"
                     + "           ,[questionID]\n"
                     + "           ,[order])\n"
                     + "     VALUES\n"
@@ -203,7 +203,7 @@ public class UserQuizDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             connection.setAutoCommit(false);
             for (Integer ID : questionIDs) {
-                stm.setInt(1, UserQuizID);
+                stm.setInt(1, QuizID);
                 stm.setInt(2, ID);
                 stm.setInt(3, order++);
                 stm.addBatch();
@@ -216,14 +216,14 @@ public class UserQuizDBContext extends DBContext {
         }
         return false;
     }
-    
+
     public int getLatestID() {
         try {
-            String sql = "select top 1 * from UserQuiz order by UserQuizID desc";
+            String sql = "select top 1 * from Quiz order by quizID desc";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                return rs.getInt("UserQuizID");
+                return rs.getInt("quizID");
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserQuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,45 +231,52 @@ public class UserQuizDBContext extends DBContext {
         return 0;
     }
 
-    public Boolean InsertUserQuiz(UserQuiz quiz) {
-        int ok = 0;
+    public Boolean InsertUserQuiz(Quiz quiz) {
+        int last = getLatestID() + 1;
         try {
-            String sql = "INSERT INTO [UserQuiz]\n"
-                    + "           ([QuizID]\n"
+            String sql = "INSERT INTO [Quiz]\n"
+                    + "           ([numOfQuestion]\n"
+                    + "           ,[levelID]\n"
+                    + "           ,[quizTypeID]\n"
+                    + "           ,[courseID]\n"
+                    + "           ,[quizName]\n"
                     + "           ,[questionGroup]\n"
                     + "           ,[TopicID]\n"
                     + "           ,[DimensionID]\n"
-                    + "           ,[numOfQuestion])\n"
+                    + "           ,[ownerType])\n"
                     + "     VALUES\n"
                     + "           (?\n"
+                    + "           ,1\n"
+                    + "           ,1\n"
+                    + "           ,?\n"
+                    + "           ,'Practice Test \n" + last + "'"
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?\n"
-                    + "           ,?)";
+                    + "           ,1)";
             PreparedStatement stm = connection.prepareStatement(sql);
-            connection.setAutoCommit(false);
-            stm.setInt(1, quiz.getQuiz().getQuizID());
-            stm.setBoolean(2, quiz.getQuestionType());
+            stm.setInt(1, quiz.getNumOfQuestion());
+            stm.setInt(2, quiz.getCourse().getCourseID());
+            stm.setBoolean(3, quiz.getQuestionType());
             if (quiz.getQuestionType() == false && quiz.getTopic() == null) {
-                stm.setNull(3, Types.INTEGER);
                 stm.setNull(4, Types.INTEGER);
+                stm.setNull(5, Types.INTEGER);
             } else if (quiz.getQuestionType() == false && quiz.getTopic() != null) {
-                stm.setInt(3, quiz.getTopic().getTopicID());
-                stm.setNull(4, Types.INTEGER);
+                stm.setInt(4, quiz.getTopic().getTopicID());
+                stm.setNull(5, Types.INTEGER);
             }
             if (quiz.getQuestionType() == true && quiz.getDimension() == null) {
-                stm.setNull(3, Types.INTEGER);
                 stm.setNull(4, Types.INTEGER);
+                stm.setNull(5, Types.INTEGER);
             } else if (quiz.getQuestionType() == true && quiz.getDimension() != null) {
-                stm.setNull(3, Types.INTEGER);
-                stm.setInt(4, quiz.getDimension().getDimensionID());
+                stm.setNull(4, Types.INTEGER);
+                stm.setInt(5, quiz.getDimension().getDimensionID());
             }
-            stm.setInt(5, quiz.getNumOfQ());
-            ok = stm.executeUpdate();
-            connection.commit();
+            stm.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserQuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ok > 0;
+        return false;
     }
 }

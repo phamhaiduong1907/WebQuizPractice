@@ -59,17 +59,6 @@
                             </c:if>
                         </div>
                         <div>
-                            <label for="">Select Quiz</label>
-                            <select required <c:if test="${q != null}">disabled style="color: black"</c:if> id="quizID" name="quizID">
-                                <c:if test="${q != null}">
-                                    <option selected value="${q.quiz.quizID}">${q.quiz.quizName}</option>
-                                </c:if>
-                            </select>
-                            <c:if test="${requestScope.quiz != null}">
-                                <input type="hidden" name="quizID" value="${q.quiz.quizID}">
-                            </c:if>
-                        </div>
-                        <div>
                             <label for="numQ">Number of practicing questions</label> <br>
                             <input min="1" step="1" required <c:if test="${requestScope.quiz != null}">disabled style="color: black"</c:if> id ="numQ" type="number" min="1" name="numQ" value="${q.quiz.numOfQuestion}">
                             </div>
@@ -90,14 +79,14 @@
                             <label>Question Group (Choose one topics/dimensions)</label>
                             <select required <c:if test="${requestScope.quiz != null}">disabled style="color: black"</c:if> name="group" id="group">
                                 <c:if test="${q.questionType == false}">
-                                    <option value="${q.topic.topicID}">${q.topic.topicName}</option>
+                                    <option value="${q.topic.topicID}">${q.topic.topicName}<c:if test="${q.topic.topicID == 0}">All</c:if></option>
                                     <c:if test="${q.topic.topicID == null}">
                                         <option selected value="all">All</option
                                         <input type="hidden" name="group" value="all">
                                     </c:if>
                                 </c:if>
                                 <c:if test="${q.questionType == true}">
-                                    <option value="${q.dimension.dimensionID}">${q.dimension.dimensionName}</option>
+                                    <option value="${q.dimension.dimensionID}">${q.dimension.dimensionName}<c:if test="${q.dimension.dimensionID == 0}">All</c:if></option>
                                     <c:if test="${q.dimension.dimensionID == null}">
                                         <option selected value="all">All</option>
                                         <input type="hidden" name="group" value="all">
