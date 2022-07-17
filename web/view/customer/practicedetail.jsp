@@ -60,7 +60,9 @@
                         </div>
                         <div>
                             <label for="numQ">Number of practicing questions</label> <br>
-                            <input min="1" step="1" required <c:if test="${requestScope.quiz != null}">disabled style="color: black"</c:if> id ="numQ" type="number" min="1" name="numQ" value="${q.quiz.numOfQuestion}">
+                            <div id="numQ">
+                                <input min="1" step="1" required <c:if test="${requestScope.quiz != null}">disabled style="color: black"</c:if> type="number" min="1" name="numOfQ" value="${q.quiz.numOfQuestion}">
+                                </div>
                             </div>
                             <div>
                                 <label for="">Question are selected by topic or dimension</label>
@@ -142,16 +144,16 @@
         $(document).on('change', '#subject', function () {
             var courseID = document.getElementById('subject').value;
             $.ajax({
-                url: "${path}/renderquizname",
+                url: "${path}/rendermaxquestion",
                 type: 'POST',
                 dataType: 'html',
                 data: {ID: courseID}
             })
                     .done(function (data) {
-                        $('#quizID').html(data);
+                        $('#numQ').html(data);
                     })
                     .fail(function () {
-                        $('#quizID').html("<option>Error</option>");
+                        $('#numQ').html("<h1>FAIL</h1>");
                     })
                     .always(function () {
 

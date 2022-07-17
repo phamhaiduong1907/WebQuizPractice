@@ -355,6 +355,14 @@
         <servlet-name>RenderQuizName</servlet-name>
         <servlet-class>controller.customerControllers.RenderQuizName</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizDelete</servlet-name>
+        <servlet-class>controller.testContentController.QuizDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>renderMaximunQuestion</servlet-name>
+        <servlet-class>controller.customerControllers.renderMaximunQuestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -718,6 +726,14 @@
     <servlet-mapping>
         <servlet-name>RenderQuizName</servlet-name>
         <url-pattern>/renderquizname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizDelete</servlet-name>
+        <url-pattern>/quizzes/del</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renderMaximunQuestion</servlet-name>
+        <url-pattern>/rendermaxquestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

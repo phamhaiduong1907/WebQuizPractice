@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Quiz;
 import model.TakenUserQuiz;
-import model.UserQuiz;
 
 /**
  *
@@ -170,13 +169,14 @@ public class UserQuizDBContext extends DBContext {
 //        }
 //        return 0;
 //    }
-    public ArrayList<Integer> getRandomQuestion(int numQ) {
+    public ArrayList<Integer> getRandomQuestion(int numQ, int courseID) {
         try {
             ArrayList<Integer> list = new ArrayList<>();
             String sql = "SELECT TOP " + numQ + " *\n"
-                    + "  FROM Question\n"
+                    + "  FROM Question WHERE courseID = ?\n"
                     + "  ORDER BY NEWID()";
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, courseID);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 int ID = rs.getInt("questionID");
@@ -201,7 +201,7 @@ public class UserQuizDBContext extends DBContext {
                     + "           ,?\n"
                     + "           ,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
-            connection.setAutoCommit(false);
+            //connection.setAutoCommit(false);
             for (Integer ID : questionIDs) {
                 stm.setInt(1, QuizID);
                 stm.setInt(2, ID);
@@ -209,7 +209,7 @@ public class UserQuizDBContext extends DBContext {
                 stm.addBatch();
             }
             stm.executeBatch();
-            connection.commit();
+            //connection.commit();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserQuizDBContext.class.getName()).log(Level.SEVERE, null, ex);

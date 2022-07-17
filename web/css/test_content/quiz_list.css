@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 .main-container {
     position: relative;
     min-height: 100vh;
-    
+
 }
 
 .main-content {
@@ -176,5 +176,19 @@ tr:nth-child(even){
     color: #fff;
     text-decoration: none;
     background-color: #e4b050;
+}
+
+.btn_del{
+    text-decoration: none;
+    letter-spacing: 1px;
+    padding: 5px;
+    color: #fff;
+    background-color: #ff6666;
+    border-radius: 5px;
+}
+
+.btn_del:hover{
+    background-color: #ff3333;
+    color: #fff;
 }
 

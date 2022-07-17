@@ -226,6 +226,7 @@ public class QuizDBContext extends DBContext {
         }
         return 0;
     }
+
     public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
@@ -254,6 +255,34 @@ public class QuizDBContext extends DBContext {
             Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return quizzes;
+    }
+
+    public Boolean delQuiz(int ID) {
+        try {
+            String sql = "delete from [Quiz] where [QuizID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, ID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public int totalQuestion(int courseID) {
+        try {
+            String sql = "SELECT count(*) as total from [Question]\n"
+                    + "where courseID = " + courseID;
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
 }

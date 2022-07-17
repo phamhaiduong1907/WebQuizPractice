@@ -21,8 +21,6 @@ import model.Dimension;
 import model.Quiz;
 import model.TakenUserQuiz;
 import model.Topic;
-import model.UserQuiz;
-
 /**
  *
  * @author long
@@ -68,7 +66,7 @@ public class PracticeDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //String username = a.getUsername();
-        String username = "hunglnhe161003@fpt.edu.vn";
+        String username = "hunglengoc2109@gmail.com";
         int ID;
         if (request.getParameter("id") != null) {
             ID = Integer.parseInt(request.getParameter("id"));
@@ -107,9 +105,8 @@ public class PracticeDetailController extends HttpServlet {
         UserQuizDBContext uqdbc = new UserQuizDBContext();
         QuizDBContext qdbc = new QuizDBContext();
         log("numQ: " + numQ);
-        ArrayList<Integer> IDs = uqdbc.getRandomQuestion(numQ);
-        log(IDs + ", ");
-
+        ArrayList<Integer> IDs = uqdbc.getRandomQuestion(numQ, courseID);
+        log(IDs.toString());
         Quiz uq = new Quiz();
         Course c = new Course();
         c.setCourseID(courseID);
