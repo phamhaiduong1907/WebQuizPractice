@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
+:root{
+    --main-color: #0056d2;
+    --success-background: #c8e6c9;
+    --success-color: #388e3c;
+    --fail-background: #ffcdd2;
+    --fail-color: #c62828;
+    --pending-background: #fff0c2;
+    --pending-color: #a68b00;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -13,10 +23,15 @@ html, body{
 
 .error{
     color: red;
-    font-size: 50px;
     text-align: center;
-    margin: 300px  200px ;
+    margin: 200px;
 }
+
+.error p{
+    font-size: 60px;
+    margin-bottom: 0;
+}
+
 /*add an object*/
 .addlink:link, .addlink:visited {
     background-color: #0056d2;
@@ -144,7 +159,7 @@ ul.breadcrumb li a:hover {
     width: 20%;
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin: 20px auto;
 }
 
 
@@ -198,6 +213,7 @@ ul.breadcrumb li a:hover {
     font-size: 0.8rem;
 }
 
+
 .status__inactive{
     background-color: #ffcdd2;
     color: #c62828;
@@ -215,5 +231,20 @@ ul.breadcrumb li a:hover {
     color: #fff;
     background-color: #3db743;
     border-radius: 10px;
+}
+tfoot tr td a{
+    color: #000;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+tfoot tr td a:not(.active):hover{
+    background-color: #bcb6b6;
+}
+
+tfoot tr td a.active{
+    background-color: #1fe21e;
+    color: #fff;  
 }
 

@@ -12,10 +12,6 @@
         <servlet-class>controller.AccessDenyController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DashboardController</servlet-name>
-        <servlet-class>controller.DashboardControler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UserListController</servlet-name>
         <servlet-class>controller.admin.UserListController</servlet-class>
     </servlet>
@@ -350,6 +346,14 @@
     <servlet>
         <servlet-name>ScoreQuizController</servlet-name>
         <servlet-class>controller.customerControllers.ScoreQuizController</servlet-class>
+          </servlet>
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>controller.marketingController.DashboardController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChartController</servlet-name>
+        <servlet-class>controller.marketingController.ChartController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>QuizReviewController</servlet-name>
@@ -363,6 +367,10 @@
         <servlet-name>GetReviewFilter</servlet-name>
         <servlet-class>controller.customerControllers.GetReviewFilter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>QuizListController</servlet-name>
+        <servlet-class>controller.customerControllers.QuizListForUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/forgotPassword</url-pattern>
@@ -370,10 +378,6 @@
     <servlet-mapping>
         <servlet-name>AccessDenyController</servlet-name>
         <url-pattern>/deny</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ForgotPasswordNextStepController</servlet-name>
@@ -722,6 +726,14 @@
     <servlet-mapping>
         <servlet-name>ScoreQuizController</servlet-name>
         <url-pattern>/score</url-pattern>
+        </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChartController</servlet-name>
+        <url-pattern>/marketing/chart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>QuizReviewController</servlet-name>
@@ -734,6 +746,10 @@
     <servlet-mapping>
         <servlet-name>GetReviewFilter</servlet-name>
         <url-pattern>/reviewfilter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>QuizListController</servlet-name>
+        <url-pattern>/quizlist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

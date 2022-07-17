@@ -12,16 +12,8 @@
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/system.css">
-        <%
-            int pageindex = (Integer) request.getAttribute("pageindex");
-            int totalpage = (Integer) request.getAttribute("totalpage");
-            String url = (String) request.getAttribute("url");
-            String queryString = (String) request.getAttribute("queryString");
-            int count = (Integer) request.getAttribute("count");
-        %>
     </head>
 
     <body>
@@ -37,8 +29,13 @@
                     <div class="setting_tool">
                         <form action="userlist" method="GET">
                             <div class="search_form">
-                                <div class="search_item">
-                                    <select name="role">
+                                <div class="search__item">
+                                    <input type="text" name="combination" placeholder="Type name, email or mobile to search"
+                                           value="${requestScope.combination}">
+                                </div>
+                                <div class="search__item">
+                                    <label for="roleFilter">Role</label>
+                                    <select name="role" id="roleFilter">
                                         <option value="-1">All roles</option>
                                         <c:forEach items="${requestScope.roles}" var="r">
                                             <option value="${r.roleID}" ${requestScope.role == r.roleID?"selected":""}>
@@ -47,8 +44,9 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <div class="search_item">
-                                    <select name="status">
+                                <div class="search__item">
+                                    <label for="statusFilter">Status</label>
+                                    <select name="status" id="statusFilter">
                                         <option value="all">All statuses</option>
                                         <option value="active" ${requestScope.status == "active"?"selected":""}>
                                             Active
@@ -58,8 +56,9 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="search_item">
-                                    <select name="gender">
+                                <div class="search__item">
+                                    <label for="genderFilter">Gender</label>
+                                    <select name="gender" id="genderFilter">
                                         <option value="all">All</option>
                                         <option value="male" ${requestScope.gender == "male"?"selected":""}>
                                             Male
@@ -69,30 +68,8 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="search_item">
-                                    <input type="text" name="combination" placeholder="Type name, email or mobile to search"
-                                           value="${requestScope.combination}">
-                                </div>
-                                <div class="search_item">
+                                <div class="search__item">
                                     <button type="submit">Search</button>
-                                </div>
-                            </div>
-                            <div class="search_form search_filter">
-                                <div class="search_item">
-                                    <select name="sortBy">
-                                        <option value="firstName" ${requestScope.sortBy == "firstName"?"selected":""}>Full Name</option>
-                                        <option value="gender" ${requestScope.sortBy == "gender"?"selected":""}>Gender</option>
-                                        <option value="username" ${requestScope.sortBy == "username"?"selected":""}>Email</option>
-                                        <option value="phoneNumber" ${requestScope.sortBy == "phoneNumber"?"selected":""}>Mobile</option>
-                                        <option value="roleID" ${requestScope.sortBy == "roleID"?"selected":""}>Role</option>
-                                        <option value="status" ${requestScope.sortBy == "status"?"selected":""}>Status</option>
-                                    </select>
-                                </div>
-                                <div class="search_item">
-                                    <input type="radio" name="order" value="asc" ${requestScope.order == "asc"?"checked":""}>Ascending
-                                </div>
-                                <div class="search_item">
-                                    <input type="radio" name="order" value="desc" ${requestScope.order == "desc"?"checked":""}>Descending
                                 </div>
                             </div>
                         </form>
@@ -100,7 +77,7 @@
                             <a href="add">Add User</a>
                         </div>
                     </div>
-                    <table class="setting_list">
+                    <table class="setting_list user_list">
                         <thead>
                             <tr>
                                 <th>Full Name</th>
@@ -132,7 +109,6 @@
                         </tbody>
                     </table>
                     <div class="pagination"id="pagination"></div>
-                    <!--<p class="not__found">There are no results found!</p>-->
                 </div>
 
                 <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp" />
@@ -141,11 +117,20 @@
 
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
         <script>
-            pagination('pagination', '<%=(url)%>',<%=(pageindex)%>, '<%=(queryString)%>', '<%=(totalpage)%>', 2);
+            $(document).ready(function () {
+                $(".user_list").fancyTable({
+                    pagination: true,
+                    paginationClass: 'btn btn-primary',
+                    perPage: 3,
+                    sortColumn: 0,
+                    searchable: false
+                });
+            });
         </script>
     </body>
 

@@ -1,10 +1,10 @@
 /*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Jun 27, 2022, 1:30:50 AM
-    Author     : long
+    Created on : Jul 15, 2022, 1:04:59 PM
+    Author     : Hai Tran
 */
 .disabled {
     display: none;
@@ -19,19 +19,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     padding-bottom: 3rem;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    height: 3rem;
-    width: 100%;
-    background-color: black;
-    text-align: center;
-}
-
-.footer div {
-    display: block;
-    margin: 0 auto;
-}
 .error {
     font-size: 50px;
     font-weight: bolder;
@@ -66,23 +53,6 @@ input[type=submit]:hover {
 
 }
 
-.newlink {
-    text-decoration: none;
-    color: white;
-    line-height: 40px;
-    float: left;
-    padding: 5px 15px;
-    border-radius: 50px;
-    background-color: #0056d2;
-    transition: all;
-    transition-duration: 0.5s;
-}
-
-.newlink:hover {
-    color: #070767;
-    background-color: #4CAF50;
-}
-
 table{
     clear: both;
     margin-top: 25px;
@@ -91,8 +61,13 @@ table{
     background-color: #fff;
     text-align: center;
     font-family: Mukta, sans-serif;
-    display: table;
+    display: block;
     width: 100%;
+}
+
+table, tr, th, td{
+    border: none;
+    clear: both;
 }
 
 thead{
@@ -134,7 +109,7 @@ tr:nth-child(even){
     transition: background-color .2s;
 }
 
-/*.pag .active {
+.pag .active {
     background-color: #1fe21e;
     color: #fff;
 }
@@ -142,7 +117,7 @@ tr:nth-child(even){
 .pag a:hover {
     color: white;
     background-color: gray;
-}*/
+}
 
 .btn_view{
     text-decoration: none;
@@ -171,24 +146,4 @@ tr:nth-child(even){
     color: #fff;
     text-decoration: none;
     background-color: #e4b050;
-}
-
-.right_content{
-    padding: 30px;
-}
-
-tfoot tr td a{
-    color: #000;
-    font-size: 1rem;
-    padding: 10px 15px;
-    border-radius: 0;
-}
-
-tfoot tr td a:not(.active):hover{
-    background-color: #bcb6b6;
-}
-
-tfoot tr td a.active{
-    background-color: #1fe21e;
-    color: #fff;  
 }

@@ -282,7 +282,7 @@ public class QuestionImportController extends HttpServlet {
 
                         // pile up errors
                         countWrong++;
-                        errorMessage += (i + 1);
+                        errorMessage += (i + 1)+", ";
 //                        errorMessage += message;
                     }
                 }
@@ -297,10 +297,10 @@ public class QuestionImportController extends HttpServlet {
                 session.setAttribute("countRight", countRight);
 
             } else {
-                errorMessage = "Your uploaded file is empty. Please check the file again";
+                errorMessage = "Your uploaded file is empty. Please check the file again   ";
             }
         } else {
-            errorMessage = "Your uploaded file is invalid. Please check the file type again, the system accept *.xlsx/*xls only";
+            errorMessage = "Your uploaded file is invalid. Please check the file type again, the system accept *.xlsx/*xls only  ";
         }
 
         if (errorMessage == null) {

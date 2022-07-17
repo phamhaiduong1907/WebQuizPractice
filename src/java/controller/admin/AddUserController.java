@@ -4,6 +4,7 @@
  */
 package controller.admin;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.RoleDBContext;
 import dal.UserDBContext;
@@ -12,7 +13,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -27,7 +27,7 @@ import util.MiscUtil;
  *
  * @author Hai Duong
  */
-public class AddUserController extends HttpServlet {
+public class AddUserController extends AuthorizationController {
 
     final static String COMPANYGMAIL = "yourquizwebsite@gmail.com";
     final static String COMPANYGMAIL_PASSWORD = "kfdhvpiafobpgllh";
@@ -43,7 +43,7 @@ public class AddUserController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RoleDBContext dbRoles = new RoleDBContext();
         ArrayList<Role> roles = dbRoles.getRoles();
@@ -60,7 +60,7 @@ public class AddUserController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
