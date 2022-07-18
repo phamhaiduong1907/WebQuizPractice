@@ -99,10 +99,6 @@ table{
     background-color: #fff;
     text-align: left;
     font-family: Mukta, sans-serif;
-    display: block;
-}
-
-tr, td {
     width: 100%;
 }
 
@@ -117,16 +113,16 @@ thead{
 }
 
 th{
-    padding: 0.7rem 1.2rem;
+    padding: 0.5rem 1rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 900;
 }
 
 td{
-    font-size: 0.85rem;
-    padding: 0.7rem 0.9rem;
+    font-size: 1rem;
+    padding: 0.5rem 0.7rem;
 }
 
 tr{
@@ -193,3 +189,26 @@ tr:nth-child(even){
     background-color: #e4b050;
 }
 
+.detailLink {
+    text-decoration: none;
+    padding: 6px;
+    border: none;
+    border-radius: 10px;
+    background-color: #3cadda;
+    color: white;
+    transition: all 0.5s;
+}
+
+.detailLink:hover {
+    text-decoration: none;
+    padding: 6px;
+    border: none;
+    border-radius: 10px;
+    background-color: #3cadda;
+    color: white;
+    opacity: 0.7;
+}
+
+form {
+    display: inline;
+}

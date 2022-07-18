@@ -64,9 +64,9 @@ public class PracticeListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Account a = (Account) request.getSession().getAttribute("account");
-        String username = a.getUsername();
-        username = "hunglnhe161003@fpt.edu.vn";
+//        Account a = (Account) request.getSession().getAttribute("account");
+//        String username = a.getUsername();
+        String username = "hunglnhe161003@fpt.edu.vn";
         ArrayList<TakenUserQuiz> list = tdbc.getListFromUser(username);
         ArrayList<Course> courses = cdbc.getUserCourse(username);
         request.setAttribute("list", list);
