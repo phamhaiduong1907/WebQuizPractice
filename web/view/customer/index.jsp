@@ -67,29 +67,34 @@
             </section>
 
             <section class="post">
-                <h1>HOT POSTS</h1>
+                <div class="post__heading">
+                    <h1>Our Posts</h1>
+                    <p class="post__explore">Explore our hot posts</p>
+                </div>
                 <div class="post__wrapper">
                     <c:forEach items="${requestScope.posts}" var="p">
                         <div class="post__item">
-                            <form action="blogdetail" method="GET" class="post__form">
-                                <button type="submit" class="post__detail">
-                                    <input type="hidden" value="${p.postID}" name="postID">
-                                    <div class="post__short">
-                                        <p>${p.updatedDate}</p>
-                                    </div>
+                            <a href="blogdetail?postID=${p.postID}" class="post__form">
+                                <div class="post__detail">
                                     <div class="post__info">
                                         <div class="post__thumbnail">
                                             <img src="images/blog/${p.thumbnailUrl}" alt="alt"/>
+                                            <div class="post__short">
+                                                <p><i class="fa fa-calendar-alt"></i>${p.updatedDate}</p>
+                                                <p><i class="fa fa-bars"></i>${p.subcategory.subcategoryName}</p>
+                                            </div>
                                         </div>
-                                        <div class="post__title">
-                                            <p>${p.title}</p>
-                                        </div>
-                                        <div class="post__info">
-                                            <p>${p.briefInfo}</p>
+                                        <div class="post__content">
+                                            <div class="post__title">
+                                                <p>${p.title}</p>
+                                            </div>
+                                            <div class="post__info">
+                                                <p>${p.briefInfo}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </button>
-                            </form>
+                                </div>
+                            </a>
                         </div>
                     </c:forEach>
 
@@ -97,35 +102,33 @@
             </section>
 
             <section class="subject">
-                <h1>POPULAR COURSES</h1>
+                <h1>Our Courses</h1>
+                <p style="margin-left: 120px; color: #bbb;">Explore Our Most Poppular Subjects</p>
                 <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
                 <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
                 <div class="subject__container">
                     <div class="subject__content">
                         <c:forEach items="${requestScope.courses}" var="c">
-
                             <div class="subject__card">
-                                <div class="subject__card-content">
-                                    <div class="subject__thumnail post__thumbnail">
-                                        <img src="images/thumbnails/${c.thumbnailUrl}">
-                                    </div>
+                                <a href="subjectdetail?subjectID=${c.courseID}">
+                                    <div class="subject__card-content">
+                                        <div class="subject__thumnail post__thumbnail">
+                                            <img src="images/thumbnails/${c.thumbnailUrl}">
+                                        </div>
 
-                                    <div class="subject__title post__title">
-                                        <a href="subjectdetail?subjectID=${c.courseID}"><p>${c.courseName}</p></a>
-
-
+                                        <div class="subject__details">
+                                            <div class="subject__title post__title">
+                                                <p>${c.courseName}</p>
+                                            </div>
+                                            <div class="subject__description">
+                                                <p>${c.briefInfo}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="subject__description">
-                                        <p>${c.briefInfo}</p>
-                                    </div>
-                                </div>
-                                <div class="course__detail">
-                                </div>
+                                </a>
                             </div>
                         </c:forEach>
-
                     </div>
-                </div>
             </section>
             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />
             <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>

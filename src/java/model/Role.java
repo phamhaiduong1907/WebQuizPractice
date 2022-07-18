@@ -16,6 +16,12 @@ public class Role {
     private String roleName;
     private ArrayList<Feature> features;
 
+    public Role(int roleID, String roleName) {
+        this.roleID = roleID;
+        this.roleName = roleName;
+        this.features = new ArrayList<>();
+    }
+    
     public Role() {
         this.features = new ArrayList<>();
     }

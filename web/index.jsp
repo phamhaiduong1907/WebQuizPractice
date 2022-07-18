@@ -106,30 +106,25 @@
             <div class="subject__container">
                 <div class="subject__content">
                     <c:forEach items="${requestScope.courses}" var="c">
-
                         <div class="subject__card">
-                            <div class="subject__card-content">
-                                <div class="subject__thumnail post__thumbnail">
-                                    <img src="images/thumbnails/${c.thumbnailUrl}">
-                                </div>
+                            <a href="subjectdetail?subjectID=${c.courseID}" class="subject__link">
+                                    <div class="subject__card-content">
+                                        <div class="subject__thumnail post__thumbnail">
+                                            <img src="images/thumbnails/${c.thumbnailUrl}">
+                                        </div>
 
-                                <div class="subject__title post__title">
-                                    <a href="subjectdetail?subjectID=${c.courseID}"><p>${c.courseName}</p></a>
-
-
-                                </div>
-                                <div class="subject__description">
-                                    <p>${c.briefInfo}</p>
-                                </div>
+                                        <div class="subject__details post__content">
+                                            <div class="subject__title post__title">
+                                                <p>${c.courseName}</p>
+                                            </div>
+                                            <div class="subject__description">
+                                                <p>${c.briefInfo}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="course__detail">
-                            </div>  
-
-                        </div>
-
-
                     </c:forEach>
-
                 </div>
             </div>
         </section>

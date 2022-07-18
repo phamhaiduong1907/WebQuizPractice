@@ -77,9 +77,9 @@
             <div class="form__change-password">
                 <h2>Change Password</h2>
                 <form action="changepass" method="POST" onsubmit="return checkOldNewPass()">
-                    Enter current password: <input type="password" name="currentPassword" id="currentPassword" required pattern="${sessionScope.account.password}" title="Must matches current password" placeholder="Enter your current password">
-                    Enter new password: <input type="password" name="newPassword" id="newPassword" onchange="checkPassword()" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character" placeholder="Enter new password">
-                    Confirm new password: <input type="password" name="confirmNewPassword" id="confirmNewPassword" required placeholder="Reenter your new password">
+                    Enter current password: <input type="password" name="currentPassword" id="currentPassword" required pattern="${sessionScope.account.password}" title="Must matches current password">
+                    Enter new password: <input type="password" name="newPassword" id="newPassword" onchange="checkPassword()" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Must be at minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character">
+                    Confirm new password: <input type="password" name="confirmNewPassword" id="confirmNewPassword" required>
                     <div class="form__button">
                         <button type="submit">Save</button>
                     </div>
@@ -96,7 +96,7 @@
 <c:if  test="${sessionScope.account == null}">
     <!-- POPUP -->
     <section class="popup <c:choose>
-                 <c:when test="${sessionScope.profile_status != null || sessionScope.changepass_status != null 
+                 <c:when test="${sessionScope.register_status != null || param.resetPasswordMessage != null 
                                  || sessionScope.login_status != null}">
                      <%="active"%>
                  </c:when>
@@ -105,7 +105,7 @@
 
         <div class="popup__content">
             <div class="popup__login-form" id="popupLoginForm" style="display: <c:choose>
-                     <c:when test="${sessionScope.register_status == null}">
+                     <c:when test="${sessionScope.register_status == null && param.resetPasswordMessage == null}">
                          <%="block; "%>
                      </c:when>
                      <c:otherwise>
@@ -145,7 +145,7 @@
 
 
             <div class="popup__signup-form" style="display: <c:choose>
-                     <c:when test="${sessionScope.register_status != null}">
+                     <c:when test="${sessionScope.register_status != null }">
                          <%="block; "%>
                      </c:when>
                      <c:otherwise>

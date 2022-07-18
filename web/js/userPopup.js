@@ -1,4 +1,4 @@
-document.addEventListener("click", (e) => {
+document.addEventListener("dblclick", (e) => {
     var isClosest = e.target.closest('.popup__content');
     var popupSection = document.querySelector('#popupSection');
 
