@@ -9,6 +9,7 @@ import dal.CourseDBContext;
 import dal.QuizAttributeDBContext;
 import dal.QuizDBContext;
 import dal.SubCategoryDBContext;
+import dal.UserQuizDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -152,7 +153,7 @@ public class QuizEditController extends HttpServlet {
 
             if (request.getParameter("ID") != null) {
                 ID = Integer.parseInt(request.getParameter("ID"));
-                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des, note) == true) {
+                if (qdbc.updateQuiz(ID, numQ, pass, level, duration, type, courseID, name, des, false, note) == true) {
                     log("true");
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + updateOk);
 
@@ -163,6 +164,12 @@ public class QuizEditController extends HttpServlet {
             } else {
                 if (qdbc.addQuiz(numQ, pass, level, duration, type, courseID, name, des, note)) {
                     ID = qdbc.getLatestID();
+                    if (type == 1) {
+                        UserQuizDBContext uqdbc = new UserQuizDBContext();
+                        ArrayList<Integer> ques = uqdbc.getRandomQuestion(numQ, courseID);
+                        log(ques.toString());
+                        uqdbc.insertQuestion(ID, ques);
+                    }
                     response.sendRedirect("../quizzes/view?id=" + ID + "&mess=" + insertOk);
                 } else {
                     response.sendRedirect("../quizzes" + "?mess=" + insertErr);

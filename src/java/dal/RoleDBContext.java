@@ -15,7 +15,6 @@ import model.Role;
 
 /**
  *
- * <<<<<<< HEAD
  * @a
  *
  * uthor Hai Duong

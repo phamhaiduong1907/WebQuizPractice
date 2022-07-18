@@ -18,18 +18,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${path}/css/admin/index.css">
     <link rel="stylesheet" href="${path}/css/popup.css">
+    <link href="${path}/css/test_content/quiz_list.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
     <link href="${path}/css/sale/regis_list.css" rel="stylesheet"/>
-    <link href="${path}/css/table.css" rel="stylesheet"/>
-    <%
-        int pageIndex = (Integer) request.getAttribute("pageIndex");
-        int totalPage = (Integer) request.getAttribute("totalPage");
-        String sortBy = (String) request.getAttribute("sortBy");
-        String orderBy = (String) request.getAttribute("orderBy");
-        String target = (String) request.getAttribute("target");
-    %>
+<!--    <link href="${path}/css/table.css" rel="stylesheet"/>-->
 </head>
 
 <body>
@@ -56,7 +60,6 @@
                     <label for="from">Date: </label>
                     <input id="from" type="date" name="from" value="${requestScope.fromDate}"> - <input id="to" type="date"  name="to" value="${requestScope.toDate}">
                     &emsp;
-                    <label for="raw_status">Status: </label>
                     <c:choose>
                         <c:when test="${requestScope.status == true}">
                             <input name="status" id="paid" type="radio" value="paid" checked> <label for="paid">Paid</label>
@@ -79,42 +82,28 @@
                             <option value="${u.account.username}"></option>
                         </c:forEach>
                     </datalist>
-                    <br>
-                    <select name="sortBy" id="sortBy">
-                        <option value="registrationID" checked>Sort by...</option>
-                        <option value="registrationID">ID</option>
-                        <option value="username">Username</option>
-                        <option value="registrationTime">Registration Time</option>
-                        <option value="courseID">Subject</option>
-                        <option value="pricePackageID">Price Package</option>
-                        <option value="totalCost">Total Cost</option>
-                        <option value="status">Status</option>
-                        <option value="validFrom">Valid From</option>
-                        <option value="validTo">Valid To</option>
-                        <option value="updatedBy">Last Updated By</option>
-                    </select>
-                    <input type="radio" id="asc" name="orderBy" value="asc"> <label for="asc">Ascending</label>
-                    <input type="radio" id="desc" name="orderBy" value="desc"> <label for="desc">Descending</label>
+                    &emsp;
                     <input type="submit" value="Search">
                 </form>
                 <br>
+                <a class="newlink" href="../sale/registrationedit">Add new <i class="fa-solid fa-plus"></i></a>
                 <c:choose>
                     <c:when test="${requestScope.list.size() == 0}">
                         <h2>There are no matching result! Please try another keyword.</h2>
                     </c:when>
                     <c:otherwise>
-                        <table class="main_table">
+                        <table class="main_table" id="table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th data-sortas="numeric">ID</th>
                                     <th>Username</th>
-                                    <th>Registration Time</th>
+                                    <th data-sortas="numeric">Registration Time</th>
                                     <th>Subject Name</th>
-                                    <th>Price Package</th>
-                                    <th>Total Cost</th>
+                                    <th data-sortas="numeric">Price Package</th>
+                                    <th data-sortas="numeric">Total Cost</th>
                                     <th>Status</th>
-                                    <th>Valid From</th>
-                                    <th>Valid To</th>
+                                    <th data-sortas="numeric">Valid From</th>
+                                    <th data-sortas="numeric">Valid To</th>
                                     <th>Updated By</th>
                                     <th colspan="2"></th>
                                 </tr>
@@ -150,8 +139,6 @@
                     </c:otherwise>
                 </c:choose>
                 <br>
-                <a class="new_registration_link" href="../sale/registrationedit">Add new</a>
-                <div id="pagination" class="pagination"></div>
             </div>
 
             <footer>
@@ -161,7 +148,22 @@
     </section>
 
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#table").fancyTable({
+                /* Column number for initial sorting*/
+                //undefined
+                /* Setting pagination or enabling */
+                pagination: true,
+                paginationClass: 'lol',
+                /* Rows per page kept for display */
+                perPage: 5,
+                searchable: false
+            });
+        });
+    </script>
     <script src="js/userPopup.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
     <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
@@ -170,8 +172,6 @@
     <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
     <script src="${pageContext.request.contextPath}/js/common/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<!--    <script>registrationPagging("pagination", <%=pageIndex%>, <%=totalPage%>, 5, "<%=sortBy%>", "<%=orderBy%>", "<%=target%>");</script>-->
-    <script>registrationPagger("pagination", <%=pageIndex%>, <%=totalPage%>, 5, "<%=sortBy%>", "<%=orderBy%>", "${requestScope.subject}", "${requestScope.fromDate}", "${requestScope.toDate}", "${requestScope.stringStatus}", "${requestScope.email}");</script>
 </body>
 
 </html>

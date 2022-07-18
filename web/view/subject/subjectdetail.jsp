@@ -28,10 +28,10 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/detail.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/detail.css">
 
     </head>
 
@@ -89,45 +89,48 @@
             <section class="option__box">
                 <div class="option__filter">
                     <div class="option__searchbar">
-                        <form action="#">
-                            <input type="text" placeholder="Type something to search...">
-                            <!-- <button type="submit">Search</button> -->
+                        <form action="coursesearch" method="GET">
+                            <input type="text" name="search" placeholder="Type something to search...">
+                            </div>
+                            <div class="option__checkbox">
+                                <h3>Category: </h3>
+                                <div class="option__options-value">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <c:forEach items="${requestScope.categories}" var="cate">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;<span>${cate.categoryName}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        <c:forEach items="${cate.subcategories}" var="sc">
+                                                            <div class="subcategory">
+                                                                <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
+                                                            </div>
+                                                        </c:forEach></div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="option__sort">
+                                <select name="sort">
+                                    <option selected disabled>Sort by:</option>
+                                    <option value="DESC">Date added(newest)</option>
+                                    <option value="ASC">Date added(oldest)</option>
+                                </select>
+                            </div>
+                            <div class="search__button">
+                                <button type="submit">Search</button>
+                            </div>
+                            <div class="contact__link">
+                                <a href="#">Contact Information</a>
+                            </div>
                         </form>
                     </div>
-                    <div class="option__checkbox">
-                        <h5>Category</h5>
-                        <div class="option__options-value">
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 1</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 2</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 3</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 4</span>
-                            </div>
-                            <div class="option__options-value_item">
-                                <input type="checkbox" name="" id=""> <span>Category 5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="option__sort">
-                        <select name="" id="">
-                            <option value="All">All</option>
-                            <option value="">SortItem1</option>
-                            <option value="">SortItem2</option>
-                        </select>
-                    </div>
-                    <div class="search__button">
-                        <button type="submit">Search</button>
-                    </div>
-                    <div class="contact__link">
-                        <a href="#">Contact Information</a>
-                    </div>
-                </div>
             </section>
         </div>
 
@@ -416,12 +419,16 @@
 
 
 
-        <script src="${pageContext.request.contextPath}/js/public/subjectdetail.js"></script>
+        <script src="${pageContext.request.contextPath}/js/registerPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+        <script src="js/common/home.js"></script>
+        <script src="js/register.js"></script>
         <script>
                                                $(document).ready(function () {
             <c:choose>

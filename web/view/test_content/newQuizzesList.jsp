@@ -90,7 +90,7 @@
                             <th data-sortas="numeric">Duration</th>
                             <th data-sortas="numeric">Pass Rate</th>
                             <th>Quiz Type</th>
-                            <th colspan="2">Action</th>
+                            <th colspan="3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,10 +142,19 @@
                     <td style="text-align: left;">${q.quizType.quizTypeName}</td>
                     <td><a class="btn_view" href="quizzes/view?id=${q.quizID}">View</a></td>
                     <td><a class="btn_edit" href="quizzes/edit?id=${q.quizID}"class="action__edit">Edit</a></td>
+                    <td><a class="btn_del" onclick="conf('Are you sure!?');" href="quizzes/del?id=${q.quizID}"class="action__edit">Delete</a></td>
                     </tr>`;
             </c:forEach>
         table.innerHTML = result;
         </c:if>
+    </script>
+    <script>
+        function conf(mess) {
+            var sure = window.confirm(mess);
+            if (sure === false) {
+                event.preventDefault();
+            }
+        }
     </script>
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
     <script src="js/userPopup.js"></script>

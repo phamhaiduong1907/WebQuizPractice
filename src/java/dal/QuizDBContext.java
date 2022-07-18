@@ -58,7 +58,7 @@ public class QuizDBContext extends DBContext {
     public ArrayList<Quiz> getQuizzes() {
         try {
             ArrayList<Quiz> arr = new ArrayList<>();
-            String sql = "SELECT * FROM [Quiz]";
+            String sql = "SELECT * FROM [Quiz] WHERE [ownerType] = 0";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -92,6 +92,7 @@ public class QuizDBContext extends DBContext {
             String sql = "SELECT *, c.courseName from [Quiz] q join [Course] c\n"
                     + "ON q.courseID = c.courseID\n"
                     + "WHERE q.quizName LIKE ?\n"
+                    + "AND [ownerType] = 0\n"
                     + "AND c.courseName LIKE ?\n";
             if (quizType.length() != 0) {
                 sql += "AND q.quizTypeID IN (" + quizType + ");";
@@ -126,7 +127,7 @@ public class QuizDBContext extends DBContext {
         return null;
     }
 
-    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, String note) {
+    public Boolean updateQuiz(int ID, int numQ, float pass, int level, int duration, int type, int course, String name, String description, Boolean isTaken, String note) {
 
         String sql = "UPDATE [Quiz]\n"
                 + "   SET [numOfQuestion] = ?\n"
@@ -137,6 +138,7 @@ public class QuizDBContext extends DBContext {
                 + "      ,[courseID] = ?\n"
                 + "      ,[quizName] = ?\n"
                 + "      ,[description] = ?\n"
+                + "      ,[isTaken] = ?\n"
                 + "      ,[note] = ?"
                 + " WHERE [quizID] = ?";
         PreparedStatement stm = null;
@@ -150,8 +152,9 @@ public class QuizDBContext extends DBContext {
             stm.setInt(6, course);
             stm.setString(7, name);
             stm.setString(8, description);
-            stm.setString(9, note);
-            stm.setInt(10, ID);
+            stm.setBoolean(9, isTaken);
+            stm.setString(10, note);
+            stm.setInt(11, ID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -172,9 +175,11 @@ public class QuizDBContext extends DBContext {
                 + "           ,[quizName]\n"
                 + "           ,[description]"
                 + "           ,[isTaken]\n"
-                + "           ,[note])"
+                + "           ,[note]"
+                + "           ,[ownerType])"
                 + "     VALUES\n"
                 + "           (?\n"
+                + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
@@ -197,6 +202,7 @@ public class QuizDBContext extends DBContext {
             stm.setString(8, description);
             stm.setBoolean(9, false);
             stm.setString(10, note);
+            stm.setBoolean(11, false);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -208,7 +214,7 @@ public class QuizDBContext extends DBContext {
     public Integer getLatestID() {
         int ID;
         try {
-            String sql = "Select TOP 1 quizID from [Quiz]\n"
+            String sql = "Select TOP 1 quizID from [Quiz] WHERE [ownerType] = 0\n"
                     + "ORDER BY quizID desc";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
@@ -225,7 +231,7 @@ public class QuizDBContext extends DBContext {
     public ArrayList<Quiz> getQuizzesByCourseID(int courseID) {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ?";
+            String sql = "SELECT * FROM [Quiz] WHERE [courseID] = ? AND [ownerType] = 0";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, courseID);
             ResultSet rs = stm.executeQuery();
@@ -252,6 +258,34 @@ public class QuizDBContext extends DBContext {
         return quizzes;
     }
 
+    public Boolean delQuiz(int ID) {
+        try {
+            String sql = "delete from [Quiz] where [QuizID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, ID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public int totalQuestion(int courseID) {
+        try {
+            String sql = "SELECT count(*) as total from [Question]\n"
+                    + "where courseID = " + courseID;
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public ArrayList<Quiz> getQuizzesByUser(Account account) {
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
@@ -261,7 +295,7 @@ public class QuizDBContext extends DBContext {
                     + "WHERE username = ?\n"
                     + "AND validFrom <= GETDATE()\n"
                     + "AND GETDATE() <= validTo)\n"
-                    + "AND quizTypeID = 1";
+                    + "AND quizTypeID = 1 and ownertype = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
             ResultSet rs = stm.executeQuery();

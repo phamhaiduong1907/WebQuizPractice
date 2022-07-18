@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="context" value="${pageContext.request.contextPath}" />
+<c:set var="context" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 
@@ -12,9 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sale/regis_detail.css">
+    <link href="${context}/css/test_content/quiz_view.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -22,94 +28,81 @@
 
 
     <section class="main">
-        <!-- LEFT NAVIGATION BAR -->
-
-
-        <!-- RIGHT CONTENT -->
-        <aside class="right">
-            <div class="right_content">   
-                <h1>Edit Registration Details</h1>
-                <form action="registrationedit" method="POST">
-                    <table>
-                        <tr>
-                            <td colspan="2">
+        <aside class="right" style="padding: 3% 2%;">
+            <div class="right_content" style="box-shadow: 0 0 10px 5px #e1e5ee;">  
+                <h1>Registration Details</h1>
+                <div style="margin: 0 auto;" class="upperpart row col-md-11">
+                    <form class="row" action="registrationedit" method="POST">
+                        <div class="form-group col-md-6" style="padding: 0 20px;">
+                            <div class="row">
                                 <h3>User Information</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Username</th>
-                            <td>
-                                <input <c:if test="${requestScope.registration != null}">disabled</c:if>  required type="email" name="username" value="${requestScope.user.account.username}" placeholder="Enter username...">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>First Name</th>
-                            <td><input required type="text" name="firstName" id="firstName" value="${requestScope.user.firstName}"></td>
-                        </tr>
-                        <tr>
-                            <th>Last Name</th>
-                            <td><input required type="text" name="lastName" id="lastName" value="${requestScope.user.lastName}"></td>
-                        </tr>
-                        <tr>
-                            <th>Gender</th>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${requestScope.user.gender == true}">
-                                        <input required name="gender" id="male" type="radio" value="male" checked> <label for="male">Male</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
-                                    </c:when>
-                                    <c:when test="${requestScope.user.gender == false}">
-                                        <input name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="female" name="gender" value="female" checked> <label for="female">Female</label>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input required name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input class="form-control" <c:if test="${requestScope.registration != null}">disabled</c:if>  required type="email" name="username" value="${requestScope.user.account.username}" placeholder="Enter username...">
+                                </div>
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" required type="text" name="firstName" id="firstName" value="${requestScope.user.firstName}">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" required type="text" name="lastName" id="lastName" value="${requestScope.user.lastName}">
+                            </div>
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <div class="form-group" style="padding-bottom: 0;">
+                                    <c:choose>
+                                        <c:when test="${requestScope.user.gender == true}">
+                                            <input required name="gender" id="male" type="radio" value="male" checked> <label for="male">Male</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
+                                        </c:when>
+                                        <c:when test="${requestScope.user.gender == false}">
+                                            <input name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input type="radio" id="female" name="gender" value="female" checked> <label for="female">Female</label>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input required name="gender" id="male" type="radio" value="male"> <label for="male">Male</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input required type="radio" id="female" name="gender" value="female"> <label for="female">Female</label>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
                                 <c:choose>
                                     <c:when test="${requestScope.user == null}">
-                                    <td><input required type="email" name="email" placeholder="Enter email...">
+                                        <input class="form-control" required type="email" name="email" placeholder="Enter email...">
                                         <input type="hidden" name="user_exist" value="no">
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <input disabled type="text" name="email" value="${requestScope.user.account.username}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input class="form-control" readonly type="text" name="email" value="${requestScope.user.account.username}">
                                         <input type="hidden" name="email" value="${requestScope.user.account.username}">
                                         <input type="hidden" name="user_exist" value="yes">
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
-                        </tr>
-                        <tr>
-                            <th>Phone Number</th>
-                            <td><input type="tel" name="phone" id="phone" value="${requestScope.user.phoneNumber}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input class="form-control" type="tel" name="phone" id="phone" value="${requestScope.user.phoneNumber}">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6" style="padding: 0 20px;">
+                            <div class="form-group">
                                 <h3>Registration Information</h3>
-                            </td>
-                        </tr>
-                        <c:if test="${requestScope.registration != null}">
-                            <tr>
-                                <th>Registration ID</th>
-                                <td>${requestScope.registration.registrationID}
-                                    <input type="hidden" name="registrationID" value="${requestScope.registration.registrationID}">
-                                </td>
-                            </tr>
-                        </c:if>
-                        <tr>
-                            <th>Category</th>
-                            <td>
-                                <select id="select_category" >
+                            </div>
+                            <c:if test="${requestScope.registration != null}">
+                                <div class="form-group">
+                                    <label>Registration ID</label>
+                                    <input class="form-control" readonly type="text" name="registrationID" value="${requestScope.registration.registrationID}">
+                                </div>
+                            </c:if>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-control" id="select_category" >
                                     <c:forEach items="${requestScope.categories}" var="ca">
                                         <c:choose>
                                             <c:when test="${ca.categoryID == requestScope.registration.course.subcategory.categoryID}">
@@ -121,109 +114,82 @@
                                         </c:choose>
                                     </c:forEach>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>SubCategory</th>
-                            <td>
-                                <select id="subCategory_by_category">
+                            </div>
+                            <div class="form-group">
+                                <label>SubCategory</label>
+                                <select class="form-control" id="subCategory_by_category">
                                     <option value="${requestScope.subcategory.subcategoryID}">${requestScope.subcategory.subcategoryName}</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Subject</th>
-                            <td>
-                                <select id="course_by_subcategory" name="courseID" onchange="submitForm();">
+                            </div>
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <select class="form-control" id="course_by_subcategory" name="courseID" onchange="submitForm();">
                                     <option value="${requestScope.course.courseID}">${requestScope.course.courseName}</option>
                                 </select>
-                            </td>
-                        </tr>
-                        <c:if test="${requestScope.registration != null}">
-                            <tr>
-                                <th>Registration Time</th>
+                            </div>
+                            <c:if test="${requestScope.registration != null}">
+                                <div class="form-group">
+                                    <label>Registration Time</label>
+                                    <input class="form-control" type="datetime" name="registrationTime" value="${requestScope.registration.registrationTime}" readonly>
+                                </div>
+                            </c:if>
+                            <div class="form-group">
+                                <th>Price Package</th>
                                 <td>
-                                    <input type="hidden" name="registrationTime" value="${requestScope.registration.registrationTime}">
-                                    <input type="datetime" name="registrationTime" value="${requestScope.registration.registrationTime}" disabled></td>
-                            </tr>
-                        </c:if>
-                        <tr>
-                            <th>Price Package</th>
-                            <td>
-                                <select name="pricePackage">
-                                    <c:forEach items="${requestScope.prices}" var="p">
-                                        <option value="${p.pricePackageID}" <c:if test="${requestScope.registration.pricePackage.pricePackageID == requestScope.pkg.pricePackageID}">selected</c:if>>
-                                            ${p.priceName}, list price: ${p.salePrice}, <c:if test="${p.isOnSale == true}">is on</c:if> sale at ${p.listPrice}
-                                            </option>
-                                    </c:forEach>
-                                    <c:if test="${requestScope.registration == null}">
-                                        <option value="1">
-                                            3 month extension, list price: 100.0, is on sale at 90.0
-                                        </option>
-                                        <option value="2">
-                                            6 month extension, list price: 200.0, is on sale at 100.0
-                                        </option>
-                                        <option value="4">
-                                            10 month extension, list price: 500.0, is on sale at 300.0
-                                        </option>
-                                        <option value="4">
-                                            Permanent extension, list price: 900.0, is on sale at 800.0
-                                        </option>
-                                    </c:if>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>  
-                            <td>
-                                <c:choose>
-                                    <c:when test="${requestScope.registration.status == true}">
-                                        <input name="status" id="paid" type="radio" value="paid" checked=""> <label for="paid">Paid</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="unpaid" name="status" value="unpaid"> <label for="unpaid">Unpaid</label>
-                                    </c:when>
-                                    <c:when test="${requestScope.registration.status == false}">
-                                        <input name="status" id="paid" type="radio" value="paid"> <label for="paid">Paid</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="unpaid" name="status" value="unpaid" checked> <label for="unpaid">Unpaid</label>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input name="status" id="paid" type="radio" value="paid"> <label for="paid">Paid</label>
-                                        &emsp;&emsp;&emsp;&emsp;
-                                        <input type="radio" id="unpaid" name="status" value="unpaid"> <label for="unpaid">Unpaid</label>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </tr>
-
-                        <c:choose>
-                            <c:when test="${requestScope.registration != null}">
-                                <tr>
-                                    <th>Valid Date</th>
-                                    <td>From &emsp;${requestScope.registration.validFrom}&emsp;to&emsp;${requestScope.registration.validTo}
-                                    </td>
-                                </tr>
-                            </c:when>
-                            <c:otherwise>
-                            </c:otherwise>
-                        </c:choose>
-
-                    </table>
-                    <div style="width: 100%; text-align: center; margin-top: 20px;">
-                        <input type="submit" value="SAVE">
-                    </div>
-                </form>
+                                    <select class="form-control" id="pricePackage" name="pricePackage">
+                                        <c:forEach items="${requestScope.prices}" var="p">
+                                            <option value="${p.pricePackageID}" <c:if test="${requestScope.registration.pricePackage.pricePackageID == requestScope.pkg.pricePackageID}">selected</c:if>>
+                                                ${p.priceName}, list price: ${p.listPrice}, <c:if test="${p.isOnSale == true}">is on</c:if> sale at ${p.salePrice}
+                                                </option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="form-group" style="padding-bottom: 0;">
+                                    <c:choose>
+                                        <c:when test="${requestScope.registration.status == true}">
+                                            <input name="status" id="paid" type="radio" value="paid" checked=""> <label for="paid">Paid</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input type="radio" id="unpaid" name="status" value="unpaid"> <label for="unpaid">Unpaid</label>
+                                        </c:when>
+                                        <c:when test="${requestScope.registration.status == false}">
+                                            <input name="status" id="paid" type="radio" value="paid"> <label for="paid">Paid</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input type="radio" id="unpaid" name="status" value="unpaid" checked> <label for="unpaid">Unpaid</label>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input name="status" id="paid" type="radio" value="paid"> <label for="paid">Paid</label>
+                                            &emsp;&emsp;&emsp;&emsp;
+                                            <input type="radio" id="unpaid" name="status" value="unpaid"> <label for="unpaid">Unpaid</label>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <c:choose>
+                                <c:when test="${requestScope.registration != null}">
+                                    <div class="form-group">
+                                        <label>Valid Date</label>
+                                        <p class="form-control">From &emsp;${requestScope.registration.validFrom}&emsp;to&emsp;${requestScope.registration.validTo}</p>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                                <div class="btngrps" style="width: 100%; text-align: center; margin-top: 20px;">
+                            <input type="submit" value="SUBMIT">
+                        </div>
+                    </form>
+                </div>
             </div>
-
-            <footer>
-                FOOTER
-            </footer>
         </aside>
     </section>
-
+    <footer>
+        FOOTER
+    </footer>
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
-
-
     <script src="js/userPopup.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -235,7 +201,7 @@
                                             url: "../getsubcategory",
                                             type: 'POST',
                                             dataType: 'html',
-                                            data: {ID: categoryID},
+                                            data: {ID: categoryID}
                                         })
                                                 .done(function (data) {
                                                     $('#subCategory_by_category').html(data);
@@ -248,20 +214,40 @@
                                                 });
 
                                     });
-                                    
+
                                     $(document).on('change', '#subCategory_by_category', function (event) {
                                         var categoryID = this.value;
                                         $.ajax({
                                             url: "${pageContext.request.contextPath}/getcoursebysubcategoryid",
                                             type: 'POST',
                                             dataType: 'html',
-                                            data: {ID: categoryID},
+                                            data: {ID: categoryID}
                                         })
                                                 .done(function (data) {
                                                     $('#course_by_subcategory').html(data);
                                                 })
                                                 .fail(function (error) {
                                                     $('#course_by_subcategory').html("<h1>error</h1>");
+                                                })
+                                                .always(function () {
+
+                                                });
+
+                                    });
+
+                                    $(document).on('change', '#course_by_subcategory', function () {
+                                        var courseID = this.value;
+                                        $.ajax({
+                                            url: "${pageContext.request.contextPath}/renderprice",
+                                            type: 'POST',
+                                            dataType: 'html',
+                                            data: {ID: courseID}
+                                        })
+                                                .done(function (data) {
+                                                    $('#pricePackage').html(data);
+                                                })
+                                                .fail(function (error) {
+                                                    $('#pricePackage').html("<h1>error</h1>");
                                                 })
                                                 .always(function () {
 
