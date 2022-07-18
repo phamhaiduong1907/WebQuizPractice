@@ -122,7 +122,7 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        $(document).on('change', '#qType', function () {
+        $(document).on('click', '#qType', function () {
             var courseID = document.getElementById('subject').value;
             var groupName = this.value;
             $.ajax({
@@ -141,7 +141,7 @@
 
                     });
         });
-        $(document).on('change', '#subject', function () {
+        $(document).on('click', '#subject', function () {
             var courseID = document.getElementById('subject').value;
             $.ajax({
                 url: "${path}/rendermaxquestion",
@@ -153,7 +153,7 @@
                         $('#numQ').html(data);
                     })
                     .fail(function () {
-                        $('#numQ').html("<h1>FAIL</h1>");
+                        $('#numQ').html("");
                     })
                     .always(function () {
 

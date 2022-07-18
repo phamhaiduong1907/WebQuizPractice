@@ -175,7 +175,7 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                        $(document).on('change', '#cID', function () {
+                        $(document).on('click', '#cID', function () {
                             var cateID = this.value;
                             $.ajax({
                                 url: "${path}/rendersubcate",
@@ -187,14 +187,14 @@
                                         $('#scID').html(data);
                                     })
                                     .fail(function () {
-                                        $('#scID').html("<option>Error</option>");
+                                        $('#scID').html("<option></option>");
                                     })
                                     .always(function () {
 
                                     });
                         });
 
-                        $(document).on('change', '#scID', function () {
+                        $(document).on('click', '#scID', function () {
                             var subcateID = this.value;
                             $.ajax({
                                 url: "${path}/rendercourse",
@@ -206,14 +206,14 @@
                                         $('#courseID').html(data);
                                     })
                                     .fail(function () {
-                                        $('#courseID').html("<option>Error</option>");
+                                        $('#courseID').html("<option></option>");
                                     })
                                     .always(function () {
 
                                     });
                         });
 
-                        $(document).on('change', '#courseID', function () {
+                        $(document).on('click', '#courseID', function () {
                             var courseID = this.value;
                             $.ajax({
                                 url: "${path}/rendermaxquestion",

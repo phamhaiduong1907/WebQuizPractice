@@ -33,11 +33,11 @@ import util.Validation;
  *
  * @author Zuys
  */
-@MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Merge\\web\\images\\subject", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "C:\\Users\\long\\Documents\\NetBeansProjects\\summer2022-se1617-g6-Final", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class NewSubjectController extends HttpServlet {
 
-    final static String SUBJECTPICTUREURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Merge\\web\\images\\subject";
+    final static String SUBJECTPICTUREURI = "C:\\Users\\long\\Documents\\NetBeansProjects\\summer2022-se1617-g6-Final";
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -95,10 +95,9 @@ public class NewSubjectController extends HttpServlet {
         String raw_subjectName = request.getParameter("name");
         String raw_owner = request.getParameter("owner");
         String raw_subcategoryid = request.getParameter("subcategory");
-        String raw_published = request.getParameter("published");
         String raw_featured = request.getParameter("featured");
         String raw_description = request.getParameter("description");
-        String[] input = {raw_subjectName, raw_owner, raw_subcategoryid, raw_published, raw_featured, raw_description};
+        String[] input = {raw_subjectName, raw_owner, raw_subcategoryid, raw_featured, raw_description};
 
         if ((raw_subjectName == null || raw_subjectName.trim().length() == 0)
                 && (raw_owner == null || raw_owner.trim().length() == 0) && (raw_description == null || raw_description.trim().length() == 0)) {
@@ -135,7 +134,7 @@ public class NewSubjectController extends HttpServlet {
                         course.setCourseName(raw_subjectName);
                         course.setOwner(raw_owner);
                         course.setSubcategory(dbSubcate1.getSubcategory(Integer.parseInt(raw_subcategoryid)));
-                        course.setStatus(raw_published.matches("1"));
+                        course.setStatus(false);
                         course.setIsFeatured(raw_featured.matches("1"));
                         course.setDescription(raw_description);
                         course.setThumbnailUrl(courseID + ".jpeg");
