@@ -274,5 +274,26 @@ tfoot tr td a.active{
 
 }
 
+.addlink_ver3{
+    margin-left: 10px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+    background-color: #65badc;
+    border-radius: 10px;
+}
+
+.search__key{
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    background-color: #4b5adf;
+    color: #fff;
+}
+
 
 

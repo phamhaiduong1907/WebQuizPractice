@@ -22,3 +22,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     
 }
 
+.search__button{
+    margin: 20px;
+}
+
+.center_search{
+    text-align: center;
+}
+

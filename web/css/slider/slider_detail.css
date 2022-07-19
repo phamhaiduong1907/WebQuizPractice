@@ -96,6 +96,7 @@ input[type=file] {
 	/* display: block; */
 }
 
-.submenu{
-    bottom: -270px;
+footer{
+    margin-top: 100px;
 }
+

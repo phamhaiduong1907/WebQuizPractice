@@ -43,7 +43,6 @@
                             <th>Description</th>
                             <th>Owner</th>
                             <th>Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,10 +56,6 @@
                                 </td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>
-                                <td>
-                                    <a class="view__alink" href="lessonlist?courseID=${c.courseID}">View lesson</a>
-                                    
-                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>

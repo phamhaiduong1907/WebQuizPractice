@@ -178,7 +178,7 @@
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="flush-headingOne">
                                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                            ${cate.categoryName}
+                                                            <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;${cate.categoryName}
                                                         </button>
                                                     </h2>
                                                     <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -191,7 +191,7 @@
                                                                             <c:set var="contains" value="true"/>
                                                                         </c:if>
                                                                     </c:forEach>
-                                                                    <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"
+                                                                    <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"
                                                                            <c:if test="${contains}">
                                                                                checked
                                                                            </c:if>
@@ -204,20 +204,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="center_search">
+                                    <div class="option__sort">
+                                        <select name="sort">
+                                            <option selected disabled>Sort by:</option>
+                                            <option value="DESC">Date added(newest)</option>
+                                            <option value="ASC">Date added(oldest)</option>
+                                        </select>
+                                    </div>
+                                    <div class="search__button" id="searchButton">
+                                        <button type="submit" class="search__key">Search</button>
+                                    </div>
+                                    <div class="contact__link">
+                                        <a href="#">Contact Information</a>
+                                    </div>
+                                </div>
 
-                                <div class="option__sort">
-                                    <select name="sort">
-                                        <option selected disabled>Sort by:</option>
-                                        <option value="DESC">Date added(newest)</option>
-                                        <option value="ASC">Date added(oldest)</option>
-                                    </select>
-                                </div>
-                                <div class="search__button" id="searchButton">
-                                    <button type="submit">Search</button>
-                                </div>
-                                <div class="contact__link">
-                                    <a href="#">Contact Information</a>
-                                </div>
                                 </form>
                             </div>
                     </section>
@@ -240,7 +242,17 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
+        <script>
+
+                                                                function checkAllBox(source, cateID) {
+                                                                    checkboxes = document.getElementsByClassName(cateID);
+                                                                    for (var i = 0, n = checkboxes.length; i < n; i++) {
+                                                                        checkboxes[i].checked = source.checked;
+                                                                    }
+                                                                }
+                                                                pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");
+
+        </script>
 
 
     </body>

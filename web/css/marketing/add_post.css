@@ -135,9 +135,9 @@ footer{
     margin-top: 50px;
 }
 
-.option__filter{
+/*.option__filter{
     text-align: center;
-}
+}*/
 
 .option__searchbar{
     margin-bottom: 20px;
@@ -147,4 +147,8 @@ footer{
     padding: 15px;
     box-shadow: 0 0 3px 3px lightgrey;
     margin-left: 10px;
+}
+
+.form-group{
+    margin: 20px;
 }

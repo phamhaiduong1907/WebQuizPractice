@@ -10,7 +10,6 @@
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/slider/slider_detail.css">
     </head>
@@ -21,11 +20,13 @@
 
         <section class="main">
             <!-- LEFT NAVIGATION BAR -->
-          
+
 
             <!-- RIGHT CONTENT -->
             <aside class="right">
+                
                 <div class="right_content">
+                    <h1 style="margin-bottom: 30px;">Add slider</h1>
                     <form action="add" method="POST"enctype="multipart/form-data">
                         <table>
                             <tr>
@@ -67,11 +68,10 @@
                         </div>
                     </form>
                 </div>
-                <footer>
-                    FOOTER
-                </footer>
+
             </aside>
         </section>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
 
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 

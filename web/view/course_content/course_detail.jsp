@@ -36,6 +36,8 @@
 
         <div class="addquestion">
             <a class="addlink_ver2" href="${pageContext.request.contextPath}/addquestion?courseID=${requestScope.course.courseID}">Add question</a>
+            <a class="addlink_ver3" href="${pageContext.request.contextPath}/lessonlist?courseID=${requestScope.course.courseID}">View lesson</a>
+
         </div>
 
 
