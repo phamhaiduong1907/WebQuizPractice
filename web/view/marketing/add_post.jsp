@@ -37,12 +37,6 @@
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-        <ul class="breadcrumb">
-            <li><a href="../home">Home</a></li>
-            <li><a href="bloglist?search=">Post list</a></li>
-            <li><a href="#">Create a post</a></li>
-
-        </ul>
 
         <section class="main">
 

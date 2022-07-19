@@ -23,13 +23,7 @@
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
-        <ul class="breadcrumb">
-            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
-            <li><a href="#">Subject detail</a></li>
-
-        </ul> 
-
+      
         <ul class="breadcrumb nav ">
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav currentnav" >Dimension</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav">Overview</a></li>

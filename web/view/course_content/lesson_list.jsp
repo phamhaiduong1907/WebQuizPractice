@@ -26,7 +26,7 @@
 
             <h4>Subject name: ${requestScope.course.courseName}</h4>
             <div class="search__bar">
-                <form action="searchlesson" method="GET">
+                <form class="form" action="searchlesson" method="GET">
                     <input type="text" name="courseID" hidden value="${requestScope.course.courseID}">
                     <div class="search__bar__item">
                         <input name="lesson_name" id="lessonName" type="text" placeholder="Type lesson name to search">
@@ -100,6 +100,10 @@
             <div id="pagination" class="pagination"></div>
 
         </section>
+
+        <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+
         <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
         <script>paggerLesson("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}", ${requestScope.course.courseID});</script>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />
