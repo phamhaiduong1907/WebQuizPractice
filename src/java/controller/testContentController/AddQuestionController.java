@@ -51,6 +51,7 @@ public class AddQuestionController extends HttpServlet {
         int courseID = Integer.parseInt(request.getParameter("courseID"));
         ArrayList<Topic> topics = dbTopic.getTopics(courseID);
         ArrayList<Dimension> dimensions = dbDimension.getDimensionsByCourseID(courseID);
+        request.setAttribute("courseID", courseID);
         request.setAttribute("topics", topics);
         request.setAttribute("dimensions", dimensions);
         request.getRequestDispatcher("/view/test_content/question_detail.jsp").forward(request, response);
@@ -121,22 +122,46 @@ public class AddQuestionController extends HttpServlet {
                             realPathWeb = realPath.substring(0, realPath.indexOf("build"));
                             realPathWeb += "web\\media\\video";
                             break;
-                        default:
+                        case 3:
                             realPath = request.getServletContext().getRealPath("/media/audio");
                             realPathWeb = realPath.substring(0, realPath.indexOf("build"));
                             realPathWeb += "web\\media\\audio";
+                            break;
+                        default:
                             break;
                     }
                     QuestionDBContext dbQuestion = new QuestionDBContext();
                     int questionID = dbQuestion.insertQuestion(rawQuestionContent, mediaURL.getSubmittedFileName(), lessonID, dimensionID, levelID, rawExplanation, mediaID, rawMediaType, 1, answers);
                     String fileName = "question_media_" + questionID + rawMediaType;
-                    UploadFile.copyPartToFile(mediaURL, realPath + "/" + fileName);
-                    UploadFile.copyPartToFile(mediaURL, realPathWeb + "/" + fileName);
+                    if (mediaID != 4) {
+                        UploadFile.copyPartToFile(mediaURL, realPath + "/" + fileName);
+                        UploadFile.copyPartToFile(mediaURL, realPathWeb + "/" + fileName);
+                    }
+                    response.sendRedirect("viewquestion?questionID=" + questionID);
                 }
             } else {
-
+                TopicDBContext dbTopic = new TopicDBContext();
+                DimensionDBContext dbDimension = new DimensionDBContext();
+                int courseID = Integer.parseInt(request.getParameter("courseID"));
+                ArrayList<Topic> topics = dbTopic.getTopics(courseID);
+                ArrayList<Dimension> dimensions = dbDimension.getDimensionsByCourseID(courseID);
+                request.setAttribute("topics", topics);
+                request.setAttribute("courseID", courseID);
+                request.setAttribute("dimensions", dimensions);
+                request.setAttribute("message", WRONGFILETYPE);
+                request.getRequestDispatcher("/view/test_content/question_detail.jsp").forward(request, response);
             }
         } else {
+            TopicDBContext dbTopic = new TopicDBContext();
+            DimensionDBContext dbDimension = new DimensionDBContext();
+            int courseID = Integer.parseInt(request.getParameter("courseID"));
+            ArrayList<Topic> topics = dbTopic.getTopics(courseID);
+            ArrayList<Dimension> dimensions = dbDimension.getDimensionsByCourseID(courseID);
+            request.setAttribute("topics", topics);
+            request.setAttribute("courseID", courseID);
+            request.setAttribute("dimensions", dimensions);
+            request.setAttribute("message", MISSINGINPUT);
+            request.getRequestDispatcher("/view/test_content/question_detail.jsp").forward(request, response);
         }
 
     }

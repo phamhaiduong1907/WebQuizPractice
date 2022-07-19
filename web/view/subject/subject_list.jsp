@@ -18,7 +18,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/subject/list.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
@@ -137,65 +136,17 @@
             </section>
 
             <!-- RIGHT -->
-            <section class="option__box">
-                <div class="option__filter">
-                    <div class="option__searchbar">
-                        <form action="coursesearch" method="GET">
-                            <input type="text" name="search" placeholder="Type something to search...">
-                            </div>
-                            <div class="option__checkbox">
-                                <h3>Category: </h3>
-                                <div class="option__options-value">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <c:forEach items="${requestScope.categories}" var="cate">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        <input type="checkbox" onclick="checkAllBox(this, ${cate.categoryID})">&emsp;<span>${cate.categoryName}</span>
-                                                    </button>
-                                                </h2>
-                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body">
-                                                        <c:forEach items="${cate.subcategories}" var="sc">
-                                                            <div class="subcategory">
-                                                                <input type="checkbox" class="${cate.categoryID}" name="subcategory" value="${sc.subcategoryID}"> <span>${sc.subcategoryName}</span>
-                                                            </div>
-                                                        </c:forEach></div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="option__sort">
-                                <select name="sort">
-                                    <option selected disabled>Sort by:</option>
-                                    <option value="DESC">Date added(newest)</option>
-                                    <option value="ASC">Date added(oldest)</option>
-                                </select>
-                            </div>
-                            <div class="search__button">
-                                <button type="submit">Search</button>
-                            </div>
-                            <div class="contact__link">
-                                <a href="mailto:yourquizwebsite@gmail.com">Contact Information</a>
-                            </div>
-                        </form>
-                    </div>
-            </section>
+            <jsp:include page="${pageContext.request.contextPath}../../view/searchsider.jsp"/>
         </div>
-        <!-- POPUP REGISTER -->
-
-        <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
-
-
+        <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
         <script src="${pageContext.request.contextPath}/js/registerPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/script.js"></script>
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script src="${pageContext.request.contextPath}/js/profile.js"></script>
         <script src="${pageContext.request.contextPath}/js/changepass.js"></script>
+        <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
         <script src="${pageContext.request.contextPath}/js/customer/customerRegistration.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
@@ -206,13 +157,11 @@
 
             <c:forEach items="${requestScope.courses}" var="c">
                 <c:if test="${c.isRegistered == true}">
-                                                            disableButton("${c.courseID}button");
+                                    disableButton("${c.courseID}button");
 
                 </c:if>
             </c:forEach>
         </script>
-
-
         <script>pagger("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}");</script>
     </body>
 

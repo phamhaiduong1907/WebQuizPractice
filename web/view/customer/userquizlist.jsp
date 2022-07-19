@@ -45,7 +45,6 @@
 
     <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-
     <section class="main-container">
         <!-- RIGHT CONTENT -->
         <aside class="main-content">
@@ -150,7 +149,8 @@
         table.innerHTML = result;
         </c:if>
     </script>
-    <script src="js/userPopup.js"></script>
+    <script src="${pageContext.request.contextPath}/js/customer/customerRegistration.js"></script>
+    <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
     <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
     <script src="${pageContext.request.contextPath}/js/profile.js"></script>

@@ -295,7 +295,7 @@ public class QuizDBContext extends DBContext {
                     + "WHERE username = ?\n"
                     + "AND validFrom <= GETDATE()\n"
                     + "AND GETDATE() <= validTo)\n"
-                    + "AND quizTypeID = 1 and ownertype = 1";
+                    + "AND quizTypeID = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
             ResultSet rs = stm.executeQuery();

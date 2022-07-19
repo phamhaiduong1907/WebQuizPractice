@@ -98,7 +98,6 @@
 
 
             <div id="pagination" class="pagination"></div>
-
         </section>
 
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
@@ -106,6 +105,7 @@
 
         <script src="${pageContext.request.contextPath}/js/pagination.js"></script>
         <script>paggerLesson("pagination", ${requestScope.pageindex}, ${requestScope.totalpage}, 3, "${requestScope.url}", "${requestScope.querystring}", ${requestScope.course.courseID});</script>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />
     </body>
 

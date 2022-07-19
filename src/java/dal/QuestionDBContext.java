@@ -38,7 +38,7 @@ public class QuestionDBContext extends DBContext {
                     + "      ,[dimensionID]\n"
                     + "      ,[levelID]\n"
                     + "      ,[explanation]\n"
-                    + "      ,[mediaID]\n"
+                    + "      ,[mediaID], courseID\n"
                     + "FROM [dbo].[Question]\n"
                     + "WHERE questionID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -50,6 +50,7 @@ public class QuestionDBContext extends DBContext {
                 DimensionDBContext dbDimension = new DimensionDBContext();
                 MediaTypeDBContext dbMediaType = new MediaTypeDBContext();
                 AnswerDBContext dbAnswer = new AnswerDBContext();
+                question.setCourse(new CourseDBContext().getCourse(rs.getInt("courseID")));
                 question.setQuestionID(rs.getInt("questionID"));
                 question.setQuestionContent(rs.getString("questionContent"));
                 question.setStatus(rs.getBoolean("status"));
@@ -92,8 +93,14 @@ public class QuestionDBContext extends DBContext {
                 + "           ,?)\n"
                 + "\n"
                 + "DECLARE @id1 AS int SET @id1 = (SELECT SCOPE_IDENTITY());\n"
+                + "DECLARE @mediaID1 AS int SET @mediaID1 = (SELECT mediaID FROM Question WHERE questionID = @id1)\n"
+                + "IF @mediaID1 != 4\n"
                 + "UPDATE Question\n"
                 + "SET mediaURL = 'question_media_' + CAST(@id1 AS varchar(max)) + ?\n"
+                + "WHERE questionID = @id1\n"
+                + "ELSE \n"
+                + "UPDATE Question\n"
+                + "SET mediaURL = NULL\n"
                 + "WHERE questionID = @id1";
         String sql_insert_answer = "INSERT INTO [dbo].[Answer]\n"
                 + "           ([questionID]\n"
@@ -592,7 +599,7 @@ public class QuestionDBContext extends DBContext {
             while (rs.next()) {
                 Question question = new Question();
                 question = getQuestion(rs.getInt("questionID"));
-                
+
                 questions.add(question);
             }
         } catch (SQLException ex) {
