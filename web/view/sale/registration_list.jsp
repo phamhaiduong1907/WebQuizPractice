@@ -57,7 +57,7 @@
                     </datalist>
                     &emsp;
                     <label for="from">Date: </label>
-                    <input id="from" type="date" name="from" value="${requestScope.fromDate}"> - <input onchange="dateCheck()" id="to" type="date" name="to" value="${requestScope.toDate}">
+                    <input id="from" type="date" name="from" > - <input onchange="dateCheck()" id="to" type="date" name="to">
                     &emsp;
                     <script>
                         function dateCheck() {

@@ -49,9 +49,16 @@
                             </c:forEach>
                         </select>
                     </form>
-                    <a class="newlink" href="#">New Practice</a>
-                    <a class="newlink" href="#">Simulation Exam</a>
+                    <a class="newlink" href="practicedetail">New Practice</a>
+                    <a class="newlink" href="quizlist">Simulation Exam</a>
                     <table id="table">
+                        <c:if test="${requestScope.list.isEmpty() == true}">
+                            <tr>
+                                <td colspan="5">
+                                    <h1 style="font-size: 50px; color: red;">NO RESULT! TAKE SOME QUIZ FIRST</h1>
+                                </td>
+                            </tr>
+                        </c:if>
                         <c:forEach items="${requestScope.list}" var = "c">
                             <tr>
                                 <td>
