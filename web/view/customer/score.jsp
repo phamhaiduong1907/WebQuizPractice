@@ -28,7 +28,7 @@
                     <input type="text" class="form-control" readonly value="${requestScope.rightQuestion}">
                 </div>
                 <div class="form-group">
-                    <label for="">Total mark: </label>
+                    <label for="">Total mark:  (Pass mark is ${requestScope.qh.quizID.passRate}) </label>
                     <input type="text" class="form-control" readonly value="${requestScope.qh.mark}">
                 </div>
                 <div class="form-group">
@@ -38,12 +38,15 @@
 
                 <c:choose>
                     <c:when test="${requestScope.qh.mark >= requestScope.quiz.passRate}">
-                        <p>Congrats you have passed the test</p>
+                        <p class="paid">Congrats you have passed the test</p>
                     </c:when>
                     <c:otherwise>
-                        <p>Better luck next time</p>
+                        <p class="submitted">Better luck next time</p>
                     </c:otherwise>
                 </c:choose>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"><a class="review_link" href="quizreview?quizHistoryID=${requestScope.qh.quizHistoryID}">Review</a></button>
+                </div>    
 
             </div>
         </div>

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Course;
 import model.TakenUserQuiz;
 
@@ -64,8 +65,10 @@ public class PracticeListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = "hunglnhe161003@fpt.edu.vn";
-        ArrayList<TakenUserQuiz> list = tdbc.getListFromUser(username);
-        ArrayList<Course> courses = cdbc.getUserCourse(username);
+        Account account = (Account) request.getSession().getAttribute("account");
+
+        ArrayList<TakenUserQuiz> list = tdbc.getListFromUser(account.getUsername());
+        ArrayList<Course> courses = cdbc.getUserCourse(account.getUsername());
         request.setAttribute("list", list);
         request.setAttribute("courses", courses);
         request.getRequestDispatcher("view/customer/practicelist.jsp").forward(request, response);

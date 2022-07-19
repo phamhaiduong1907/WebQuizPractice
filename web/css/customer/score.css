@@ -18,3 +18,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding: 20px;
 
 }
+.review_link{
+    color: white;
+    text-decoration: none;
+}
+.review_link:hover{
+    text-decoration: none!important;
+    color: white;
+}

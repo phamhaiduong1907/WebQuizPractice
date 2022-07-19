@@ -19,6 +19,7 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        
 
     </head>
     <body>
@@ -80,7 +81,7 @@
                 <div class="peekReview">
 
                     <c:if  test="${requestScope.quiz.quizType.quizTypeID == 2}">
-                        <button type="button"  data-toggle="modal" data-target="#peekAnswer">Peek at answer</button>
+                        <button type="button"  data-toggle="modal" data-target="#peekAnswer" class="peek__button">Peek at answer</button>
                     </c:if>
                     <div class="review">
                         <label>Mark for review</label>
@@ -119,31 +120,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Review progress</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <p>Review before scoring exam</p>
                     <div class="button_wrapper">
-                        <div>
-                            <button value="1" class="button__filter"> <i class="fa-regular fa-square"></i>  UNANSWERED</button>
-                            <button value="2" class="button__filter"> <i class="fa-solid fa-lightbulb"></i> MARKED</button>
-                            <button value="3" id="answered" class="button__filter"> <i class="fa-solid fa-square"></i> ANSWERED</button>
-                            <button value="4"  class="button__filter">ALL QUESTIONS</button>
+                        <div class="button__list">
+                            <button value="1" id="btnUnanswered" onclick="activeButton('btnUnanswered')" class="button__filter"> <i class="fa-regular fa-square"></i>  UNANSWERED</button>
+                            <button value="2" id="btnMark" onclick="activeButton('btnMark')" class="button__filter"> <i class="fa-solid fa-lightbulb"></i> MARKED</button>
+                            <button value="3" id="answered" style="background-color: white;" onclick="activeButton('answered')" class="button__filter"> <i class="fa-solid fa-square"></i> ANSWERED</button>
+                            <button value="4" id="btnAll" onclick="activeButton('btnAll')"  class="button__filter button__active">ALL QUESTIONS</button>
                         </div>
 
                         <div>
-                            <button data-toggle="modal" data-target="#scoreExamPopUp"">Score exam now</button>
+                            <button class="submit__button" data-toggle="modal" data-target="#scoreExamPopUp"">Score exam now</button>
                         </div>
                     </div>
 
 
                     <div class="question_wrapper" id="question_wrapper">
                         <c:forEach items="${rquestions}" var="r">
-                            <div class="question__box" id="<c:choose><c:when test="${r.isAnswered}">answered</c:when></c:choose>" >
+                            <div class="question__box" class="<c:choose><c:when test="${r.isAnswered}">answered</c:when></c:choose>" >
                                 <p> ${r.isMarked?'<i class="fa-solid fa-lightbulb"></i>':""} <a href="qhandle?order=${r.order}&qhid=${param.qhid}">${r.order }</a></p>
                             </div>
-
-
                         </c:forEach>
 
                     </div>
@@ -190,7 +188,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <form action="score" method="POST" id="scoreForm">
-                        <button type="submit" onclick="document.getElementById('answerForm').submit();">Score exam</button>
+                        <button type="submit" class="submit__button" onclick="document.getElementById('answerForm').submit();">Score exam</button>
                         <input type="hidden" name="qhid" value="${param.qhid}">
                     </form>
 
@@ -209,7 +207,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Peek answer</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div>
@@ -311,7 +308,7 @@
                                     url: "filteranswer",
                                     type: 'POST',
                                     dataType: 'html',
-                                    data: {ID: categoryID, qhid: ${param.qhid}, quizID :${requestScope.quiz.quizID}},
+                                    data: {ID: categoryID, qhid: ${param.qhid}, quizID:${requestScope.quiz.quizID}},
                                 })
                                         .done(function (data) {
                                             $('#question_wrapper').html(data);
@@ -324,8 +321,15 @@
                                         });
 
                             });
+                            
+                            function activeButton(element){
+                                let current = document.querySelector('.button__list .button__active');
+                                current.className = current.className.replace('button__active','');
+                                document.getElementById(element).className += ' button__active';
+                            }
+                            
 
-
+                          
 
     </script>
 

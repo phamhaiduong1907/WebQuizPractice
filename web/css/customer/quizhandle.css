@@ -138,5 +138,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .review{
     margin-left: 30px;
+    display: flex;
+    align-items: center;
 }
+
+input[type='checkbox'] {
+    margin: 0px 10px 0px 10px;
+    width:30px;
+    height:30px;
+}
+
+.answer__detail{
+    display: flex;
+    align-items: center;
+}
+
+.button__active{
+    background-color: #9de900 !important;
+}
+
+
+.button__filter{
+    margin: 5px;
+    border-radius: 0.8rem;
+
+}
+
+.question__box p{
+    margin: 0px !important;
+    padding: 0px !important;
+
+}
+
+.submit__button{
+    background-color: #04AA6D;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 10px;
+    border-color: white;
+}
+
+.question__box a:hover{
+    text-decoration: none!important;
+}
+
+.peek__button{
+    background-color: #f3f3c6;
+    border-radius: 5px;
+    color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 10px;
+    border-color: white;
+}
+
+
 

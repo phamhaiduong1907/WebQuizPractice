@@ -117,7 +117,7 @@ public class CourseDBContext extends DBContext {
         int total = 0;
         try {
             String sql = "SELECT COUNT(*) AS Total\n"
-                    + "FROM Course";
+                    + "FROM Course where status = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
