@@ -87,8 +87,8 @@
                 </form>
                 <br>
                 <a class="newlink" href="../sale/registrationedit">Add new <i class="fa-solid fa-plus"></i></a>
-                <c:choose>
-                    <c:when test="${requestScope.list.size() == 0}">
+                    <c:choose>
+                        <c:when test="${requestScope.list.size() == 0}">
                         <h2>There are no matching result! Please try another keyword.</h2>
                     </c:when>
                     <c:otherwise>
@@ -141,13 +141,13 @@
                 <br>
             </div>
 
-            <footer>
-                FOOTER
-            </footer>
+
         </aside>
     </section>
+    <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
 
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
     <script type="text/javascript">

@@ -12,7 +12,7 @@
     <div class="option__filter">
         <div class="option__searchbar">
             <form action="coursesearch" method="GET">
-                <input type="text" name="search" placeholder="Type something to search...">
+                <input type="text" name="search" placeholder="Enter name to search...">
                 </div>
                 <div class="option__checkbox">
                     <h3>Category: </h3>

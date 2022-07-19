@@ -41,7 +41,6 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Description</th>
-                            <th>NoL</th>
                             <th>Owner</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -56,7 +55,6 @@
                                 <td>
                                     <p> ${c.description} </p>
                                 </td>
-                                <td>0</td>
                                 <td>${c.owner}</td>
                                 <td>${c.status?"Published":"Unpublished"}</td>
                                 <td>

@@ -91,7 +91,7 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#" class="nav__item">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/home" class="nav__item">Dashboard</a></li>
                     <li><a href="${pageContext.request.contextPath}/slider/list" class="nav__item">Slider</a></li>
                     <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
 
@@ -128,7 +128,7 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/home" class="nav__item">Dashboard</a></li>
                     <li><a href="${pageContext.request.contextPath}/slider/list" class="nav__item">Slider</a></li>
                     <li><a href="${pageContext.request.contextPath}/marketing/bloglist?search=" class="nav__item">Blog</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/userlist" class="nav__item">Userlist</a></li>
@@ -169,7 +169,7 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/home" class="nav__item">Dashboard</a></li>
                     <li><a href="${pageContext.request.contextPath}/sale/registrationlist" class="nav__item">Sale</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
@@ -204,7 +204,7 @@
             </a>
             <nav>
                 <ul class="nav__links">
-                    <li><a href="#" class="nav__item">Dashboard</a></li>
+                    <li><a href="${pageContext.request.contextPath}/home" class="nav__item">Dashboard</a></li>
                     <li><a href="${pageContext.request.contextPath}/managesubject" class="nav__item">Subject</a></li>
                     <li><a href="${pageContext.request.contextPath}/test/questionlist" class="nav__item">Question</a></li>
 

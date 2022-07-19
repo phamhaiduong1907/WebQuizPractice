@@ -20,7 +20,7 @@ import model.Category;
 import model.Course;
 import model.ErrorMessage;
 import model.PricePackage;
-import org.apache.tomcat.util.http.parser.Authorization;
+//import org.apache.tomcat.util.http.parser.Authorization;
 
 /**
  *
