@@ -24,12 +24,7 @@
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
-        <ul class="breadcrumb">
-            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
-            <li><a href="#">Subject detail</a></li>
 
-        </ul> 
         <div class="content">
             <form method="POST" action="editquestion" enctype="multipart/form-data">
                 <input type="hidden" value="${requestScope.question.questionID}" name="questionID">
@@ -101,8 +96,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -115,8 +110,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button style="display: none;" name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -133,8 +128,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -147,8 +142,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button style="display: none;" name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -158,7 +153,7 @@
                                 <% int i = 2;%>
                                 <c:forEach items="${requestScope.question.answers}" var="a" begin="2">
                                     <% i++;%>
-                                    <div id="answer__details__<%=i%>" class="row">
+                                    <div id="answer__details__<%=i%>" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -167,8 +162,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -181,8 +176,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button disabled onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove' id="remove_item" data-id="<%=i%>">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button disabled onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove remove__answer' id="remove_item" data-id="<%=i%>">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>

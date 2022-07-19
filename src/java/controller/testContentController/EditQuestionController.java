@@ -154,9 +154,44 @@ public class EditQuestionController extends HttpServlet {
                             UploadFile.copyPartToFile(mediaURL, realPathWeb + "/" + fileName);
                         }
                         response.sendRedirect("viewquestion?questionID=" + questionID);
+                    } else if (mediaURL.getSize() == 0) {
+                        QuestionDBContext dbQuestion = new QuestionDBContext();
+                        Question question = dbQuestion.getQuestion(questionID);
+                        String media = question.getMediaURL();
+                        String[] part = media.split("\\.");
+                        questionID = dbQuestion.updateQuestion(questionID, rawQuestionContent, question.getMediaURL(), lessonID, dimensionID, levelID, rawExplanation, mediaID, "." + part[1], 1, answers);
+                        response.sendRedirect("viewquestion?questionID=" + questionID);
+                    } else {
+                        TopicDBContext dbTopic = new TopicDBContext();
+                        DimensionDBContext dbDimension = new DimensionDBContext();
+                        QuestionDBContext dbQuestion = new QuestionDBContext();
+                        LevelDBContext dbLevel = new LevelDBContext();
+                        Question question = dbQuestion.getQuestion(questionID);
+                        ArrayList<Topic> topics = dbTopic.getTopics(question.getCourse().getCourseID());
+                        ArrayList<Level> levels = dbLevel.getAllLevel();
+                        ArrayList<Dimension> dimensions = dbDimension.getDimensionsByCourseID(question.getCourse().getCourseID());
+                        request.setAttribute("topics", topics);
+                        request.setAttribute("dimensions", dimensions);
+                        request.setAttribute("question", question);
+                        request.setAttribute("levels", levels);
+                        request.setAttribute("message", "Missing media file");
+                        request.getRequestDispatcher("/view/test_content/question_edit.jsp").forward(request, response);
                     }
                 } else {
-
+                    TopicDBContext dbTopic = new TopicDBContext();
+                    DimensionDBContext dbDimension = new DimensionDBContext();
+                    QuestionDBContext dbQuestion = new QuestionDBContext();
+                    LevelDBContext dbLevel = new LevelDBContext();
+                    Question question = dbQuestion.getQuestion(questionID);
+                    ArrayList<Topic> topics = dbTopic.getTopics(question.getCourse().getCourseID());
+                    ArrayList<Level> levels = dbLevel.getAllLevel();
+                    ArrayList<Dimension> dimensions = dbDimension.getDimensionsByCourseID(question.getCourse().getCourseID());
+                    request.setAttribute("topics", topics);
+                    request.setAttribute("dimensions", dimensions);
+                    request.setAttribute("question", question);
+                    request.setAttribute("levels", levels);
+                    request.setAttribute("message", "Missing media file");
+                    request.getRequestDispatcher("/view/test_content/question_edit.jsp").forward(request, response);
                 }
             } else {
                 TopicDBContext dbTopic = new TopicDBContext();
@@ -191,7 +226,6 @@ public class EditQuestionController extends HttpServlet {
             request.setAttribute("message", MISSINGINPUT);
             request.getRequestDispatcher("/view/test_content/question_edit.jsp").forward(request, response);
         }
-
     }
 
     /**

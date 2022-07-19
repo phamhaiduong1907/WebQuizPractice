@@ -46,7 +46,7 @@ thead, tbody{
     margin: 0!important;
 }
 
-form{
+.form{
     display: flex;
     align-items: center;
 }

@@ -25,20 +25,18 @@
 
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-        <ul class="breadcrumb">
-            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
-            <li><a href="#">Subject detail</a></li>
 
-        </ul> 
 
         <ul class="breadcrumb nav">
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail?id=${requestScope.course.courseID}" class="addlink headnav currentnav">Overview</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/pricepackagedetail?id=${requestScope.course.courseID}" class="addlink headnav">Price Package</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/dimension?id=${requestScope.course.courseID}" class="addlink headnav">Dimension</a></li>
             <li><a href="${pageContext.request.contextPath}/managesubject/subjectdetail/topiclist?id=${requestScope.course.courseID}" class="addlink headnav ">Topic</a></li>
-
         </ul>  
+
+        <div class="addquestion">
+            <a class="addlink_ver2" href="${pageContext.request.contextPath}/addquestion?courseID=${requestScope.course.courseID}">Add question</a>
+        </div>
 
 
         <div class="content">
@@ -69,7 +67,7 @@
                             </div>
                             <div class="form-group ">
                                 <label for="">Tag line:</label>
-                                <input readonly type="text" class="form-control" name="briefInfo" value="${requestScope.course.tagline}"/>
+                                    <input readonly type="text" class="form-control" name="briefInfo" value="${requestScope.course.tagline}"/>
 
                         </div>
                         <div class="form-group ">

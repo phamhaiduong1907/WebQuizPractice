@@ -38,12 +38,7 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
         <div class="right_content">
-            <ul class="breadcrumb">
-                <li><a href="../home">Home</a></li>
-                <li><a href="bloglist?search=">Post list</a></li>
-                <li><a href="#">Post detail</a></li>
-
-            </ul>
+         
         </div>
         <section class="main">
             <!-- LEFT NAVIGATION BAR -->

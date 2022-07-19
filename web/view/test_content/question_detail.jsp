@@ -23,11 +23,6 @@
         <body>
             <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-            <ul class="breadcrumb">
-                <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/managesubject">Subject list</a></li>
-                <li><a href="#">Subject detail</a></li>
-            </ul> 
             <div class="content">
                 <c:if test="${requestScope.message != null}">
                     <div>${requestScope.message}</div>
@@ -83,8 +78,8 @@
                                                 <td class="col-6">
                                                     <input required type="text" class="form-control" name="answer">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <input type="checkbox" name="istrue" value="1_istrue">
@@ -106,8 +101,8 @@
                                                 <td class="col-6">
                                                     <input required type="text" class="form-control" name="answer">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <input type="checkbox" name="istrue" value="2_istrue">

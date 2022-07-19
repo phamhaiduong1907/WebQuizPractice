@@ -91,7 +91,7 @@ input[type=checkbox][disabled]{
     width: 0;
     height: 0;
     border-left: 15px solid orange;
-    border-top: 15px solid transparent;
+    border-top: 15px solid transparent;     
     border-bottom: 15px solid transparent;
 }
 

@@ -73,7 +73,7 @@ public class ForgotPasswordController extends HttpServlet {
             EmailUtils emailUtils = new EmailUtils();
             String token = emailUtils.createToken(username);
 
-            sb.append("http://localhost:1907/SWP391-SE1617-NET_Group06-QuizWebsite/forgotPasswordNext?token="
+            sb.append("http://localhost:9999/SWP391-SE1617-NET_Group06-QuizWebsite/forgotPasswordNext?token="
                     + token);
             email.setContent(sb.toString());
 
