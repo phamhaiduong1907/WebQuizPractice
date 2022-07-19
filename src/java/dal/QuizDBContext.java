@@ -260,13 +260,24 @@ public class QuizDBContext extends DBContext {
 
     public Boolean delQuiz(int ID) {
         try {
-            String sql = "delete from [Quiz] where [QuizID] = ?";
+            String sql = "DELETE FROM [QuizQuestion]\n"
+                    + "      WHERE [quizID] = ?;\n"
+                    + "\n"
+                    + "DELETE FROM [Quiz]\n"
+                    + "      WHERE [quizID] = ?;";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, ID);
+            stm.setInt(2, ID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuizDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }

@@ -18,21 +18,21 @@
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/test_content/question_view.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/test_content/question_edit.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
 
-     
+
         <div class="content">
             <c:if test="${requestScope.message != null}">
                 <div class="error_message">${requestScope.message}</div>
             </c:if>
             <form id="question__form" method="POST" action="editquestion" enctype="multipart/form-data">
                 <input type="hidden" value="${requestScope.question.questionID}" name="questionID">
-                <input type="hidden" value="${requestScope.question.mediaURL}" name="mediaURl">
+                <input type="hidden" value="${requestScope.question.mediaURL}" name="oldmediaURL">
                 <div class="upperpart row">
                     <div class="upperpart__left col-md-6" >
                         <div class="form-group">
@@ -56,11 +56,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Lesson: </label>
-                            <select class="form-control" name="lessonID">
-                                <option value="1">Topic 1</option>
-                                <option value="2">Topic 2</option>
-                                <option value="3">Topic 3</option>
-                            </select>
+                            <div id="lesson"> 
+                                <select required class="form-control" name="lessonID">
+                                </select>
+                            </div>
+
                         </div>
                         <div class="form-group">
                             <label for="">Dimension: </label>
@@ -95,7 +95,7 @@
                         <div class="row col-md-10 answer__detail">
                             <div class="col-lg-12 form-control">
                                 <c:forEach items="${requestScope.question.answers}" var="a" end="0">
-                                    <div id="answer__details__1" class="row">
+                                    <div id="answer__details__1" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -104,7 +104,7 @@
                                                 <td>
                                                     <input type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
+                                                <td class="col-2 istrue__label">
                                                     <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
@@ -118,8 +118,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button style="display: none;" name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -127,7 +127,7 @@
                                     </div>
                                 </c:forEach>
                                 <c:forEach items="${requestScope.question.answers}" var="a" begin="1" end="1">
-                                    <div id="answer__details__2" class="row">
+                                    <div id="answer__details__2" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -136,7 +136,7 @@
                                                 <td>
                                                     <input type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
+                                                <td class="col-2 istrue__label">
                                                     <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
@@ -161,7 +161,7 @@
                                 <% int i = 2;%>
                                 <c:forEach items="${requestScope.question.answers}" var="a" begin="2">
                                     <% i++;%>
-                                    <div id="answer__details__<%=i%>" class="row">
+                                    <div id="answer__details__<%=i%>" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -171,7 +171,7 @@
                                                     <input type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    <span class="istrue  istrue__label">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -184,8 +184,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove' id="remove_item" data-id="<%=i%>">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove remove__answer' id="remove_item" data-id="<%=i%>">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -213,40 +213,48 @@
                                         <option selected="selected" value="1">Picture</option>
                                         <option value="3">Audio</option>
                                         <option value="2">Video</option>
+                                        <option value="4">No media</option>
                                     </c:when>
                                     <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
                                         <option value="1">Picture</option>
                                         <option value="3">Audio</option>
                                         <option selected="selected" value="2">Video</option>
+                                        <option value="4">No media</option>
                                     </c:when>
-                                    <c:otherwise>
+                                    <c:when test="${requestScope.question.mediaType.mediaID == 3}">
                                         <option value="1">Picture</option>
                                         <option selected="selected" value="3">Audio</option>
                                         <option value="2">Video</option>
+                                        <option value="4">No media</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="1">Picture</option>
+                                        <option value="3">Audio</option>
+                                        <option value="2">Video</option>
+                                        <option selected="selected" value="4">No media</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
                         </div>
-                        <div class="media__preview">
+                        <div id="media__preview">
                             <c:choose>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 1}">
-                                    <img id="image__preview" class="image__preview__data" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
+                                    <img id="image__preview__data" class="image__preview__data col-md-12" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
-                                    <video id="video__preview" class="video__preview__data" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
+                                    <video id="video__preview__data" class="video__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
 
                                     </video>
                                 </c:when>
-                                <c:otherwise>
-                                    <audio id="audio__preview" class="audio__preview__data" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
+                                <c:when test="${requestScope.question.mediaType.mediaID == 3}">
+                                    <audio id="audio__preview__data" class="audio__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
 
                                     </audio>
-                                </c:otherwise>
+                                </c:when>
                             </c:choose>
-                            <i id="upload__icon" class="fa-solid fa-upload"></i>
-                            <img id="image__preview" class="image__preview">
-                            <audio id="audio__preview" class="audio__preview" controls></audio>
-                            <video id="video__preview" class="video__preview" controls></video>
+                            <img id="image__preview" class="image__preview col-md-12">
+                            <audio id="audio__preview" class="audio__preview col-md-12" controls></audio>
+                            <video id="video__preview" class="video__preview col-md-12" controls></video>
                         </div>
                         <input disabled id="file__input" type="file" name="mediafile" value="${requestScope.question.mediaURL}">
                     </div>
@@ -258,6 +266,34 @@
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
         <script src="../../js/userPopup.js"></script>
-        <script src="${pageContext.request.contextPath}/js/test_content/addquestion.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/test_content/editquestion.js" type="text/javascript"></script>
+        <script>
+                                $(document).on('change', '#topicID', function (event) {
+                                    var topicID = this.value;
+                                    $.ajax({
+                                        url: "getlessonbytopic",
+                                        type: 'POST',
+                                        dataType: 'html',
+                                        data: {ID: topicID},
+                                    })
+                                            .done(function (data) {
+                                                $('#lesson').html(data);
+                                            })
+                                            .fail(function (error) {
+                                                $('#lesson').html("<h1>error</h1>");
+                                            })
+                                            .always(function () {
+
+                                            });
+
+                                });
+                                var loadFile = function (event) {
+                                    var output = document.getElementById('output');
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                    output.onload = function () {
+                                        URL.revokeObjectURL(output.src) // free memory
+                                    }
+                                };
+        </script>
     </body>
 </html>

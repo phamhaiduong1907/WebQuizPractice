@@ -74,11 +74,11 @@ public class RegistrationEditController extends AuthorizationController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        User loginUser = (User) request.getSession().getAttribute("user");
-//        if (loginUser == null || loginUser.getAccount().getRole().getRoleID() != 3) {
-//            request.setAttribute("mess", "You do not have permission to access this site!");
-//            request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
-//        }
+        User loginUser = (User) request.getSession().getAttribute("user");
+        if (loginUser == null || loginUser.getAccount().getRole().getRoleID() != 3) {
+            request.setAttribute("mess", "You do not have permission to access this site!");
+            request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
+        }
 
         int Id;
         CourseDBContext cdbc = new CourseDBContext();
@@ -90,10 +90,10 @@ public class RegistrationEditController extends AuthorizationController {
         if (request.getParameter("id") != null) {
             Id = Integer.parseInt(request.getParameter("id"));
             Registration r = rdbc.getARegistration(Id);
-//            if (!r.getUpdatedBy().getAccount().getUsername().equalsIgnoreCase(loginUser.getAccount().getUsername())) {
-//                request.setAttribute("mess", "You do not have permission to edit this registration!");
-//                request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
-//            }
+            if (!r.getUpdatedBy().getAccount().getUsername().equalsIgnoreCase(loginUser.getAccount().getUsername())) {
+                request.setAttribute("mess", "You do not have permission to edit this registration!");
+                request.getRequestDispatcher("../view/sale/notice.jsp").forward(request, response);
+            }
             Course course = cdbc.getCourseByCourseID(r.getCourse().getCourseID(), null);
             User u = r.getUser();
             PricePackageDBContext pdbc = new PricePackageDBContext();

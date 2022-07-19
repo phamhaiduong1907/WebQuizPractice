@@ -24,7 +24,7 @@
     </head>
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
-       
+
         <div class="content">
             <form method="POST" action="editquestion" enctype="multipart/form-data">
                 <input type="hidden" value="${requestScope.question.questionID}" name="questionID">
@@ -96,8 +96,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -110,8 +110,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button style="display: none;" name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -128,8 +128,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -142,8 +142,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button style="display: none;" name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -153,7 +153,7 @@
                                 <% int i = 2;%>
                                 <c:forEach items="${requestScope.question.answers}" var="a" begin="2">
                                     <% i++;%>
-                                    <div id="answer__details__<%=i%>" class="row">
+                                    <div id="answer__details__<%=i%>" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -162,8 +162,8 @@
                                                 <td>
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
-                                                <td class="col-2">
-                                                    &emsp;<span class="istrue">Is True:</span>
+                                                <td class="col-2 istrue__label">
+                                                    <span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -176,8 +176,8 @@
                                                     </c:choose>
                                                 </td>
                                                 <td class="col-2">
-                                                    <button disabled onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove' id="remove_item" data-id="<%=i%>">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button disabled onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" style="display: block;" name="remove_item" class='remove remove__answer' id="remove_item" data-id="<%=i%>">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -231,15 +231,15 @@
                         <div class="media__preview">
                             <c:choose>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 1}">
-                                    <img id="image__preview__data" class="image__preview__data" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
+                                    <img id="image__preview__data" class="image__preview__data col-md-12" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
-                                    <video id="video__preview__data" class="video__preview__data" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
+                                    <video id="video__preview__data" class="video__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
 
                                     </video>
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 3}">
-                                    <audio id="audio__preview__data" class="audio__preview__data" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
+                                    <audio id="audio__preview__data" class="audio__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
 
                                     </audio>
                                 </c:when>

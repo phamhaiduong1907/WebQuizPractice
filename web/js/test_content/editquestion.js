@@ -2,6 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
+
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
+ */
 jQuery(document).ready(function () {
     var id = 2;
     jQuery('#add_item').click(function () {
@@ -91,4 +96,5 @@ file__input.onchange = function (e) {
         URL.revokeObjectURL(this.src);
     }
 }
+
 

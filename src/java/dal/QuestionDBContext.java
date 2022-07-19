@@ -26,7 +26,7 @@ import model.Question;
  * @author Hai Duong
  */
 public class QuestionDBContext extends DBContext {
-
+    
     public Question getQuestion(int questionID) {
         Question question = new Question();
         try {
@@ -50,7 +50,8 @@ public class QuestionDBContext extends DBContext {
                 DimensionDBContext dbDimension = new DimensionDBContext();
                 MediaTypeDBContext dbMediaType = new MediaTypeDBContext();
                 AnswerDBContext dbAnswer = new AnswerDBContext();
-                question.setCourse(new CourseDBContext().getCourse(rs.getInt("courseID")));
+                CourseDBContext dbCourse = new CourseDBContext();
+                question.setCourse(dbCourse.getCourse(rs.getInt("courseID")));
                 question.setQuestionID(rs.getInt("questionID"));
                 question.setQuestionContent(rs.getString("questionContent"));
                 question.setStatus(rs.getBoolean("status"));
@@ -67,9 +68,9 @@ public class QuestionDBContext extends DBContext {
         }
         return question;
     }
-
+    
     public int insertQuestion(String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
-
+        
         String generatedColumns[] = {"ID"};
         String sql_insert_question = "INSERT INTO [dbo].[Question]\n"
                 + "           ([questionContent]\n"
@@ -148,7 +149,7 @@ public class QuestionDBContext extends DBContext {
         }
         return -1;
     }
-
+    
     public void importQuestion(String questionContent, boolean status, String mediaURL, int courseID,
             int lessonID, int dimensionID, String explanation, Integer mediaID, int levelID, ArrayList<Answer> answers) {
         String sql_insert_question = "INSERT INTO [dbo].[Question]\n"
@@ -171,7 +172,7 @@ public class QuestionDBContext extends DBContext {
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?)";
-
+        
         String sql_insert_answer = "INSERT INTO [dbo].[Answer]\n"
                 + "           ([questionID]\n"
                 + "           ,[answerContent]\n"
@@ -180,7 +181,7 @@ public class QuestionDBContext extends DBContext {
                 + "           (?\n"
                 + "           ,?\n"
                 + "           ,?)";
-
+        
         PreparedStatement stm_insert_question = null;
         PreparedStatement stm_insert_answer = null;
         try {
@@ -200,7 +201,7 @@ public class QuestionDBContext extends DBContext {
             }
             stm_insert_question.setInt(9, levelID);
             stm_insert_question.executeUpdate();
-
+            
             int identity = new CommonDBContext().getIdentity("Question");
             for (Answer answer : answers) {
                 stm_insert_answer = connection.prepareStatement(sql_insert_answer);
@@ -225,7 +226,7 @@ public class QuestionDBContext extends DBContext {
             }
         }
     }
-
+    
     public boolean isLevelExisted(String level) {
         boolean isExisted = false;
         try {
@@ -243,7 +244,7 @@ public class QuestionDBContext extends DBContext {
         }
         return isExisted;
     }
-
+    
     public ArrayList<model.Level> getLevels() {
         ArrayList<model.Level> levels = new ArrayList<>();
         try {
@@ -261,7 +262,7 @@ public class QuestionDBContext extends DBContext {
         }
         return levels;
     }
-
+    
     public ArrayList<Integer> getIdRangeOfQuestion(String subjectName, String lesson, String dimension) {
         ArrayList<Integer> idRange = new ArrayList<>();
         try {
@@ -285,7 +286,7 @@ public class QuestionDBContext extends DBContext {
         }
         return idRange;
     }
-
+    
     public ArrayList<Question> getAllQuestionsForList() {
         ArrayList<Question> questions = new ArrayList<>();
         try {
@@ -325,7 +326,7 @@ public class QuestionDBContext extends DBContext {
         }
         return questions;
     }
-
+    
     public ArrayList<Question> searchQuestionsByAttributesForList(int subjectID, int dimensionID, int lessonID,
             Boolean status, int levelID, String content) {
         ArrayList<Question> questions = new ArrayList<>();
@@ -342,67 +343,67 @@ public class QuestionDBContext extends DBContext {
                     + "inner join [Level] l on l.levelID = q.levelID\n"
                     + "inner join Lesson les on les.lessonID = q.lessonID\n"
                     + "inner join Dimension d on d.dimensionID = q.dimensionID ";
-
+            
             String intersect = "\nintersect\n";
-
+            
             String sql_subject = " where c.courseID = ? ";
             String sql_dimension = " where d.dimensionID = ? ";
             String sql_lesson = " where les.lessonID = ? ";
             String sql_status = " where q.status = ? ";
             String sql_level = " where l.levelID = ? ";
             String sql_content = " where LOWER(q.questionContent) like ? ";
-
+            
             if (subjectID >= 1) {
                 sql += intersect + sql_base + sql_subject;
             }
-
+            
             if (dimensionID >= 1) {
                 sql += intersect + sql_base + sql_dimension;
             }
-
+            
             if (lessonID >= 1) {
                 sql += intersect + sql_base + sql_lesson;
             }
-
+            
             if (status != null) {
                 sql += intersect + sql_base + sql_status;
             }
-
+            
             if (levelID >= 1) {
                 sql += intersect + sql_base + sql_level;
             }
-
+            
             if (content != null && content.trim().length() != 0) {
                 sql += intersect + sql_base + sql_content;
             }
-
+            
             PreparedStatement stm = connection.prepareStatement(sql);
             int i = 1;
-
+            
             if (subjectID >= 1) {
                 stm.setInt(i++, subjectID);
             }
-
+            
             if (dimensionID >= 1) {
                 stm.setInt(i++, dimensionID);
             }
-
+            
             if (lessonID >= 1) {
                 stm.setInt(i++, lessonID);
             }
-
+            
             if (status != null) {
                 stm.setBoolean(i++, status);
             }
-
+            
             if (levelID >= 1) {
                 stm.setInt(i++, levelID);
             }
-
+            
             if (content != null && content.trim().length() != 0) {
                 stm.setString(i++, "%" + content + "%");
             }
-
+            
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Question question = new Question();
@@ -423,13 +424,13 @@ public class QuestionDBContext extends DBContext {
                 question.setLevel(level);
                 questions.add(question);
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return questions;
     }
-
+    
     public ArrayList<Lesson> getLessonsBySubjectID(int subjectID) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         try {
@@ -450,7 +451,7 @@ public class QuestionDBContext extends DBContext {
         }
         return lessons;
     }
-
+    
     public ArrayList<Dimension> getDimensionsBySubjectID(int subjectID) {
         ArrayList<Dimension> dimensions = new ArrayList<>();
         try {
@@ -467,10 +468,10 @@ public class QuestionDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return dimensions;
     }
-
+    
     public void changeQuestionStatus(int questionID, boolean status) {
         try {
             String sql = " update Question set [status] = ? where questionID = ? ";
@@ -482,7 +483,7 @@ public class QuestionDBContext extends DBContext {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public boolean getQuestionStatusByID(int questionID) {
         try {
             String sql = "select [status] from Question where questionID = ?";
@@ -497,7 +498,7 @@ public class QuestionDBContext extends DBContext {
         }
         return true;
     }
-
+    
     public int getLevelIDByName(String levelName) {
         try {
             String sql = "Select levelID from [Level] where LOWER(levelName) = ?";
@@ -512,9 +513,9 @@ public class QuestionDBContext extends DBContext {
         }
         return -1;
     }
-
+    
     public int updateQuestion(int questionID, String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
-
+        
         String sql_update_question = "UPDATE [dbo].[Question]\n"
                 + "   SET [questionContent] = ?\n"
                 + "      ,[status] = ?\n"
@@ -578,20 +579,20 @@ public class QuestionDBContext extends DBContext {
             }
         }
         return -1;
-
+        
     }
-
+    
     public ArrayList<Question> getQuestionsFromQuizQuestion(int quizID) {
         ArrayList<Question> questions = new ArrayList<>();
-
+        
         String sql = "select q.* from Question q join QuizQuestion qq\n"
                 + "on q.questionID = qq.questionID join Quiz qu \n"
                 + "on qu.quizID = qq.quizID\n"
                 + "where qq.quizID = ?";
-
+        
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, quizID);
@@ -599,14 +600,14 @@ public class QuestionDBContext extends DBContext {
             while (rs.next()) {
                 Question question = new Question();
                 question = getQuestion(rs.getInt("questionID"));
-
+                
                 questions.add(question);
             }
         } catch (SQLException ex) {
             Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return questions;
-
+        
     }
-
+    
 }
