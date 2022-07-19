@@ -30,7 +30,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -59,13 +59,15 @@
                     <li><a href="${pageContext.request.contextPath}/subjectList" class="nav__item">Subject</a></li>
                     <li><a href="${pageContext.request.contextPath}/bloglist" class="nav__item">Blog</a></li>
                     <li><a href="${pageContext.request.contextPath}/registrationsearch?search=" class="nav__item">Registration</a></li>
+                    <li><a href="${pageContext.request.contextPath}/practicelist" class="nav__item">Practice list</a></li>
+                    <li><a href="${pageContext.request.contextPath}/quizlist" class="nav__item">Quiz list</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -101,7 +103,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -140,7 +142,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -178,7 +180,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>
@@ -214,7 +216,7 @@
                         </c:if>
                         <c:if  test="${sessionScope.account != null}">
                         <li>
-                            <a href="#" class="nav__item nav__item__login">Hello, Hai Duong<i class="fa fa-caret-down"></i></a>
+                            <a href="#" class="nav__item nav__item__login">Hello, ${sessionScope.user.lastName}<i class="fa fa-caret-down"></i></a>
                             <ul class="submenu">
                                 <li class="submenu__item"><a href="#" id="openProfile">User Profile</a></li>
                                 <li class="submenu__item"><a href="#" id="openChangePassword">Change Password</a></li>

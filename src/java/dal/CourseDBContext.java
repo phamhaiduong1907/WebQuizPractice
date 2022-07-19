@@ -117,7 +117,7 @@ public class CourseDBContext extends DBContext {
         int total = 0;
         try {
             String sql = "SELECT COUNT(*) AS Total\n"
-                    + "FROM Course";
+                    + "FROM Course where status = 1";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -648,13 +648,14 @@ public class CourseDBContext extends DBContext {
         }
         return false;
     }
-    public ArrayList<Course> getCourseNameAndID(){
+
+    public ArrayList<Course> getCourseNameAndID() {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             String sql = "Select courseID, courseName from Course";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 Course course = new Course();
                 course.setCourseID(rs.getInt("courseID"));
                 course.setCourseName(rs.getString("courseName"));
@@ -666,7 +667,90 @@ public class CourseDBContext extends DBContext {
         return courses;
     }
 
-        public ArrayList<Course> getUserCourse(String username) {
+    public ArrayList<Course> getCoursesLearners() {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "select c.courseID, c.courseName, s.subCategoryName\n"
+                    + ",count(case when r.[status] is null or r.[status] \n"
+                    + "= 0 then null else 1 end) as learners\n"
+                    + "from Course c inner join SubCategory s\n"
+                    + "on s.subCategoryID = c.subCategoryID\n"
+                    + "left join Registration r on r.courseID = c.courseID\n"
+                    + "group by c.courseID, c.courseName, s.subCategoryName\n"
+                    + "order by c.courseID";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                Subcategory subcategory = new Subcategory();
+                subcategory.setSubcategoryName(rs.getString("subCategoryName"));
+                course.setSubcategory(subcategory);
+                course.setLearners(rs.getInt("learners"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courses;
+    }
+
+    public ArrayList<Course> getPopularSubjects() {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "select top 5 c.courseID, c.courseName, c.thumbnailURL, s.subCategoryName, \n"
+                    + "count(r.username) as learners\n"
+                    + "from Course c inner join Registration r on c.courseID = r.courseID\n"
+                    + "inner join SubCategory s on s.subCategoryID = c.subCategoryID\n"
+                    + "where r.[status] = 1 group by c.courseID, c.courseName, s.subCategoryName, c.thumbnailURL\n"
+                    + "order by learners desc";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                course.setThumbnailUrl(rs.getString("thumbnailURL"));
+                Subcategory subcategory = new Subcategory();
+                subcategory.setSubcategoryName(rs.getString("subCategoryName"));
+                course.setSubcategory(subcategory);
+                course.setLearners(rs.getInt("learners"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courses;
+    }
+
+    public ArrayList<Course> getCourseNameAndIDForUser(Account account) {
+        ArrayList<Course> courses = new ArrayList<>();
+        try {
+            String sql = "SELECT courseID, courseName FROM Course\n"
+                    + "WHERE courseID IN \n"
+                    + "(SELECT courseID FROM Registration \n"
+                    + "WHERE username = ?\n"
+                    + "AND validFrom <= GETDATE()\n"
+                    + "AND GETDATE() <= validTo)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, account.getUsername());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Course course = new Course();
+                course.setCourseID(rs.getInt("courseID"));
+                course.setCourseName(rs.getString("courseName"));
+                courses.add(course);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return courses;
+    }
+
+    public ArrayList<Course> getUserCourse(String username) {
         try {
             ArrayList<Course> list = new ArrayList<>();
             String sql = "SELECT * FROM Registration\n"
@@ -674,7 +758,7 @@ public class CourseDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {  
+            while (rs.next()) {
                 CourseDBContext cdbc = new CourseDBContext();
                 Course c = new Course();
                 c = cdbc.getCourseByCourseID(rs.getInt("courseID"), null);
@@ -686,4 +770,5 @@ public class CourseDBContext extends DBContext {
         }
         return null;
     }
+
 }

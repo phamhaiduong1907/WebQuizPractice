@@ -91,12 +91,8 @@ table{
     background-color: #fff;
     text-align: center;
     font-family: Mukta, sans-serif;
+    display: table;
     width: 100%;
-}
-
-table, tr, th, td{
-    border: none;
-    clear: both;
 }
 
 thead{
@@ -138,7 +134,7 @@ tr:nth-child(even){
     transition: background-color .2s;
 }
 
-.pag .active {
+/*.pag .active {
     background-color: #1fe21e;
     color: #fff;
 }
@@ -146,7 +142,7 @@ tr:nth-child(even){
 .pag a:hover {
     color: white;
     background-color: gray;
-}
+}*/
 
 .btn_view{
     text-decoration: none;
@@ -177,6 +173,25 @@ tr:nth-child(even){
     background-color: #e4b050;
 }
 
+.right_content{
+    padding: 30px;
+}
+
+tfoot tr td a{
+    color: #000;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+tfoot tr td a:not(.active):hover{
+    background-color: #bcb6b6;
+}
+
+tfoot tr td a.active{
+    background-color: #1fe21e;
+    color: #fff;  
+}
 .btn_del{
     text-decoration: none;
     letter-spacing: 1px;

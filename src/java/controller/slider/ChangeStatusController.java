@@ -27,11 +27,12 @@ public class ChangeStatusController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        int sliderID = Integer.parseInt(request.getParameter("sliderID"));
-        boolean status = request.getParameter("statusParam").equalsIgnoreCase("active");
+    throws ServletException, IOException { 
         SliderDBContext dbSliders = new SliderDBContext();
-        dbSliders.changeStatus(status, sliderID);
+        int sliderID = Integer.parseInt(request.getParameter("sliderID"));
+        boolean status = dbSliders.getSliderStatusById(sliderID);
+        boolean statusChange = !status;
+        dbSliders.changeStatus(statusChange, sliderID);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

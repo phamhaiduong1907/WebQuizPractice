@@ -93,7 +93,7 @@
         </div>
 
         <c:if test="${sessionScope.account.role.roleID == 1}">
-            <a class="addlink" href="pricepackageedit?cid=${requestScope.course.courseID}&pid=${requestScope.pricePackage.pricePackageID}">Edit</a>
+            <a class="addlink_ver2" href="pricepackageedit?cid=${requestScope.course.courseID}&pid=${requestScope.pricePackage.pricePackageID}">Edit</a>
 
         </c:if>
 

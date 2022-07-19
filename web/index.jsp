@@ -18,10 +18,10 @@
         <!-- Bootstrap's CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/global.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/common/home.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/home.css">
         <%
             ArrayList<Slider> sliders = (ArrayList<Slider>) request.getAttribute("sliders");
         %>
@@ -106,30 +106,25 @@
             <div class="subject__container">
                 <div class="subject__content">
                     <c:forEach items="${requestScope.courses}" var="c">
-
                         <div class="subject__card">
-                            <div class="subject__card-content">
-                                <div class="subject__thumnail post__thumbnail">
-                                    <img src="images/thumbnails/${c.thumbnailUrl}">
-                                </div>
+                            <a href="subjectdetail?subjectID=${c.courseID}" class="subject__link">
+                                    <div class="subject__card-content">
+                                        <div class="subject__thumnail post__thumbnail">
+                                            <img src="images/thumbnails/${c.thumbnailUrl}">
+                                        </div>
 
-                                <div class="subject__title post__title">
-                                    <a href="subjectdetail?subjectID=${c.courseID}"><p>${c.courseName}</p></a>
-
-
-                                </div>
-                                <div class="subject__description">
-                                    <p>${c.briefInfo}</p>
-                                </div>
+                                        <div class="subject__details post__content">
+                                            <div class="subject__title post__title">
+                                                <p>${c.courseName}</p>
+                                            </div>
+                                            <div class="subject__description">
+                                                <p>${c.briefInfo}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="course__detail">
-                            </div>  
-
-                        </div>
-
-
                     </c:forEach>
-
                 </div>
             </div>
         </section>

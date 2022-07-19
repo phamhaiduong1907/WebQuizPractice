@@ -6,6 +6,10 @@
     margin-right: 10px;
 }
 
+.right_content{
+    padding: 30px;
+}
+
 .quiz__list {
     display: table;
     width: 100%;
@@ -70,7 +74,6 @@ tr,
 td {
     border: 1px solid black;
     border-collapse: collapse;
-    padding: 10px;
     font-size: 17px;
 }
 

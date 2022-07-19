@@ -1,0 +1,17 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2022, 3:32:28 AM
+    Author     : Zuys
+*/
+.lesson_table{
+    width: 100%;
+}
+
+table{
+    display: block    !important ;
+    overflow-y: hidden !important;
+    width: 100%;
+}

@@ -80,8 +80,11 @@
                     </c:when>
                 </c:choose>
             </form>
-            <a href="editlesson?lessonID=${requestScope.lesson.lessonID}&courseID=${requestScope.course.courseID}">Edit</a>
-            <p>${sessionScope.mess}</p>
+            <a href="editlesson?lessonID=${requestScope.lesson.lessonID}&courseID=${requestScope.course.courseID}"><button>Edit</button></a>
+            <div class="mess">
+                <p>${sessionScope.mess}</p>
+            </div>
+
             <c:remove scope="session" var="mess"></c:remove>
             </section>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp" />

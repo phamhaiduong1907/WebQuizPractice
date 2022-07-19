@@ -24,6 +24,7 @@ public class Course {
     private String owner;
     private ArrayList<Topic> topics;
     private ArrayList<Dimension> dimensions;
+    private int learners;
 
     public ArrayList<Dimension> getDimensions() {
         return dimensions;
@@ -33,7 +34,13 @@ public class Course {
         this.dimensions = dimensions;
     }
     
+    public void setLearners(int learners){
+        this.learners = learners;
+    }
     
+    public int getLearners(){
+        return learners;
+    }
     
     public boolean isIsRegistered() {
         return isRegistered;

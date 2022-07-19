@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/src/java/controller/customerControllers/renderMaximunQuestion.java</file>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/web/view/customer/practicedetail.jsp</file>
+            <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/web/css/test_content/quiz_list.css</file>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/web/view/test_content/QuizEdit.jsp</file>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/src/java/controller/saleController/renderPricePackage.java</file>
+            <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/nbproject/private/private.properties</file>
+            <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/src/java/dal/DBContext.java</file>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/src/java/dal/QuizDBContext.java</file>
             <file>file:/C:/Users/long/Documents/NetBeansProjects/summer2022-se1617-g6-Final/src/java/controller/customerControllers/PracticeDetailController.java</file>
         </group>

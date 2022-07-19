@@ -27,7 +27,7 @@ import model.Question;
  */
 public class QuestionDBContext extends DBContext {
 
-     public Question getQuestion(int questionID) {
+    public Question getQuestion(int questionID) {
         Question question = new Question();
         try {
             String sql = "SELECT [questionID]\n"
@@ -66,7 +66,8 @@ public class QuestionDBContext extends DBContext {
         }
         return question;
     }
- public int insertQuestion(String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
+
+    public int insertQuestion(String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
 
         String generatedColumns[] = {"ID"};
         String sql_insert_question = "INSERT INTO [dbo].[Question]\n"
@@ -141,7 +142,6 @@ public class QuestionDBContext extends DBContext {
         return -1;
     }
 
-    
     public void importQuestion(String questionContent, boolean status, String mediaURL, int courseID,
             int lessonID, int dimensionID, String explanation, Integer mediaID, int levelID, ArrayList<Answer> answers) {
         String sql_insert_question = "INSERT INTO [dbo].[Question]\n"
@@ -505,8 +505,8 @@ public class QuestionDBContext extends DBContext {
         }
         return -1;
     }
-    
-     public int updateQuestion(int questionID, String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
+
+    public int updateQuestion(int questionID, String questionContent, String mediaUrl, int lessonID, int dimensionID, int levelID, String explanation, int mediaID, String rawMediaType, int courseID, ArrayList<Answer> answers) {
 
         String sql_update_question = "UPDATE [dbo].[Question]\n"
                 + "   SET [questionContent] = ?\n"
@@ -518,7 +518,7 @@ public class QuestionDBContext extends DBContext {
                 + "      ,[explanation] = ?\n"
                 + "      ,[mediaID] = ?\n"
                 + "      ,[courseID] = ?\n"
-                + " WHERE questionID = ?\n" 
+                + " WHERE questionID = ?\n"
                 + "\n"
                 + "DECLARE @id1 AS int SET @id1 = ?;\n"
                 + "UPDATE Question\n"
@@ -571,6 +571,34 @@ public class QuestionDBContext extends DBContext {
             }
         }
         return -1;
+
+    }
+
+    public ArrayList<Question> getQuestionsFromQuizQuestion(int quizID) {
+        ArrayList<Question> questions = new ArrayList<>();
+
+        String sql = "select q.* from Question q join QuizQuestion qq\n"
+                + "on q.questionID = qq.questionID join Quiz qu \n"
+                + "on qu.quizID = qq.quizID\n"
+                + "where qq.quizID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, quizID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Question question = new Question();
+                question = getQuestion(rs.getInt("questionID"));
+                
+                questions.add(question);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
 
     }
 

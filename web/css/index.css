@@ -100,6 +100,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 
 .post__thumbnail img{
@@ -178,9 +179,10 @@
 .subject__card {
     width: 300px;
     flex: 0 0 auto;
-    padding: 15px;
+    /*padding: 15px;*/
     margin-right: 40px;
-    box-shadow: 1px 1px 1px 1px grey;
+    /*box-shadow: 1px 1px 1px 1px grey;*/
+    border: 1px solid #eee;
     display: flex;
     flex-wrap: wrap;
 }
@@ -194,9 +196,9 @@
     text-decoration: underline;
 }
 
-.subject__description{
+/*.subject__description{
     height: 400px;
-}
+}*/
 
 
 .course__detail{
@@ -256,4 +258,38 @@
 .carousel-item a .block__item,
 .carousel-item a .block__item img{
     height: 100%;
+}
+
+.subject__card img{
+    object-fit: fill;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.subject__details{
+    padding: 15px;
+}
+
+.subject__details p{
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.subject__link{
+    text-decoration: none;
+    color: #aaa;
+}
+
+.subject__link:hover{
+    color: #aaa;
+}
+
+.subject__link p{
+    font-weight: lighter;
+    font-size: 17px;
 }

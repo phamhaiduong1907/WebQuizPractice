@@ -54,18 +54,19 @@ public class LoginController extends HttpServlet {
         UserDBContext dbUser = new UserDBContext();
 
         Account account = db.getAccount(username);
-        if (account == null || !check.checkEncryptString(password, account.getPassword())) {
-            request.getSession().setAttribute("login_status", login_status);
-            response.sendRedirect("home");
-        } else {
-            User user = dbUser.getUser(account);
-            request.getSession().setAttribute("account", account);
-            request.getSession().setAttribute("user", user);
-            if (user.getAccount().getRole().getRoleID() == 5) {
+        try {
+            if (account == null || !check.checkEncryptString(password, account.getPassword())) {
+                request.getSession().setAttribute("login_status", login_status);
                 response.sendRedirect("home");
             } else {
+                User user = dbUser.getUser(account);
+                request.getSession().setAttribute("account", account);
+                request.getSession().setAttribute("user", user);
                 response.sendRedirect("home");
             }
+        } catch (Exception e) {
+            request.getSession().setAttribute("login_status", login_status);
+            response.sendRedirect("home");
         }
     }
 

@@ -67,8 +67,10 @@ public class PracticeListController extends HttpServlet {
 //        Account a = (Account) request.getSession().getAttribute("account");
 //        String username = a.getUsername();
         String username = "hunglnhe161003@fpt.edu.vn";
-        ArrayList<TakenUserQuiz> list = tdbc.getListFromUser(username);
-        ArrayList<Course> courses = cdbc.getUserCourse(username);
+        Account account = (Account) request.getSession().getAttribute("account");
+
+        ArrayList<TakenUserQuiz> list = tdbc.getListFromUser(account.getUsername());
+        ArrayList<Course> courses = cdbc.getUserCourse(account.getUsername());
         request.setAttribute("list", list);
         request.setAttribute("courses", courses);
         request.getRequestDispatcher("view/customer/practicelist.jsp").forward(request, response);

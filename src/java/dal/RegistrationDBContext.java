@@ -8,11 +8,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 import model.Course;
+import model.OrderData;
 import model.PricePackage;
 import model.Registration;
 import model.User;
@@ -22,6 +24,8 @@ import model.User;
  * @author ADMIN
  */
 public class RegistrationDBContext extends DBContext {
+    
+    private final static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public Registration getARegistration(int id) {
         try {
@@ -634,5 +638,39 @@ public class RegistrationDBContext extends DBContext {
             Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+
+    public ArrayList<OrderData> getOrderDataInPeriod(String startDate, String enddate) {
+        ArrayList<OrderData> orderDatas = new ArrayList<>();
+        try {
+            String sql = "WITH DateRange(DateData) AS \n"
+                    + "(\n"
+                    + "    SELECT cast(? as date) as [Date]\n"
+                    + "    UNION ALL\n"
+                    + "    SELECT DATEADD(d,1,DateData)\n"
+                    + "    FROM DateRange \n"
+                    + "    WHERE DateData < cast(? as date)\n"
+                    + ")\n"
+                    + "SELECT dr.DateData as dateInPeriod,\n"
+                    + "COUNT(case when r.[status] is null then null else 1 end) as totalRegistration, \n"
+                    + "COUNT(case r.[status] when 'true' then 1 else null end) as successRegistration\n"
+                    + "FROM DateRange dr left join Registration r on cast(r.registrationTime as date) = dr.DateData\n"
+                    + "group by dr.DateData\n"
+                    + "OPTION (MAXRECURSION 0)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, startDate);
+            stm.setString(2, enddate);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                OrderData orderData = new OrderData();
+                orderData.setDate(sdf.format(rs.getDate("dateInPeriod")));
+                orderData.setAll(rs.getInt("totalRegistration"));
+                orderData.setSuccess(rs.getInt("successRegistration"));
+                orderDatas.add(orderData);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderDatas;
     }
 }

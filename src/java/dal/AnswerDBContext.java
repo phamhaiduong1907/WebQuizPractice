@@ -47,13 +47,70 @@ public class AnswerDBContext extends DBContext {
             PreparedStatement stm = connection.prepareCall(sql);
             stm.setInt(1, questionID);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Answer answer = new Answer();
                 answer.setQuestionID(questionID);
                 answer.setAnswerID(rs.getInt("answerID"));
                 answer.setAnswerContent(rs.getString("answerContent"));
                 answer.setIsTrue(rs.getBoolean("isTrue"));
                 answers.add(answer);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return answers;
+    }
+
+    public ArrayList<Answer> getResultAnswer(int questionID, int qhid) {
+        ArrayList<Answer> answers = new ArrayList<>();
+        String sql = "select a.*, IIF( exists (select * from Result WHERE answerID = a.answerID  and quizHistoryID = ?),1,0) as isChecked\n"
+                + "from Answer a  left JOIN Result r\n"
+                + "	on a.answerID = r.answerID\n"
+                + "	and questionID = ? and quizHistoryID = ?\n"
+                + "	where questionID = ?";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, qhid);
+            stm.setInt(2, questionID);
+            stm.setInt(3, qhid);
+            stm.setInt(4, questionID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Answer answer = new Answer();
+                answer.setQuestionID(questionID);
+                answer.setAnswerID(rs.getInt("answerID"));
+                answer.setAnswerContent(rs.getString("answerContent"));
+                answer.setIsTrue(rs.getBoolean("isTrue"));
+                answer.setIsChecked(rs.getBoolean("isChecked"));
+                answers.add(answer);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return answers;
+    }
+
+    public ArrayList<Answer> getCorrectAnswer() {
+        ArrayList<Answer> answers = new ArrayList<>();
+        String sql = "select * from Answer where isTrue = 1";
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Answer ans = new Answer();
+                ans.setQuestionID(rs.getInt("questionID"));
+                ans.setAnswerID(rs.getInt("answerID"));
+                ans.setAnswerContent(rs.getString("answerContent"));
+                ans.setIsTrue(rs.getBoolean("isTrue"));
+                answers.add(ans);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AnswerDBContext.class.getName()).log(Level.SEVERE, null, ex);

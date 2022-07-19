@@ -186,9 +186,7 @@
                                     .done(function (data) {
                                         $('#scID').html(data);
                                     })
-                                    .fail(function () {
-                                        $('#scID').html("<option></option>");
-                                    })
+                                    
                                     .always(function () {
 
                                     });
@@ -205,9 +203,7 @@
                                     .done(function (data) {
                                         $('#courseID').html(data);
                                     })
-                                    .fail(function () {
-                                        $('#courseID').html("<option></option>");
-                                    })
+                                   
                                     .always(function () {
 
                                     });
@@ -225,7 +221,7 @@
                                         $('#numQ').html(data);
                                     })
                                     .fail(function () {
-                                        $('#numQ').html("<h1>FAIL</h1>");
+                                        $('#numQ').html("");
                                     })
                                     .always(function () {
 
