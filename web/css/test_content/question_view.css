@@ -44,10 +44,13 @@ img{
     margin-left: 30px;
 }
 
-.media__preview{
-    border: 1px dashed gray;
-    width: 620px;
+.image__preview__data, .video__preview__data{
     height: 350px;
+}
+
+.image__preview, .video__preview, .audio__preview{
+    margin-top: 50px;
+    display: none;
 }
 
 .media__preview > :not(:first-child){

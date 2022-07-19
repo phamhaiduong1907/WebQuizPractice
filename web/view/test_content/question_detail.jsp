@@ -138,12 +138,12 @@
                                     <option value="4">No media</option>
                                 </select>
                             </div>
-                            <div class="media__preview" id="media__preview">
-                                <img id="image__preview" class="image__preview">
-                                <audio id="audio__preview" class="audio__preview" controls></audio>
-                                <video id="video__preview" class="video__preview" controls></video>
+                            <div id="media__preview">
+                                <img id="image__preview" class="image__preview col-md-12">
+                                <audio id="audio__preview" class="audio__preview col-md-12" controls></audio>
+                                <video id="video__preview" class="video__preview col-md-12" controls></video>
                             </div>
-                            <input id="file__input" type="file" name="mediafile">
+                            <input disabled id="file__input" type="file" name="mediafile">
                         </div>
                     </div >
                     <a class="addlink" href="javascript:{}"><button class="save__button" type="submit">Save</button></a>

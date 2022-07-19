@@ -231,15 +231,15 @@
                         <div class="media__preview">
                             <c:choose>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 1}">
-                                    <img id="image__preview__data" class="image__preview__data" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
+                                    <img id="image__preview__data" class="image__preview__data col-md-12" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
-                                    <video id="video__preview__data" class="video__preview__data" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
+                                    <video id="video__preview__data" class="video__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
 
                                     </video>
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 3}">
-                                    <audio id="audio__preview__data" class="audio__preview__data" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
+                                    <audio id="audio__preview__data" class="audio__preview__data col-md-12" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
 
                                     </audio>
                                 </c:when>
