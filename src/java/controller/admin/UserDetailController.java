@@ -41,9 +41,10 @@ public class UserDetailController extends AuthorizationController {
         String username = request.getParameter("email");
         int roleID = Integer.parseInt(request.getParameter("roleID"));
         boolean status = request.getParameter("status").equalsIgnoreCase("active");
+        String confirmMessage = "Edit successfully!";
         
         UserDBContext db = new UserDBContext();
         db.updateUser(status, roleID, username);
-        response.sendRedirect("userdetail?username="+username);
+        response.sendRedirect("userdetail?username="+username+"&confirmMessage="+confirmMessage);
     }
 }

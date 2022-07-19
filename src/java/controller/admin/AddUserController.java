@@ -107,9 +107,16 @@ public class AddUserController extends AuthorizationController {
             try {
                 emailUtils.send(email);
             } catch (Exception ex) {
+                RoleDBContext dbRoles = new RoleDBContext();
+                ArrayList<Role> roles = dbRoles.getRoles();
+                request.setAttribute("roles", roles);
+                String error = "Something went wrong during sending email, add user failed";
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("../view/admin/add_user.jsp").forward(request, response);
                 Logger.getLogger(AddUserController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            response.sendRedirect("userdetail?username=" + username);
+            String confirm = "Add user successfully";
+            response.sendRedirect("view?username=" + username + "&confirm=" + confirm);
         } else {
             // Processing if account is existed
             RoleDBContext dbRoles = new RoleDBContext();
