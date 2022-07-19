@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import dal.QuizAttributeDBContext;
@@ -27,7 +28,7 @@ import util.Validation;
  *
  * @author long
  */
-public class QuizEditController extends HttpServlet {
+public class QuizEditController extends AuthorizationController {
 
     Validation v = new Validation();
     CategoryDBContext cadbc = new CategoryDBContext();
@@ -78,7 +79,7 @@ public class QuizEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int ID;
         ArrayList<Category> cates = cadbc.getCategories(2);
@@ -111,7 +112,7 @@ public class QuizEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int ID;

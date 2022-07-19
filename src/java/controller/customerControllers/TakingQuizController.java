@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.CommonDBContext;
 import dal.QuestionDBContext;
 import dal.QuizDBContext;
@@ -26,7 +27,7 @@ import model.ResultQuestion;
  *
  * @author ADMIN
  */
-public class TakingQuizController extends HttpServlet {
+public class TakingQuizController extends AuthorizationController {
  /**
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -35,7 +36,7 @@ public class TakingQuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qhid = Integer.parseInt(request.getParameter("qhid"));
         QuizHistory quizHistory = new QuizHistoryDBContext().getQuizHistory(qhid);
@@ -77,7 +78,7 @@ public class TakingQuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Boolean isMarked = null;
         if (request.getParameter("isMarked") != null) {

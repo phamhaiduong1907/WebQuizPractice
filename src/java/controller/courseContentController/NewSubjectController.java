@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
@@ -35,7 +36,7 @@ import util.Validation;
  */
 @MultipartConfig(location = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Merge\\web\\images\\subject", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
-public class NewSubjectController extends HttpServlet {
+public class NewSubjectController extends AuthorizationController {
 
     final static String SUBJECTPICTUREURI = "D:\\Uni\\Summer2022\\swp\\Students-Projects-Bank-20220509\\03_QuizPractice\\summer2022-se1617-g6-HungLN-HE161003 - Merge\\web\\images\\subject";
 
@@ -48,7 +49,7 @@ public class NewSubjectController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountDBContext dbAccount = new AccountDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
@@ -76,7 +77,7 @@ public class NewSubjectController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Validation v = new Validation();
         AccountDBContext dbAccount = new AccountDBContext();
@@ -115,7 +116,7 @@ public class NewSubjectController extends HttpServlet {
                 request.setAttribute("expertList", accounts);
                 request.getRequestDispatcher("view/course_content/new_subject.jsp").forward(request, response);
             }
-        }else if (v.checkNullOrBlank(input)) {
+        } else if (v.checkNullOrBlank(input)) {
             Account owner = dbAccount.isExistAccount(raw_owner);
             if (owner != null && owner.getRole().getRoleID() == 2) {
                 if (checkFileType(subjectPicName)) {

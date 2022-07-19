@@ -4,6 +4,7 @@
  */
 package controller.saleController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.RegistrationDBContext;
 import dal.UserDBContext;
@@ -21,7 +22,7 @@ import model.User;
  *
  * @author long
  */
-public class RegistrationListController extends HttpServlet {
+public class RegistrationListController extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +43,7 @@ public class RegistrationListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RegistrationDBContext rdbc = new RegistrationDBContext();
         ArrayList<Registration> list = rdbc.getRegistrations();
@@ -66,7 +67,7 @@ public class RegistrationListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

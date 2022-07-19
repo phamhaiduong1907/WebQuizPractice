@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import model.Course;
  *
  * @author Hai Tran
  */
-public class ManageSearchController extends HttpServlet {
+public class ManageSearchController extends AuthorizationController {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,7 +32,7 @@ public class ManageSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CourseDBContext dbCourse = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
@@ -91,7 +91,7 @@ public class ManageSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

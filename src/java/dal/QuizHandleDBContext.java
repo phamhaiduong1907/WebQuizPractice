@@ -115,7 +115,7 @@ public class QuizHandleDBContext extends DBContext {
                 + "               on q.questionID = qq.questionID join Quiz qu \n"
                 + "              on qu.quizID = qq.quizID join ResultQuestion rq\n"
                 + "			  on rq.questionID = q.questionID	\n"
-                + "              where qq.quizID = ? and quizHistoryID = ?";
+                + "              where qq.quizID = ? and quizHistoryID = ? order by [order] asc";
 
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -240,15 +240,15 @@ public class QuizHandleDBContext extends DBContext {
         String sql_1 = "select q.*,rq.isAnswered,rq.isMarked,qq.[order] from Question q join ResultQuestion rq\n"
                 + "on q.questionID = rq.questionID join QuizQuestion qq \n"
                 + "on qq.questionID = q.questionID\n"
-                + "where rq.quizHistoryID = ? and isAnswered = ? and quizID = ?	";
+                + "where rq.quizHistoryID = ? and isAnswered = ? and quizID = ?	order by [order] asc";
         String sql_2 = "select q.*,rq.isAnswered,rq.isMarked,qq.[order] from Question q join ResultQuestion rq\n"
                 + "on q.questionID = rq.questionID join QuizQuestion qq \n"
                 + "on qq.questionID = q.questionID\n"
-                + "where rq.quizHistoryID = ?  and isMarked = ?	 and quizID = ?";
+                + "where rq.quizHistoryID = ?  and isMarked = ?	 and quizID = ? order by [order] asc";
         String sql_3 = "select q.*,rq.isAnswered,rq.isMarked,qq.[order] from Question q join ResultQuestion rq\n"
                 + "on q.questionID = rq.questionID join QuizQuestion qq \n"
                 + "on qq.questionID = q.questionID\n"
-                + "where rq.quizHistoryID = ?  and quizID = ?";
+                + "where rq.quizHistoryID = ?  and quizID = ? order by [order] asc";
 
         PreparedStatement stm = null;
         ResultSet rs = null;

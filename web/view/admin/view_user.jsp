@@ -15,7 +15,6 @@
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/user_detail.css">
         <%
@@ -89,15 +88,13 @@
                             </div> 
                         </div>
                     </form>
+                    <p id="confirmMessage" style="text-align: center; color: #1fe21e; margin-top: 10px;">${param.confirm}</p>
                 </div>
-                <footer>
-                    FOOTER
-                </footer>
             </aside>
         </section>
+
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
-
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>                    
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>

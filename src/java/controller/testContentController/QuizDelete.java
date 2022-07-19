@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import static controller.testContentController.QuizEditController.updateErr;
 import dal.QuizDBContext;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author long
  */
-public class QuizDelete extends HttpServlet {
+public class QuizDelete extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,7 +56,7 @@ public class QuizDelete extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int ID = Integer.parseInt(request.getParameter("id"));
         QuizDBContext qdbc = new QuizDBContext();
@@ -78,7 +79,7 @@ public class QuizDelete extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

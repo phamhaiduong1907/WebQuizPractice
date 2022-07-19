@@ -5,6 +5,7 @@
 
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.LessonDBContext;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import model.Lesson;
  *
  * @author Zuys
  */
-public class ChangeStatusLessonController extends HttpServlet {
+public class ChangeStatusLessonController extends AuthorizationController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -72,7 +73,7 @@ public class ChangeStatusLessonController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
@@ -85,7 +86,7 @@ public class ChangeStatusLessonController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     }

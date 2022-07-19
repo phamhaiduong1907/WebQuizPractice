@@ -34,11 +34,13 @@ public class ViewUserController extends AuthorizationController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String username = request.getParameter("username");
+        String confirmMessage = request.getParameter("confirm") == null?"":request.getParameter("confirm");
         UserDBContext dbUsers = new UserDBContext();
         User user = dbUsers.getUser(username);
         RoleDBContext dbRoles = new RoleDBContext();
         ArrayList<Role> roles = dbRoles.getRoles();
         Role roleById = dbRoles.getRoleById(user.getAccount().getRole().getRoleID());
+        request.setAttribute("confirmMessage", confirmMessage);
         request.setAttribute("roleById", roleById);
         request.setAttribute("roles", roles);
         request.setAttribute("user", user);

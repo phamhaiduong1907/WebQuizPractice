@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.DimensionDBContext;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import model.ErrorMessage;
  *
  * @author ADMIN
  */
-public class ManageDimensionListController extends HttpServlet {
+public class ManageDimensionListController extends AuthorizationController {
 
     final static private String DIMENSIONLISTURL = "../../view/course_content/dimension_list.jsp";
     final static private int PAGESIZE = 5;
@@ -45,7 +46,7 @@ public class ManageDimensionListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
         CourseDBContext courseDBContext = new CourseDBContext();
@@ -94,7 +95,7 @@ public class ManageDimensionListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

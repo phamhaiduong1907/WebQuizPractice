@@ -4,6 +4,7 @@
  */
 package controller.saleController;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
@@ -41,7 +42,7 @@ import util.Validation;
  *
  * @author long
  */
-public class RegistrationEditController extends HttpServlet {
+public class RegistrationEditController extends AuthorizationController {
 
     final static String MISSINGINPUT = "Please fill in required fill";
     final static String ERRORSQL = "An accoutn with that username is already exists! Please consider using a different username.";
@@ -71,7 +72,7 @@ public class RegistrationEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        User loginUser = (User) request.getSession().getAttribute("user");
 //        if (loginUser == null || loginUser.getAccount().getRole().getRoleID() != 3) {
@@ -121,7 +122,7 @@ public class RegistrationEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String raw_username = request.getParameter("username");
         String raw_firstName = request.getParameter("firstName");

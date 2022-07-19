@@ -4,6 +4,7 @@
  */
 package controller.marketingController;
 
+import controller.AuthorizationController;
 import dal.BlogDBContext;
 import dal.CategoryDBContext;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import util.Validation;
  * @author ADMIN
  */
 @MultipartConfig
-public class ViewModifyPostController extends HttpServlet {
+public class ViewModifyPostController extends AuthorizationController{
 
     private static final String WRONGFILETYPE = "The format must be png, jpg or jpeg";
     private static final String MISSINGINPUT = "You must entered required fields";
@@ -51,7 +52,7 @@ public class ViewModifyPostController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDBContext dbCate = new CategoryDBContext();
         BlogDBContext blogDBContext = new BlogDBContext();
@@ -75,8 +76,9 @@ public class ViewModifyPostController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String raw_title = request.getParameter("title");

@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.LessonDBContext;
 import dal.LessonTypeDBContext;
@@ -27,7 +28,7 @@ import util.Validation;
  *
  * @author Zuys
  */
-public class EditLessonController extends HttpServlet {
+public class EditLessonController extends AuthorizationController {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,7 +39,7 @@ public class EditLessonController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         QuizDBContext dbQuiz = new QuizDBContext();
         LessonDBContext dbLesson = new LessonDBContext();
@@ -81,7 +82,7 @@ public class EditLessonController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LessonDBContext dbLesson = new LessonDBContext();
         LessonTypeDBContext dbLType = new LessonTypeDBContext();

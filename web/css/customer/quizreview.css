@@ -102,6 +102,6 @@ input[type=checkbox][disabled]{
 .question__content{
     margin-left: 60px;
 }
-.body{
+body{
     padding: 0px !important;
 }

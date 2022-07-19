@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import dal.DimensionDBContext;
 import dal.LessonDBContext;
 import dal.QuestionDBContext;
@@ -28,7 +29,7 @@ import util.Validation;
  * @author Hai Tran
  */
 @MultipartConfig
-public class AddQuestionController extends HttpServlet {
+public class AddQuestionController extends AuthorizationController {
 
     private static final String WRONGFILETYPE = "Wrong file input format";
     private static final String MISSINGINPUT = "You must entered required fields";
@@ -44,7 +45,7 @@ public class AddQuestionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TopicDBContext dbTopic = new TopicDBContext();
         DimensionDBContext dbDimension = new DimensionDBContext();
@@ -66,7 +67,7 @@ public class AddQuestionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String rawQuestionContent = request.getParameter("questioncontent");
         String rawLessonID = request.getParameter("lessonID");

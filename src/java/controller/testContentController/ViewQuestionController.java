@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import dal.DimensionDBContext;
 import dal.LevelDBContext;
 import dal.QuestionDBContext;
@@ -24,7 +25,7 @@ import model.Topic;
  *
  * @author Hai Tran
  */
-public class ViewQuestionController extends HttpServlet {
+public class ViewQuestionController extends AuthorizationController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -35,7 +36,7 @@ public class ViewQuestionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         TopicDBContext dbTopic = new TopicDBContext();
         DimensionDBContext dbDimension = new DimensionDBContext();
@@ -61,7 +62,7 @@ public class ViewQuestionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     }
 
