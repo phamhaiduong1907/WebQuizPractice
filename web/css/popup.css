@@ -34,18 +34,18 @@
 }
 
 .popup__content h2{
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     padding: 0 10px;
-    margin-top: 10px;
+    margin: 0;
 }
 
 .popup__content input[type="text"],
 .popup__content input[type="password"]{
     display: block;
     width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
+    padding: 3px;
+    /*margin-bottom: 10px;*/
 }
 
 .signup__gender input{
@@ -125,7 +125,7 @@
 .popup .form__change-password input[type="password"]{
     border: 1px solid #ddd;
     outline: none;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #6b6b6b;
     border-radius: 5px;
     transition: 0.25s ease-in-out;
@@ -188,7 +188,7 @@
 
 .welcome__status{
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     margin-left: 10px;
     padding: 5px;
     color: #fff;
@@ -223,17 +223,16 @@
     padding: 30px 20px;
 }
 
-.popup__signup-form,
+/*.popup__signup-form,
 .form__user-profile{
     overflow-y: scroll;
-}
+}*/
 
 .user__avatar{
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     background-color: #a1a1a1;
     margin: 0 auto;
-    margin-bottom: 20px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;

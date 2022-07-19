@@ -31,15 +31,15 @@ public class AccountDBContext extends DBContext {
      */
     public boolean getPermission(String username, int roleID, String uri) {
         try {
-            String sql = "select count(*) as permission from Account a inner join\n"
-                    + "[Role] r on a.roleID = r.roleID\n"
-                    + "inner join [Authorization] auth\n"
-                    + "on auth.roleID = r.roleID inner join\n"
-                    + "Feature f on f.featureID = auth.featureID\n"
-                    + "where f.featureID not in (select featureID from UserException \n"
-                    + "where username = ?)\n"
-                    + "and a.username = ? and a.roleID = ?\n"
-                    + "and f.[URL] = ?";
+                String sql = "select count(*) as permission from Account a inner join\n"
+                        + "[Role] r on a.roleID = r.roleID\n"
+                        + "inner join [Authorization] auth\n"
+                        + "on auth.roleID = r.roleID inner join\n"
+                        + "Feature f on f.featureID = auth.featureID\n"
+                        + "where f.featureID not in (select featureID from UserException \n"
+                        + "where username = ?)\n"
+                        + "and a.username = ? and a.roleID = ?\n"
+                        + "and f.[URL] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, username);
