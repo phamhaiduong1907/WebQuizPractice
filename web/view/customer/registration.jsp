@@ -97,7 +97,7 @@
                                                 <form method="POST" action="registrationsearch">
                                                     <input type="hidden" value="${requestScope.queryString}" name="queryString">
                                                     <input type="hidden" value="${r.registrationID}" name="registrationID">
-                                                    <input class="cancel_button" type="submit " value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
+                                                    <input class="cancel_button" type="submit" value="Cancel" onclick="return confirm('Are you sure you want to delete?')" />
                                                 </form>
                                             </c:if>
                                             <c:if test="${r.status == true}">
