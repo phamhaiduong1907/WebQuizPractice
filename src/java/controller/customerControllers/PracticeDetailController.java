@@ -67,9 +67,8 @@ public class PracticeDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Account a = (Account) request.getSession().getAttribute("account");
-//        String username = a.getUsername();
-        String username = "hunglnhe161003@fpt.edu.vn";
+        Account a = (Account) request.getSession().getAttribute("account");
+        String username = a.getUsername();
         int ID;
         if (request.getParameter("id") != null) {
             ID = Integer.parseInt(request.getParameter("id"));

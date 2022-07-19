@@ -106,7 +106,7 @@
                         </div>
                         <div>
                             <c:if test="${requestScope.quiz != null}">
-                                <input type="submit" value="Practice Review">
+                                <a href="quizreview?quizHistoryID=${q.userQuizID}"></a>
                             </c:if>
                             <c:if test="${requestScope.quiz == null}">
                                 <input type="submit" value="Practice">
