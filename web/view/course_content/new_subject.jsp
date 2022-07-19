@@ -162,9 +162,9 @@
             </div>
 
         </section>
-        <script src="js/new_subject.js"></script>
-        <script src="js/userPopup.js"></script>
-        <script src="js/profile.js"></script>
+        <script src="${pageContext.request.contextPath}/js/new_subject.js"></script>
+        <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
+        <script src="${pageContext.request.contextPath}/js/profile.js"></script>
     </body>
 
 </html>

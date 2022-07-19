@@ -16,11 +16,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Account;
 import model.Course;
 import model.Dimension;
 import model.Quiz;
 import model.TakenUserQuiz;
 import model.Topic;
+
 /**
  *
  * @author long
@@ -65,8 +67,8 @@ public class PracticeDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //String username = a.getUsername();
-        String username = "hunglengoc2109@gmail.com";
+        Account a = (Account) request.getSession().getAttribute("account");
+        String username = a.getUsername();
         int ID;
         if (request.getParameter("id") != null) {
             ID = Integer.parseInt(request.getParameter("id"));

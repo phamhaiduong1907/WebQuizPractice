@@ -34,11 +34,11 @@ import util.Validation;
  *
  * @author Zuys
  */
-@MultipartConfig(location = "E:\\Semester 5\\SWP391\\QuizWebsite-Iteration2-Complete\\summer2022-se1617-g6\\web\\images\\subject", fileSizeThreshold = 1024 * 1024,
+@MultipartConfig(location = "E:\\Semester 5\\SWP391\\QuizWebsite-Iteration2-Complete\\summer2022-se1617-g6\\web\\images\\thumbnails", fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class NewSubjectController extends AuthorizationController {
 
-    final static String SUBJECTPICTUREURI = "E:\\Semester 5\\SWP391\\QuizWebsite-Iteration2-Complete\\summer2022-se1617-g6\\web\\images\\subject";
+    final static String SUBJECTPICTUREURI = "E:\\Semester 5\\SWP391\\QuizWebsite-Iteration2-Complete\\summer2022-se1617-g6\\web\\images\\thumbnails";
 
     /**
      * Handles the HTTP <code>GET</code> method.

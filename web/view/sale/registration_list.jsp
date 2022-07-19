@@ -21,7 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${path}/css/admin/index.css">
     <link rel="stylesheet" href="${path}/css/popup.css">
-    <link href="${path}/css/test_content/quiz_list.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
@@ -48,7 +47,6 @@
         <aside class="right">
             <div class="right_content">
                 <h1>Registration list</h1>
-
                 <form autocomplete="off" action="registrationsearch" method="GET">
                     <label for="subject">Subject: </label>
                     <input id="subject" list="subjectName" type="text" name="subject" placeholder="Enter subject name..." value="${requestScope.subject}">
@@ -57,9 +55,22 @@
                             <option value="${c.courseName}"></option>
                         </c:forEach>
                     </datalist>
-                    <label for="from">Date: </label>
-                    <input id="from" type="date" name="from" value="${requestScope.fromDate}"> - <input id="to" type="date"  name="to" value="${requestScope.toDate}">
                     &emsp;
+                    <label for="from">Date: </label>
+                    <input id="from" type="date" name="from" > - <input onchange="dateCheck()" id="to" type="date" name="to">
+                    &emsp;
+                    <script>
+                        function dateCheck() {
+                            var from = new Date(document.getElementById('from').value);
+                            console.log(from);
+                            var to = new Date(document.getElementById('to').value);
+                            console.log(to);
+                            if (to.getTime() < from.getTime()) {
+                                alert('Invalid Range! Please re-enter.');
+                                document.getElementById('to').value = '';
+                            }
+                        }
+                    </script>
                     <c:choose>
                         <c:when test="${requestScope.status == true}">
                             <input name="status" id="paid" type="radio" value="paid" checked> <label for="paid">Paid</label>
@@ -105,7 +116,7 @@
                                     <th data-sortas="numeric">Valid From</th>
                                     <th data-sortas="numeric">Valid To</th>
                                     <th>Updated By</th>
-                                    <th colspan="2"></th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,18 +162,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#table").fancyTable({
-                /* Column number for initial sorting*/
-                //undefined
-                /* Setting pagination or enabling */
-                pagination: true,
-                paginationClass: 'lol',
-                /* Rows per page kept for display */
-                perPage: 5,
-                searchable: false
-            });
-        });
+                        $(document).ready(function () {
+                            $("#table").fancyTable({
+                                /* Column number for initial sorting*/
+                                //undefined
+                                /* Setting pagination or enabling */
+                                pagination: true,
+                                paginationClass: 'lol',
+                                /* Rows per page kept for display */
+                                perPage: 5,
+                                searchable: false
+                            });
+                        });
     </script>
     <script src="js/userPopup.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>

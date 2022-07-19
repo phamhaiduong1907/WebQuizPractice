@@ -35,7 +35,6 @@
     <body>
         <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
         <section class="main-container">
-            <!-- RIGHT CONTENT -->
             <aside class="main-content">
                 <div class="right_content">
                     <h1>Practice List!</h1>
@@ -50,29 +49,36 @@
                             </c:forEach>
                         </select>
                     </form>
-                    <a class="newlink" href="#">New Practice</a>
-                    <a class="newlink" href="#">Simulation Exam</a>
+                    <a class="newlink" href="practicedetail">New Practice</a>
+                    <a class="newlink" href="quizlist">Simulation Exam</a>
                     <table id="table">
+                        <c:if test="${requestScope.list.isEmpty() == true}">
+                            <tr>
+                                <td colspan="5">
+                                    <h1 style="font-size: 50px; color: red;">NO RESULT! TAKE SOME QUIZ FIRST</h1>
+                                </td>
+                            </tr>
+                        </c:if>
                         <c:forEach items="${requestScope.list}" var = "c">
                             <tr>
-                                <td style="width: 45%">
+                                <td>
                                     ${c.quiz.course.courseName}<br>
                                     ${c.quiz.quizName}
                                 </td>
-                                <td style="width: 16%">
+                                <td>
                                     ${c.takenDate}<br>
                                     Taken Date
                                 </td>
-                                <td style="width: 20%">
+                                <td>
                                     ${c.quiz.numOfQuestion * c.mark /100} Correct <br>
                                     ${c.quiz.numOfQuestion} Questions
                                 </td>
-                                <td style="width: 14%">
+                                <td>
                                     ${c.mark}% <br>
                                     Correct
                                 </td>
-                                <td style="width: 24%">
-                                    <a href="../SWP391-SE1617-NET_Group06-QuizWebsite/practicedetail?id=${c.userQuizID}">Detail</a>
+                                <td style="text-align: center;">
+                                    <a class="detailLink" href="../SWP391-SE1617-NET_Group06-QuizWebsite/practicedetail?id=${c.userQuizID}">Detail</a>
                                 </td>
                             </tr>
                             <tr>

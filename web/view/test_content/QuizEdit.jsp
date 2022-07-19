@@ -221,7 +221,7 @@
                                         $('#numQ').html(data);
                                     })
                                     .fail(function () {
-                                        $('#numQ').html("<h1>FAIL</h1>");
+                                        $('#numQ').html("");
                                     })
                                     .always(function () {
 

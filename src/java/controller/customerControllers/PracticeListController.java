@@ -65,6 +65,8 @@ public class PracticeListController extends AuthorizationController {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        Account a = (Account) request.getSession().getAttribute("account");
+//        String username = a.getUsername();
         String username = "hunglnhe161003@fpt.edu.vn";
         Account account = (Account) request.getSession().getAttribute("account");
 
