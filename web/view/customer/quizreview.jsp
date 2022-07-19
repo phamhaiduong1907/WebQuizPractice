@@ -15,12 +15,15 @@
         <title>Quiz Review</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/quizhandle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/quizreview.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
+        <jsp:include page="${pageContext.request.contextPath}../../view/header_for_staff.jsp"/>
+
         <%
             ArrayList<ResultQuestion> rquestions = (ArrayList<ResultQuestion>) request.getSession().getAttribute("rquestions");
 
@@ -33,7 +36,7 @@
         </div>
 
 
-        <div class="body">
+        <div class="body" style="font-size: 16px;">
             <div class="question__info">
                 <div>
                     <span>${param.order})</span>
@@ -50,20 +53,19 @@
 
                 <div class="question__answer">
                     <c:forEach items="${rquestions[param.order-1].answers}" var="a">
-                        <div class="answer__detail">
-                            <input type="checkbox" name="answer" value="${a.answerID}" ${a.isChecked?"checked":""} disabled>
+                        <div class="answer__detail ${a.isChecked?'':'non__choice'}" >
+                            ${a.isChecked?'<div class="pointer">Your answer</div>':''}
+                            <div class="${a.isTrue?"answerright__option":"answerwrong__option"}"> ${a.isTrue?'<i class="fa-solid fa-check"></i>':'<i class="fa-solid fa-xmark"></i>'} </div>
                             <label for="">${a.answerContent}</label>
                         </div>
                     </c:forEach>
                 </div>
 
-                <div class="question__answer">
-                    <p>Correct answer: ${correctAnswer[param.order-1].answerContent}</p>
-                </div>
+
             </div>
 
             <div class="peekReview">
-                <button type="button"  data-toggle="modal" data-target="#peekAnswer">Explaination</button>
+                <button type="button"  data-toggle="modal" data-target="#peekAnswer" class="peek__button">Explanation</button>
             </div>
         </div>
 
@@ -90,16 +92,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Review progress</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <p>Review before scoring exam</p>
                         <div class="button_wrapper">
-                            <div>
-                                <button value="1" class="button__filter"> <i class="fa-regular fa-square"></i>  UNANSWERED</button>
-                                <button value="2" class="button__filter"> <i class="fa-solid fa-lightbulb"></i> MARKED</button>
-                                <button value="3" id="answered" class="button__filter"> <i class="fa-solid fa-square"></i> ANSWERED</button>
-                                <button value="4"  class="button__filter">ALL QUESTIONS</button>
+                            <div class="button__list">
+                                <button value="1" id="btnUnanswered" onclick="activeButton('btnUnanswered')" class="button__filter"> <i class="fa-regular fa-square"></i>  UNANSWERED</button>
+                                <button value="2" id="btnMark" onclick="activeButton('btnMark')" class="button__filter"> <i class="fa-solid fa-lightbulb"></i> MARKED</button>
+                                <button value="3" id="answered" style="background-color: white;" onclick="activeButton('answered')" class="button__filter"> <i class="fa-solid fa-square"></i> ANSWERED</button>
+                                <button value="4" id="btnAll" onclick="activeButton('btnAll')"  class="button__filter button__active">ALL QUESTIONS</button>
                             </div>
                         </div>
 
@@ -127,8 +127,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Explaination</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Explanation</h4>
                     </div>
                     <div class="modal-body">
                         <div>
@@ -148,6 +147,11 @@
 
             </div>
         </div>
+
+
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+
+
 
         <script>
             $(document).on('click', '.button__filter', function (event) {
@@ -169,6 +173,13 @@
                         });
 
             });
+
+
+            function activeButton(element) {
+                let current = document.querySelector('.button__list .button__active');
+                current.className = current.className.replace('button__active', '');
+                document.getElementById(element).className += ' button__active';
+            }
         </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

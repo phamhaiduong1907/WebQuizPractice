@@ -16,6 +16,18 @@ public class Slider {
     private String imageUrl;
     private String note;
 
+    public Slider(int sliderID, String title, String backlink, boolean status, String imageUrl, String note) {
+        this.sliderID = sliderID;
+        this.title = title;
+        this.backlink = backlink;
+        this.status = status;
+        this.imageUrl = imageUrl;
+        this.note = note;
+    }
+
+    public Slider() {
+    }
+    
     public int getSliderID() {
         return sliderID;
     }

@@ -49,9 +49,17 @@
                     <button type="submit">Search</button>
                 </div>
                 <div class="contact__link">
-                    <a href="#">Contact Information</a>
+                    <a href="mailto: yourquizwebsite@gmail.com">Contact Information</a>
                 </div>
             </form>
         </div>
 </section>
+<script>
+    function checkAllBox(source, cateID) {
+        checkboxes = document.getElementsByClassName(cateID);
+        for (var i = 0, n = checkboxes.length; i < n; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>
 

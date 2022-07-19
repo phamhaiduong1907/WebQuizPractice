@@ -132,13 +132,14 @@ tr:nth-child(even){
 }
 
 .registration__list table{
-    display: table;
-    
+    display: block;
+    overflow-y: hidden;
+
 }
 
 tr td:nth-child(7),
 tr td:nth-child(8){
-    
+
     font-size: 0.7rem;
 }
 

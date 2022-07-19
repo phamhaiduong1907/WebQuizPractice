@@ -59,6 +59,8 @@
                     <li><a href="${pageContext.request.contextPath}/subjectList" class="nav__item">Subject</a></li>
                     <li><a href="${pageContext.request.contextPath}/bloglist" class="nav__item">Blog</a></li>
                     <li><a href="${pageContext.request.contextPath}/registrationsearch?search=" class="nav__item">Registration</a></li>
+                    <li><a href="${pageContext.request.contextPath}/practicelist" class="nav__item">Practice list</a></li>
+                    <li><a href="${pageContext.request.contextPath}/quizlist" class="nav__item">Quiz list</a></li>
 
                     <c:if  test="${sessionScope.account == null}">
                         <li><a href="#" class="login nav__item" id="loginButton">Log in</a></li>
