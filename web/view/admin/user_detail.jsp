@@ -27,7 +27,7 @@
         <section class="main"> 
             <aside class="right">
                 <div class="right_content">
-                    <h1>User Details</h1>
+                    <h1>Edit User</h1>
                     <form action="userdetail" method="POST">
                         <div class="personal_info">
                             <div class="info">
