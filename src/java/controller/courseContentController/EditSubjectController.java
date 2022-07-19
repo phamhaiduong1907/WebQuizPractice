@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
@@ -29,7 +30,7 @@ import util.Validation;
  * @author ADMIN
  */
 @MultipartConfig
-public class EditSubjectController extends HttpServlet {
+public class EditSubjectController extends AuthorizationController {
 
     private static final String EDITCOURSEDETAILURL = "../view/course_content/course_edit.jsp";
     private static final String WRONGFILETYPE = "The format must be png, jpg or jpeg";
@@ -55,7 +56,7 @@ public class EditSubjectController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int courseID = Integer.parseInt(request.getParameter("id"));
         CourseDBContext courseDBContext = new CourseDBContext();
@@ -93,7 +94,7 @@ public class EditSubjectController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String raw_courseName = request.getParameter("courseName");
         String raw_subcategoryID = request.getParameter("subcategoryID");

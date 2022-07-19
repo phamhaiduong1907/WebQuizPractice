@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.TopicDBContext;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import model.ErrorMessage;
  *
  * @author ADMIN
  */
-public class EditTopicController extends HttpServlet {
+public class EditTopicController extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +41,7 @@ public class EditTopicController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }
@@ -54,7 +55,7 @@ public class EditTopicController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
         int topicID = Integer.parseInt(request.getParameter("topicID"));

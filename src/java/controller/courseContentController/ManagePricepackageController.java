@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
@@ -19,12 +20,13 @@ import model.Category;
 import model.Course;
 import model.ErrorMessage;
 import model.PricePackage;
+import org.apache.tomcat.util.http.parser.Authorization;
 
 /**
  *
  * @author ADMIN
  */
-public class ManagePricepackageController extends HttpServlet {
+public class ManagePricepackageController extends AuthorizationController {
 
     final static private String PRICEPACKAGEDETAILURL = "../../view/course_content/pricepackage_detail.jsp";
     final static private int PAGESIZE = 5;
@@ -48,7 +50,7 @@ public class ManagePricepackageController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
         CourseDBContext courseDBContext = new CourseDBContext();
@@ -97,7 +99,7 @@ public class ManagePricepackageController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

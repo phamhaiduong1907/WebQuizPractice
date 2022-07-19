@@ -4,6 +4,7 @@
  */
 package controller.marketingController;
 
+import controller.AuthorizationController;
 import dal.BlogDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ADMIN
  */
-public class ChangeBlogStatusController extends HttpServlet {
+public class ChangeBlogStatusController extends AuthorizationController {
 
     private static final String ERRORSQL = "Please try again";
 
@@ -39,7 +40,7 @@ public class ChangeBlogStatusController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         boolean status = request.getParameter("status").equals("true");
         int postID = Integer.parseInt(request.getParameter("postID"));
@@ -62,7 +63,7 @@ public class ChangeBlogStatusController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

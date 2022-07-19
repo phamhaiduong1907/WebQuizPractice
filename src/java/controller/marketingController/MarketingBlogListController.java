@@ -4,6 +4,7 @@
  */
 package controller.marketingController;
 
+import controller.AuthorizationController;
 import dal.BlogDBContext;
 import dal.CategoryDBContext;
 import dal.SubCategoryDBContext;
@@ -23,7 +24,7 @@ import model.Post;
  *
  * @author ADMIN
  */
-public class MarketingBlogListController extends HttpServlet {
+public class MarketingBlogListController extends AuthorizationController {
 
     static private final String POSTLISTURL = "../view/marketing/post_list.jsp";
     static private final String FROMGREATERTHANTOERROR = "From date must be smaller than To date";
@@ -48,7 +49,7 @@ public class MarketingBlogListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         BlogDBContext dbBlogforSearch = new BlogDBContext();
@@ -179,7 +180,7 @@ public class MarketingBlogListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

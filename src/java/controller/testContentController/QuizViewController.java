@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.QuizAttributeDBContext;
 import dal.QuizDBContext;
@@ -19,7 +20,7 @@ import model.Quiz;
  *
  * @author long
  */
-public class QuizViewController extends HttpServlet {
+public class QuizViewController extends AuthorizationController {
 
     QuizAttributeDBContext qabdc = new QuizAttributeDBContext();
     CourseDBContext cdbc = new CourseDBContext();
@@ -62,7 +63,7 @@ public class QuizViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int ID = Integer.parseInt(request.getParameter("id"));
         Quiz quiz = qdbc.getAQuiz(ID);
@@ -79,7 +80,7 @@ public class QuizViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

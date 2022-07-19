@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
@@ -23,7 +24,7 @@ import model.ErrorMessage;
  *
  * @author ADMIN
  */
-public class ManageSubjectDetailController extends HttpServlet {
+public class ManageSubjectDetailController extends AuthorizationController {
 
     private static final String COURSEDETAILURL = "../view/course_content/course_detail.jsp";
 
@@ -46,7 +47,7 @@ public class ManageSubjectDetailController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
         int courseID = Integer.parseInt(request.getParameter("id"));
@@ -81,7 +82,7 @@ public class ManageSubjectDetailController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

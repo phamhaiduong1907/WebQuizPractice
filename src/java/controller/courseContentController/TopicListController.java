@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
 import dal.TopicDBContext;
@@ -22,7 +23,7 @@ import model.Topic;
  *
  * @author ADMIN
  */
-public class TopicListController extends HttpServlet {
+public class TopicListController extends AuthorizationController {
     final static private String TOPICLISTURL = "../../view/course_content/topic_list.jsp";
     final static private int PAGESIZE = 5;
 
@@ -45,7 +46,7 @@ public class TopicListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String queryString = request.getQueryString();
         
@@ -85,7 +86,7 @@ public class TopicListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.UserQuizDBContext;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import model.TakenUserQuiz;
  *
  * @author long
  */
-public class PracticeListController extends HttpServlet {
+public class PracticeListController extends AuthorizationController {
 
     public UserQuizDBContext tdbc = new UserQuizDBContext();
     public CourseDBContext cdbc = new CourseDBContext();
@@ -62,7 +63,7 @@ public class PracticeListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = "hunglnhe161003@fpt.edu.vn";
         Account account = (Account) request.getSession().getAttribute("account");
@@ -83,7 +84,7 @@ public class PracticeListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

@@ -4,6 +4,7 @@
  */
 package controller.marketingController;
 
+import controller.AuthorizationController;
 import dal.BlogDBContext;
 import dal.CategoryDBContext;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import util.Validation;
  * @author ADMIN
  */
 @MultipartConfig
-public class ModifyPostController extends HttpServlet {
+public class ModifyPostController extends AuthorizationController {
 
     private static final String WRONGFILETYPE = "The format must be png, jpg or jpeg";
     private static final String MISSINGINPUT = "You must entered required fields";
@@ -41,7 +42,6 @@ public class ModifyPostController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,7 +52,7 @@ public class ModifyPostController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryDBContext dbCate = new CategoryDBContext();
         BlogDBContext blogDBContext = new BlogDBContext();
@@ -74,7 +74,7 @@ public class ModifyPostController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String raw_title = request.getParameter("title");
         String raw_briefInfo = request.getParameter("briefInfo");

@@ -4,6 +4,7 @@
  */
 package controller.testContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.QuizAttributeDBContext;
 import dal.QuizDBContext;
@@ -23,7 +24,7 @@ import model.QuizType;
  *
  * @author long
  */
-public class QuizzesListController extends HttpServlet {
+public class QuizzesListController extends AuthorizationController {
 
     QuizAttributeDBContext qabdc = new QuizAttributeDBContext();
     CourseDBContext cdbc = new CourseDBContext();
@@ -66,7 +67,7 @@ public class QuizzesListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ArrayList<Course> courseList = cdbc.getCoursesForHomePage(null);
         ArrayList<Quiz> list = qdbc.getQuizzes();
@@ -91,7 +92,7 @@ public class QuizzesListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String courseName, quizName;
         if (request.getParameter("course") != null) {

@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.CommonDBContext;
 import dal.QuestionDBContext;
 import dal.QuizDBContext;
@@ -25,7 +26,7 @@ import model.ResultQuestion;
  *
  * @author ADMIN
  */
-public class QuizHandleController extends HttpServlet {
+public class QuizHandleController extends AuthorizationController {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -35,7 +36,7 @@ public class QuizHandleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int quizID = Integer.parseInt(request.getParameter("quizID"));
         ArrayList<Question> questions = new QuestionDBContext().getQuestionsFromQuizQuestion(quizID);
@@ -73,7 +74,7 @@ public class QuizHandleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

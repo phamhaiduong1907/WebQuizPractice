@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.LessonDBContext;
 import dal.PricePackageDBContext;
@@ -24,7 +25,7 @@ import model.Topic;
  *
  * @author Zuys
  */
-public class LessonSearchController extends HttpServlet {
+public class LessonSearchController extends AuthorizationController {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -35,7 +36,7 @@ public class LessonSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         TopicDBContext dbTopic = new TopicDBContext();
         LessonDBContext dbLesson = new LessonDBContext();
@@ -130,7 +131,7 @@ public class LessonSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

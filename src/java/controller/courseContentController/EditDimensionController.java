@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.DimensionDBContext;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import util.Validation;
  *
  * @author ADMIN
  */
-public class EditDimensionController extends HttpServlet {
+public class EditDimensionController extends AuthorizationController {
 
     private static final String EDITDIMENSIONURL = "../../view/course_content/dimension_edit.jsp";
 
@@ -47,7 +48,7 @@ public class EditDimensionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
 
@@ -83,7 +84,7 @@ public class EditDimensionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
         String dimensionName = request.getParameter("dimensionName");

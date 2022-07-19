@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.CategoryDBContext;
 import dal.RegistrationDBContext;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import model.User;
  *
  * @author ADMIN
  */
-public class CustomerRegistrationController extends HttpServlet {
+public class CustomerRegistrationController extends AuthorizationController {
 
     final static String CUSTOMERREGISTRATIONURL = "view/customer/registration.jsp";
     final static int PAGESIZE = 2;
@@ -46,7 +47,7 @@ public class CustomerRegistrationController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RegistrationDBContext registrationDBContext = new RegistrationDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
@@ -66,7 +67,7 @@ public class CustomerRegistrationController extends HttpServlet {
         if (pageindex <= 0 || pageindex > totalpage) {
             pageindex = 1;
         }
-        
+
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("categories", categories);
         request.setAttribute("registrations", registrations);
@@ -84,7 +85,7 @@ public class CustomerRegistrationController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

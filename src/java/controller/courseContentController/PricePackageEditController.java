@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import util.Validation;
  *
  * @author ADMIN
  */
-public class PricePackageEditController extends HttpServlet {
+public class PricePackageEditController extends AuthorizationController {
 
     private final static String PRICEPACKAGEEDITURL = "../../view/course_content/pricepackage_edit.jsp";
 
@@ -46,7 +47,7 @@ public class PricePackageEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int pricepackageID = Integer.parseInt(request.getParameter("pid"));
         ErrorMessage errorMessage = new ErrorMessage();
@@ -74,7 +75,7 @@ public class PricePackageEditController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ErrorMessage errorMessage = new ErrorMessage();
         String raw_priceName = request.getParameter("priceName");

@@ -4,6 +4,7 @@
  */
 package controller.saleController;
 
+import controller.AuthorizationController;
 import dal.AccountDBContext;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
@@ -39,7 +40,7 @@ import util.Validation;
  *
  * @author long
  */
-public class RegistrationViewController extends HttpServlet {
+public class RegistrationViewController extends AuthorizationController {
 
     final static String MISSINGINPUT = "Please fill in required fill";
     final static String ERRORSQL = "Please try again";
@@ -69,7 +70,7 @@ public class RegistrationViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int Id;
         CourseDBContext cdbc = new CourseDBContext();
@@ -109,7 +110,7 @@ public class RegistrationViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        String raw_username = request.getParameter("username");
 //        String raw_firstName = request.getParameter("firstName");

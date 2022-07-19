@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.UserQuizDBContext;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import model.TakenUserQuiz;
  *
  * @author long
  */
-public class PracticeSearchController extends HttpServlet {
+public class PracticeSearchController extends AuthorizationController {
 
     public UserQuizDBContext tdbc = new UserQuizDBContext();
     public CourseDBContext cdbc = new CourseDBContext();
@@ -61,7 +62,7 @@ public class PracticeSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int index;
         if (request.getParameter("page") != null) {
@@ -95,7 +96,7 @@ public class PracticeSearchController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

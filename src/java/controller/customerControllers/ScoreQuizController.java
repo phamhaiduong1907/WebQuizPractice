@@ -4,6 +4,7 @@
  */
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.QuizDBContext;
 import dal.QuizHandleDBContext;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import model.QuizHistory;
  *
  * @author ADMIN
  */
-public class ScoreQuizController extends HttpServlet {
+public class ScoreQuizController extends AuthorizationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +42,7 @@ public class ScoreQuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qhid = Integer.parseInt(request.getParameter("qhid"));
 
@@ -77,7 +78,7 @@ public class ScoreQuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int qhid = Integer.parseInt(request.getParameter("qhid"));
         Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");

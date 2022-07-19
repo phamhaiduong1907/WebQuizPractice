@@ -5,6 +5,7 @@
 
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CategoryDBContext;
 import dal.CourseDBContext;
 import jakarta.servlet.ServletException;
@@ -21,7 +22,7 @@ import model.Course;
  *
  * @author Zuys
  */
-public class ManageSubjectListController extends HttpServlet { 
+public class ManageSubjectListController extends AuthorizationController { 
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -30,7 +31,7 @@ public class ManageSubjectListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         CourseDBContext courseDBContext = new CourseDBContext();
         CategoryDBContext dbCate = new CategoryDBContext();
@@ -66,7 +67,7 @@ public class ManageSubjectListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     }
 

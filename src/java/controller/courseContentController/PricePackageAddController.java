@@ -4,6 +4,7 @@
  */
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CommonDBContext;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
@@ -23,7 +24,7 @@ import util.Validation;
  *
  * @author ADMIN
  */
-public class PricePackageAddController extends HttpServlet {
+public class PricePackageAddController extends AuthorizationController {
 
     private final static String PRICEPACKAGEADDURL = "../../view/course_content/pricepackage_add.jsp";
 
@@ -46,7 +47,7 @@ public class PricePackageAddController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int courseID = Integer.parseInt(request.getParameter("cid"));
@@ -67,7 +68,7 @@ public class PricePackageAddController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
 

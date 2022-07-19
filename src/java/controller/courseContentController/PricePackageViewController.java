@@ -5,6 +5,7 @@
 
 package controller.courseContentController;
 
+import controller.AuthorizationController;
 import dal.CourseDBContext;
 import dal.PricePackageDBContext;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import model.PricePackage;
  *
  * @author ADMIN
  */
-public class PricePackageViewController extends HttpServlet {
+public class PricePackageViewController extends AuthorizationController {
     private final static String PRICEPACKAGEVIEWURL = "../../view/course_content/pricepackage_view.jsp";
    
     /** 
@@ -41,7 +42,7 @@ public class PricePackageViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         int pricepackageID = Integer.parseInt(request.getParameter("pid"));
         int courseID = Integer.parseInt(request.getParameter("cid"));
@@ -67,7 +68,7 @@ public class PricePackageViewController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     }
 

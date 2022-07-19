@@ -5,6 +5,7 @@
 
 package controller.customerControllers;
 
+import controller.AuthorizationController;
 import dal.QuizHandleDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import model.ResultQuestion;
  *
  * @author Zuys
  */
-public class GetReviewFilter extends HttpServlet {
+public class GetReviewFilter extends AuthorizationController {
 
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -29,7 +30,7 @@ public class GetReviewFilter extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     } 
 
@@ -41,7 +42,7 @@ public class GetReviewFilter extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charater=UTF-8");
         response.setCharacterEncoding("utf-8");
