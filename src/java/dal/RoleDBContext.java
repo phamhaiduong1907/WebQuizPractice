@@ -23,7 +23,7 @@ public class RoleDBContext extends DBContext {
 
     public ArrayList<Role> getRoles() {
         ArrayList<Role> roles = new ArrayList<>();;
-        String sql = "select r.roleID, r.roleName from [Role] r";
+        String sql = "select r.roleID, r.roleName from [Role] r order by r.roleID desc";
         PreparedStatement stm;
         PreparedStatement stm_feature;
         try {

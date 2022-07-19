@@ -15,7 +15,6 @@
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/user_detail.css">
         <%
@@ -28,7 +27,7 @@
         <section class="main"> 
             <aside class="right">
                 <div class="right_content">
-                    <h1>User Details</h1>
+                    <h1>Edit User</h1>
                     <form action="userdetail" method="POST">
                         <div class="personal_info">
                             <div class="info">
@@ -74,27 +73,27 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-<!--                                <div class="authorized__feature">
-                                    <p>(Choose/Unchoose items to modify user's features accessibility)</p>
-                                    <div id="featureOption">
-                                        <%for (Feature fid : roleById.getFeatures()) {%>
-                                        <input type="checkbox" name="featureID" value="<%=(fid.getFeatureID())%>"
-                                               <%  boolean unauthorized = true;
-                                                   for (Feature f : user.getAccount().getRole().getFeatures()) {
-                                                       if (fid.getFeatureID() == f.getFeatureID()) {
-                                                           unauthorized = false;
-                                                           break;
-                                                       }
-                                                   }
-                                                   if (unauthorized) { %>
-                                               checked="checked"
-                                               <%}
-                                               %>
-                                               />
-                                        <%=(fid.getFeatureName())%>
-                                        <%}%>
-                                    </div>
-                                </div>  -->
+                                <!--                                <div class="authorized__feature">
+                                                                    <p>(Choose/Unchoose items to modify user's features accessibility)</p>
+                                                                    <div id="featureOption">
+                                <%for (Feature fid : roleById.getFeatures()) {%>
+                                <input type="checkbox" name="featureID" value="<%=(fid.getFeatureID())%>"
+                                <%  boolean unauthorized = true;
+                                    for (Feature f : user.getAccount().getRole().getFeatures()) {
+                                        if (fid.getFeatureID() == f.getFeatureID()) {
+                                            unauthorized = false;
+                                            break;
+                                        }
+                                    }
+                                    if (unauthorized) { %>
+                                checked="checked"
+                                <%}
+                                %>
+                                />
+                                <%=(fid.getFeatureName())%>
+                                <%}%>
+                            </div>
+                        </div>  -->
                             </div> 
                             <div class="authorize_item">
                                 <label for="status">Status</label>
@@ -111,27 +110,26 @@
                         </div>
                         <button type="submit">Save</button>
                     </form>
+                    <p id="confirmMessage" style="text-align: center; color: #87c725;">${param.confirmMessage}</p>
                 </div>
-                <footer>
-                    FOOTER
-                </footer>
             </aside>
         </section>
-             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
+        <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
-      
+
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>                    
         <script src="${pageContext.request.contextPath}/js/userPopup.js"></script>
         <script>
                                     function loadFeature() {
                                         var role = document.getElementById("roleSelect").value.trim();
-                                        var username = document.getElementById("emailInput").value.trim();  
+                                        var username = document.getElementById("emailInput").value.trim();
                                         $.ajax({
                                             url: "/SWP391-SE1617-NET_Group06-QuizWebsite/admin/load_feature",
                                             type: "get",
                                             data: {
-                                                role : role,
+                                                role: role,
                                                 username: username
                                             },
                                             success: function (data) {
@@ -139,7 +137,14 @@
                                                 row.innerHTML = data;
                                             }
                                         });
-                                        
+
+                                    }
+
+                                    var selects = document.getElementsByTagName('select');
+                                    for (let i = 0; i < selects.length; i++) {
+                                        selects[i].addEventListener('focus', function () {
+                                            document.getElementById('confirmMessage').remove();
+                                        });
                                     }
         </script>
     </body>
