@@ -29,12 +29,16 @@
                 <li><a href="#">Subject detail</a></li>
             </ul> 
             <div class="content">
+                <c:if test="${requestScope.message != null}">
+                    <div>${requestScope.message}</div>
+                </c:if>
                 <form id="question__form" method="POST" action="addquestion" enctype="multipart/form-data">
+                    <input type="hidden" value="${requestScope.courseID}" name="courseID">
                     <div class="upperpart row">
                         <div class="upperpart__left col-md-6" >
                             <div class="form-group">
                                 <label>Question content: </label>
-                                <textarea required rows="3"  class="form-control" name="questioncontent"  ></textarea>
+                                <textarea rows="3"  class="form-control" name="questioncontent" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Topic: </label>
@@ -70,17 +74,17 @@
                             </div>
                             <div class="row col-md-10 answer__detail">
                                 <div class="col-lg-12 form-control">
-                                    <div id="answer__details__1" class="row">
+                                    <div id="answer__details__1" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
                                                     <span class="question__answer">Answer: </span>
                                                 </td>
                                                 <td class="col-6">
-                                                    <input type="text" class="form-control" name="answer">
+                                                    <input required type="text" class="form-control" name="answer">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    &emsp;<span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <input type="checkbox" name="istrue" value="1_istrue">
@@ -93,24 +97,24 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div id="answer__details__2" class="row">
+                                    <div id="answer__details__2" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
                                                     <span class="question__answer">Answer: </span>
                                                 </td>
                                                 <td class="col-6">
-                                                    <input type="text" class="form-control" name="answer">
+                                                    <input required type="text" class="form-control" name="answer">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    &emsp;<span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <input type="checkbox" name="istrue" value="2_istrue">
                                                 </td>
                                                 <td class="col-2">
-                                                    <button style="display: none;" name="remove_item" class='remove' id="remove_item">
-                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    <button name="remove_item" class='remove remove__answer' id="remove_item">
+                                                        <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -122,22 +126,24 @@
                                         <label>Answer explanation: </label>
                                         <textarea required rows="3"  class="form-control" name="explanation"></textarea>
                                     </div>
-                                    <button type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                    <a class="addlink" href="javascript:{}">
+                                        <button class="add__answer" type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="upperpart__right col-md-6">
                             <div class="media__file">
                                 <label>Choose media type: </label>
-                                <select id="file__select" onchange="InputFile()" name="mediaID">
+                                <select class="file__select" id="file__select" onchange="InputFile()" name="mediaID">
                                     <option disabled selected="selected">Media type</option>
                                     <option value="1">Picture</option>
                                     <option value="3">Audio</option>
                                     <option value="2">Video</option>
+                                    <option value="4">No media</option>
                                 </select>
                             </div>
-                            <div class="media__preview">
-                                <i id="upload__icon" class="fa-solid fa-upload"></i>
+                            <div class="media__preview" id="media__preview">
                                 <img id="image__preview" class="image__preview">
                                 <audio id="audio__preview" class="audio__preview" controls></audio>
                                 <video id="video__preview" class="video__preview" controls></video>
@@ -145,7 +151,7 @@
                             <input id="file__input" type="file" name="mediafile">
                         </div>
                     </div >
-                    <a class="addlink" href="javascript:{}" onclick="document.getElementById('question__form').submit();">Save</a>
+                    <a class="addlink" href="javascript:{}"><button class="save__button" type="submit">Save</button></a>
                 </form>
             </div>   
             <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
@@ -156,32 +162,32 @@
             <script src="../../js/userPopup.js"></script>
             <script src="${pageContext.request.contextPath}/js/test_content/addquestion.js" type="text/javascript"></script>
             <script>
-                        $(document).on('change', '#topicID', function (event) {
-                            var topicID = this.value;
-                            $.ajax({
-                                url: "getlessonbytopic",
-                                type: 'POST',
-                                dataType: 'html',
-                                data: {ID: topicID},
-                            })
-                                    .done(function (data) {
-                                        $('#lesson').html(data);
-                                    })
-                                    .fail(function (error) {
-                                        $('#lesson').html("<h1>error</h1>");
-                                    })
-                                    .always(function () {
+                                    $(document).on('change', '#topicID', function (event) {
+                                        var topicID = this.value;
+                                        $.ajax({
+                                            url: "getlessonbytopic",
+                                            type: 'POST',
+                                            dataType: 'html',
+                                            data: {ID: topicID},
+                                        })
+                                                .done(function (data) {
+                                                    $('#lesson').html(data);
+                                                })
+                                                .fail(function (error) {
+                                                    $('#lesson').html("<h1>error</h1>");
+                                                })
+                                                .always(function () {
+
+                                                });
 
                                     });
-
-                        });
-                        var loadFile = function (event) {
-                            var output = document.getElementById('output');
-                            output.src = URL.createObjectURL(event.target.files[0]);
-                            output.onload = function () {
-                                URL.revokeObjectURL(output.src) // free memory
-                            }
-                        };
+                                    var loadFile = function (event) {
+                                        var output = document.getElementById('output');
+                                        output.src = URL.createObjectURL(event.target.files[0]);
+                                        output.onload = function () {
+                                            URL.revokeObjectURL(output.src) // free memory
+                                        }
+                                    };
             </script>
         </body>
 

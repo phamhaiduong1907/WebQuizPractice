@@ -3,6 +3,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
 */
 /* 
+    Created on : Jul 16, 2022, 2:36:26 PM
+    Author     : long
+*/
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
     Created on : Jun 27, 2022, 1:30:50 AM
     Author     : long
 */
@@ -11,17 +20,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 }
 .main-container {
     position: relative;
-    min-height: 100vh;
-
-}
-
-.main-content {
-    padding-bottom: 3rem;
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
     height: 3rem;
     width: 100%;
     background-color: black;
@@ -37,20 +38,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     font-weight: bolder;
     color: red;
 }
-.searchForm {
-    float: right;
-    margin-bottom: 25px;
+
+.practiceForm {
+    padding-left: 20px;
+    width: 600px;
+    box-shadow: 5px  5px 20px 5px #e1e5ee;
+    padding: 20px;
 }
 
-input[type=text] {
+input[type=number] {
     margin-right: 10px;
-    border: 2px solid blue;
+    border: 2px solid #3321fa;
     padding: 5px 10px;
     border-radius: 10px;
+    width: 100%
+}
+label {
+    margin-top: 15px;
+    font-size: 1.2rem;
 }
 
 input[type=submit] {
-    margin-left: 10px;
+    margin-top: 30px;
     font-size: 1.1rem;
     border: none;
     border-radius: 10px;
@@ -61,21 +70,33 @@ input[type=submit] {
     color: white;
 }
 
+select {
+    font-size: 0.8rem;
+    border-radius: 10px;
+    width: 100%;
+    margin-right: 10px;
+    border: 2px solid #3321fa;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
 input[type=submit]:hover {
     background-color: #c7a130;
 
 }
 
 .newlink {
+    float: right;
     text-decoration: none;
     color: white;
     line-height: 40px;
-    float: left;
-    padding: 5px 15px;
+    padding: 2px 10px;
     border-radius: 50px;
     background-color: #0056d2;
     transition: all;
     transition-duration: 0.5s;
+    margin-left: 25px;
+    margin-bottom: 35px;
 }
 
 .newlink:hover {
@@ -89,10 +110,18 @@ table{
     border-collapse: collapse;
     box-shadow: 0  0 10px 5px #e1e5ee;
     background-color: #fff;
-    text-align: center;
+    text-align: left;
     font-family: Mukta, sans-serif;
-    display: table;
+    display: block;
+}
+
+tr, td {
     width: 100%;
+}
+
+table, tr, th, td{
+    border: none;
+    clear: both;
 }
 
 thead{
@@ -104,13 +133,13 @@ th{
     padding: 0.7rem 1.2rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 900;
 }
 
 td{
-    font-size: 0.8rem;
-    padding: 0.7rem;
+    font-size: 0.85rem;
+    padding: 0.7rem 0.9rem;
 }
 
 tr{
@@ -134,7 +163,11 @@ tr:nth-child(even){
     transition: background-color .2s;
 }
 
-/*.pag .active {
+.pag {
+    text-align: center;
+}
+
+.pag .active {
     background-color: #1fe21e;
     color: #fff;
 }
@@ -142,7 +175,7 @@ tr:nth-child(even){
 .pag a:hover {
     color: white;
     background-color: gray;
-}*/
+}
 
 .btn_view{
     text-decoration: none;
@@ -171,38 +204,5 @@ tr:nth-child(even){
     color: #fff;
     text-decoration: none;
     background-color: #e4b050;
-}
-
-.right_content{
-    padding: 30px;
-}
-
-tfoot tr td a{
-    color: #000;
-    font-size: 1rem;
-    padding: 10px 15px;
-    border-radius: 0;
-}
-
-tfoot tr td a:not(.active):hover{
-    background-color: #bcb6b6;
-}
-
-tfoot tr td a.active{
-    background-color: #1fe21e;
-    color: #fff;  
-}
-.btn_del{
-    text-decoration: none;
-    letter-spacing: 1px;
-    padding: 5px;
-    color: #fff;
-    background-color: #ff6666;
-    border-radius: 5px;
-}
-
-.btn_del:hover{
-    background-color: #ff3333;
-    color: #fff;
 }
 

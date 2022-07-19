@@ -5,6 +5,7 @@
 package util;
 
 import java.util.ArrayList;
+import org.apache.commons.io.filefilter.FileFilterUtils;
 
 /**
  *
@@ -54,8 +55,12 @@ public class Validation {
                 return contentType.contains("image/");
             case 2:
                 return contentType.contains("video/");
-            default:
+            case 3:
                 return contentType.contains("audio/");
+            case 4:
+                return true;
+            default:
+                return false;
         }
     }
 }

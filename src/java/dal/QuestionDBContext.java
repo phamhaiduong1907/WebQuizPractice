@@ -92,8 +92,14 @@ public class QuestionDBContext extends DBContext {
                 + "           ,?)\n"
                 + "\n"
                 + "DECLARE @id1 AS int SET @id1 = (SELECT SCOPE_IDENTITY());\n"
+                + "DECLARE @mediaID1 AS int SET @mediaID1 = (SELECT mediaID FROM Question WHERE questionID = @id1)\n"
+                + "IF @mediaID1 != 4\n"
                 + "UPDATE Question\n"
                 + "SET mediaURL = 'question_media_' + CAST(@id1 AS varchar(max)) + ?\n"
+                + "WHERE questionID = @id1\n"
+                + "ELSE \n"
+                + "UPDATE Question\n"
+                + "SET mediaURL = NULL\n"
                 + "WHERE questionID = @id1";
         String sql_insert_answer = "INSERT INTO [dbo].[Answer]\n"
                 + "           ([questionID]\n"
@@ -592,7 +598,7 @@ public class QuestionDBContext extends DBContext {
             while (rs.next()) {
                 Question question = new Question();
                 question = getQuestion(rs.getInt("questionID"));
-                
+
                 questions.add(question);
             }
         } catch (SQLException ex) {

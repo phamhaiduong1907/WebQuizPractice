@@ -18,7 +18,7 @@
               integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/global.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/test_content/question_detail.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/test_content/question_view.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
@@ -92,7 +92,7 @@
                         <div class="row col-md-10 answer__detail">
                             <div class="col-lg-12 form-control">
                                 <c:forEach items="${requestScope.question.answers}" var="a" end="0">
-                                    <div id="answer__details__1" class="row">
+                                    <div id="answer__details__1" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -102,7 +102,7 @@
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    &emsp;<span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -124,7 +124,7 @@
                                     </div>
                                 </c:forEach>
                                 <c:forEach items="${requestScope.question.answers}" var="a" begin="1" end="1">
-                                    <div id="answer__details__2" class="row">
+                                    <div id="answer__details__2" class="row answer">
                                         <table>
                                             <tr>
                                                 <td class="col-2">
@@ -134,7 +134,7 @@
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    &emsp;<span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -168,7 +168,7 @@
                                                     <input disabled type="text" class="form-control" name="answer" value="${a.answerContent}">
                                                 </td>
                                                 <td class="col-2">
-                                                    <span class="istrue">Is True:</span>
+                                                    &emsp;<span class="istrue">Is True:</span>
                                                 </td>
                                                 <td class="col">
                                                     <c:choose>
@@ -195,29 +195,40 @@
                                     <label>Answer explanation: </label>
                                     <textarea readonly required rows="3"  class="form-control" name="explanation">${requestScope.question.explanation}</textarea>
                                 </div>
-                                <button disabled type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                <a class="addlink" href="javascript:{}">
+                                    <button disabled class="add__answer"  type="button" href="javascript:void(0)" name="add_item" id="add_item">Add new answer</button>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="upperpart__right col-md-6">
                         <div class="media__file">
                             <label>Choose media type: </label>
-                            <select disabled id="file__select" onchange="InputFile()" name="mediaID">
+                            <select disabled class="file__select" id="file__select" onchange="InputFile()" name="mediaID">
                                 <c:choose>
                                     <c:when test="${requestScope.question.mediaType.mediaID == 1}">
                                         <option selected="selected" value="1">Picture</option>
                                         <option value="3">Audio</option>
                                         <option value="2">Video</option>
+                                        <option value="4">No media</option>
                                     </c:when>
                                     <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
                                         <option value="1">Picture</option>
                                         <option value="3">Audio</option>
                                         <option selected="selected" value="2">Video</option>
+                                        <option value="4">No media</option>
                                     </c:when>
-                                    <c:otherwise>
+                                    <c:when test="${requestScope.question.mediaType.mediaID == 3}">
                                         <option value="1">Picture</option>
                                         <option selected="selected" value="3">Audio</option>
                                         <option value="2">Video</option>
+                                        <option value="4">No media</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="1">Picture</option>
+                                        <option value="3">Audio</option>
+                                        <option value="2">Video</option>
+                                        <option selected="selected" value="4">No media</option>
                                     </c:otherwise>
                                 </c:choose>
                             </select>
@@ -225,33 +236,24 @@
                         <div class="media__preview">
                             <c:choose>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 1}">
-                                    <img id="image__preview" class="image__preview__data" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
+                                    <img id="image__preview__data" class="image__preview__data" src="${pageContext.request.contextPath}/media/image/${requestScope.question.mediaURL}">
                                 </c:when>
                                 <c:when test="${requestScope.question.mediaType.mediaID == 2}"> 
-                                    <video id="video__preview" class="video__preview__data" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
+                                    <video id="video__preview__data" class="video__preview__data" controls src="${pageContext.request.contextPath}/media/video/${requestScope.question.mediaURL}">
 
                                     </video>
                                 </c:when>
-                                <c:otherwise>
-                                    <audio id="audio__preview" class="audio__preview__data" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
+                                <c:when test="${requestScope.question.mediaType.mediaID == 3}">
+                                    <audio id="audio__preview__data" class="audio__preview__data" controls src="${pageContext.request.contextPath}/media/audio/${requestScope.question.mediaURL}">
 
                                     </audio>
-                                </c:otherwise>
+                                </c:when>
                             </c:choose>
-                            <i id="upload__icon" class="fa-solid fa-upload"></i>
-                            <img id="image__preview" class="image__preview">
-                            <audio id="audio__preview" class="audio__preview" controls></audio>
-                            <video id="video__preview" class="video__preview" controls></video>
                         </div>
                         <input disabled id="file__input" type="file" name="mediafile" value="${requestScope.question.mediaURL}">
                     </div>
                 </div > 
-<<<<<<< HEAD
-                <input type="submit" value="Save" class="addlink">
-            </form>
-=======
                 <a href="editquestion?questionID=${requestScope.question.questionID}" class="addlink">Edit</a>
->>>>>>> abc53fb18aa50b76a547d7d4d8f29adc21cb799c
         </div>   
         <jsp:include page="${pageContext.request.contextPath}../../view/footer.jsp"/>
         <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>

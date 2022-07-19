@@ -49,49 +49,13 @@
     <div class="content">
         <h1>Quiz Detail Editor</h1>
         <div style="margin: 0 auto;" class="tab col-md-10">
-            <button id="openO" class="tablinks active" onclick="openTab('setting', 'overview'); changeActive('openS', 'openO');">Overview</button>
-            <button id="openS"  class="tablinks" onclick="openTab('overview', 'setting'); changeActive('openO', 'openS');">Settings</button>
+            <button id="openS"  class="tablinks active" onclick="openTab('overview', 'setting'); changeActive('openO', 'openS');">Settings</button>
+            <button id="openO" class="tablinks" onclick="openTab('setting', 'overview'); changeActive('openS', 'openO');">Overview</button>
         </div>
         <div class="upperpart row">
             <div style="margin: 0 auto;" class="col-md-10" >
                 <form id="myForm" action="../quizzes/edit" method="POST">
-                    <div id="overview">
-                        <c:if test="${q != null}">
-                            <div class="form-group col-md-1">
-                                <label for="">Quiz ID</label>
-                                <input readonly  type="text" class="form-control" name="ID" value="${q.quizID}"/>
-                            </div>
-                        </c:if>
-                        <div class="form-group">
-                            <label for="name">Quiz Name</label>
-                            <input required type="text" class="form-control" name="name" value="${q.quizName}"/>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Duration (mins)</label>
-                                <input min="1" required type="number" class="form-control" name="duration" value="${q.duration}"/>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Pass Rate (%)</label>
-                                <input min="1" required type="number" class="form-control" name="passRate" value="${q.passRate}"/>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Number Of Question</label>
-                                <input min="1" required type="number" class="form-control" name="numOfQ" value="${q.numOfQuestion}"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <label for="">Description</label>
-                                <textarea required rows="3"  class="form-control" name="des">${q.description}</textarea>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Note</label>
-                                <textarea required rows="3"  class="form-control" name="note">${q.note}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="setting" style="display: none">
+                    <div id="setting" style="display: block">
                         <div class="row">
                             <div class="col-md-8">
                                 <label for="">Quiz Type</label>
@@ -151,7 +115,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="">Subject</label>
-                                <select required id="courseID" name="courseID" onchange="renderThumbnail()">
+                                <select required id="courseID" name="courseID">
                                     <c:choose>
                                         <c:when test="${q != null}">
                                             <option selected value="${q.course.courseID}">${q.course.courseName}</option>
@@ -164,52 +128,105 @@
                             </div>
                         </div>
                     </div>
+                    <div id="overview" style="display: none">
+                        <c:if test="${q != null}">
+                            <div class="form-group col-md-1">
+                                <label for="">Quiz ID</label>
+                                <input readonly  type="text" class="form-control" name="ID" value="${q.quizID}"/>
+                            </div>
+                        </c:if>
+                        <div class="form-group">
+                            <label for="name">Quiz Name</label>
+                            <input required type="text" class="form-control" name="name" value="${q.quizName}"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Duration (mins)</label>
+                                <input min="1" required type="number" class="form-control" name="duration" value="${q.duration}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Pass Rate (%)</label>
+                                <input min="1" required type="number" class="form-control" name="passRate" value="${q.passRate}"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Number Of Question</label>
+                                <div id="numQ">
+                                    <input min="1" step="1" required type="number" class="form-control" name="numOfQ" value="${q.numOfQuestion}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="">Description</label>
+                                <textarea required rows="3"  class="form-control" name="des">${q.description}</textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">Note</label>
+                                <textarea required rows="3"  class="form-control" name="note">${q.note}</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="form-group btngrps">
-                    <a style="background-color: #fff; color: #000;" href="../quizzes" onclick="alert('You are about to cancel!?');">Cancel</a>
-                    <input style="border-radius: 5px; padding: 7px;" form="myForm" onclick="alert('You are about to save this!?');" type="submit" value="Save">
+                    <a style="background-color: #fff; color: #000;" href="../quizzes" onclick="conf('You are about to cancel!?');">Cancel</a>
+                    <input style="border-radius: 5px; padding: 7px;" form="myForm" onclick="conf('You are about to save this!?');" type="submit" value="Save">
                 </div>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-                                    $(document).on('change', '#cID', function () {
-                                        var cateID = this.value;
-                                        $.ajax({
-                                            url: "${path}/rendersubcate",
-                                            type: 'POST',
-                                            dataType: 'html',
-                                            data: {ID: cateID}
-                                        })
-                                                .done(function (data) {
-                                                    $('#scID').html(data);
-                                                })
-                                                .fail(function () {
-                                                    $('#scID').html("<option>Error</option>");
-                                                })
-                                                .always(function () {
+                        $(document).on('click', '#cID', function () {
+                            var cateID = this.value;
+                            $.ajax({
+                                url: "${path}/rendersubcate",
+                                type: 'POST',
+                                dataType: 'html',
+                                data: {ID: cateID}
+                            })
+                                    .done(function (data) {
+                                        $('#scID').html(data);
+                                    })
+                                    
+                                    .always(function () {
 
-                                                });
                                     });
+                        });
 
-                                    $(document).on('change', '#scID', function () {
-                                        var subcateID = this.value;
-                                        $.ajax({
-                                            url: "${path}/rendercourse",
-                                            type: 'POST',
-                                            dataType: 'html',
-                                            data: {ID: subcateID}
-                                        })
-                                                .done(function (data) {
-                                                    $('#courseID').html(data);
-                                                })
-                                                .fail(function () {
-                                                    $('#courseID').html("<option>Error</option>");
-                                                })
-                                                .always(function () {
+                        $(document).on('click', '#scID', function () {
+                            var subcateID = this.value;
+                            $.ajax({
+                                url: "${path}/rendercourse",
+                                type: 'POST',
+                                dataType: 'html',
+                                data: {ID: subcateID}
+                            })
+                                    .done(function (data) {
+                                        $('#courseID').html(data);
+                                    })
+                                   
+                                    .always(function () {
 
-                                                });
                                     });
+                        });
+
+                        $(document).on('click', '#courseID', function () {
+                            var courseID = this.value;
+                            $.ajax({
+                                url: "${path}/rendermaxquestion",
+                                type: 'POST',
+                                dataType: 'html',
+                                data: {ID: courseID}
+                            })
+                                    .done(function (data) {
+                                        $('#numQ').html(data);
+                                    })
+                                    .fail(function () {
+                                        $('#numQ').html("<h1>FAIL</h1>");
+                                    })
+                                    .always(function () {
+
+                                    });
+                        });
 
         </script>
         <script>
@@ -225,6 +242,14 @@
                 fromTab.classList.remove("active");
                 var toTab = document.getElementById(to);
                 toTab.classList.add("active");
+            }
+        </script>
+        <script>
+            function conf(mess) {
+                var sure = window.confirm(mess);
+                if (sure === false) {
+                    event.preventDefault();
+                }
             }
         </script>
     </div>

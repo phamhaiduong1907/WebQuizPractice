@@ -12,9 +12,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/popup.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/sale/regis_detail.css">
+    <link href="${context}/css/test_content/quiz_view.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -22,118 +28,93 @@
 
 
     <section class="main">
-        <!-- LEFT NAVIGATION BAR -->
-
-
-        <!-- RIGHT CONTENT -->
-        <aside class="right">
-            <div class="right_content">
+        <aside class="right" style="padding: 3% 2%;">
+            <div class="right_content" style="box-shadow: 0 0 10px 5px #e1e5ee;">
                 <h1>Registration Details</h1>
-                <form action="registrationdetail" method="POST">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <h3>User Information</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Username</th>
-
-                            <td>
-                                ${requestScope.user.account.username}
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th>First Name</th>
-                            <td>${requestScope.user.firstName}</td>
-                        </tr>
-                        <tr>
-                            <th>Last Name</th>
-                            <td>${requestScope.user.lastName}</td>
-                        </tr>
-                        <tr>
-                            <th>Gender</th>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${requestScope.user.gender == true}">
-                                        Male
-                                    </c:when>
-                                    <c:when test="${requestScope.user.gender == false}">
-                                        Female 
-                                    </c:when>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>
-                                ${requestScope.user.account.username}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Phone Number</th>
-                            <td>${requestScope.user.phoneNumber}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h3>Registration Information</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Registration ID</th>
-                            <td>${requestScope.registration.registrationID}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Subject</th>
-                            <td>
-                                ${requestScope.course.courseName}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Registration Time</th>
-                            <td>
-                                ${requestScope.registration.registrationTime}</tr>
-                        <tr>
-                            <th>Price Package</th>
-                            <td>
-                                ${requestScope.registration.pricePackage.priceName} 
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>  
-                            <td>
-                                <c:choose>
-                                    <c:when test="${requestScope.registration.status == true}">
-                                        Paid
-                                    </c:when>
-                                    <c:when test="${requestScope.registration.status == false}">
-                                        Unpaid
-                                    </c:when>
-                                </c:choose>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th>Valid Date</th>
-                            <td>From &emsp;${requestScope.registration.validFrom}&emsp;to&emsp;${requestScope.registration.validTo}
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="abtn" style="width: 100%; text-align: center; margin-top: 20px;">
-                        <a class="back"  href="../sale/registrationlist">Back</a>
-                        <a class="save" href="../sale/registrationedit?id=${requestScope.registration.registrationID}">Edit</a>  
+                <div style="margin: 0 auto;" class="upperpart row col-md-11">
+                    <div class="form-group col-md-6" style="padding: 0 20px;">
+                        <div class="row">
+                            <h3>User Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.user.account.username}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.user.firstName}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.user.lastName}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <c:choose>
+                                <c:when test="${requestScope.user.gender == true}">
+                                    <input readonly  type="text" class="form-control" name="" value="Male"/>
+                                </c:when>
+                                <c:when test="${requestScope.user.gender == false}">
+                                    <input readonly  type="text" class="form-control" name="" value="Female"/> 
+                                </c:when>
+                            </c:choose>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.user.account.username}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.user.phoneNumber}"/>
+                        </div>
                     </div>
-                </form>
+                    <div class="form-group col-md-6" style="padding: 0 20px;">
+                        <div class="form-group">
+                            <h3>Registration Information</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>Registration ID</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.registration.registrationID}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.course.courseName}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Time</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.registration.registrationTime}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Price Package</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.registration.pricePackage.priceName}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <c:choose>
+                                <c:when test="${requestScope.registration.status == true}">
+                                    <input readonly  type="text" class="form-control" name="" value="Paid"/>
+                                </c:when>
+                                <c:when test="${requestScope.registration.status == false}">
+                                    <input readonly  type="text" class="form-control" name="" value="Unpaid"/>
+                                </c:when>
+                            </c:choose>
+                        </div>
+                        <div class="form-group">
+                            <label>Valid Date</label>
+                            <input readonly  type="text" class="form-control" name="" value="${requestScope.registration.validFrom} - ${requestScope.registration.validTo}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="btngrps" style="width: 100%; text-align: center; margin-top: 20px;">
+                    <a href="../sale/registrationlist" style="border-radius: 5px; padding: 7px;">Back</a>
+                    <a style="background-color: white; color: #000;" href="../sale/registrationedit?id=${requestScope.registration.registrationID}">Edit</a>  
+                </div>
             </div>
-
-            <footer>
-                FOOTER
-            </footer>
         </aside>
     </section>
-
+    <footer>
+        FOOTER
+    </footer>
     <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
 
 
@@ -148,7 +129,7 @@
                 url: "../getsubcategory",
                 type: 'POST',
                 dataType: 'html',
-                data: {ID: categoryID},
+                data: {ID: categoryID}
             })
                     .done(function (data) {
                         $('#subCategory_by_category').html(data);
@@ -168,7 +149,7 @@
                 url: "${pageContext.request.contextPath}/getcoursebysubcategoryid",
                 type: 'POST',
                 dataType: 'html',
-                data: {ID: categoryID},
+                data: {ID: categoryID}
             })
                     .done(function (data) {
                         $('#course_by_subcategory').html(data);
@@ -179,7 +160,6 @@
                     .always(function () {
 
                     });
-
         });
     </script>
 

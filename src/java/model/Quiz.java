@@ -9,10 +9,10 @@ package model;
  * @author long
  */
 public class Quiz {
+
     private int quizID;
     private String quizName;
     private Course course;
-    private Dimension dimension;
     private QuizLevel level;
     private int numOfQuestion;
     private int duration;
@@ -21,6 +21,25 @@ public class Quiz {
     private String note;
     private QuizType quizType;
     private Boolean isTaken;
+    private Boolean questionType;
+    private Topic topic;
+    private Dimension dimension;
+
+    public Boolean getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(Boolean questionType) {
+        this.questionType = questionType;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 
     public String getNote() {
         return note;
@@ -30,8 +49,6 @@ public class Quiz {
         this.note = note;
     }
 
-    
-    
     public Boolean getIsTaken() {
         return isTaken;
     }
@@ -40,8 +57,6 @@ public class Quiz {
         this.isTaken = isTaken;
     }
 
-
-    
     public int getQuizID() {
         return quizID;
     }
@@ -121,5 +136,5 @@ public class Quiz {
     public void setQuizType(QuizType quizType) {
         this.quizType = quizType;
     }
-    
+
 }

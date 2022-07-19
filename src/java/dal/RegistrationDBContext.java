@@ -94,7 +94,7 @@ public class RegistrationDBContext extends DBContext {
         return count;
     }
 
-    public ArrayList<Registration> searchRegistration(String subject, String email, Date fromDate, Date toDate, Boolean status, int pageIndex, int pageSize, String sortBy, String orderBy) {
+    public ArrayList<Registration> searchRegistration(String subject, String email, Date fromDate, Date toDate, Boolean status) {
         ArrayList<Registration> list = new ArrayList<>();
         try {
             String sql = "Select r.*, c.courseName from Registration r join Course c\n"
@@ -106,9 +106,6 @@ public class RegistrationDBContext extends DBContext {
             if (status != null) {
                 sql += "and r.[status] = ?\n";
             }
-            sql += "  ORDER BY " + sortBy + " " + orderBy
-                    + "\n  OFFSET (?-1)*? ROWS\n"
-                    + "  FETCH NEXT ? ROWS ONLY";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setDate(1, toDate);
             stm.setDate(2, fromDate);
@@ -117,15 +114,7 @@ public class RegistrationDBContext extends DBContext {
             stm.setString(5, "%" + email + "%");
             if (status != null) {
                 stm.setBoolean(6, status);
-                stm.setInt(7, pageIndex);
-                stm.setInt(8, pageSize);
-                stm.setInt(9, pageSize);
-            } else {
-                stm.setInt(6, pageIndex);
-                stm.setInt(7, pageSize);
-                stm.setInt(8, pageSize);
             }
-
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Registration r = new Registration();
@@ -173,18 +162,13 @@ public class RegistrationDBContext extends DBContext {
         return count;
     }
 
-    public ArrayList<Registration> getRegistrations(int pageIndex, int pageSize, String sortBy, String orderBy) {
+    public ArrayList<Registration> getRegistrations() {
         ArrayList<Registration> list = new ArrayList<>();
         try {
             String sql = "SELECT *"
                     + "  FROM [Registration]\n";
-            sql += "  ORDER BY " + sortBy + " " + orderBy;
-            sql += "\n  OFFSET (?-1)*? ROWS\n"
-                    + "  FETCH NEXT ? ROWS ONLY";
+
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, pageIndex);
-            stm.setInt(2, pageSize);
-            stm.setInt(3, pageSize);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Registration r = new Registration();

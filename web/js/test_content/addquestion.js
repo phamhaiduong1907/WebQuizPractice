@@ -34,22 +34,17 @@ function changeInputFile() {
         document.getElementById("video__preview").style.display = "block";
         document.getElementById("audio__preview").style.display = "none";
         document.getElementById("image__preview").style.display = "none";
-        document.getElementById("upload__icon").style.display = "none";
     } else if (file === "3") {
         document.getElementById("video__preview").style.display = "none";
-        document.getElementById("upload__icon").style.visibility = "hidden";
         document.getElementById("audio__preview").style.display = "block";
         document.getElementById("image__preview").style.display = "none";
     } else if (file === "1") {
         document.getElementById("video__preview").style.display = "none";
-        document.getElementById("upload__icon").style.visibility = "hidden";
         document.getElementById("audio__preview").style.display = "none";
         document.getElementById("image__preview").style.display = "block";
     } else {
-        document.getElementById("video__preview").style.display = "none";
-        document.getElementById("audio__preview").style.display = "none";
-        document.getElementById("image__preview").style.display = "block";
-        document.getElementById("upload__icon").style.visibility = "hidden";
+        document.getElementById("media__preview").style.visibility = "hidden";
+        document.getElementById("file__input").style.visibility = "hidden";
     }
 }
 

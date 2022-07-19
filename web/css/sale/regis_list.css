@@ -6,27 +6,55 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Jun 12, 2022, 6:48:35 PM
     Author     : long
 */
+
+.right_content {
+    padding: 3% 1%;
+}
 h1 {
     margin-bottom: 30px;
 }
 
-table, tr, td{
-    font-size: 0.8rem;
+table{
+    clear: both;
+    margin-top: 25px;
+    border-collapse: collapse;
+    box-shadow: 0  0 10px 5px #e1e5ee;
+    background-color: #fff;
+    text-align: center;
+    font-family: Mukta, sans-serif;
+    display: block;
+    width: 100%;
 }
 
-td, th {
-    border: 1px solid black;
+table, tr, th, td{
+    border: none;
+    clear: both;
+}
+
+thead{
+    background-color: #fff;
+    box-shadow: 0 5px 10px #e1e5ee;
+}
+
+th{
     padding: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.6rem;
+    font-weight: 900;
 }
-th {
-    text-align: center;
+
+td{
+    font-size: 0.7rem;
+    padding: 0.7rem 0.3rem;
 }
-td {
-    text-align: left
+
+tr{
+    width: 100%;
 }
 
 label {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 input[type=text], [type=email], [type=date] {
@@ -46,48 +74,49 @@ input[type=submit] {
     background-color: lightgray;
 }
 
-.new_registration_link {
-    font-size: 20px;
-    font-weight: normal;
-    display: inline-block;
-}
-
 .filter_form {
     float: right;
 }
 
-.main_table{
-    overflow-x: scroll;
-}
-
-.pagination {
-    width: fit-content;
-    display: block;
-    margin: 0 auto;
-    margin-top: 30px;
-}
-
-.pagination span {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    margin: 0 5px;
-    background-color: lightgray;
-}
-
-.pagination a {
-    font-size: 18px;
-    font-weight: bold;
+.pag a {
     text-decoration: none;
     color: black;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    margin: 0 5px;
-    background-color: lightgreen;
+    font-weight: bold;
+    font-size: 25px;
+    border: 1px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition: background-color .2s;
 }
+.newlink {
+    text-decoration: none;
+    color: white;
+    line-height: 30px;
+    float: left;
+    padding: 5px 10px;
+    border-radius: 50px;
+    background-color: #0056d2;
+    transition: all;
+    transition-duration: 0.5s;
+    margin-bottom: 20px;
+}
+
+.newlink:hover {
+    color: #070767;
+    background-color: #4CAF50;
+}
+.pag .active {
+    background-color: #1fe21e;
+    color: #fff;
+}
+
+.pag a:hover {
+    color: white;
+    background-color: gray;
+}
+
 .submenu{
     bottom: -270px;
 }
@@ -103,7 +132,7 @@ td a{
 
 td a:hover{
     background-color: #3cadda;
-    color: #fff;    
+    color: #fff;
 }
 
 .action__edit{
