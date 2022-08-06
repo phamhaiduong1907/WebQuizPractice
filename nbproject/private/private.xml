@@ -3,15 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/css/blog/detail.css</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/css/subject/popup.css</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/saleController/RegistrationListController.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/course_content/subject_list.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/course_content/new_subject.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/saleController/RegistrationEditController.java</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/css/course_content/new_subject.css</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/web/view/searchsider.jsp</file>
-            <file>file:/E:/Semester%205/SWP391/QuizWebsite-Iteration2-Complete/summer2022-se1617-g6/src/java/controller/publicController/BlogListController.java</file>
+            <file>file:/D:/SWP391/summer2022-se1617-g6/src/java/dal/CourseDBContext.java</file>
+            <file>file:/D:/SWP391/summer2022-se1617-g6/src/java/dal/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
